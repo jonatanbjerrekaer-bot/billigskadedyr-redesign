@@ -33,7 +33,7 @@ export default function Header({
             href="tel:+4524245583"
             className="hidden sm:inline-flex bg-accent-500 hover:bg-accent-400 text-white font-semibold rounded-lg px-4 py-2.5 text-sm min-h-[44px] items-center transition-colors"
           >
-            Call 24 24 55 83
+            Ring 24 24 55 83
           </a>
           <button
             onClick={onNavToggle}
@@ -70,7 +70,7 @@ export default function Header({
               href="tel:+4524245583"
               className="mt-2 bg-accent-500 text-white text-center font-semibold rounded-lg py-3 min-h-[44px]"
             >
-              Call 24 24 55 83
+              Ring 24 24 55 83
             </a>
           </div>
         </nav>
