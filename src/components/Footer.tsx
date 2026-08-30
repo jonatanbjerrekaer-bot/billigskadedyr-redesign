@@ -34,8 +34,8 @@ export default function Footer() {
             <h3 className="text-sm uppercase tracking-widest text-ink-100/60 mb-3">Kontakt</h3>
             <ul className="flex flex-col gap-2 text-sm text-ink-100/80">
               <li>Viengevej 6A · 8240 Risskov</li>
-              <li><a href="tel:+4524245583" className="block py-3.5 md:py-0 hover:text-accent-400">+45 24 24 55 83</a></li>
-              <li><a href="mailto:info@billigskadedyr.dk" className="block py-3.5 md:py-0 hover:text-accent-400">info@billigskadedyr.dk</a></li>
+              <li><a href="tel:+4524245583" className="select-text block py-3.5 md:py-0 hover:text-accent-400">+45 24 24 55 83</a></li>
+              <li><a href="mailto:info@billigskadedyr.dk" className="select-text block py-3.5 md:py-0 hover:text-accent-400">info@billigskadedyr.dk</a></li>
               <li>Man-Fre 08-18 · Lø-Søn 12-16</li>
               <li className="text-ink-100/50">CVR 40306633</li>
             </ul>

@@ -163,7 +163,7 @@ a, button, [role="radio"], select, summary {
    Inputs are explicitly re-enabled: `user-select: none` on an ancestor is
    inherited by form fields in some engines, and the m² value must stay
    selectable and editable. */
-a:not([href^="mailto:"]):not([href^="tel:"]),
+a:not(.select-text),
 button,
 [role="button"],
 [role="radio"],
@@ -186,8 +186,8 @@ h1, h2, h3, h4, h5, h6,
    but mail and phone are the two that are not, and they are precisely what a
    visitor wants on their clipboard. Headings are excluded from selection as
    structure rather than prose; the body copy under them stays copyable. */
-a[href^="mailto:"],
-a[href^="tel:"],
+.select-text,
+.select-text *,
 address,
 input,
 textarea,

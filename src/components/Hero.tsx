@@ -81,18 +81,18 @@ export default function Hero() {
             className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors"
           >
             <Mail size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
-            <span className="text-sm">info@billigskadedyr.dk</span>
+            <span className="select-text text-sm">info@billigskadedyr.dk</span>
           </a>
           <a
             href="tel:+4524245583"
             className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors border-t sm:border-t-0 sm:border-l border-ink-700"
           >
             <Phone size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
-            <span className="text-sm font-semibold">24 24 55 83</span>
+            <span className="select-text text-sm font-semibold">24 24 55 83</span>
           </a>
           <div className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-accent-500 text-ink-950">
             <MapPin size={18} aria-hidden="true" className="shrink-0" />
-            <span className="text-sm font-semibold">Viengevej 6A, 8240 Risskov</span>
+            <span className="select-text text-sm font-semibold">Viengevej 6A, 8240 Risskov</span>
           </div>
         </div>
       </div>
