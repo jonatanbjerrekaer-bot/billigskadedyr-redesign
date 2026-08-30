@@ -22,13 +22,22 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Hvor hurtigt kan I komme?",
-    a: "Vi kører typisk ud i Aarhus-området inden for 1-2 hverdage. Er det akut, for eksempel rotter indendørs eller et hvepsebo tæt på en indgang, så skriv til os på info@billigskadedyr.dk eller ring på 24 24 55 83, så finder vi en hurtigere løsning samme dag, hvis det kan lade sig gøre.",
+    a: "Vi kører ud i hele Jylland og på Fyn, og vi udvider løbende dækningsområdet. Hvor hurtigt vi kan komme, afhænger af opgaven, sæsonen og hvor du bor, så du får altid en ærlig vurdering, når du kontakter os. Er det akut, for eksempel rotter indendørs eller et hvepsebo tæt på en indgang, så skriv eller ring på 24 24 55 83, så finder vi den hurtigste løsning.",
     cta: { href: "mailto:info@billigskadedyr.dk", label: "Skriv til os" },
   },
   {
     q: "Hvad koster skadedyrsbekæmpelse?",
     a: "Prisen afhænger af hvilket skadedyr det er, hvor stort området er, og hvor længe angrebet har stået på. Du kan få et vejledende prisoverslag med det samme i prisberegneren her på siden. Den endelige, bundne pris får du efter en kort samtale, og den ændrer sig ikke undervejs. Skriv til os, så vender vi tilbage inden for 24 timer på hverdage.",
     cta: { href: "#estimator", label: "Beregn en vejledende pris" },
+  },
+  {
+    q: "Dækker I der, hvor jeg bor?",
+    a: "Vi hjælper kunder i hele Jylland og på Fyn, og vi arbejder løbende på at udvide dækningsområdet. Er du i tvivl, om vi dækker din adresse, så skriv til os. Er I flere husstande i samme område, der ønsker behandling, kan vi som regel finde en fornuftig samlet løsning.",
+    cta: { href: "mailto:info@billigskadedyr.dk", label: "Spørg om din adresse" },
+  },
+  {
+    q: "Hvem kommer hjem til mig?",
+    a: "Virksomheden blev grundlagt af Daniels far, og i 2017 overtog Daniel Nemborg den ved et generationsskifte. Han fik sit første job som skadedyrsbekæmper som 12-årig og har i dag knap 20 års praktisk erfaring med alt fra myrer og mus til rotter, væggelus og skægkræ. Vi arbejder efter gældende lovgivning og råder over de nødvendige autorisationer til de behandlinger, hvor det er påkrævet.",
   },
   {
     q: "Må jeg være hjemme under behandlingen?",

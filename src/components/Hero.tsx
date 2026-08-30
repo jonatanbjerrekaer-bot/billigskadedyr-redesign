@@ -14,15 +14,15 @@ export default function Hero() {
         <div className="flex flex-col md:flex-row">
           <div className="basis-0 grow px-5 sm:px-8 py-14 md:py-20" style={{ flexBasis: "52%" }}>
             <p className="uppercase tracking-widest text-accent-500 text-sm font-bold mb-4">
-              Risskov, Aarhus
+              Hele Jylland og Fyn · base i Risskov
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
               Rotter, hvepse, væggelus eller borebiller?
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Webshop og professionel bekæmpelse samme sted, i hele Aarhus. Vi ser på det
-              først, siger ærligt om du kan klare det selv, og giver dig en fast pris, hvis vi
-              skal ud.
+              Webshop og professionel bekæmpelse samme sted. Vi kører ud i hele Jylland og
+              på Fyn, ser på det først, siger ærligt om du kan klare det selv, og giver dig
+              en fast pris, hvis vi skal ud.
             </p>
 
             <ul className="mt-7 flex flex-col gap-3">
