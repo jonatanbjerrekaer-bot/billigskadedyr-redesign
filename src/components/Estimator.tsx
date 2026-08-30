@@ -21,8 +21,17 @@ import type { PropertyType, Severity } from "../lib/pricing";
  * sensible default. A first-time visitor sees two things, not five.
  */
 
+// Gennemsnitligt boligareal i Jylland og på Fyn, Danmarks Statistik 2026
+// (BYGB70 areal / BOL101 boliger, landsdele 07-11): etagebolig 79,2 m2,
+// parcelhus 139,9 m2. Erhverv har ingen meningsfuld gennemsnitsstørrelse og
+// beholder derfor den værdi, der allerede står.
+const AREA_PRESETS: Partial<Record<PropertyType, number>> = {
+  lejlighed: 80,
+  hus: 140,
+};
+
 const DEFAULTS = {
-  m2: 100,
+  m2: AREA_PRESETS.lejlighed!,
   property: "lejlighed" as PropertyType,
   severity: "normal" as Severity,
 };
@@ -60,6 +69,7 @@ export default function Estimator() {
   const rafRef = useRef<number | null>(null);
   const advRef = useRef<HTMLDivElement | null>(null);
   const advTouched = useRef(false);
+  const m2Touched = useRef(false);
 
   // Desktop only: open the refinements as the calculator comes into view, so
   // the controls are already there by the time the eye arrives. On a phone
@@ -155,6 +165,7 @@ export default function Estimator() {
   ];
 
   const reset = () => {
+    m2Touched.current = false;
     setM2(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
     setSeverity(DEFAULTS.severity);
@@ -254,7 +265,10 @@ export default function Estimator() {
               <Disclosure.Body className="flex flex-col gap-6 pt-5 motion-safe:animate-[disclosureIn_.35s_ease-out]">
                 <Slider.Root
                   value={m2}
-                  onChange={(v) => setM2(Number(v))}
+                  onChange={(v) => {
+                    if (Number(v) !== m2) m2Touched.current = true;
+                    setM2(Number(v));
+                  }}
                   minValue={20}
                   maxValue={400}
                   step={5}
@@ -270,9 +284,11 @@ export default function Estimator() {
                     </span>
                     <NumberField.Root
                       value={m2}
-                      onChange={(v) =>
-                        setM2(Number.isNaN(v) ? 20 : Math.max(20, Math.min(400, v)))
-                      }
+                      onChange={(v) => {
+                        const next = Number.isNaN(v) ? 20 : Math.max(20, Math.min(400, v));
+                        if (next !== m2) m2Touched.current = true;
+                        setM2(next);
+                      }}
                       minValue={20}
                       maxValue={400}
                       aria-label="Størrelse af område i kvadratmeter"
@@ -303,7 +319,13 @@ export default function Estimator() {
                     selectedKeys={[property]}
                     onSelectionChange={(keys) => {
                       const next = [...keys][0];
-                      if (next) setProperty(next as PropertyType);
+                      if (!next) return;
+                      const p = next as PropertyType;
+                      setProperty(p);
+                      // Sæt arealet til et realistisk gennemsnit for den valgte
+                      // boligtype, men aldrig oven i et tal brugeren selv har sat.
+                      const preset = AREA_PRESETS[p];
+                      if (!m2Touched.current && preset) setM2(preset);
                     }}
                     className={GROUP}
                     aria-label="Ejendomstype"
