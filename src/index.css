@@ -114,10 +114,26 @@ a, button, [role="radio"], select, summary {
    intended for light themes. Both flags now land on the same ink, so there is
    no in-between state left to see. Here rather than as utilities because
    HeroUI's stylesheet is unlayered and would win against them. */
+.list-box-item:hover,
 .list-box-item[data-hovered],
-.list-box-item[data-highlighted] {
-  background-color: var(--color-ink-700);
-  color: var(--color-cream);
+.list-box-item[data-highlighted],
+.list-box-item[data-focused],
+[role="option"]:hover,
+[role="option"][data-hovered],
+[role="option"][data-highlighted] {
+  /* !important because the losing rule here is not visible to a stylesheet
+     scan: a :hover pseudo-class never matches during static inspection, so
+     the only safe assumption is that something outranks this one. The symptom
+     was a white row with invisible text, which is this rule's colour landing
+     while its background did not. */
+  background-color: var(--color-ink-700) !important;
+  color: var(--color-cream) !important;
+}
+
+/* The selected row keeps its lime label on that same ink. */
+.list-box-item[data-selected],
+[role="option"][aria-selected="true"] {
+  color: var(--color-accent-500) !important;
 }
 
 @keyframes selectIn {
