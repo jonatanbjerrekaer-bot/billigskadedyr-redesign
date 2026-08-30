@@ -15,7 +15,7 @@
  * domain you delete this component and paste the widget snippet in its place.
  */
 type Props = {
-  variant?: "dark" | "light";
+  variant?: "dark" | "light" | "bar";
   className?: string;
 };
 
@@ -30,7 +30,7 @@ function Stars() {
   const row = (fill: string, key: string) => (
     <span key={key} className="flex gap-[2px]" aria-hidden="true">
       {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} width="15" height="15" viewBox="0 0 24 24" fill={fill}>
+        <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill={fill}>
           <path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.4l6.5-.9z" />
         </svg>
       ))}
@@ -50,7 +50,44 @@ function Stars() {
 }
 
 export default function TrustSeal({ variant = "dark", className = "" }: Props) {
-  const dark = variant === "dark";
+  const dark = variant !== "light";
+
+  // Bar variant: one line, no card, sized to sit in the USP strip without
+  // adding a pixel of height to it.
+  if (variant === "bar") {
+    return (
+      <a
+        href={CERTIFICATE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`e-mærket certificeret webshop, ${String(SCORE).replace(".", ",")} af 5 baseret på ${COUNT} bedømmelser. Se certifikatet.`}
+        className={["group flex items-start gap-2 min-w-0 text-[11px] sm:text-xs", className].join(" ")}
+      >
+        <svg width="15" height="17" viewBox="0 0 30 34" aria-hidden="true" className="shrink-0 mt-0.5 text-emaerket-light">
+          <path d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" fill="currentColor" />
+          <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="#0d1f16" strokeWidth="2" />
+          <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="#0d1f16" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+        {/*
+          Below sm the sibling USP items collapse to their bold label only, so
+          this one does too. The stars drop out and the name stays: on a phone
+          "e-mærket 4,6" carries the signal, where a row of stars with no name
+          attached carries none.
+        */}
+        <span className="min-w-0">
+          <span className="flex items-center gap-1.5 font-semibold text-cream">
+            <span className="hidden sm:inline text-ink-100/30"><Stars /></span>
+            <span className="sm:hidden">e-mærket</span>
+            {String(SCORE).replace(".", ",")}
+          </span>
+          <span className="hidden sm:block text-ink-100/70 group-hover:text-cream underline underline-offset-2 decoration-ink-100/30">
+            e-mærket · {COUNT} bedømmelser
+          </span>
+        </span>
+      </a>
+    );
+  }
+
   return (
     <a
       href={CERTIFICATE_URL}
