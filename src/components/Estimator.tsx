@@ -6,7 +6,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@heroui/react";
-import { Check, ChevronDown, RotateCcw } from "lucide-react";
+import { Check, ChevronDown, MapPin, RotateCcw } from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
@@ -138,6 +138,22 @@ export default function Estimator() {
       : "Skriftlig dokumentation af behandlingen",
     "Garanti på behandlingen",
   ];
+  // The honest inverse of the list above. Unexpected cost at the end is the
+  // single most-cited reason people abandon a purchase, so the variables that
+  // could move this number are named before the visitor commits, not after.
+  // Derived from the same answers, so it stays specific rather than becoming
+  // a generic disclaimer nobody reads.
+  const couldChange = [
+    "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
+    ...(m2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
+    ...(severity === "kraftig"
+      ? ["Ekstra besøg, hvis angrebet har bredt sig mere end forventet"]
+      : []),
+    ...(property === "erhverv"
+      ? ["Krav om dokumentation ud over det normale, for eksempel til en audit"]
+      : []),
+  ];
+
   const reset = () => {
     setM2(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
@@ -407,6 +423,40 @@ export default function Estimator() {
           <p className="text-xs text-ink-100/60">
             Svar inden for 24 timer på hverdage, og vi er typisk hos dig inden for 1-2 hverdage.
             De fleste opgaver er løst på ét til to besøg.
+          </p>
+
+          {/*
+            Three things the visitor is weighing at exactly this moment, and
+            which the page previously left to the FAQ or to nowhere: whether the
+            number can move, whether we come to them at all, and what actually
+            happens if they write. Answering them next to the price is what
+            turns an estimate into a quote you can act on.
+          */}
+          <div className="border-t border-ink-700 pt-3">
+            <p className="text-xs font-semibold text-ink-100/80">Det kan ændre prisen</p>
+            <ul className="mt-2 flex flex-col gap-1.5 text-xs text-ink-100/60">
+              {couldChange.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span aria-hidden="true" className="text-ink-100/40">·</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-xs text-ink-100/60">
+              Vi siger det, før vi går i gang. Prisen ændrer sig ikke undervejs.
+            </p>
+          </div>
+
+          <p className="flex items-start gap-2 text-xs text-ink-100/70 border-t border-ink-700 pt-3">
+            <MapPin size={14} strokeWidth={2.5} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
+            <span>
+              Vi kører ud i hele Jylland og på Fyn. Er du i tvivl om din adresse, så spørg os.
+            </span>
+          </p>
+
+          <p className="text-xs text-ink-100/60">
+            Skriver du, får du et bundet tilbud og et tidspunkt. Ingen binding, og
+            ingen der ringer dig op igen bagefter.
           </p>
 
           {diy && (
