@@ -65,7 +65,7 @@ export default function Header({
             aria-expanded={mobileNavOpen}
             aria-controls="mobile-nav"
             aria-label={mobileNavOpen ? "Luk menu" : "Åbn menu"}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg bg-ink-800 hover:bg-ink-700 transition-colors"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-ink-500 bg-ink-800 text-cream hover:bg-ink-700 hover:border-accent-500 transition-colors"
           >
             {mobileNavOpen ? (
               <X size={20} aria-hidden="true" />
@@ -88,14 +88,14 @@ export default function Header({
                 key={l.href}
                 href={l.href}
                 onClick={onNavToggle}
-                className="px-3 py-3 rounded-lg text-cream hover:bg-ink-800 text-sm"
+                className="px-3 min-h-[48px] flex items-center rounded-lg text-cream hover:bg-ink-800 text-base"
               >
                 {l.label}
               </a>
             ))}
             <Link
               href={MAILTO}
-              className="mt-2 bg-accent-500 text-ink-950 text-center font-semibold rounded-lg py-3 min-h-[44px] inline-flex items-center justify-center gap-2"
+              className="mt-2 w-full bg-accent-500 text-ink-950 text-center font-semibold rounded-lg py-3 min-h-[48px] flex items-center justify-center gap-2"
             >
               <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
               Skriv til os

@@ -12,6 +12,8 @@
   --color-ink-800: #12291d;
   --color-ink-700: #1b3a2a;
   --color-ink-600: #2c5540;
+  /* Boundary colour for controls on ink: 3.29:1 against ink-950. */
+  --color-ink-500: #3d7255;
   --color-ink-100: #e3ede6;
   --color-ink-50: #f2f7f3;
 
