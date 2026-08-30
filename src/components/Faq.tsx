@@ -69,7 +69,7 @@ export default function Faq() {
                     size={20}
                     strokeWidth={2.5}
                     aria-hidden="true"
-                    className="text-accent-700 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
+                    className="text-accent-700 shrink-0 transition-transform duration-200 group-aria-expanded:rotate-45"
                   />
                 </Disclosure.Trigger>
               </Disclosure.Heading>
@@ -128,7 +128,7 @@ export default function Faq() {
                     size={20}
                     strokeWidth={2.5}
                     aria-hidden="true"
-                    className="text-accent-700 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
+                    className="text-accent-700 shrink-0 transition-transform duration-200 group-aria-expanded:rotate-45"
                   />
                 </Disclosure.Trigger>
               </Disclosure.Heading>

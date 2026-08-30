@@ -20,7 +20,7 @@ export default function PestQuickSelect() {
             <a
               key={p.slug}
               href={p.path === "pro" ? "#estimator" : "#shop"}
-              className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-6 flex flex-col items-center gap-2"
+              className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2"
             >
               <div className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900">
                 <PestGlyph pest={p} />

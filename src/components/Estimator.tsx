@@ -229,7 +229,7 @@ export default function Estimator() {
                   size={20}
                   strokeWidth={2.5}
                   aria-hidden="true"
-                  className="shrink-0 text-accent-500 transition-transform duration-300 group-aria-expanded:rotate-180"
+                  className="shrink-0 text-accent-500 transition-transform duration-200 group-aria-expanded:rotate-180"
                 />
               </Disclosure.Trigger>
             </Disclosure.Heading>

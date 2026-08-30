@@ -17,7 +17,7 @@ export const MAILTO =
 export const TEL = "tel:+4524245583";
 
 const BASE =
-  "rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-colors";
+  "press rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-[color,background-color,border-color,transform]";
 
 const VARIANTS = {
   /** Lime on ink. The one action we most want taken. */

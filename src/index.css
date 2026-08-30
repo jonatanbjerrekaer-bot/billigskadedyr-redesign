@@ -83,13 +83,27 @@ a, button, [role="radio"], select, summary {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Reduced motion means less movement, not less interface. Colour and opacity
+   still carry state, so they keep their transitions; anything that travels or
+   scales is dropped, and keyframes that move are replaced by a plain fade. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+
+  /* The base rule below targets `a, button, ...`, which outranks a bare `*`,
+     so the reduced-motion list has to name the same elements to win. */
+  *, *::before, *::after,
+  a, button, [role="radio"], select, summary {
+    transition-property: color, background-color, border-color, opacity, box-shadow;
     scroll-behavior: auto !important;
+  }
+
+  [class*="animate-"],
+  .slider__thumb,
+  .lift:hover,
+  .lift-sm:hover,
+  .press:active {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
@@ -241,3 +255,16 @@ img {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Hover lift only where hovering is a real thing. On a touch screen :hover
+   latches after a tap, so the card stays lifted with nothing to un-lift it. */
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover { transform: translateY(-4px); }
+  .lift-sm:hover { transform: translateY(-2px); }
+}
+
+/* Press feedback: the page confirmed a click with colour only, which on a
+   phone is hidden under the finger doing the clicking. 120ms, and shallow
+   enough to feel like the surface gives rather than like the button jumps. */
+.press { transition-duration: 120ms; }
+.press:active { transform: scale(0.98); }

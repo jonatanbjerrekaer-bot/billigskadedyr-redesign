@@ -92,7 +92,7 @@ export default function Packages() {
           {TIERS.map((t) => (
             <Surface
               key={t.id}
-              className={`relative flex flex-col rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 ${
+              className={`relative flex flex-col rounded-2xl p-7 transition-[color,background-color,border-color,box-shadow,transform] duration-150 lift ${
                 t.featured
                   ? "bg-ink-900 border-2 border-accent-500 shadow-[0_0_60px_-12px] shadow-accent-500/40 md:pb-9 md:pt-11"
                   : "bg-ink-900/60 border border-ink-700 hover:border-ink-600"
@@ -168,7 +168,7 @@ export default function Packages() {
                   size={20}
                   strokeWidth={2.5}
                   aria-hidden="true"
-                  className="shrink-0 text-accent-700 transition-transform duration-300 group-aria-expanded:rotate-180"
+                  className="shrink-0 text-accent-700 transition-transform duration-200 group-aria-expanded:rotate-180"
                 />
               </Disclosure.Trigger>
             </Disclosure.Heading>

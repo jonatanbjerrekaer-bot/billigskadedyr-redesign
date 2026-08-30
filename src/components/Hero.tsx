@@ -44,14 +44,14 @@ export default function Hero() {
                   the question every caller actually has. */}
               <a
                 href="#estimator"
-                className="bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
+                className="press bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
               >
                 <Calculator size={18} strokeWidth={2.5} aria-hidden="true" />
                 Beregn min pris
               </a>
               <a
                 href="#pest"
-                className="border-2 border-ink-100/30 text-cream hover:border-accent-500 font-semibold rounded-lg px-6 py-4 text-center min-h-[48px] flex items-center justify-center transition-colors"
+                className="press border-2 border-ink-100/30 text-cream hover:border-accent-500 font-semibold rounded-lg px-6 py-4 text-center min-h-[48px] flex items-center justify-center transition-colors"
               >
                 Find mit skadedyr
               </a>

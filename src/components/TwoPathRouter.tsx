@@ -63,7 +63,7 @@ export default function TwoPathRouter() {
                 role="radio"
                 aria-checked={isActive}
                 onClick={() => setActive(p.id)}
-                className={`text-left rounded-2xl border-2 p-6 transition-all w-full sm:w-[320px] ${
+                className={`text-left rounded-2xl border-2 p-6 transition-[color,background-color,border-color,box-shadow,transform] duration-150 w-full sm:w-[320px] ${
                   isActive
                     ? "bg-ink-800 border-accent-500 ring-1 ring-accent-500/40"
                     : "bg-ink-900 border-ink-700 hover:border-ink-600"
