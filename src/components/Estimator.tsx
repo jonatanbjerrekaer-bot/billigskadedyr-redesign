@@ -70,20 +70,43 @@ export default function Estimator() {
     if (typeof window === "undefined" || !window.matchMedia("(min-width: 768px)").matches) return;
     const el = advRef.current;
     if (!el) return;
+    // Two guards, because the observer alone opened the panel too early.
+    //
+    // 1. A narrow band. The old margin left a 45%-to-75% window, so the block
+    //    tripped it while its top edge was still down near the fold. The band
+    //    is now a strip around the middle of the screen: the block has to be
+    //    where the reader is actually looking, not merely present.
+    // 2. A dwell. Scrolling past at speed used to fire it in passing, so the
+    //    panel opened for someone already gone. It now has to stay in the band
+    //    for a beat before anything moves, which is the difference between
+    //    "you have arrived" and "you went by".
+    let dwell: number | undefined;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !advTouched.current) {
-          setAdvOpen(true);
-          io.disconnect();
+        if (advTouched.current) return;
+        if (entry.isIntersecting) {
+          dwell = window.setTimeout(() => {
+            if (!advTouched.current) setAdvOpen(true);
+            io.disconnect();
+          }, 400);
+        } else if (dwell !== undefined) {
+          window.clearTimeout(dwell);
+          dwell = undefined;
         }
       },
-      // Fire only once the block is properly on screen, not as its top edge
-      // clips in — otherwise it has finished opening before it is looked at,
-      // which is exactly the signal we wanted it to give.
-      { threshold: 0, rootMargin: "-45% 0px -25% 0px" },
+      // A single edge, not a strip. An earlier attempt used a narrow band
+      // (55%-65%) and a short block could pass through it without ever
+      // satisfying the observer, so the panel simply never opened. This asks
+      // one question instead: has the block risen into the top 60% of the
+      // screen? That is later than the old 75% trigger, which is the fix, and
+      // it cannot be stepped over.
+      { threshold: 0, rootMargin: "0px 0px -40% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      if (dwell !== undefined) window.clearTimeout(dwell);
+      io.disconnect();
+    };
   }, []);
 
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];

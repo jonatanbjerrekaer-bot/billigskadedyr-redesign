@@ -13,7 +13,14 @@ export default function ClosingCta() {
           Skriv et par linjer om, hvad du står over for. Du får svar inden for 24 timer på
           hverdage og en fast pris, før vi går i gang.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        {/*
+          On a phone the two buttons sized themselves to their labels, so
+          "Skriv til os" and "Ring 24 24 55 83" came out different widths in a
+          stack, which reads as two unrelated things rather than one choice.
+          Stacked buttons match their container; side by side they keep their
+          own width.
+        */}
+        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center [&>a]:w-full sm:[&>a]:w-auto">
           <Cta
             href={MAILTO}
             variant="onAccent"
@@ -35,7 +42,7 @@ export default function ClosingCta() {
           in the same glance as the button, that the business is certified and
           that the certificate is one click away.
         */}
-        <div className="mt-8 flex justify-center">
+        <div className="mt-6 flex justify-center [&>a]:w-full sm:[&>a]:w-auto">
           <TrustSeal variant="light" />
         </div>
 
