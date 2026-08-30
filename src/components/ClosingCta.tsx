@@ -1,30 +1,45 @@
+import { Mail, Phone } from "lucide-react";
+import Cta, { MAILTO, TEL } from "./ui/Cta";
+import TrustSeal from "./TrustSeal";
+
 export default function ClosingCta() {
   return (
-    <section id="tilbud" className="bg-accent-500 text-white py-16">
-      <div className="max-w-3xl mx-auto px-5 sm:px-6 text-center">
+    <section id="tilbud" className="bg-accent-500 text-ink-950 py-12 sm:py-16">
+      <div className="max-w-3xl mx-auto px-5 sm:px-8 text-center">
         <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight uppercase">
           Klar til at få det løst?
         </h2>
         <p className="mt-3 text-lg opacity-90">
-          Ring eller skriv. Du får svar inden for 24 timer på hverdage, og en fast pris inden vi starter.
+          Skriv et par linjer om, hvad du står over for. Du får svar inden for 24 timer på
+          hverdage og en fast pris, før vi går i gang.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="tel:+4524245583"
-            className="bg-forest-950 text-white font-semibold rounded-lg px-8 py-4 min-h-[48px] inline-flex items-center justify-center transition-colors hover:bg-forest-900"
+          <Cta
+            href={MAILTO}
+            variant="onAccent"
+            icon={<Mail size={18} strokeWidth={2.5} aria-hidden="true" />}
+          >
+            Skriv til os
+          </Cta>
+          <Cta
+            href={TEL}
+            variant="onAccentGhost"
+            icon={<Phone size={18} strokeWidth={2.5} aria-hidden="true" />}
           >
             Ring 24 24 55 83
-          </a>
-          <a
-            href="mailto:info@billigskadedyr.dk"
-            className="bg-white text-forest-900 font-semibold rounded-lg px-8 py-4 min-h-[48px] inline-flex items-center justify-center transition-colors hover:bg-forest-50"
-          >
-            Send en mail
-          </a>
+          </Cta>
         </div>
-        <p className="mt-6 text-sm opacity-80">
-          Åbningstider: Man-Fre 08-18 · Lør-Søn 12-16
-        </p>
+        {/*
+          The seal sits at the point of decision, not only in the footer.
+          Someone about to write to a stranger about their home wants to see,
+          in the same glance as the button, that the business is certified and
+          that the certificate is one click away.
+        */}
+        <div className="mt-8 flex justify-center">
+          <TrustSeal variant="light" />
+        </div>
+
+        <p className="mt-6 text-sm opacity-80">Åbningstider: Man-Fre 08-18 · Lør-Søn 12-16</p>
       </div>
     </section>
   );

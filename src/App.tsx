@@ -1,6 +1,8 @@
 import { useState } from "react";
 import CookieBanner from "./components/CookieBanner";
+import MobileCtaBar from "./components/MobileCtaBar";
 import Header from "./components/Header";
+import UspBar from "./components/UspBar";
 import Hero from "./components/Hero";
 import TwoPathRouter from "./components/TwoPathRouter";
 import PestQuickSelect from "./components/PestQuickSelect";
@@ -18,7 +20,8 @@ export default function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-cream text-forest-900 font-sans">
+    <div className="min-h-screen bg-cream text-ink-900 font-sans pb-20 md:pb-0">
+      <UspBar />
       <Header mobileNavOpen={mobileNavOpen} onNavToggle={() => setMobileNavOpen((v) => !v)} />
       <main>
         <Hero />
@@ -34,6 +37,7 @@ export default function App() {
         <ClosingCta />
       </main>
       <Footer />
+      <MobileCtaBar />
       <CookieBanner />
     </div>
   );

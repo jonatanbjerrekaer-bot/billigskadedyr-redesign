@@ -1,0 +1,55 @@
+{
+  "captured_utc": "2026-08-29T20:05:08Z",
+  "source": "https://billigskadedyr.dk/",
+  "why": "Pre-redesign record for the before/after case study.",
+  "wayback": {
+    "forside": {
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20260829200352/https://billigskadedyr.dk/",
+      "snapshot": {
+        "url": "http://web.archive.org/web/20260829200352/https://billigskadedyr.dk/",
+        "timestamp": "20260829200352",
+        "available": true
+      }
+    },
+    "artikler": {
+      "status": 200,
+      "final_url": "https://web.archive.org/web/20260829200415/https://billigskadedyr.dk/artikler/",
+      "snapshot": {
+        "url": "http://web.archive.org/web/20260829200415/https://billigskadedyr.dk/artikler/",
+        "timestamp": "20260829200415",
+        "available": true
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "page": "forside",
+      "viewport": "desktop",
+      "path": "/home/jonatan/projects/billigskadedyr-redesign/case-study/before/forside-desktop.png",
+      "bytes": 758042,
+      "height": 3441
+    },
+    {
+      "page": "artikler",
+      "viewport": "desktop",
+      "path": "/home/jonatan/projects/billigskadedyr-redesign/case-study/before/artikler-desktop.png",
+      "bytes": 837306,
+      "height": 4758
+    },
+    {
+      "page": "forside",
+      "viewport": "mobile",
+      "path": "/home/jonatan/projects/billigskadedyr-redesign/case-study/before/forside-mobile.png",
+      "bytes": 707140,
+      "height": 3601
+    },
+    {
+      "page": "artikler",
+      "viewport": "mobile",
+      "path": "/home/jonatan/projects/billigskadedyr-redesign/case-study/before/artikler-mobile.png",
+      "bytes": 4344115,
+      "height": 10814
+    }
+  ]
+}

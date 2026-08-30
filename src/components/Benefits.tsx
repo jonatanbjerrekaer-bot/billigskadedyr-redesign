@@ -1,45 +1,48 @@
-const BENEFITS = [
+import { BadgeCheck, ClipboardCheck, Tag, Timer } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+const BENEFITS: { title: string; desc: string; Icon: LucideIcon }[] = [
   {
-    title: "Få fast pris i forvejen",
-    desc: "Ingen overraskelser. Du får en klar og bundet pris efter en kort telefonsnak.",
-    icon: "🎯",
+    title: "Fast pris i forvejen",
+    desc: "Du får en bundet pris, før vi går i gang. Den ændrer sig ikke undervejs.",
+    Icon: Tag,
   },
   {
     title: "Certificerede fagfolk",
     desc: "Vores teknikere er uddannede og autoriserede til professionel bekæmpelse.",
-    icon: "📜",
+    Icon: BadgeCheck,
   },
   {
     title: "Dokumenteret service",
-    desc: "Du modtager klar dokumentation af behandlingen, så du kan dokumentere for din ejendom eller forsikring.",
-    icon: "📋",
+    desc: "Du får det skriftligt: hvad vi fandt, hvad vi brugte, og hvad vi gjorde. Klar til ejendom eller forsikring.",
+    Icon: ClipboardCheck,
   },
   {
     title: "Hurtig og diskret",
-    desc: "Vi planlægger efter dine behov og arbejder hurtigt, så vi forstyrrer din daglige drift mindst muligt.",
-    icon: "⚡",
+    desc: "Vi lægger besøget, hvor det passer dig, og er ude igen uden at lave et nummer ud af det.",
+    Icon: Timer,
   },
 ];
 
 export default function Benefits() {
   return (
-    <section id="why" className="bg-white py-16">
-      <div className="max-w-5xl mx-auto px-5 sm:px-6">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-forest-900 uppercase text-center mb-10">
+    <section id="why" className="bg-white py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <h2 className="font-display text-3xl font-bold tracking-tight text-ink-900 uppercase text-center mb-10">
           Hvorfor vælge os
         </h2>
         <div className="flex flex-wrap gap-6 justify-center">
           {BENEFITS.map((b) => (
             <div
               key={b.title}
-              className="bg-forest-50 rounded-2xl p-6 flex flex-col gap-3"
+              className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3"
               style={{ flexBasis: "220px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
             >
-              <div className="w-12 h-12 rounded-xl bg-forest-900 text-accent-400 flex items-center justify-center text-2xl" aria-hidden="true">
-                {b.icon}
+              <div className="w-12 h-12 rounded-xl bg-ink-900 text-accent-400 flex items-center justify-center">
+                <b.Icon size={22} strokeWidth={2} aria-hidden="true" />
               </div>
-              <h3 className="font-display font-bold text-lg text-forest-900">{b.title}</h3>
-              <p className="text-sm text-forest-900/75">{b.desc}</p>
+              <h3 className="font-display font-bold text-lg text-ink-900">{b.title}</h3>
+              <p className="text-sm text-ink-900/75">{b.desc}</p>
             </div>
           ))}
         </div>

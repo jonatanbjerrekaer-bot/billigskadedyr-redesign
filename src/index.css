@@ -1,24 +1,217 @@
+@import "@heroui/react/styles";
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/archivo";
 
 @theme {
-  --color-forest-950: #0a1a12;
-  --color-forest-900: #12291f;
-  --color-forest-800: #1a3a2a;
-  --color-forest-700: #254d38;
-  --color-forest-600: #3a6b4e;
-  --color-forest-100: #e8f5ee;
-  --color-accent-400: #f59e0b;
-  --color-accent-500: #e8850a;
-  --color-accent-600: #c97306;
-  --color-cream: #faf7f2;
+  /* Near-black green, not mid-forest. The mid tones (#1a3a2a) read garden
+     centre; at this darkness green reads treatment and containment, which is
+     the register the reference sites work in. */
+  --color-ink-950: #0a1610;
+  --color-ink-900: #0c1a12;
+  --color-ink-800: #12291d;
+  --color-ink-700: #1b3a2a;
+  --color-ink-600: #2c5540;
+  --color-ink-100: #e3ede6;
+  --color-ink-50: #f2f7f3;
+
+  /* Acid lime. Chemical/high-vis, not the soft orange. Small doses only. */
+  --color-accent-400: #b8e04f;
+  --color-accent-500: #a3d13a;
+  --color-accent-600: #86b025;
+
+  --color-cream: #f2f7f3;
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Archivo Variable", system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
+
+/* The rubber-band area a browser exposes when you overscroll past either end
+   of the page paints the html background, not the section's. Left at the
+   default it flashed white above the ink header. Both ends of this page are
+   ink-950 (the USP strip at the top, the footer at the bottom), so painting
+   html with it makes the overscroll invisible. */
+html {
+  background-color: var(--color-ink-950);
+}
+
+/* Tailwind v4 dropped the browser default `cursor: pointer` on <button>
+   (Preflight now sets `cursor: default`). Everything clickable gets it back
+   here rather than needing a cursor-pointer class on every element. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[role="radio"],
+summary,
+label:has(> input[type="checkbox"]),
+label:has(> input[type="radio"]),
+select,
+a[href] {
+  cursor: pointer;
+}
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+input[type="range"] { cursor: grab; }
+input[type="range"]:active { cursor: grabbing; }
+
+/* One visible focus treatment for keyboard users across the whole page.
+   :focus-visible so it never fires on mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Interactive surfaces settle rather than snap. Short and eased-out: long
+   transitions on hover read as lag, not polish. */
+a, button, [role="radio"], select, summary {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { animation: none !important; transition: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes selectIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* HeroUI themes every component off a handful of CSS variables, and --accent
+   ships as a blue (oklch(62.04% .195 253.83)). Overriding the variable is the
+   only fix that holds: chasing it per component just moves the blue to the
+   next element that reads it — the slider fill, then the thumb, then the cap.
+   Anything HeroUI considers "accent" is now the site lime. */
+:root {
+  --accent: var(--color-accent-500);
+  --accent-foreground: var(--color-ink-950);
+}
+
+/* Why these live here and not as classes on the JSX: Tailwind v4 emits its
+   utilities inside @layer utilities, while HeroUI's stylesheet is unlayered.
+   Unlayered rules beat layered ones no matter the specificity, so a utility
+   class can never override a HeroUI rule — but a plain rule in this file can. */
+
+/* HeroUI draws the filled end of the track as a 12px coloured LEFT BORDER on
+   the track, not as part of the fill. Measured: track starts at x=96, the fill
+   element starts at x=108 — those 12px are the border. Recolouring it left the
+   gap behind, so the width goes to zero and the fill runs flush to the edge. */
+.slider__track {
+  border-inline-start-width: 0;
+  border-inline-end-width: 0;
+}
+
+/* The number field is a 3-column grid (40px 1fr 40px) reserving space for
+   stepper buttons. This one has no steppers, so the value was squeezed into a
+   40px column and its edge showed as a stray vertical rule next to the unit on
+   focus. No steppers, no grid. */
+.number-field__group {
+  display: flex;
+}
+
+/* The slider's own defaults are for a light surface; this one sits on ink. */
+.slider__track {
+  background-color: var(--color-ink-800);
+}
+.slider__thumb {
+  border: 3px solid var(--color-ink-900);
+}
+.slider__thumb::after {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- selection
+   Default stays selectable. People copy the phone number, the email, the
+   address, the CVR and the price off this page, so nothing in prose or contact
+   details is touched here.
+
+   Selection is switched off only where highlighting is a side effect of using
+   the control rather than something anyone meant:
+
+   - Buttons, toggles and the segmented controls: a double-click on "Kraftig"
+     should switch the option, not select the word.
+   - The slider: dragging the thumb otherwise smears a selection across the
+     labels and tick marks beside it, which is the most visible instance of
+     this on the page.
+   - Select trigger and its options: same reason, plus type-ahead already
+     handles keyboard use.
+   - Anything aria-hidden: decorative glyphs like the ✓ in the package lists
+     are invisible to a screen reader and should be invisible to a copy-paste
+     too, so a copied block is clean text rather than text peppered with ticks.
+
+   Inputs are explicitly re-enabled: `user-select: none` on an ancestor is
+   inherited by form fields in some engines, and the m² value must stay
+   selectable and editable. */
+button,
+[role="button"],
+[role="radio"],
+[role="option"],
+.slider,
+.number-field__group span,
+[aria-hidden="true"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input,
+textarea,
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Images should not start a drag-ghost when someone swipes past them. */
+img {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Segmented control (Ejendomstype, Grad af angreb).
+   HeroUI's .toggle-button declares its own colour variables:
+     --toggle-button-bg: var(--default)            <- a light surface
+     --toggle-button-bg-selected: var(--accent-soft)
+   and rounds every button by radius*3. On this ink panel that produced a white
+   pill with unselected labels invisible on it, and the selected button's own
+   rounding spilled past the group. Because those custom properties are
+   declared ON .toggle-button, setting them on the group is not enough — an
+   element's own declaration beats an inherited one — so they are redeclared at
+   .toggle-button-group .toggle-button, which also outranks the library rule. */
+.toggle-button-group {
+  background-color: var(--color-ink-800);
+  border: 1px solid var(--color-ink-700);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.toggle-button-group .toggle-button {
+  --toggle-button-bg: transparent;
+  --toggle-button-bg-hover: var(--color-ink-700);
+  --toggle-button-bg-pressed: var(--color-ink-700);
+  --toggle-button-fg: var(--color-ink-100);
+  --toggle-button-bg-selected: var(--color-accent-500);
+  --toggle-button-bg-selected-hover: var(--color-accent-400);
+  --toggle-button-bg-selected-pressed: var(--color-accent-600);
+  --toggle-button-fg-selected: var(--color-ink-950);
+  /* The group clips; individual rounding is what overflowed it. */
+  border-radius: 0;
+  height: auto;
+  min-height: 44px;
+}
+
+/* The refinements panel opens as you reach it, so it needs to be seen opening
+   — an instant swap reads as "it was always like that" and signifies nothing. */
+@keyframes disclosureIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }

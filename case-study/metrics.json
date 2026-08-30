@@ -1,0 +1,62 @@
+{
+  "after-forside-desktop": {
+    "height": 8575,
+    "scrollWidth": 1440,
+    "smallTapTargets": 12,
+    "wideElements": 0,
+    "images": 2,
+    "bytes": 1271079,
+    "requests": 13,
+    "png_bytes": 1097196
+  },
+  "after-forside-mobile": {
+    "height": 13621,
+    "scrollWidth": 390,
+    "smallTapTargets": 1,
+    "wideElements": 0,
+    "images": 2,
+    "bytes": 1271079,
+    "requests": 13,
+    "png_bytes": 2039265
+  },
+  "before-forside-desktop": {
+    "height": 3441,
+    "scrollWidth": 1440,
+    "smallTapTargets": 35,
+    "wideElements": 2,
+    "images": 22,
+    "bytes": 768976,
+    "requests": 47,
+    "png_bytes": 757756
+  },
+  "before-forside-mobile": {
+    "height": 3200,
+    "scrollWidth": 390,
+    "smallTapTargets": 32,
+    "wideElements": 4,
+    "images": 22,
+    "bytes": 747163,
+    "requests": 61,
+    "png_bytes": 650887
+  },
+  "before-artikler-desktop": {
+    "height": 4758,
+    "scrollWidth": 1440,
+    "smallTapTargets": 44,
+    "wideElements": 1,
+    "images": 18,
+    "bytes": 1077441,
+    "requests": 39,
+    "png_bytes": 850739
+  },
+  "before-artikler-mobile": {
+    "height": 10413,
+    "scrollWidth": 390,
+    "smallTapTargets": 36,
+    "wideElements": 1,
+    "images": 18,
+    "bytes": 1052283,
+    "requests": 39,
+    "png_bytes": 4459913
+  }
+}
