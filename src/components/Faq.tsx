@@ -69,7 +69,7 @@ export default function Faq() {
                     size={20}
                     strokeWidth={2.5}
                     aria-hidden="true"
-                    className="text-accent-600 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
+                    className="text-accent-700 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
                   />
                 </Disclosure.Trigger>
               </Disclosure.Heading>
@@ -87,7 +87,7 @@ export default function Faq() {
                   {item.cta && (
                     <a
                       href={item.cta.href}
-                      className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-600"
+                      className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
                     >
                       {item.cta.label}
                       <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
@@ -128,7 +128,7 @@ export default function Faq() {
                     size={20}
                     strokeWidth={2.5}
                     aria-hidden="true"
-                    className="text-accent-600 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
+                    className="text-accent-700 shrink-0 transition-transform duration-300 group-aria-expanded:rotate-45"
                   />
                 </Disclosure.Trigger>
               </Disclosure.Heading>
@@ -139,7 +139,7 @@ export default function Faq() {
                     href={a.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-600"
+                    className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
                   >
                     Læs hele artiklen
                     <ArrowUpRight size={16} strokeWidth={2.5} aria-hidden="true" />

@@ -65,7 +65,7 @@ const isSame = (values: (boolean | string)[]) => values.every((v) => v === value
 
 function Cell({ value }: { value: boolean | string }) {
   if (value === true)
-    return <Check size={18} strokeWidth={3} className="text-accent-600" aria-label="Inkluderet" />;
+    return <Check size={18} strokeWidth={3} className="text-accent-700" aria-label="Inkluderet" />;
   if (value === false)
     return <Minus size={18} strokeWidth={2} className="text-ink-900/25" aria-label="Ikke med" />;
   return <span className="text-sm text-ink-900/80">{value}</span>;
@@ -99,7 +99,7 @@ export default function Packages() {
               }`}
             >
               {t.featured && (
-                <span className="absolute -top-3 left-7 inline-flex items-center gap-1.5 bg-accent-500 text-ink-950 text-xs font-bold uppercase tracking-widest rounded-full px-3 py-1">
+                <span className="absolute -top-3 left-7 inline-flex items-center gap-1.5 bg-accent-500 text-ink-950 text-xs font-bold uppercase tracking-widest rounded-full px-3 py-1 select-none">
                   <Sparkles size={13} strokeWidth={2.5} aria-hidden="true" />
                   Mest valgt
                 </span>
@@ -110,11 +110,11 @@ export default function Packages() {
               <div className="mt-4 flex items-baseline gap-1.5">
                 {t.from ? (
                   <>
-                    <span className="text-sm text-ink-100/60">fra</span>
+                    <span className="text-sm text-ink-100/60 select-none">fra</span>
                     <span className="font-display text-4xl font-bold text-accent-400 tabular-nums">
                       {t.from.toLocaleString("da-DK")}
                     </span>
-                    <span className="text-sm text-ink-100/60">kr.</span>
+                    <span className="text-sm text-ink-100/60 select-none">kr.</span>
                   </>
                 ) : (
                   <span className="font-display text-3xl font-bold text-accent-400">
@@ -168,7 +168,7 @@ export default function Packages() {
                   size={20}
                   strokeWidth={2.5}
                   aria-hidden="true"
-                  className="shrink-0 text-accent-500 transition-transform duration-300 group-aria-expanded:rotate-180"
+                  className="shrink-0 text-accent-700 transition-transform duration-300 group-aria-expanded:rotate-180"
                 />
               </Disclosure.Trigger>
             </Disclosure.Heading>
@@ -183,7 +183,7 @@ export default function Packages() {
               >
                 <h4
                   className={`font-display font-bold mb-3 ${
-                    t.featured ? "text-accent-600" : "text-ink-900"
+                    t.featured ? "text-accent-700" : "text-ink-900"
                   }`}
                 >
                   {t.name}
@@ -220,7 +220,7 @@ export default function Packages() {
                       key={t.id}
                       scope="col"
                       className={`px-5 py-4 text-sm font-bold ${
-                        t.featured ? "text-accent-600" : "text-ink-900"
+                        t.featured ? "text-accent-700" : "text-ink-900"
                       }`}
                     >
                       {t.name}

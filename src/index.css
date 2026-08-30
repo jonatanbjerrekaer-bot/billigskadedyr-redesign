@@ -24,6 +24,12 @@
   --color-emaerket: #17788f;
   --color-emaerket-light: #4fb3c9;
   --color-accent-600: #86b025;
+  /* Lime is a background colour, not a text colour. On white, accent-500 is
+     1.79:1 and accent-600 is 2.55:1, so every lime word or icon on a light
+     section failed WCAG. This is the same hue taken dark enough to read:
+     6.2:1 on white, 5.7:1 on cream. Light sections use it for text and icons;
+     dark sections keep 400/500, which already clear 10:1 on ink. */
+  --color-accent-700: #4d6a10;
 
   --color-cream: #f2f7f3;
   --font-sans: "Inter Variable", system-ui, sans-serif;
@@ -157,17 +163,32 @@ a, button, [role="radio"], select, summary {
    Inputs are explicitly re-enabled: `user-select: none` on an ancestor is
    inherited by form fields in some engines, and the m² value must stay
    selectable and editable. */
+a:not([href^="mailto:"]):not([href^="tel:"]),
 button,
 [role="button"],
 [role="radio"],
 [role="option"],
+[role="tab"],
+summary,
+label,
 .slider,
 .number-field__group span,
-[aria-hidden="true"] {
+[aria-hidden="true"],
+svg,
+h1, h2, h3, h4, h5, h6,
+.select-none {
   -webkit-user-select: none;
   user-select: none;
 }
 
+/* Handed back: the things people genuinely lift off a page. Links are in the
+   list above because nearly every link here is a button in a link's clothing,
+   but mail and phone are the two that are not, and they are precisely what a
+   visitor wants on their clipboard. Headings are excluded from selection as
+   structure rather than prose; the body copy under them stays copyable. */
+a[href^="mailto:"],
+a[href^="tel:"],
+address,
 input,
 textarea,
 [contenteditable] {

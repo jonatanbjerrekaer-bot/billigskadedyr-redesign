@@ -86,7 +86,7 @@ export default function Reviews() {
             href={TRUSTPILOT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="sm:ml-auto inline-flex items-center min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-600"
+            className="sm:ml-auto inline-flex items-center min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
           >
             Se alle anmeldelser på Trustpilot
           </a>
@@ -100,7 +100,7 @@ export default function Reviews() {
             >
               <span
                 aria-hidden="true"
-                className="font-display text-5xl leading-none text-accent-500"
+                className="font-display text-5xl leading-none text-accent-700"
               >
                 &ldquo;
               </span>

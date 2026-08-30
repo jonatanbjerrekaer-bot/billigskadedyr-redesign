@@ -63,7 +63,7 @@ export default function Comparison() {
 
           {/* Right: ours. Dark panel with the lime marks so it carries the eye. */}
           <div className="rounded-2xl bg-ink-900 text-cream p-6 sm:p-8 shadow-[0_20px_60px_-25px] shadow-ink-900/60">
-            <h3 className="text-xs uppercase tracking-[0.2em] text-accent-500 font-semibold mb-6">
+            <h3 className="text-xs uppercase tracking-[0.2em] text-accent-400 font-semibold mb-6">
               Sådan gør vi
             </h3>
             <ul className="flex flex-col gap-5">

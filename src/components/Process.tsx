@@ -30,7 +30,7 @@ export default function Process() {
               className="flex flex-col gap-2"
               style={{ flexBasis: "240px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
             >
-              <span className="font-display text-5xl font-bold text-accent-500" aria-hidden="true">
+              <span className="font-display text-5xl font-bold text-accent-700" aria-hidden="true">
                 {s.n}
               </span>
               <h3 className="font-display text-xl font-bold text-ink-900">{s.title}</h3>

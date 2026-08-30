@@ -23,7 +23,7 @@ const USPS = [
 export default function UspBar() {
   return (
     <div className="bg-ink-950 text-ink-100/80 border-b border-ink-800">
-      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 py-2.5 sm:py-3 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-2 items-center">
+      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 py-2.5 sm:py-3 grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-2 items-center select-none">
         {USPS.map(({ Icon, label, text }) => (
           // Label and text each get their own line. Free wrapping meant the
           // shortest promise sat on one line while the rest took two, so the
