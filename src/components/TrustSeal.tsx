@@ -28,7 +28,7 @@ function Stars() {
   // rounding up is exactly the kind of small dishonesty this section argues against.
   const pct = (SCORE / 5) * 100;
   const row = (fill: string, key: string) => (
-    <span key={key} className="flex gap-[2px]" aria-hidden="true">
+    <span key={key} className="flex gap-[2px] w-max shrink-0" aria-hidden="true">
       {[0, 1, 2, 3, 4].map((i) => (
         <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill={fill}>
           <path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.4l6.5-.9z" />

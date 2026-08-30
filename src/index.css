@@ -107,6 +107,19 @@ a, button, [role="radio"], select, summary {
   }
 }
 
+/* Dropdown options flashed white on a fast hover. react-aria sets
+   data-hovered on pointer enter and data-focused a moment later, and the
+   component's styling only covered data-focused, so the frame in between fell
+   through to HeroUI's own default surface: oklch(0.94 ...), a near-white
+   intended for light themes. Both flags now land on the same ink, so there is
+   no in-between state left to see. Here rather than as utilities because
+   HeroUI's stylesheet is unlayered and would win against them. */
+.list-box-item[data-hovered],
+.list-box-item[data-highlighted] {
+  background-color: var(--color-ink-700);
+  color: var(--color-cream);
+}
+
 @keyframes selectIn {
   from { opacity: 0; transform: translateY(-4px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
