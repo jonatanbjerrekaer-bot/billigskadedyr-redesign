@@ -6,8 +6,15 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12">
         <div className="flex flex-wrap gap-10">
           <div style={{ flexBasis: "220px", flexGrow: 1, flexShrink: 1 }}>
-            <p className="font-display text-xl font-extrabold uppercase tracking-tight">
-              Skadedyr<span className="text-accent-400">Pro</span>
+            <p className="flex items-center gap-3 font-display text-xl font-extrabold tracking-tight">
+              <img
+                src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+                alt=""
+                width={69}
+                height={67}
+                className="h-10 w-auto"
+              />
+              Billigskadedyr.dk
             </p>
             <p className="text-sm text-ink-100/70 mt-3">
               Gør-det-selv produkter og professionel bekæmpelse under ét tag.

@@ -20,12 +20,22 @@ export default function Header({
   return (
     <header className="sticky top-0 z-40 bg-ink-950 text-cream shadow-md">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between gap-4">
-        <a
-          href="#top"
-          className="inline-flex items-center min-h-[44px] font-display text-lg font-extrabold tracking-tight uppercase"
-        >
-          Skadedyr
-          <span className="text-accent-400">Pro</span>
+        {/*
+          "SkadedyrPro" was a name this concept invented for a business that
+          already has one. The mark is the client's own, lifted from their
+          logo with the wordmark cropped off, so the header carries their
+          identity rather than a redesign's idea of it. The name still reaches
+          screen readers through the visually-hidden span.
+        */}
+        <a href="#top" className="inline-flex items-center min-h-[44px]">
+          <img
+            src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+            alt=""
+            width={69}
+            height={67}
+            className="h-9 w-auto"
+          />
+          <span className="sr-only">Billigskadedyr.dk, til forsiden</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
