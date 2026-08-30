@@ -1,3 +1,4 @@
+import TrustSeal from "./TrustSeal";
 import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
 
 const TRUST_POINTS = [
@@ -24,6 +25,10 @@ export default function Hero() {
               først, siger ærligt om du kan klare det selv, og giver dig en fast pris, hvis vi
               skal ud.
             </p>
+
+            {/* Above the fold on purpose. A trust mark placed in the footer is a
+                trust mark the anxious visitor never reaches. */}
+            <TrustSeal className="mt-7" />
 
             <ul className="mt-7 flex flex-col gap-3">
               {TRUST_POINTS.map((t) => (

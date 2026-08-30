@@ -1,19 +1,18 @@
 /**
- * e-mærket is the trust mark Danish shoppers actually look for, and the
- * original site leans on it. It was only text here, which throws away the
- * whole point: the seal works because it is recognised at a glance, before
- * anything is read.
+ * e-mærket is the certification mark Danish shoppers look for, and it works by
+ * being recognised at a glance, before anything is read. The concept had it as
+ * text only, in a footer link and a USP label, which throws that away.
  *
- * The official mark is drawn by e-mærket's own widget script, and that script
- * is keyed to the live domain (widget.emaerket.dk/js/<site hash>), so it
- * cannot render on this concept's domain. Rather than paste a counterfeit of
- * a certification mark, this is the concept's own badge carrying the real
- * certificate number of things that matter: the score, the review count, and
- * a link straight to the public certificate. Everything on it is checkable,
- * which is the same standard the reviews section is held to.
+ * On the live shop the mark is drawn by e-mærket's own widget: a script that
+ * injects <emaerket-shadow-widget data-widget="label"> and fills its shadow
+ * root. I tested that script on another origin. It loads, throws no errors,
+ * and leaves the shadow root empty, so it is keyed to the certified domain and
+ * cannot render here.
  *
- * On the real domain this component is the thing you delete, and you drop the
- * official widget in its place.
+ * This is therefore a stand-in, not a copy of the certification mark: the real
+ * score and review count, in e-mærket's own visual language, linking straight
+ * to the public certificate so every claim on it is checkable. On the real
+ * domain you delete this component and paste the widget snippet in its place.
  */
 type Props = {
   variant?: "dark" | "light";
@@ -21,6 +20,34 @@ type Props = {
 };
 
 const CERTIFICATE_URL = "https://certifikat.emaerket.dk/billigskadedyr.dk";
+const SCORE = 4.6;
+const COUNT = 111;
+
+function Stars() {
+  // 4.6 of 5 as a clipped overlay rather than rounded to a whole star, because
+  // rounding up is exactly the kind of small dishonesty this section argues against.
+  const pct = (SCORE / 5) * 100;
+  const row = (fill: string, key: string) => (
+    <span key={key} className="flex gap-[2px]" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg key={i} width="15" height="15" viewBox="0 0 24 24" fill={fill}>
+          <path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.4l6.5-.9z" />
+        </svg>
+      ))}
+    </span>
+  );
+  return (
+    <span className="relative inline-flex shrink-0">
+      {row("currentColor", "bg")}
+      <span
+        className="absolute inset-0 overflow-hidden text-emaerket"
+        style={{ width: `${pct}%` }}
+      >
+        {row("currentColor", "fg")}
+      </span>
+    </span>
+  );
+}
 
 export default function TrustSeal({ variant = "dark", className = "" }: Props) {
   const dark = variant === "dark";
@@ -29,62 +56,43 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
       href={CERTIFICATE_URL}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={`e-mærket certificeret webshop, ${String(SCORE).replace(".", ",")} af 5 baseret på ${COUNT} bedømmelser. Se certifikatet.`}
       className={[
         "group inline-flex items-center gap-3 rounded-xl border px-4 py-3 min-h-[44px] transition-colors",
         dark
-          ? "border-ink-700 bg-ink-900/60 hover:border-accent-400"
-          : "border-ink-100 bg-white hover:border-accent-500",
+          ? "border-ink-700 bg-ink-950/70 hover:border-emaerket"
+          : "border-ink-100 bg-white hover:border-emaerket",
         className,
       ].join(" ")}
     >
-      <svg
-        width="34"
-        height="40"
-        viewBox="0 0 34 40"
-        aria-hidden="true"
-        className="shrink-0"
-      >
+      <svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" className="shrink-0 text-emaerket">
         <path
-          d="M17 1.5 32 6.2v13.1c0 8.3-5.6 15.5-15 19.2-9.4-3.7-15-10.9-15-19.2V6.2L17 1.5Z"
-          className={dark ? "fill-ink-950" : "fill-cream"}
-          stroke="currentColor"
-          strokeWidth="1.6"
-          style={{ color: "var(--color-accent-500)" }}
+          d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"
+          fill="currentColor"
         />
-        <path
-          d="m10.5 20.2 4.6 4.6 9-9.4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          style={{ color: "var(--color-accent-500)" }}
-        />
+        <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="#fff" strokeWidth="1.7" />
+        <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round" />
       </svg>
 
       <span className="min-w-0">
-        <span
-          className={[
-            "block text-sm font-semibold leading-tight",
-            dark ? "text-cream" : "text-ink-900",
-          ].join(" ")}
-        >
-          e-mærket webshop
+        <span className={["flex items-center gap-2", dark ? "text-ink-100/35" : "text-ink-900/20"].join(" ")}>
+          <Stars />
+          <span className={["text-sm font-semibold", dark ? "text-cream" : "text-ink-900"].join(" ")}>
+            {String(SCORE).replace(".", ",")} af 5
+          </span>
         </span>
         <span
           className={[
-            "block text-xs leading-tight mt-0.5",
+            "block text-xs leading-tight mt-1",
             dark ? "text-ink-100/70" : "text-ink-900/70",
           ].join(" ")}
         >
-          4,6 af 5 · 110 anmeldelser
+          e-mærket webshop · {COUNT} bedømmelser
         </span>
         <span
           className={[
             "block text-xs leading-tight mt-0.5 underline underline-offset-2",
-            dark
-              ? "text-accent-400 group-hover:text-accent-300"
-              : "text-accent-600 group-hover:text-accent-700",
+            dark ? "text-emaerket-light group-hover:text-cream" : "text-emaerket group-hover:text-ink-900",
           ].join(" ")}
         >
           Se certifikatet

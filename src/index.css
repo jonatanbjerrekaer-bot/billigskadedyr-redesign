@@ -18,6 +18,11 @@
   /* Acid lime. Chemical/high-vis, not the soft orange. Small doses only. */
   --color-accent-400: #b8e04f;
   --color-accent-500: #a3d13a;
+  /* e-mærket's own teal, sampled from the live widget. Deliberately outside
+     the site palette: a certification mark that has been restyled to match
+     the brand it certifies is worth less than one that has not. */
+  --color-emaerket: #17788f;
+  --color-emaerket-light: #4fb3c9;
   --color-accent-600: #86b025;
 
   --color-cream: #f2f7f3;
