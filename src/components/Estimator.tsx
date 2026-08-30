@@ -6,7 +6,15 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@heroui/react";
-import { Check, ChevronDown, MapPin, RotateCcw } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  Info,
+  MailCheck,
+  MapPin,
+  RotateCcw,
+  ShoppingBag,
+} from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
@@ -70,6 +78,18 @@ export default function Estimator() {
   const advRef = useRef<HTMLDivElement | null>(null);
   const advTouched = useRef(false);
   const m2Touched = useRef(false);
+  const [areaAnim, setAreaAnim] = useState(false);
+  const animTimer = useRef<number | undefined>(undefined);
+
+  // Moving the area for the visitor should read as a deliberate change, not as
+  // a glitch, so the track glides. Dragging must stay 1:1 with the pointer, so
+  // the transition is only switched on for the length of a preset change.
+  const glideArea = (next: number) => {
+    setAreaAnim(true);
+    setM2(next);
+    window.clearTimeout(animTimer.current);
+    animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
+  };
 
   // Desktop only: open the refinements as the calculator comes into view, so
   // the controls are already there by the time the eye arrives. On a phone
@@ -153,6 +173,22 @@ export default function Estimator() {
   // could move this number are named before the visitor commits, not after.
   // Derived from the same answers, so it stays specific rather than becoming
   // a generic disclaimer nobody reads.
+  // The three things a homeowner weighs once the number is on screen. As three
+  // separate paragraphs they read as a wall; as label-and-line rows with an
+  // icon each they can be scanned in the order the eye wants them.
+  const facts = [
+    {
+      icon: MapPin,
+      label: "Hele Jylland og Fyn",
+      line: "Er du i tvivl om din adresse, så spørg os.",
+    },
+    {
+      icon: MailCheck,
+      label: "Bundet tilbud, ingen binding",
+      line: "Du får en fast pris og et tidspunkt, og ingen der ringer dig op bagefter.",
+    },
+  ];
+
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
     ...(m2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
@@ -166,7 +202,7 @@ export default function Estimator() {
 
   const reset = () => {
     m2Touched.current = false;
-    setM2(DEFAULTS.m2);
+    glideArea(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
     setSeverity(DEFAULTS.severity);
   };
@@ -266,14 +302,17 @@ export default function Estimator() {
                 <Slider.Root
                   value={m2}
                   onChange={(v) => {
-                    if (Number(v) !== m2) m2Touched.current = true;
+                    if (Number(v) !== m2) {
+                      m2Touched.current = true;
+                      setAreaAnim(false);
+                    }
                     setM2(Number(v));
                   }}
                   minValue={20}
                   maxValue={400}
                   step={5}
                   aria-label="Størrelse af område i kvadratmeter"
-                  className="flex flex-col gap-2"
+                  className={`flex flex-col gap-2${areaAnim ? " area-anim" : ""}`}
                 >
                   <div className="flex items-center justify-between gap-3 text-sm font-medium">
                     <span>
@@ -286,7 +325,10 @@ export default function Estimator() {
                       value={m2}
                       onChange={(v) => {
                         const next = Number.isNaN(v) ? 20 : Math.max(20, Math.min(400, v));
-                        if (next !== m2) m2Touched.current = true;
+                        if (next !== m2) {
+                          m2Touched.current = true;
+                          setAreaAnim(false);
+                        }
                         setM2(next);
                       }}
                       minValue={20}
@@ -325,7 +367,7 @@ export default function Estimator() {
                       // Sæt arealet til et realistisk gennemsnit for den valgte
                       // boligtype, men aldrig oven i et tal brugeren selv har sat.
                       const preset = AREA_PRESETS[p];
-                      if (!m2Touched.current && preset) setM2(preset);
+                      if (!m2Touched.current && preset) glideArea(preset);
                     }}
                     className={GROUP}
                     aria-label="Ejendomstype"
@@ -424,39 +466,57 @@ export default function Estimator() {
             </span>
           </button>
 
-          <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
-            {dkr(display)}
+          {/*
+            The price and the two questions that follow it immediately. As a
+            sentence underneath the list these were prose competing with the
+            list; as a pair of chips against the number they are read in one
+            glance and stop taking the checklist's attention.
+          */}
+          <div className="flex flex-col gap-3">
+            <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
+              {dkr(display)}
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs text-ink-100/80">
+              <span className="rounded-full bg-ink-900 px-2.5 py-1">
+                Svar inden for 24 timer
+              </span>
+              <span className="rounded-full bg-ink-900 px-2.5 py-1">
+                Hos dig på 1-2 hverdage
+              </span>
+            </div>
           </div>
 
-          <ul className="text-sm text-ink-100/90 flex flex-col gap-2">
-            {included.map((item) => (
-              <li key={item} className="flex gap-2">
-                <Check
-                  size={16}
-                  strokeWidth={3}
-                  aria-hidden="true"
-                  className="text-accent-500 shrink-0 mt-0.5"
-                />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="text-xs text-ink-100/60">
-            Svar inden for 24 timer på hverdage, og vi er typisk hos dig inden for 1-2 hverdage.
-            De fleste opgaver er løst på ét til to besøg.
-          </p>
+          <div>
+            <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
+              Prisen dækker
+            </p>
+            <ul className="text-sm text-ink-100/90 flex flex-col gap-2">
+              {included.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <Check
+                    size={16}
+                    strokeWidth={3}
+                    aria-hidden="true"
+                    className="text-accent-500 shrink-0 mt-0.5"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/*
-            Three things the visitor is weighing at exactly this moment, and
-            which the page previously left to the FAQ or to nowhere: whether the
-            number can move, whether we come to them at all, and what actually
-            happens if they write. Answering them next to the price is what
-            turns an estimate into a quote you can act on.
+            The caveats are the only content here that qualifies the price
+            rather than supporting it, so they get their own surface. A panel
+            says "different kind of thing" in a way a fifth hairline cannot,
+            and it lets the promises above stay uninterrupted.
           */}
-          <div className="border-t border-ink-700 pt-3">
-            <p className="text-xs font-semibold text-ink-100/80">Det kan ændre prisen</p>
-            <ul className="mt-2 flex flex-col gap-1.5 text-xs text-ink-100/60">
+          <div className="rounded-xl border border-ink-800 bg-ink-900/70 p-4">
+            <p className="flex items-center gap-2 text-xs font-semibold text-ink-100/90">
+              <Info size={14} strokeWidth={2.5} aria-hidden="true" className="text-ink-100/60" />
+              Det kan ændre prisen
+            </p>
+            <ul className="mt-2.5 flex flex-col gap-1.5 text-xs leading-relaxed text-ink-100/70">
               {couldChange.map((item) => (
                 <li key={item} className="flex gap-2">
                   <span aria-hidden="true" className="text-ink-100/40">·</span>
@@ -464,29 +524,54 @@ export default function Estimator() {
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-xs text-ink-100/60">
+            <p className="mt-3 border-t border-ink-800 pt-2.5 text-xs text-ink-100/70">
               Vi siger det, før vi går i gang. Prisen ændrer sig ikke undervejs.
             </p>
           </div>
 
-          <p className="flex items-start gap-2 text-xs text-ink-100/70 border-t border-ink-700 pt-3">
-            <MapPin size={14} strokeWidth={2.5} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
-            <span>
-              Vi kører ud i hele Jylland og på Fyn. Er du i tvivl om din adresse, så spørg os.
-            </span>
-          </p>
-
-          <p className="text-xs text-ink-100/60">
-            Skriver du, får du et bundet tilbud og et tidspunkt. Ingen binding, og
-            ingen der ringer dig op igen bagefter.
-          </p>
-
-          {diy && (
-            <p className="text-xs text-ink-100/70 border-t border-ink-700 pt-3">
-              Er angrebet lille, kan du ofte klare det selv. Midler mod {pest.label.toLowerCase()}{" "}
-              starter ved <span className="font-semibold text-accent-400">{diy}</span> i webshoppen.
-            </p>
-          )}
+          {/*
+            Coverage, what writing actually commits you to, and the cheaper way
+            out. Three paragraphs before this; a labelled row each now, so the
+            eye can take one and leave the rest.
+          */}
+          <ul className="flex flex-col gap-3 border-t border-ink-700 pt-4">
+            {facts.map((f) => {
+              const Icon = f.icon;
+              return (
+                <li key={f.label} className="flex gap-2.5">
+                  <Icon
+                    size={15}
+                    strokeWidth={2.25}
+                    aria-hidden="true"
+                    className="text-accent-500 shrink-0 mt-0.5"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-xs font-medium text-ink-100/90">{f.label}</span>
+                    <span className="block text-xs text-ink-100/70">{f.line}</span>
+                  </span>
+                </li>
+              );
+            })}
+            {diy && (
+              <li className="flex gap-2.5">
+                <ShoppingBag
+                  size={15}
+                  strokeWidth={2.25}
+                  aria-hidden="true"
+                  className="text-accent-500 shrink-0 mt-0.5"
+                />
+                <span className="min-w-0">
+                  <span className="block text-xs font-medium text-ink-100/90">
+                    Klar det selv fra <span className="text-accent-400">{diy}</span>
+                  </span>
+                  <span className="block text-xs text-ink-100/70">
+                    Ved et lille angreb er midler mod {pest.label.toLowerCase()} fra
+                    webshoppen ofte nok.
+                  </span>
+                </span>
+              </li>
+            )}
+          </ul>
 
           <ContactCtas className="mt-auto" />
         </div>

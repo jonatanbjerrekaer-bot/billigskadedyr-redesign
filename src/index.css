@@ -299,3 +299,21 @@ img {
    enough to feel like the surface gives rather than like the button jumps. */
 .press { transition-duration: 120ms; }
 .press:active { transform: scale(0.98); }
+
+/* The estimator's panel sets its own rhythm; HeroUI's 8px body inset only
+   pushes the controls out of line with everything above them. */
+#estimator .disclosure__body {
+  padding: 0 !important;
+}
+
+/* Only while a preset is being applied, so dragging stays 1:1 with the pointer. */
+@media (prefers-reduced-motion: no-preference) {
+  #estimator .area-anim .slider__fill {
+    transition: width 420ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  #estimator .area-anim .slider__thumb {
+    transition:
+      left 420ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 150ms ease;
+  }
+}
