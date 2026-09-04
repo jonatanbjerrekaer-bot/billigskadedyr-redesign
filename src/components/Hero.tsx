@@ -20,9 +20,8 @@ export default function Hero() {
               Rotter, hvepse, væggelus eller borebiller?
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Webshop og professionel bekæmpelse samme sted. Vi kører ud i hele Jylland og
-              på Fyn, ser på det først, siger ærligt om du kan klare det selv, og giver dig
-              en fast pris, hvis vi skal ud.
+              Webshop og professionel bekæmpelse samme sted. Klar det selv med de rette
+              midler, eller få os ud til en fast pris.
             </p>
 
             <ul className="mt-7 flex flex-col gap-3">

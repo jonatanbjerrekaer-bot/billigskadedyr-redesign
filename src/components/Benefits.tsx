@@ -14,7 +14,7 @@ const BENEFITS: { title: string; desc: string; Icon: LucideIcon }[] = [
   },
   {
     title: "Dokumenteret service",
-    desc: "Du får det skriftligt: hvad vi fandt, hvad vi brugte, og hvad vi gjorde. Klar til ejendom eller forsikring.",
+    desc: "Du får det skriftligt: hvad vi fandt, hvad vi brugte, og hvad vi gjorde. Klar til ejendomsadministrationen eller forsikringssagen.",
     Icon: ClipboardCheck,
   },
   {
@@ -29,7 +29,7 @@ export default function Benefits() {
     <section id="why" className="bg-white py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <h2 className="font-display text-3xl font-bold tracking-tight text-ink-900 uppercase text-center mb-10">
-          Hvorfor vælge os
+          Det kan du regne med
         </h2>
         <div className="flex flex-wrap gap-6 justify-center">
           {BENEFITS.map((b) => (

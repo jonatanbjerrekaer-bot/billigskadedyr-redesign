@@ -13,7 +13,7 @@ export default function PestQuickSelect() {
           Hvilket skadedyr har du?
         </h2>
         <p className="text-ink-900/70 mb-8 max-w-2xl">
-          Vælg det skadedyr, du står over for, og vi viser dig den korteste vej til et resultat.
+          Vælg dit skadedyr, og se om du kan klare det selv, eller om vi skal ud.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {GRID_PESTS.map((p) => (
@@ -28,8 +28,8 @@ export default function PestQuickSelect() {
               <span className="font-display font-bold text-ink-900 text-center">{p.label}</span>
               <span className="text-xs text-ink-900/60 text-center">
                 {p.path === "pro"
-                  ? "Bedst med professionel hjælp"
-                  : "Klarer du selv med de rette produkter"}
+                  ? "Vi klarer det for dig"
+                  : "Du kan klare det selv"}
               </span>
             </a>
           ))}

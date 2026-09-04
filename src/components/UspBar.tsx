@@ -9,14 +9,14 @@ import TrustSeal from "./TrustSeal";
  * hide three of four promises behind an interaction nobody performs, and a
  * toast is for transient feedback, not standing trust copy.
  *
- * On a phone the four descriptions were truncating to "Markedets måske
+ * On a phone the descriptions used to truncate to "Markedets måske
  * billigst…", which reads worse than not showing them: a clipped promise is a
  * promise the reader has to guess at. Below sm the labels alone are shown in
  * two columns, which fits without clipping and keeps all four visible.
  */
 const USPS = [
   { Icon: Clock, label: "Hurtig levering", text: "Vi sender fra dag til dag" },
-  { Icon: Tag, label: "Billige priser", text: "Markedets måske billigste priser" },
+  { Icon: Tag, label: "Billige priser", text: "Fra 19 kr. i webshoppen" },
   { Icon: PhoneCall, label: "Professionel rådgivning", text: "Ring 24 24 55 83" },
 ];
 

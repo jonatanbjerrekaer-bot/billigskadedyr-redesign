@@ -185,7 +185,7 @@ export default function Estimator() {
     {
       icon: MailCheck,
       label: "Bundet tilbud, ingen binding",
-      line: "Du får en fast pris og et tidspunkt, og ingen der ringer dig op bagefter.",
+      line: "Du får en fast pris og et tidspunkt. Uden opkald bagefter.",
     },
   ];
 
@@ -478,7 +478,7 @@ export default function Estimator() {
             </div>
             <div className="flex flex-wrap gap-2 text-xs text-ink-100/80">
               <span className="rounded-full bg-ink-900 px-2.5 py-1">
-                Svar inden for 24 timer
+                Svar på 1 hverdag
               </span>
               <span className="rounded-full bg-ink-900 px-2.5 py-1">
                 Hos dig på 1-2 hverdage

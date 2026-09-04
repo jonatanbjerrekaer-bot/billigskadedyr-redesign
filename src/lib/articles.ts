@@ -13,7 +13,7 @@ export type Article = { slug: string; title: string; url: string; intro: string 
 export const ARTICLES: Article[] = [
   {
     slug: "gnaversikring-saadan-sikrer-du-huset-mod-rotter",
-    title: "Gnaversikring – Sådan sikrer du huset mod rotter!",
+    title: "Gnaversikring – Sådan sikrer du huset mod rotter",
     url: "https://billigskadedyr.dk/gnaversikring-saadan-sikrer-du-huset-mod-rotter/",
     intro:
       "Rotter er et af de mest problematiske skadedyr i danske hjem. De kan gnave i træværk, isolering og elektriske installationer, hvilket kan føre til både bygningsskader og brandfare. Samtidig kan rotter sprede bakterier og sygdomme via urin, ekskrementer og fødevarer, som de forurener. Derfor er det vigtigt at sikre huset mod rotter, før problemet opstår. Mange rotteproblemer starter faktisk udenfor huset.",
@@ -41,28 +41,28 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "myrer-indendoers-den-komplette-guide-til-effektiv-bekaempelse",
-    title: "Myrer indendørs – Den komplette guide til effektiv bekæmpelse",
+    title: "Myrer indendørs – Guide til effektiv bekæmpelse",
     url: "https://billigskadedyr.dk/myrer-indendoers-den-komplette-guide-til-effektiv-bekaempelse/",
     intro:
       "Myrer indendørs er et af de mest almindelige skadedyrsproblemer i danske hjem. Mange forsøger at løse problemet med hurtige løsninger, men oplever ofte, at myrerne vender tilbage igen og igen. Årsagen er næsten altid den samme: man behandler kun de synlige myrer inde i boligen – men glemmer selve boet udenfor.",
   },
   {
     slug: "hvorfor-faar-man-myrer-hvert-aar-flyvemyrer-nye-myrebo-og-husraad",
-    title: "Hvorfor får man myrer hvert år? – flyvemyrer, nye myrebo og husråd?",
+    title: "Hvorfor får man myrer hvert år? – Flyvemyrer, nye myrebo og husråd",
     url: "https://billigskadedyr.dk/hvorfor-faar-man-myrer-hvert-aar-flyvemyrer-nye-myrebo-og-husraad/",
     intro:
       "Mange boligejere oplever det samme år efter år: myrerne forsvinder måske i en periode – men næste sæson er de tilbage igen. Det kan føles som et uendeligt problem, især hvis man har forsøgt forskellige husråd uden varig effekt. Men der er faktisk en helt naturlig forklaring på, hvorfor myrer vender tilbage, og hvorfor problemet ofte bliver værre med tiden.",
   },
   {
     slug: "hvepse",
-    title: "Problemer med hvepse? – Her er alt du bør vide!",
+    title: "Problemer med hvepse? – Her er alt du bør vide",
     url: "https://billigskadedyr.dk/hvepse/",
     intro:
-      "Hvepse er et insekt i Danmark, som man ofte ser, og som mange mennesker føler sig generet af om sommeren. Her fås gode råd til at komme hvepse-irritationen til værks. [divider color=”rgb(255, 255, 255)”] [ux_image id=”11881″] [divider color=”rgb(255, 255, 255)”] Hvad er en hveps? Og hvorfor er den et problem i Danmark?",
+      "Hvepse er et af de insekter, danskerne generes mest af om sommeren. Her får du gode råd til at komme hvepsene til livs, og svar på hvad en hveps egentlig er, og hvorfor den er et problem i Danmark.",
   },
   {
     slug: "saadan-bekaemper-du-skaegkrae-guide-effektiv-bekaempelse",
-    title: "Sådan bekæmper du skægkræ – Guide effektiv bekæmpelse",
+    title: "Sådan bekæmper du skægkræ – Guide til effektiv bekæmpelse",
     url: "https://billigskadedyr.dk/saadan-bekaemper-du-skaegkrae-guide-effektiv-bekaempelse/",
     intro:
       "Skægkræ er i dag et af de mest udbredte skadedyr i danske boliger, og mange oplever frustration, fordi klassiske råd som ekstra rengøring eller støvsugning ikke løser problemet. Faktisk er en af de største misforståelser, at skægkræ skyldes dårlig rengøring – eller at man kan gøre sig fri af dem med gulvvask.",
@@ -76,28 +76,28 @@ export const ARTICLES: Article[] = [
   },
   {
     slug: "behandling-af-borebiller-alt-du-skal-bruge-og-hvordan-du-goer",
-    title: "Behandling af borebiller – Alt du skal bruge og hvordan du gør!",
+    title: "Behandling af borebiller – Alt du skal bruge og hvordan du gør",
     url: "https://billigskadedyr.dk/behandling-af-borebiller-alt-du-skal-bruge-og-hvordan-du-goer/",
     intro:
       "Borebiller er blandt de mest almindelige træskadedyr i danske boliger, og mange opdager først problemet, når små runde huller eller fint boremel begynder at dukke op på gulve og bjælker. På det tidspunkt kan larverne allerede have levet i træet i flere år. Heldigvis kan de fleste angreb stoppes effektivt – hvis du bruger de rigtige produkter og følger en korrekt behandlingsproces.",
   },
   {
     slug: "den-ultimative-guide-til-borebiller",
-    title: "Borebiller i træværk – Den ultimative guide til at opdage, stoppe og forebygge angreb",
+    title: "Borebiller i træværk – Sådan opdager, stopper og forebygger du angreb",
     url: "https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/",
     intro:
       "Borebiller er en af de mest almindelige årsager til skjulte skader i træværk i danske boliger. Mange opdager først problemet, når små runde huller eller fint boremel begynder at samle sig på gulve og vindueskarme. På det tidspunkt har larverne ofte levet inde i træet i flere år og langsomt svækket konstruktionen.",
   },
   {
     slug: "problemer-med-edderkopper",
-    title: "Problemer med edderkopper? Her er hvad du kan gøre!",
+    title: "Problemer med edderkopper? Her er hvad du kan gøre",
     url: "https://billigskadedyr.dk/problemer-med-edderkopper/",
     intro:
       "Vi kender alle følelsen af at gå med ansigtet direkte ind i et spindelvæv eller når de kriblende små dyr sidder skjult i vores stue og så snart du fjerner blikket et splitsekund, så er de væk. Det kan være svært at undgå dem, men er det egentlig muligt at holde edderkopperne væk fra din bolig? Læs mere i artiklen her!",
   },
   {
     slug: "har-dit-traevaerk-svamp-laes-hvad-du-kan-goere-her",
-    title: "Har dit træværk svamp? – Her er hvad du kan gøre!",
+    title: "Har dit træværk svamp? – Her er hvad du kan gøre",
     url: "https://billigskadedyr.dk/har-dit-traevaerk-svamp-laes-hvad-du-kan-goere-her/",
     intro:
       "Svamp kan have alvorlige konsekvenser både for dig og træværket, samt vægge og loft i din bolig. Det er derfor vigtigt at så snart du opdager et svampeangreb, får det anmeldt til din forsikring og udbedre skaderne omgående. Der findes mange forskellige typer svamp, som kan opstå inde i din bolig, det hyppigste vi ser, er gul tømmersvamp, ægte hussvamp og skimmelsvamp.",

@@ -45,12 +45,12 @@ export default function TwoPathRouter() {
     <section id="router" className="bg-ink-950 text-cream">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
         <h2 className="font-display text-3xl font-bold tracking-tight uppercase text-center mb-8">
-          Hvordan vil du tackle det?
+          Hvordan vil du håndtere det?
         </h2>
         <div
           className="flex flex-wrap gap-6 justify-center"
           role="radiogroup"
-          aria-label="Hvordan vil du tackle det?"
+          aria-label="Hvordan vil du håndtere det?"
         >
           {PATHS.map((p) => {
             const isActive = active === p.id;

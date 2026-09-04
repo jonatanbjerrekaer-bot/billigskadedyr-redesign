@@ -25,7 +25,7 @@ const ROWS: { other: string; us: string }[] = [
   },
   {
     other: "Ingen dokumentation af behandlingen",
-    us: "Skriftlig dokumentation, klar til ejendom eller forsikring",
+    us: "Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen",
   },
 ];
 
@@ -37,7 +37,7 @@ export default function Comparison() {
           Sådan gør vi det anderledes
         </h2>
         <p className="text-center text-ink-900/70 mt-3 mb-12 max-w-xl mx-auto">
-          Fem ting, der plejer at gøre skadedyrsbekæmpelse besværlig, og hvad vi gør i stedet.
+          Fem steder branchen gør det besværligt, og hvad vi gør i stedet.
         </p>
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-8">

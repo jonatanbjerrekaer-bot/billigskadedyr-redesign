@@ -20,13 +20,13 @@ type Props = {
 };
 
 const CERTIFICATE_URL = "https://certifikat.emaerket.dk/billigskadedyr.dk";
-const SCORE = 4.6;
-const COUNT = 111;
+export const EM_SCORE = 4.6;
+export const EM_COUNT = 111;
 
 function Stars() {
   // 4.6 of 5 as a clipped overlay rather than rounded to a whole star, because
   // rounding up is exactly the kind of small dishonesty this section argues against.
-  const pct = (SCORE / 5) * 100;
+  const pct = (EM_SCORE / 5) * 100;
   const row = (fill: string, key: string) => (
     <span key={key} className="flex gap-[2px] w-max shrink-0" aria-hidden="true">
       {[0, 1, 2, 3, 4].map((i) => (
@@ -60,7 +60,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
         href={CERTIFICATE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`e-mærket certificeret webshop, ${String(SCORE).replace(".", ",")} af 5 baseret på ${COUNT} bedømmelser. Se certifikatet.`}
+        aria-label={`e-mærket certificeret webshop, ${String(EM_SCORE).replace(".", ",")} af 5 baseret på ${EM_COUNT} bedømmelser. Se certifikatet.`}
         className={["group flex items-start gap-2 min-w-0 text-[11px] sm:text-xs", className].join(" ")}
       >
         <svg width="15" height="17" viewBox="0 0 30 34" aria-hidden="true" className="shrink-0 mt-0.5 text-emaerket-light">
@@ -78,10 +78,10 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
           <span className="flex items-center gap-1.5 font-semibold text-cream">
             <span className="hidden sm:inline text-ink-100/30"><Stars /></span>
             <span className="sm:hidden">e-mærket</span>
-            {String(SCORE).replace(".", ",")}
+            {String(EM_SCORE).replace(".", ",")}
           </span>
           <span className="hidden sm:block text-ink-100/70 group-hover:text-cream underline underline-offset-2 decoration-ink-100/30">
-            e-mærket · {COUNT} bedømmelser
+            e-mærket · {EM_COUNT} bedømmelser
           </span>
         </span>
       </a>
@@ -93,7 +93,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
       href={CERTIFICATE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`e-mærket certificeret webshop, ${String(SCORE).replace(".", ",")} af 5 baseret på ${COUNT} bedømmelser. Se certifikatet.`}
+      aria-label={`e-mærket certificeret webshop, ${String(EM_SCORE).replace(".", ",")} af 5 baseret på ${EM_COUNT} bedømmelser. Se certifikatet.`}
       className={[
         "group inline-flex items-center gap-3 rounded-xl border px-4 py-3 min-h-[44px] transition-colors",
         dark
@@ -115,7 +115,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
         <span className={["flex items-center gap-2", dark ? "text-ink-100/35" : "text-ink-900/20"].join(" ")}>
           <Stars />
           <span className={["text-sm font-semibold", dark ? "text-cream" : "text-ink-900"].join(" ")}>
-            {String(SCORE).replace(".", ",")} af 5
+            {String(EM_SCORE).replace(".", ",")} af 5
           </span>
         </span>
         <span
@@ -124,7 +124,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
             dark ? "text-ink-100/70" : "text-ink-900/70",
           ].join(" ")}
         >
-          e-mærket webshop · {COUNT} bedømmelser
+          e-mærket webshop · {EM_COUNT} bedømmelser
         </span>
         <span
           className={[

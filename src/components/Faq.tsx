@@ -37,7 +37,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Hvem kommer hjem til mig?",
-    a: "Virksomheden blev grundlagt af Daniels far, og i 2017 overtog Daniel Nemborg den ved et generationsskifte. Han fik sit første job som skadedyrsbekæmper som 12-årig og har i dag knap 20 års praktisk erfaring med alt fra myrer og mus til rotter, væggelus og skægkræ. Vi arbejder efter gældende lovgivning og råder over de nødvendige autorisationer til de behandlinger, hvor det er påkrævet.",
+    a: "Daniel Nemborg overtog virksomheden af sin far i 2017 og har knap 20 års praktisk erfaring. Vi arbejder efter gældende lovgivning og har de autorisationer, der kræves til de enkelte behandlinger.",
   },
   {
     q: "Må jeg være hjemme under behandlingen?",
@@ -62,7 +62,7 @@ export default function Faq() {
           Ofte stillede spørgsmål
         </h2>
         <p className="text-ink-900/70 mb-8 max-w-2xl">
-          Om priser, sikkerhed og hvornår det kan betale sig at ringe efter en professionel.
+          Om priser, sikkerhed og hvornår det kan betale sig at få professionel hjælp.
         </p>
 
         <div className="flex flex-col gap-3 max-w-3xl">

@@ -1,10 +1,12 @@
 import { Star } from "lucide-react";
+import { EM_SCORE, EM_COUNT } from "./TrustSeal";
 
 /**
  * PROVENANCE WARNING — read before shipping.
  *
- * The aggregate figures (Trustpilot 3,8/5 across 44 reviews, e-mærket 4,6/5
- * across 110) were read off the live badges. The individual quotes below were
+ * The aggregate figures (Trustpilot 3,8/5 across 44 reviews; e-mærket via
+ * EM_SCORE/EM_COUNT in TrustSeal.tsx, so the seal and this block cannot drift
+ * apart) were read off the live badges. The individual quotes below were
  * collected earlier in this project and I have NOT re-verified them against
  * the live Trustpilot page. Before this concept goes anywhere public, either
  * re-scrape them with dates and reviewer names, or cut the quotes and keep
@@ -81,7 +83,7 @@ export default function Reviews() {
         <div className="flex flex-wrap gap-8 items-center bg-ink-50 rounded-2xl p-6 mb-6">
           <ScoreBlock score={3.8} count={44} source="Trustpilot" />
           <span aria-hidden="true" className="hidden sm:block w-px self-stretch bg-ink-900/10" />
-          <ScoreBlock score={4.6} count={110} source="e-mærket" />
+          <ScoreBlock score={EM_SCORE} count={EM_COUNT} source="e-mærket" />
           <a
             href={TRUSTPILOT_URL}
             target="_blank"

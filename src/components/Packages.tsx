@@ -82,7 +82,7 @@ export default function Packages() {
           Pakker
         </h2>
         <p className="text-center text-ink-100/70 text-sm mb-12 max-w-xl mx-auto">
-          Vejledende priser. Du får dit eget beløb i prisberegneren ovenfor og en bundet
+          Vejledende priser. Din egen pris får du i prisberegneren ovenfor, og en bundet
           pris, før vi går i gang.
         </p>
 
@@ -101,7 +101,7 @@ export default function Packages() {
               {t.featured && (
                 <span className="absolute -top-3 left-7 inline-flex items-center gap-1.5 bg-accent-500 text-ink-950 text-xs font-bold uppercase tracking-widest rounded-full px-3 py-1 select-none">
                   <Sparkles size={13} strokeWidth={2.5} aria-hidden="true" />
-                  Mest valgt
+                  Anbefalet
                 </span>
               )}
 
@@ -253,7 +253,7 @@ export default function Packages() {
 
           {diffOnly && (
             <p className="mt-3 text-xs text-ink-100/50">
-              {ROWS.length - rows.length} punkter er ens i alle tre pakker og er skjult.
+              {ROWS.length - rows.length} punkter er ens i alle tre pakker og er derfor skjult.
             </p>
           )}
         </div>
