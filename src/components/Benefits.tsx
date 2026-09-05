@@ -32,13 +32,9 @@ export default function Benefits() {
         <h2 className="font-display text-3xl font-bold tracking-tight text-ink-900 uppercase text-center mb-10">
           Det kan du regne med
         </h2>
-        <div className="flex flex-wrap gap-6 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {BENEFITS.map((b, i) => (
-            <Reveal
-              key={b.title}
-              delay={i * 50}
-              className="flex h-full grow shrink basis-[220px] max-w-full [&>*]:h-full"
-            >
+            <Reveal key={b.title} delay={i * 50} className="h-full [&>*]:h-full">
             <div className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3 h-full">
               <div className="w-12 h-12 rounded-xl bg-ink-900 text-accent-400 flex items-center justify-center">
                 <b.Icon size={22} strokeWidth={2} aria-hidden="true" />
