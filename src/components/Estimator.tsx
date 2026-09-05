@@ -80,6 +80,9 @@ export default function Estimator() {
   const m2Touched = useRef(false);
   const [areaAnim, setAreaAnim] = useState(false);
   const animTimer = useRef<number | undefined>(undefined);
+  // Set by slider drags and typed numbers; consumed by the count-up effect so
+  // those inputs skip the tween and track 1:1.
+  const instantRef = useRef(false);
 
   // Moving the area for the visitor should read as a deliberate change, not as
   // a glitch, so the track glides. Dragging must stay 1:1 with the pointer, so
@@ -211,16 +214,21 @@ export default function Estimator() {
     const reduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
+    // Slider drags and typed numbers must stay 1:1 with the pointer, the same
+    // rule the thumb itself follows: those changes render instantly, and only
+    // discrete changes (pest, preset, reset) get the tween.
+    if (reduced || instantRef.current) {
+      instantRef.current = false;
       setDisplay(price);
       return;
     }
     const from = display;
     const start = performance.now();
-    const duration = 400;
+    const duration = 250;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
+      // Ease-out matching the site's --ease-out token.
+      const eased = 1 - Math.pow(1 - t, 4);
       setDisplay(Math.round(from + (price - from) * eased));
       if (t < 1) rafRef.current = requestAnimationFrame(tick);
     };
@@ -298,13 +306,14 @@ export default function Estimator() {
             </Disclosure.Heading>
 
             <Disclosure.Content>
-              <Disclosure.Body className="flex flex-col gap-6 pt-5 motion-safe:animate-[disclosureIn_.35s_ease-out]">
+              <Disclosure.Body className="flex flex-col gap-6 pt-5 motion-safe:animate-[disclosureIn_.25s_ease-out]">
                 <Slider.Root
                   value={m2}
                   onChange={(v) => {
                     if (Number(v) !== m2) {
                       m2Touched.current = true;
                       setAreaAnim(false);
+                      instantRef.current = true;
                     }
                     setM2(Number(v));
                   }}
@@ -328,6 +337,7 @@ export default function Estimator() {
                         if (next !== m2) {
                           m2Touched.current = true;
                           setAreaAnim(false);
+                          instantRef.current = true;
                         }
                         setM2(next);
                       }}
@@ -437,11 +447,11 @@ export default function Estimator() {
           */}
           <button
             type="button"
-            aria-label={`Skadedyr: ${pest.label}. Klik for at vælge et andet.`}
             onClick={() => {
               const el = document.getElementById(PEST_TRIGGER);
               if (!el) return;
-              el.scrollIntoView({ block: "center", behavior: "smooth" });
+              const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
               el.focus();
               el.click();
             }}

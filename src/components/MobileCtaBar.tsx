@@ -20,10 +20,10 @@ export default function MobileCtaBar() {
   if (consent === null) return null;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-ink-950/95 backdrop-blur border-t border-ink-800 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-ink-950/95 backdrop-blur border-t border-ink-800 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2 animate-slide-up">
       <Link
         href={MAILTO}
-        className="basis-0 grow inline-flex items-center justify-center gap-2 min-h-[48px] rounded-lg bg-accent-500 text-ink-950 font-bold"
+        className="press basis-0 grow inline-flex items-center justify-center gap-2 min-h-[48px] rounded-lg bg-accent-500 text-ink-950 font-bold"
       >
         <Mail size={17} strokeWidth={2.5} aria-hidden="true" />
         Skriv til os
@@ -31,7 +31,7 @@ export default function MobileCtaBar() {
       <Link
         href={TEL}
         aria-label="Ring til os på 24 24 55 83"
-        className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-lg border-2 border-ink-700 text-cream font-semibold"
+        className="press inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-lg border-2 border-ink-700 text-cream font-semibold"
       >
         <Phone size={17} strokeWidth={2.5} aria-hidden="true" />
         Ring

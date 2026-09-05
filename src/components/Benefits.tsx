@@ -1,5 +1,6 @@
 import { BadgeCheck, ClipboardCheck, Tag, Timer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Reveal from "./ui/Reveal";
 
 const BENEFITS: { title: string; desc: string; Icon: LucideIcon }[] = [
   {
@@ -32,10 +33,10 @@ export default function Benefits() {
           Det kan du regne med
         </h2>
         <div className="flex flex-wrap gap-6 justify-center">
-          {BENEFITS.map((b) => (
+          {BENEFITS.map((b, i) => (
+            <Reveal key={b.title} delay={i * 50} className="h-full [&>*]:h-full">
             <div
-              key={b.title}
-              className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3"
+              className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3 h-full"
               style={{ flexBasis: "220px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
             >
               <div className="w-12 h-12 rounded-xl bg-ink-900 text-accent-400 flex items-center justify-center">
@@ -44,6 +45,7 @@ export default function Benefits() {
               <h3 className="font-display font-bold text-lg text-ink-900">{b.title}</h3>
               <p className="text-sm text-ink-900/75">{b.desc}</p>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

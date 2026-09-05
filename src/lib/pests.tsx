@@ -130,7 +130,7 @@ export function PestGlyph({
       </span>
     );
   }
-  const url = `url(${import.meta.env.BASE_URL}pests/${pest.png}.png)`;
+  const url = `url(${import.meta.env.BASE_URL}pests/${pest.png}.webp)`;
   return (
     <span
       aria-hidden="true"

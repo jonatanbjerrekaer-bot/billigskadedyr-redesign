@@ -76,13 +76,18 @@ export default function Header({
         </div>
       </div>
 
-      {mobileNavOpen && (
-        <nav
-          id="mobile-nav"
-          aria-label="Mobilnavigation"
-          className="md:hidden bg-ink-900 border-t border-ink-800"
-        >
-          <div className="px-5 py-3 flex flex-col gap-1">
+      {/* Kept mounted and collapsed with the shared row-collapse class so both
+          opening and closing animate; visibility on the collapsed state keeps
+          the hidden links out of the tab order. */}
+      <nav
+        id="mobile-nav"
+        aria-label="Mobilnavigation"
+        aria-hidden={!mobileNavOpen}
+        className="md:hidden bg-ink-900 border-t border-ink-800 data-[collapsed=true]:border-transparent"
+      >
+        <div className="row-collapse" data-collapsed={!mobileNavOpen}>
+          <div>
+            <div className="px-5 py-3 flex flex-col gap-1">
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
@@ -100,9 +105,10 @@ export default function Header({
               <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
               Skriv til os
             </Link>
+            </div>
           </div>
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

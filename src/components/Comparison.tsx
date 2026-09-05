@@ -43,7 +43,7 @@ export default function Comparison() {
         <div className="grid md:grid-cols-2 gap-4 md:gap-8">
           {/* Left: the usual way. Deliberately quiet — it is the "before". */}
           <div className="rounded-2xl border border-ink-900/10 bg-ink-50/60 p-6 sm:p-8">
-            <h3 className="text-xs uppercase tracking-[0.2em] text-ink-900/50 font-semibold mb-6">
+            <h3 className="text-xs uppercase tracking-[0.2em] text-ink-900/70 font-semibold mb-6">
               Sådan gør andre
             </h3>
             <ul className="flex flex-col gap-5">
@@ -55,7 +55,7 @@ export default function Comparison() {
                   >
                     <X size={14} strokeWidth={3} />
                   </span>
-                  <span className="text-sm text-ink-900/55 leading-relaxed">{r.other}</span>
+                  <span className="text-sm text-ink-900/70 leading-relaxed">{r.other}</span>
                 </li>
               ))}
             </ul>
@@ -82,7 +82,7 @@ export default function Comparison() {
           </div>
         </div>
 
-        <p className="text-xs text-ink-900/45 text-center mt-8">
+        <p className="text-xs text-ink-900/70 text-center mt-8">
           Sammenligning mod typisk branchepraksis, ikke mod specifikke firmaer.
         </p>
       </div>

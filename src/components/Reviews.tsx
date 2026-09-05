@@ -59,7 +59,7 @@ function ScoreBlock({ score, count, source }: { score: number; count: number; so
         <span className="font-display text-3xl font-bold text-ink-900 tabular-nums">
           {score.toLocaleString("da-DK", { minimumFractionDigits: 1 })}
         </span>
-        <span className="text-sm text-ink-900/50">af 5</span>
+        <span className="text-sm text-ink-900/70">af 5</span>
       </div>
       <Stars score={score} />
       <span className="text-xs text-ink-900/60">
@@ -107,7 +107,7 @@ export default function Reviews() {
                 &ldquo;
               </span>
               <p className="text-sm text-ink-900/90 leading-relaxed grow">{r.quote}</p>
-              <cite className="text-xs text-ink-900/50 not-italic border-t border-ink-900/10 pt-3">
+              <cite className="text-xs text-ink-900/70 not-italic border-t border-ink-900/10 pt-3">
                 Trustpilot · {r.date}
               </cite>
             </blockquote>

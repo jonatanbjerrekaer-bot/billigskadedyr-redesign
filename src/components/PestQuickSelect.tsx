@@ -1,4 +1,5 @@
 import { GRID_PESTS, PestGlyph } from "../lib/pests";
+import Reveal from "./ui/Reveal";
 
 /**
  * Icons come from one registry (lib/pests) shared with the price calculator,
@@ -16,11 +17,11 @@ export default function PestQuickSelect() {
           Vælg dit skadedyr, og se om du kan klare det selv, eller om vi skal ud.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {GRID_PESTS.map((p) => (
+          {GRID_PESTS.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 50} className="h-full [&>*]:h-full">
             <a
-              key={p.slug}
               href={p.path === "pro" ? "#estimator" : "#shop"}
-              className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2"
+              className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2 h-full"
             >
               <div className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900">
                 <PestGlyph pest={p} />
@@ -28,13 +29,14 @@ export default function PestQuickSelect() {
               <span className="font-display font-bold text-ink-900 text-center">{p.label}</span>
               <span className="text-xs text-ink-900/60 text-center">
                 {p.path === "pro"
-                  ? "Vi klarer det for dig"
-                  : "Du kan klare det selv"}
+                  ? "Bedst med professionel hjælp"
+                  : "Klarer du selv med de rette produkter"}
               </span>
             </a>
+            </Reveal>
           ))}
         </div>
-        <p className="mt-6 text-xs text-ink-900/45">
+        <p className="mt-6 text-xs text-ink-900/70">
           Insektikoner:{" "}
           <a
             href="https://www.flaticon.com/"

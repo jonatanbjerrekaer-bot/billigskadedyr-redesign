@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Disclosure, Surface, ToggleButton } from "@heroui/react";
 import { Check, ChevronDown, Minus, Sparkles } from "lucide-react";
 import Cta, { MAILTO } from "./ui/Cta";
+import Reveal from "./ui/Reveal";
 
 /**
  * Comparison UX follows Baymard's guidance for pricing tables:
@@ -63,6 +64,45 @@ const ROWS: { label: string; values: (boolean | string)[] }[] = [
 
 const isSame = (values: (boolean | string)[]) => values.every((v) => v === values[0]);
 
+/**
+ * A matrix row that collapses to zero height instead of unmounting. Filtering
+ * the array on `diffOnly` directly would remove the rows in the same frame
+ * (and, worse, unmounting would destroy the state, so toggling back could
+ * never animate). Rows stay mounted at 0fr and transition in both
+ * directions; .row-collapse in index.css does the work.
+ */
+function MatrixRow({ label, values, hidden }: { label: string; values: (boolean | string)[]; hidden: boolean }) {
+  return (
+    <tr
+      aria-hidden={hidden}
+      data-collapsed={hidden}
+      className="border-b border-ink-900/[0.06] last:border-0 data-[collapsed=true]:border-transparent"
+    >
+      <th scope="row" className="p-0 text-sm font-medium text-ink-900 text-left">
+        <div className="row-collapse" data-collapsed={hidden}>
+          <div>
+            <div className="px-5 py-3.5">{label}</div>
+          </div>
+        </div>
+      </th>
+      {values.map((v, i) => (
+        <td
+          key={TIERS[i].id}
+          className={`p-0 ${TIERS[i].featured ? "bg-accent-500/[0.07]" : ""}`}
+        >
+          <div className="row-collapse" data-collapsed={hidden}>
+            <div>
+              <div className="px-5 py-3.5">
+                <Cell value={v} />
+              </div>
+            </div>
+          </div>
+        </td>
+      ))}
+    </tr>
+  );
+}
+
 function Cell({ value }: { value: boolean | string }) {
   if (value === true)
     return <Check size={18} strokeWidth={3} className="text-accent-700" aria-label="Inkluderet" />;
@@ -89,9 +129,9 @@ export default function Packages() {
         {/* Cards. The recommended tier is lifted and outlined rather than filled
             solid lime: a fully saturated card reads discount, not professional. */}
         <div className="grid md:grid-cols-3 gap-5 md:items-end">
-          {TIERS.map((t) => (
+          {TIERS.map((t, i) => (
+            <Reveal key={t.id} delay={i * 50} className="h-full [&>*]:h-full">
             <Surface
-              key={t.id}
               className={`relative flex flex-col rounded-2xl p-7 transition-[color,background-color,border-color,box-shadow,transform] duration-150 lift ${
                 t.featured
                   ? "bg-ink-900 border-2 border-accent-500 shadow-[0_0_60px_-12px] shadow-accent-500/40 md:pb-9 md:pt-11"
@@ -138,6 +178,7 @@ export default function Packages() {
                 </Cta>
               </div>
             </Surface>
+            </Reveal>
           ))}
         </div>
 
@@ -229,23 +270,13 @@ export default function Packages() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((r) => (
-                  <tr key={r.label} className="border-b border-ink-900/[0.06] last:border-0">
-                    <th
-                      scope="row"
-                      className="px-5 py-3.5 text-sm font-medium text-ink-900 text-left"
-                    >
-                      {r.label}
-                    </th>
-                    {r.values.map((v, i) => (
-                      <td
-                        key={TIERS[i].id}
-                        className={`px-5 py-3.5 ${TIERS[i].featured ? "bg-accent-500/[0.07]" : ""}`}
-                      >
-                        <Cell value={v} />
-                      </td>
-                    ))}
-                  </tr>
+                {ROWS.map((r) => (
+                  <MatrixRow
+                    key={r.label}
+                    label={r.label}
+                    values={r.values}
+                    hidden={diffOnly && isSame(r.values)}
+                  />
                 ))}
               </tbody>
             </table>

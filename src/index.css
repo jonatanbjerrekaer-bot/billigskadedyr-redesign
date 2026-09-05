@@ -1,7 +1,23 @@
 @import "@heroui/react/styles";
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/archivo";
+
+/* Self-hosted @font-face (below) replaces the @fontsource-variable packages:
+   two woff2 files total instead of every weight/italic/range combination, and
+   fixed public URLs that index.html can preload. */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/archivo-latin-wght-normal.woff2") format("woff2");
+}
 
 @theme {
   /* Near-black green, not mid-forest. The mid tones (#1a3a2a) read garden
@@ -36,6 +52,13 @@
   --color-cream: #f2f7f3;
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Archivo Variable", system-ui, sans-serif;
+
+  /* The two motion curves used anywhere on the page. --ease-out is the base
+     interactive settle; --ease-drawer is for surfaces that travel a real
+     distance (the banner/bar handoff, the slider preset glide). Reference
+     these; never hand-type a curve. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 html { scroll-behavior: smooth; }
@@ -82,7 +105,7 @@ input[type="range"]:active { cursor: grabbing; }
 a, button, [role="radio"], select, summary {
   transition-property: color, background-color, border-color, box-shadow, transform, opacity;
   transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-timing-function: var(--ease-out);
 }
 
 /* Reduced motion means less movement, not less interface. Colour and opacity
@@ -136,11 +159,6 @@ a, button, [role="radio"], select, summary {
 .list-box-item[data-selected],
 [role="option"][aria-selected="true"] {
   color: var(--color-accent-500) !important;
-}
-
-@keyframes selectIn {
-  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* HeroUI themes every component off a handful of CSS variables, and --accent
@@ -281,9 +299,16 @@ img {
 }
 
 /* The refinements panel opens as you reach it, so it needs to be seen opening
-   — an instant swap reads as "it was always like that" and signifies nothing. */
+   — an instant swap reads as "it was always like that" and signifies nothing.
+   250ms on the shared ease-out: long enough to register, inside the 300ms
+   budget, and matched to the panel's own height transition so one doesn't
+   trail the other. */
 @keyframes disclosureIn {
-  from { opacity: 0; transform: translateY(-6px); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    animation-timing-function: var(--ease-out);
+  }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -309,11 +334,76 @@ img {
 /* Only while a preset is being applied, so dragging stays 1:1 with the pointer. */
 @media (prefers-reduced-motion: no-preference) {
   #estimator .area-anim .slider__fill {
-    transition: width 420ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition: width 280ms var(--ease-drawer);
   }
   #estimator .area-anim .slider__thumb {
     transition:
-      left 420ms cubic-bezier(0.32, 0.72, 0, 1),
+      left 280ms var(--ease-drawer),
       transform 150ms ease;
   }
+}
+
+/* Rows hidden by "Vis kun forskelle" collapse instead of vanishing, and come
+   back the same way, so the reader keeps their bearings in both directions.
+   The collapse runs inside each cell (grid-template-rows 1fr -> 0fr) because
+   animating height on a <tr> is unreliable cross-browser; rows stay mounted
+   at zero height, which is also what lets the expand direction transition.
+   Opacity fades a touch faster than the height so the content is gone before
+   the gap closes. visibility drops at 50% of the transition (it is a
+   discrete, non-interpolated property), which takes collapsed content out of
+   the tab order the moment it stops being visible. */
+.row-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 280ms var(--ease-out),
+    opacity 200ms var(--ease-out);
+}
+.row-collapse > * {
+  min-height: 0;
+  overflow: hidden;
+}
+.row-collapse[data-collapsed="true"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .row-collapse { transition: none; }
+}
+
+/* One-time card-grid entrances: rise 8px and fade in on first scroll into
+   view, staggered ~50ms per sibling by an inline transition-delay. Fires
+   once (the observer disconnects) and never blocks interaction. */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transform: none; }
+  .reveal.is-revealed { transition-property: opacity; }
+}
+
+/* The cookie banner and the mobile CTA bar hand off along the same bottom
+   edge: each enters by sliding up and leaves by sliding back down, on the
+   drawer curve. Under reduced motion the global block already kills these
+   keyframes and strips transform from transitions, so both surfaces settle
+   without travel. */
+@keyframes slideFromBottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slideFromBottom 300ms var(--ease-drawer) both;
+}
+.banner-exit {
+  transform: translateY(100%);
+  transition: transform 250ms var(--ease-drawer);
 }

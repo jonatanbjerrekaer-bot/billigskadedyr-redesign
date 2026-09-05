@@ -77,19 +77,19 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row border-t border-ink-700">
           <a
             href="mailto:info@billigskadedyr.dk"
-            className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors"
+            className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors"
           >
             <Mail size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
             <span className="select-text text-sm">info@billigskadedyr.dk</span>
           </a>
           <a
             href="tel:+4524245583"
-            className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors border-t sm:border-t-0 sm:border-l border-ink-700"
+            className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors border-t sm:border-t-0 sm:border-l border-ink-700"
           >
             <Phone size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
             <span className="select-text text-sm font-semibold">24 24 55 83</span>
           </a>
-          <div className="basis-0 grow flex items-center gap-3 px-6 py-5 bg-accent-500 text-ink-950">
+          <div className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-accent-500 text-ink-950">
             <MapPin size={18} aria-hidden="true" className="shrink-0" />
             <span className="select-text text-sm font-semibold">Viengevej 6A, 8240 Risskov</span>
           </div>

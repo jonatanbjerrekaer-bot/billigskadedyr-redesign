@@ -13,6 +13,9 @@
  * score and review count, in e-mærket's own visual language, linking straight
  * to the public certificate so every claim on it is checkable. On the real
  * domain you delete this component and paste the widget snippet in its place.
+ *
+ * No aria-labels: the visible text is the accessible name, which also keeps
+ * the name contained in the visible label (WCAG 2.5.3).
  */
 type Props = {
   variant?: "dark" | "light" | "bar";
@@ -60,7 +63,6 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
         href={CERTIFICATE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`e-mærket certificeret webshop, ${String(EM_SCORE).replace(".", ",")} af 5 baseret på ${EM_COUNT} bedømmelser. Se certifikatet.`}
         className={["group flex items-start gap-2 min-w-0 text-[11px] sm:text-xs", className].join(" ")}
       >
         <svg width="15" height="17" viewBox="0 0 30 34" aria-hidden="true" className="shrink-0 mt-0.5 text-emaerket-light">
@@ -93,7 +95,6 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
       href={CERTIFICATE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`e-mærket certificeret webshop, ${String(EM_SCORE).replace(".", ",")} af 5 baseret på ${EM_COUNT} bedømmelser. Se certifikatet.`}
       className={[
         "group inline-flex items-center gap-3 rounded-xl border px-4 py-3 min-h-[44px] transition-colors",
         dark
