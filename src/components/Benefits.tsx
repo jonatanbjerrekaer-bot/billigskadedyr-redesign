@@ -34,11 +34,12 @@ export default function Benefits() {
         </h2>
         <div className="flex flex-wrap gap-6 justify-center">
           {BENEFITS.map((b, i) => (
-            <Reveal key={b.title} delay={i * 50} className="h-full [&>*]:h-full">
-            <div
-              className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3 h-full"
-              style={{ flexBasis: "220px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
+            <Reveal
+              key={b.title}
+              delay={i * 50}
+              className="h-full grow shrink basis-[220px] max-w-full [&>*]:h-full"
             >
+            <div className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3 h-full">
               <div className="w-12 h-12 rounded-xl bg-ink-900 text-accent-400 flex items-center justify-center">
                 <b.Icon size={22} strokeWidth={2} aria-hidden="true" />
               </div>
