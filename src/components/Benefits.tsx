@@ -37,7 +37,7 @@ export default function Benefits() {
             <Reveal
               key={b.title}
               delay={i * 50}
-              className="h-full grow shrink basis-[220px] max-w-full [&>*]:h-full"
+              className="flex h-full grow shrink basis-[220px] max-w-full [&>*]:h-full"
             >
             <div className="bg-ink-50 rounded-2xl p-6 flex flex-col gap-3 h-full">
               <div className="w-12 h-12 rounded-xl bg-ink-900 text-accent-400 flex items-center justify-center">
