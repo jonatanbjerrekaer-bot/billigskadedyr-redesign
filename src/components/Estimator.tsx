@@ -17,9 +17,7 @@ import {
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
 import {
-  consumePestPick,
   publishEstimatorSelection,
-  subscribePestPicks,
 } from "../lib/estimatorSelection";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import { estimate, dkr } from "../lib/pricing";
@@ -101,19 +99,6 @@ export default function Estimator() {
     window.clearTimeout(animTimer.current);
     animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
   };
-
-  // A pest card in the grid above can carry its choice here: preselect that
-  // pest and treat it as the visitor's own answer, the same as picking it in
-  // the dropdown.
-  useEffect(() => {
-    return subscribePestPicks(() => {
-      const slug = consumePestPick();
-      if (slug && PRICED_PESTS.some((p) => p.slug === slug)) {
-        setSlug(slug);
-        setSelTouched(true);
-      }
-    });
-  }, []);
 
   // Desktop only: open the refinements as the calculator comes into view, so
   // the controls are already there by the time the eye arrives. On a phone
