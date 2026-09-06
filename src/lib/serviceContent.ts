@@ -14,175 +14,176 @@ export type ServiceContent = {
 export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   rotter: {
     intro:
-      "Rotter og mus kan goere mere skade end de foerste tegn antyder. De gnavner i elledning, isolering og " +
-      "konstruktion, og de formerer sig hurtigt. En fagmand finder aarsagen, ikke kun de individer, du kan se.",
+      "Rotter og mus kan lave mere skade, end de første tegn antyder. De gnaver i ledninger, isolering og selve " +
+      "konstruktionen, og de formerer sig hurtigt. En fagmand finder årsagen til, at de er kommet ind, ikke kun " +
+      "de dyr, du kan se.",
     whyProfessional: [
-      "Gnaversporet og adgangsvejene bliver sikret, sa problemet ikke bare vender tilbage",
-      "Foderstationer bliver sat rigtigt op og merket, sa du kan foelge med",
-      "Skaermdokumentation, som du kan bruge til forsikring, udlejer eller ejendomsadministration",
-      "Vi vurderer risikoen for, at det spreder sig til naboer og bygninger ved siden af",
+      "Vi sikrer adgangsvejene, så problemet ikke bare vender tilbage",
+      "Foderstationer bliver sat rigtigt op og mærket, så du kan følge med i, hvad der sker",
+      "Skriftlig dokumentation, du kan bruge over for forsikring, udlejer eller ejendomsadministration",
+      "Vi vurderer risikoen for, at problemet spreder sig til naboer og nabobygninger",
     ],
     species: [
-      { name: "Vandringsrotte", text: "Den store, gralige rotte. Den gaar typisk ind udefra via kloak, hulmur eller utætte gennemfoeringer, og den kan gnavne sig gennem traevt og bløde materialer." },
-      { name: "Den huslige rotte", text: "Den mindre, moerke rotte, som oftest holder til indenfor, for eksempel i lofts, skakte og bag vaeggene i ældre bygninger." },
-      { name: "Husmus", text: "Lille, lyis og hurtig. Den finder vej gennem selv smalle sprækker og ynder vaerme, mad og gemmesteder tæt paa menneskers aktiviteter." },
+      { name: "Brun rotte (kloakrotte)", text: "Den store, gråbrune rotte. Den kommer typisk ind udefra gennem kloak, hulmur eller utætte gennemføringer og kan gnave sig vej gennem bløde materialer." },
+      { name: "Sort rotte", text: "Mindre og mørkere end kloakrotten og holder sig oftest højt, for eksempel på loftet, i skakte og bag væggene i ældre bygninger." },
+      { name: "Husmus", text: "Lille, lys og hurtig. Den finder vej gennem meget smalle sprækker og holder sig tæt på varme, mad og gemmesteder med mennesker i nærheden." },
     ],
     processNote:
-      "Foerst besigtiger vi adressen for at forsta, hvordan dyr kommer til, og hvad der tiltrækker dem. " +
-      "Derefter bliver adgangsvejene sikret, og der bliver sat foderstationer op efter behov. Prisen ligger fast, " +
-      "foer vi gar i gang, og du skriftlig dokumentation for behandlingen.",
+      "Først besigtiger vi adressen for at forstå, hvordan dyrene kommer ind, og hvad der tiltrækker dem. " +
+      "Derefter sikrer vi adgangsvejene og sætter foderstationer op efter behov. Prisen ligger fast, før vi " +
+      "går i gang, og du får skriftlig dokumentation for behandlingen.",
   },
   myrer: {
     intro:
-      "Myrer i terrassen eller gangen i koekkenbetonen er sjældent farlige, men de er generende, og en reden vaekster " +
-      "hurtigt. En fagmand finder reden og behandler den, sa kolonien stopper, i stedet for at dukke op igen naeste saeson.",
+      "Myrer i terrassen eller i køkkenet er sjældent farlige, men de er generende, og en rede vokser hurtigt. " +
+      "En fagmand finder reden og behandler den, så kolonien er standset, i stedet for at dukke op igen næste sæson.",
     whyProfessional: [
-      "Vi finder den reede, du ikke selv kan opdrive, og behandler den",
-      "Godkendte midler doseret rigtigt, sa det virker og er forsvarligt for hav og kjær",
-      "Mindre risiko for, at angrebet vender tilbage naeste forar",
-      "Rad om, hvordan du forebygger, at myrer kommer tilbage til huset",
+      "Vi finder den rede, du ikke selv kan opdrive, og behandler den direkte",
+      "Godkendte midler, doseret rigtigt, så de virker og er forsvarlige for hus og have",
+      "Mindre risiko for, at angrebet vender tilbage næste forår",
+      "Råd om, hvordan du forebygger, at myrerne kommer tilbage",
     ],
     species: [
-      { name: "Den røde skovmyre", text: "Bygger det kendte myrebo af granagler i haven. Beskyttet og skal ikke bekæmpes, medmindre den generer inde i huset." },
-      { name: "Den sorte have myre", text: "Den almindeligste i haver og paa terrasser. Gaar typisk ind efter mad, og den kan lave gangene under fliserne." },
-      { name: "Pharaoh-myren", text: "Lille, gulagtig og staerkest indendørs, for eksempel i sygehuse og koekkener. Kover i smalle sprækker og kan sprede sig mellem lejligheder." },
-      { name: "Den havede", text: "Laver de lille jordskoler i plaenen. Ufarlige, men ofte den, der bliver forvekslet med den reelle, der skal behandles." },
+      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den er fredet og skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
+      { name: "Sort havemyre", text: "Den almindeligste i haver og på terrasser. Den går typisk ind efter mad og kan lave gange under fliserne." },
+      { name: "Pharaomyre", text: "Lille, gulagtig og stærkest indendørs, for eksempel i køkkener. Den lever i smalle sprækker og kan sprede sig mellem lejligheder." },
+      { name: "Gul engmyre (ænsmyren)", text: "Laver de små jordhøje i plænen. Ufarlig, men ofte den, der forveksles med myrer, der faktisk skal behandles." },
     ],
     processNote:
-      "Vi forstaart først, hvilken myre det er, og hvor reden er, fordi midlet og metoden afhænger af det. " +
-      "Herefter bliver reden og adgangsvejene behandlet. Prisen ligger fast, foer vi gar i gang, og du faar en " +
+      "Først fastlægger vi, hvilken myreart det er, og hvor reden sidder, fordi middel og metode afhænger af " +
+      "det. Derefter behandles reden og adgangsvejene. Prisen ligger fast, før vi går i gang, og du får " +
       "skriftlig dokumentation for behandlingen.",
   },
   hvepse: {
     intro:
-      "Et hvepsebo tæt paa en doer, et vindue eller et legeudstyr er ikke en goer-det-selv-opgave, naar boet er " +
-      "kommet i gang. En fagmand fjerner det, uden at du udsaetter dig selv eller andre for stik.",
+      "Et hvepsebo tæt på en dør, et vindue eller legepladsen er ikke en opgave, du skal tage selv, når boet " +
+      "først er i gang. En fagmand fjerner det, uden at du eller andre bliver udsat for stik.",
     whyProfessional: [
-      "Boet bliver fjernet, ogsa naar det sidder paa et besværligt sted",
-      "Vi vurderer, om det er hvepse eller bier, og hvordan det skal haandteres",
-      "Efterbehandling af hulrummet, sa de ikke vender tilbage til det samme sted",
-      "Skaermdokumentation for behandlingen",
+      "Boet bliver fjernet, også når det sidder et besværligt sted",
+      "Vi vurderer, om det er hvepse eller bier, og hvordan det skal håndteres",
+      "Efterbehandling af hulrummet, så de ikke bygger bo samme sted igen",
+      "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Den tykstemmet hvepse", text: "Bygger paa lofter, i skure og i hulrum. Kan blive stor og aggressiv, naar boet forstoerre." },
-      { name: "Den almindelige hvepse", text: "Den klassiske sommeraarsgæst. Bygger typisk bo i jordhuller og i hulrum." },
-      { name: "Den jorde", text: "Ligner den almindelige hvepse og graver ofte bo i vaerka og i terrasser." },
+      { name: "Tysk hveps", text: "Den mest almindelige i Danmark. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
+      { name: "Almindelig hveps", text: "Den klassiske gæst i sensommeren. Bygger typisk bo i jordhuller og i hulrum." },
+      { name: "Jordhveps", text: "Ligner den almindelige hveps, men graver ofte boet i græsplænen eller under terrassen." },
     ],
     processNote:
-      "Boet bliver fjernet, og hulrummet eller stedet bliver efterbehandlet, sa de ikke bygger det samme sted " +
-      "igen. Vi fortæller dig paforhaand, om du skal vaere hjemme, og hvornaar rummet eller omradet kan bruges igen.",
+      "Boet bliver fjernet, og stedet bliver efterbehandlet, så hvepsene ikke bygger det op igen. Vi fortæller " +
+      "dig på forhånd, om du skal være hjemme, og hvornår området kan bruges som før.",
   },
   vaeggelus: {
     intro:
-      "Vaeggelus gemmer sig i naboens suturer, fodpaneler og bag loest tilslutning. De bliver ikke vaek ved vask og " +
-      "skift af sengetoj alene. En fagmand naar de steder, du ikke naar, og behandler efter et forloeb.",
+      "Væggelus gemmer sig i sømme, fodlister og bag løst tapet. De forsvinder ikke ved vask og nyt sengetøj " +
+      "alene. En fagmand når de steder, du ikke selv når, og behandler over et forløb.",
     whyProfessional: [
-      "Vi naer skjul, suturer og bag loest tilslutning, hvor dyrene sidder",
+      "Vi når ind i sprækker, sømme og bag løst tapet, hvor dyrene sidder",
       "Godkendte midler, brugt efter de danske regler",
-      "Rad om vask og efterbehandling, sa du undgaar, at de vender tilbage",
-      "Skriftlig dokumentation, relevant ved udlejejn, flytning og forsikringssager",
+      "Råd om vask og ryddeliggøring, så du undgår, at de vender tilbage",
+      "Skriftlig dokumentation, der er relevant ved udlejning, flytning og forsikringssager",
     ],
     species: [
-      { name: "Den almindelige vaeggelus", text: "Flad, roedlig og faerdes om natten efter blod. Holder til i syninger i madras og sengetoj." },
-      { name: "Vedtaegtet vaeggelus", text: "Ligner den almindelige og ses i nordlige omraader. Samme adfærd og samme bekæmpelsesbehov." },
+      { name: "Almindelig væggelus", text: "Flad, rødlig og aktiv om natten, hvor den søger blod. Holder til i sømme i madras og sengetøj." },
+      { name: "Vingetæge", text: "Ligner almindelig væggelus og ses især, hvor der er flagermus på loftet. Samme adfærd og samme behov for behandling." },
     ],
     processNote:
-      "Forloebet er ofte to eller flere besoeg med mellemrum, fordi æg ikke bliver ramt foerste gang. Du faar " +
-      "konkret rad til, hvad der skal vaskes og ryddes mellem besoegene. Prisen aftales foer forloebet.",
+      "Forløbet er ofte to eller flere besøg med mellemrum, fordi æggene ikke bliver ramt første gang. Du får " +
+      "konkret råd om, hvad der skal vaskes og ryddes mellem besøgene. Prisen aftales, før forløbet går i gang.",
   },
   soelvfisk: {
     intro:
-      "Skægkræ og soelvfisk holder til, hvor det er fugtigt og morkt: kælder, bryn, under vasken og bag loest " +
-      "tilslutning. Ofte er fugtproblemet den egentlige aarsag, og det bliver tit bortforsket.",
+      "Skægkræ og sølvfisk holder sig, hvor det er fugtigt og mørkt: i kælderen, i bryggerset, under vasken " +
+      "og bag løse fodlister. Ofte er fugtproblemet den egentlige årsag, og det bliver ofte overset.",
     whyProfessional: [
-      "Vi finder aarsagen i fugt og adgangsveje, ikke kun dyr, du kan se",
-      "Midler med varmeeffekt i fugtzoner, revner og fodpaneler",
+      "Vi finder årsagen i fugt og utætheder, ikke kun de dyr, du kan se",
+      "Midler med varig effekt i fugtzoner, revner og bag fodlister",
       "Mindre risiko for, at de vender tilbage",
-      "Skaermdokumentation for behandlingen",
+      "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Skægkræ", text: "Langbenet og hurtig. Holder til i fugtige rum som bryn, kælder og vaskeskabe." },
-      { name: "Soelvfisk", text: "Smal, soelvblank og flygtig. Ynder stivelseholdigt papir, tapet og fugtige hjorner." },
+      { name: "Skægkræ", text: "Langbenet og hurtig. Holder til i fugtige rum som bryggers, kælder og vaskeskabe." },
+      { name: "Sølvfisk", text: "Slank, sølvblank og sky. Holder af stivelseholdigt papir, tapet og fugtige hjørner." },
     ],
     processNote:
-      "Vi behandler fugtzoner, revner og fodpaneler og fortæller, hvad du selv kan gore for at tarmaet for " +
-      "forholdene. Prisen ligger fast, foer vi gar i gang.",
+      "Vi behandler fugtzoner, revner og områder bag fodlister og fortæller dig, hvad du selv kan gøre for at " +
+      "tørre forholdene ud. Prisen ligger fast, før vi går i gang.",
   },
   borebiller: {
     intro:
-      "Huller i lofter, stuflo og udfaldende traevæk er typisk vaerk af borebille. Skaden sidder inde i traeværket, " +
-      "og den vaekster, mens du ser den vaekke. En fagmand vurderer angrebet og behandler det rigtigt.",
+      "Huller i lofter, gulve og nedfaldende træværk er typisk tegn på borebiller. Skaden sidder inde i " +
+      "træværket og vokser, mens du ser til. En fagmand vurderer omfanget og behandler rigtigt.",
     whyProfessional: [
-      "Vi vurderer omfanget af angrebet i traeværket, sa behandlingen rammer det, der skal",
+      "Vi vurderer, hvor langt angrebet har spredt sig, så behandlingen rammer det, den skal",
       "Godkendte midler til selve træværket",
-      "Rad om, hvilke deler der skal udskiftes",
+      "Råd om, hvilke dele der bør udskiftes",
       "Dokumentation til ejendomsadministration eller forsikring",
     ],
     species: [
-      { name: "Ægte borebille", text: "Gnavner gange i blodaedt lauftra, for eksempel egetr. Hullerne i overfladen er et af tegnene." },
-      { name: "Borebille", text: "Angriber blodaedt nauletra, ofte i lofter, tagkonstruktion og mdelre alderdom." },
-      { name: "Borebille i indendoers", text: "Kan optræde i loest tra, moebler og trægolv, hvor skaden viser sig som smalle huller." },
+      { name: "Husbuk", text: "Den alvorligste. Gnaver gange i blødt nåletræ, for eksempel i tagkonstruktioner og lofter. De karakteristiske huller i overfladen er et af tegnene." },
+      { name: "Løvtræborebille", text: "Gnaver i hårdt løvtræ som egetræ og ses ofte i ældre bygningsdele og møbler." },
+      { name: "Borebille i møbler og gulve", text: "Kan optræde i løst træ, møbler og trægulve, hvor skaden viser sig som smalle huller og fint boremel." },
     ],
     processNote:
-      "Vi forstaart først, om det er borebiller, og hvor vidt angrebet er gaaet. Herefter bliver det angrebne " +
-      "traevæk behandlet, og du faar dokumentation for behandlingen.",
+      "Først fastlægger vi, om det er borebiller, og hvor vidt angrebet er gået. Derefter behandles det " +
+      "angrebne træværk, og du får dokumentation for behandlingen.",
   },
   kakerlakker: {
     intro:
-      "Kakerlakker i koekken, bad eller erhvervskoekken er mere end et synligt ubehag. De spreder smitte og " +
-      "overlever i aflob og skjul. En fagmand behandler kilden, ikke bare dem, du ser om natten.",
+      "Kakerlakker i køkken, badeværelse eller erhvervskøkken er mere end et synligt ubehag. De spreder smitte " +
+      "og overlever i afløb og skjulesteder. En fagmand behandler kilden, ikke kun dem, du ser om natten.",
     whyProfessional: [
-      "Gelbehandling naer skjul, aflb og bag hvidevarer, du ikke selv naer",
-      "Vi forstaart kilden og adgangsvejene, sa behandlingen bliver holdbar",
-      "Forloeb tilpasset storrelsen af angrebet, herunder opfoelgende besoeg",
-      "Skriftlig dokumentation, ogsa til audit og egenkontrol",
+      "Gelbehandling i skjulesteder, afløb og bag hvidevarer, du ikke selv når",
+      "Vi finder kilden og adgangsvejene, så behandlingen holder",
+      "Et forløb tilpasset angrebets størrelse, med opfølgende besøg når det er nødvendigt",
+      "Skriftlig dokumentation, også til audit og egenkontrol",
     ],
     species: [
-      { name: "Den tyske kakerlak", text: "Den almindeligste indendoers. Lille, lysbrun og ynder koekken, bad og bag hvidevarer." },
-      { name: "Den orientalske kakerlak", text: "Storre, moerke og hurtig. Holder til i varme, fugtige omraader som kælder og teknikskakte." },
-      { name: "Den morgenbyerske kakerlak", text: "Storre, roedlig og mere udefra kommende. Kan ses baade inde og ude, for eksempel ved indgangsdoere." },
+      { name: "Tysk kakerlak", text: "Den almindeligste indendørs. Lille, lysbrun og holder af køkken, badeværelse og bag hvidevarer." },
+      { name: "Orientalisk kakerlak", text: "Større, mørk og hurtig. Holder til i varme, fugtige steder som kældre og teknikskakte." },
+      { name: "Amerikansk kakerlak", text: "Stor, rødlig og kommer ofte udefra. Kan ses både inde og ude, for eksempel ved indgangsdøre og kloakdæksler." },
     ],
     processNote:
-      "Vi begynder med, hvor kilden og adgangsvejene er, og behandler derefter med gel og lokkedoer tilpasset " +
-      "angrebet. Ved kraftige angreb laver vi opfoelgende besoeg. Til erhverv faar du dokumentation til audit.",
+      "Vi starter med at finde kilden og adgangsvejene og behandler derefter med gel og lokkedøre tilpasset " +
+      "angrebet. Ved kraftige angreb laver vi opfølgende besøg. Til erhverv får du dokumentation til audit.",
   },
   fluer: {
     intro:
-      "Fluer i boligen kommer sjældent alene. De finder en kilde: affald, aflb, moekent frugt eller et kadaver " +
-      "et sted, du ikke har faaet oejene for. En fagmand finder kilden og stopper produktionen.",
+      "Fluer i boligen kommer sjældent alene. De har fundet en kilde: affald, afløb, moden frugt eller et dødt " +
+      "dyr et sted, du ikke har fået øje på. En fagmand finder kilden og stopper produktionen.",
     whyProfessional: [
       "Vi finder kilden, du ikke selv kan opdrive",
-      "Midler mod bade voksne og larver, sa bestanden ikke bare vokser igen",
-      "Rad om affald, aflb og opbevaring",
-      "Skaermdokumentation for behandlingen",
+      "Midler mod både voksne fluer og larver, så bestanden ikke bare vokser igen",
+      "Råd om affald, afløb og opbevaring",
+      "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Den almindelige hus flue", text: "Den velkendte, gralige flue. Ynder affald, mad og moekne stoffer." },
-      { name: "Kloakfluen", text: "Klumpet om morket. Kommer ofte fra aflb, der er toerret ud eller tilsmudset, og kan opfatte som en plage i bryn og bryn." },
-      { name: "Surhedsfluen", text: "Lille og gulbrun. Ynder moekent frugt, gærende vaeske og affald." },
+      { name: "Husflue", text: "Den velkendte, grå flue. Holder af affald, madvarer og mørknet materiale." },
+      { name: "Kloakflue", text: "Lille og mørk med dunede vinger. Kommer ofte fra afløb, der er tørret ud eller snavsede, og kan være en plage på badeværelset." },
+      { name: "Bananflue", text: "Lille og gulbrun. Holder af moden frugt, gærende væske og affald." },
     ],
     processNote:
-      "Vi forstaart, hvor de kommer fra, og behandler kilden. Herefter faar du konkrete rad til forebyggelse, " +
-      "sa du slipper for, at det vender tilbage. Prisen ligger fast, foer vi gar i gang.",
+      "Vi fastlægger, hvor fluerne kommer fra, og behandler kilden. Derefter får du konkrete råd til " +
+      "forebyggelse, så du slipper for, at det vender tilbage. Prisen ligger fast, før vi går i gang.",
   },
   edderkopper: {
     intro:
-      "Edderkopper i hjorner, lofter og udestuer er som regel harmlige, men viene kan vaere generende, og " +
-      "enkelt arter kan give et pib. En fagmand kan fjerne dem og radgive sa de ikke vender tilbage.",
+      "Edderkopper i hjørner, lofter og udestuer er som regel harmløse, men spindet kan være generende, og " +
+      "nogle arter kan bide. En fagmand fjerner dem og rådgiver, så de ikke etablerer sig igen.",
     whyProfessional: [
-      "Vi naer lofter, hjorner, vindueskarme og andet staovet, hvor viene sidder",
-      "Midler med varmeeffekt, sa du slipper for at gøre det gentagne selv",
-      "Rad om at forebygge, sa de ikke etablerer sig igen",
-      "Skaermdokumentation for behandlingen",
+      "Vi når lofter, hjørner og vindueskarme, hvor spindet sidder",
+      "Midler med varig effekt, så du slipper for at gøre rent igen og igen",
+      "Råd om forebyggelse, så de ikke etablerer sig på ny",
+      "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Kældder edderkoppen", text: "Harmlig, men laver pæne viene i kælder, udskur og udestuer. Spidder af blodaedt." },
-      { name: "Langbenet edderkop", text: "Harmlig, ses om efteraaret i husgerum, der er varme og staovet." },
-      { name: "Vægbidt edderkop", text: "Giver et pib, der minder om en bi. Bygger et spindende vaev i husgerum." },
+      { name: "Husedderkop", text: "Harmløs, men bygger store spind i kælder, udskure og udestuer. Den holder bestanden af andre insekter nede." },
+      { name: "Vinduesedderkop", text: "Langbenet og harmløs. Ses ofte om efteråret i lofter og hjørner med ro og lidt fugt." },
+      { name: "Korsedderkop", text: "Kendt på det lyse mønster på ryggen. Ses ofte i haven og kan finde vej indenfor om efteråret." },
     ],
     processNote:
-      "Vi behandler de steder, viene sidder, og giver rad til, hvordan du forebygger. Prisen ligger fast, foer vi " +
-      "gar i gang.",
+      "Vi behandler de steder, hvor spindet sidder, og giver råd om, hvordan du forebygger nye. Prisen ligger " +
+      "fast, før vi går i gang.",
   },
 };
 
