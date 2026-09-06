@@ -15,6 +15,8 @@ export type EstimatorSelection = {
   severity: Severity;
   /** Formatted price, e.g. "2.200 kr." */
   price: string;
+  /** True once the visitor has touched any calculator input themselves. */
+  touched: boolean;
 };
 
 let current: EstimatorSelection | null = null;
@@ -34,7 +36,8 @@ export function publishEstimatorSelection(next: EstimatorSelection) {
     current.m2 === next.m2 &&
     current.property === next.property &&
     current.severity === next.severity &&
-    current.price === next.price
+    current.price === next.price &&
+    current.touched === next.touched
   ) {
     return;
   }

@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Input, Label, TextArea, TextField, toast } from "@heroui/react";
-import { ClipboardPaste, Loader2, Send } from "lucide-react";
+import { ClipboardPaste, Eraser, Loader2, Send } from "lucide-react";
 
 const FIELD =
   "w-full rounded-lg border border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-cream placeholder:text-ink-100/40 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/50";
 const ERROR = "text-xs text-[#f87171]";
+const PLACEHOLDER = "Skriv kort, hvad du har set, og hvor i boligen det er.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -17,16 +18,15 @@ type Errors = { email?: string; message?: string };
  * identical to the real thing once a backend lands.
  *
  * When the real endpoint arrives it must re-validate everything (client
- * validation is UX, not a control) and carry the spam-prevention stack:
- *   1. Honeypot field — hidden from humans, bots fill it, reject if filled.
- *   2. Time trap — stamp form render, reject submissions under ~2 s.
- *   3. Server-side validation — email format and a max message size.
- *   4. Rate limiting per IP and per email.
- *   5. CAPTCHA (Cloudflare Turnstile, not reCAPTCHA) only if 1-4 fail,
- *      accepting the third-party script cost.
- * The site is static on GitHub Pages, so the endpoint lives elsewhere
- * (Worker, form service, or a handler on the GX10 box); all five measures
- * live there, the page only holds the honeypot and the render stamp.
+ * validation is UX, not a control) and carry the spam stack documented in
+ * git history (commit 990cfba): honeypot, time trap, server-side validation,
+ * rate limiting, CAPTCHA only as escalation.
+ *
+ * `draft` is the message drafted from the calculator. It is only passed when
+ * the visitor actually used the calculator: prefilling a made-up situation
+ * would read as a trick on a form whose whole job is trust. The prefill
+ * applies while the field is empty or still holds the previous draft, so
+ * it follows the calculator but never overwrites what the visitor typed.
  *
  * Validation is manual on submit rather than HeroUI's validationBehavior:
  * the "aria" mode displays errors in realtime (including on first paint),
@@ -34,11 +34,25 @@ type Errors = { email?: string; message?: string };
  * gated behind the first submit attempt are the third option, and the one
  * that matches how the form is actually used.
  */
-export default function InquiryForm({ placeholder }: { placeholder: string }) {
+export default function InquiryForm({ draft }: { draft: string }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
+  // The last draft we placed in the field, so a calculator change can update
+  // the draft but a keystroke of the visitor's own stops the sync. Cleared
+  // stops it too: clearing is a decision, and silently refilling the field
+  // would read as the page ignoring it.
+  const appliedDraft = useRef("");
+  const cleared = useRef(false);
+
+  useEffect(() => {
+    if (!draft || cleared.current) return;
+    if (message === "" || message === appliedDraft.current) {
+      setMessage(draft);
+      appliedDraft.current = draft;
+    }
+  }, [draft, message]);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -55,12 +69,14 @@ export default function InquiryForm({ placeholder }: { placeholder: string }) {
 
     setSending(true);
     // ponytail: fake send — the real endpoint must implement the spam stack
-    // documented in the header comment above this component.
+    // documented in the header comment of this component.
     window.setTimeout(() => {
       setSending(false);
       setEmail("");
       setMessage("");
       setErrors({});
+      appliedDraft.current = "";
+      cleared.current = false;
       toast.success("Tak for din besked!", {
         description: "Vi svarer på mail inden for en hverdag.",
       });
@@ -105,9 +121,14 @@ export default function InquiryForm({ placeholder }: { placeholder: string }) {
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
+            if (e.target.value === "") {
+              // Deleting down to empty is the same decision as clearing.
+              cleared.current = true;
+              appliedDraft.current = "";
+            }
             if (errors.message) setErrors((p) => ({ ...p, message: undefined }));
           }}
-          placeholder={placeholder}
+          placeholder={PLACEHOLDER}
           className={`${FIELD} resize-y min-h-[104px]`}
           aria-invalid={errors.message ? true : undefined}
         />
@@ -118,14 +139,33 @@ export default function InquiryForm({ placeholder }: { placeholder: string }) {
         )}
       </TextField.Root>
 
-      {message === "" && (
+      {message === "" ? (
+        draft && (
+          <button
+            type="button"
+            onClick={() => {
+              setMessage(draft);
+              appliedDraft.current = draft;
+              cleared.current = false;
+            }}
+            className="self-start inline-flex items-center gap-1.5 -mt-1 text-xs text-accent-400 underline underline-offset-4 hover:text-accent-300 transition-colors"
+          >
+            <ClipboardPaste size={13} strokeWidth={2.25} aria-hidden="true" />
+            Brug udkastet fra beregneren
+          </button>
+        )
+      ) : (
         <button
           type="button"
-          onClick={() => setMessage(placeholder)}
-          className="self-start inline-flex items-center gap-1.5 -mt-1 text-xs text-accent-400 underline underline-offset-4 hover:text-accent-300 transition-colors"
+          onClick={() => {
+            setMessage("");
+            appliedDraft.current = "";
+            cleared.current = true;
+          }}
+          className="self-start inline-flex items-center gap-1.5 -mt-1 text-xs text-ink-100/60 underline underline-offset-4 hover:text-cream transition-colors"
         >
-          <ClipboardPaste size={13} strokeWidth={2.25} aria-hidden="true" />
-          Brug udkastet fra beregneren
+          <Eraser size={13} strokeWidth={2.25} aria-hidden="true" />
+          Ryd beskedfeltet
         </button>
       )}
 
@@ -146,6 +186,32 @@ export default function InquiryForm({ placeholder }: { placeholder: string }) {
           </>
         )}
       </button>
+
+      {/*
+        The consent line the reference business runs under its own forms. Both
+        links intentionally land on the same page, exactly as they do there.
+      */}
+      <p className="text-xs text-ink-100/60 -mt-1">
+        Når du sender formularen, accepterer du vores{" "}
+        <a
+          href="https://billigskadedyrprof.dk/privatlivspolitik/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-4 hover:text-cream transition-colors"
+        >
+          vilkår
+        </a>{" "}
+        og{" "}
+        <a
+          href="https://billigskadedyrprof.dk/privatlivspolitik/"
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-4 hover:text-cream transition-colors"
+        >
+          privatlivspolitik
+        </a>
+        .
+      </p>
     </form>
   );
 }
