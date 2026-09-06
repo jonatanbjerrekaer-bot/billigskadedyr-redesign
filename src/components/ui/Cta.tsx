@@ -12,7 +12,7 @@ import type { ReactNode } from "react";
  * Email leads and phone follows, everywhere. Changing that ordering is a
  * one-line change here rather than a sweep across nine components.
  */
-export const TEL = "tel:+4524245583";
+export const TEL = "tel:+452****5583";
 // Every "Skriv til os" button scrolls to the page's one contact form instead
 // of opening a mail client; the form is the action, the buttons are ways to
 // reach it.

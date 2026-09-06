@@ -9,7 +9,13 @@ const PLACEHOLDER = "Skriv kort, hvad du har set, og hvor i boligen det er.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type Errors = { email?: string; message?: string };
+// Danish numbers are dialled a handful of ways (24245583, 24 24 55 83,
+// +45 24 24 55 83). The check is on the digits only: strip spaces,
+// require at least eight of them. Anything stricter repels people who
+// type their number with dots or brackets.
+const PHONE_MIN_DIGITS = 8;
+
+type Errors = { email?: string; phone?: string; message?: string };
 
 /**
  * The page's one contact form. There is no backend yet, so the submit
@@ -36,6 +42,7 @@ type Errors = { email?: string; message?: string };
  */
 export default function InquiryForm({ draft }: { draft: string }) {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
@@ -62,6 +69,10 @@ export default function InquiryForm({ draft }: { draft: string }) {
     const em = email.trim();
     if (!em) next.email = "Skriv din e-mail, så vi kan svare dig.";
     else if (!EMAIL_RE.test(em)) next.email = "Den e-mail ser ikke rigtig ud. Tjek den lige.";
+    const digits = phone.replace(/\s/g, "");
+    if (!digits.trim()) next.phone = "Skriv dit telefonnummer, så vi kan ringe op.";
+    else if (digits.replace(/\D/g, "").length < PHONE_MIN_DIGITS)
+      next.phone = "Det telefonnummer ser for kort ud. Tjek det lige.";
     if (!message.trim())
       next.message = "Skriv en besked, eller brug udkastet fra beregneren.";
     setErrors(next);
@@ -73,6 +84,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
     window.setTimeout(() => {
       setSending(false);
       setEmail("");
+      setPhone("");
       setMessage("");
       setErrors({});
       appliedDraft.current = "";
@@ -85,30 +97,61 @@ export default function InquiryForm({ draft }: { draft: string }) {
 
   return (
     <form onSubmit={submit} noValidate className="flex flex-col gap-3">
-      <TextField.Root className="flex flex-col gap-1.5">
-        <Label htmlFor="inquiry-email" className="text-xs font-medium text-ink-100/70">
-          Din e-mail
-        </Label>
-        <Input
-          id="inquiry-email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
-          }}
-          placeholder="fx karen@mail.dk"
-          className={FIELD}
-          aria-invalid={errors.email ? true : undefined}
-        />
-        {errors.email && (
-          <p role="alert" className={ERROR}>
-            {errors.email}
-          </p>
-        )}
-      </TextField.Root>
+      {/* Email is the answer we need, phone is the fast lane to it. Side by
+          side from sm up, stacked on a phone, where two half-width fields
+          would shrink the keyboards too far. */}
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+        <TextField.Root className="flex flex-col gap-1.5">
+          <Label htmlFor="inquiry-email" className="text-xs font-medium text-ink-100/70">
+            Din e-mail
+          </Label>
+          <Input
+            id="inquiry-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
+            }}
+            placeholder="fx karen@mail.dk"
+            className={FIELD}
+            aria-invalid={errors.email ? true : undefined}
+          />
+          {errors.email && (
+            <p role="alert" className={ERROR}>
+              {errors.email}
+            </p>
+          )}
+        </TextField.Root>
+
+        <TextField.Root className="flex flex-col gap-1.5">
+          <Label htmlFor="inquiry-phone" className="text-xs font-medium text-ink-100/70">
+            Dit telefonnummer
+          </Label>
+          <Input
+            id="inquiry-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            inputMode="tel"
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+              if (errors.phone) setErrors((p) => ({ ...p, phone: undefined }));
+            }}
+            placeholder="fx 24 24 55 83"
+            className={FIELD}
+            aria-invalid={errors.phone ? true : undefined}
+          />
+          {errors.phone && (
+            <p role="alert" className={ERROR}>
+              {errors.phone}
+            </p>
+          )}
+        </TextField.Root>
+      </div>
 
       <TextField.Root className="flex flex-col gap-1.5">
         <Label htmlFor="inquiry-message" className="text-xs font-medium text-ink-100/70">
