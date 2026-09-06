@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CookieBanner from "./components/CookieBanner";
 import MobileCtaBar from "./components/MobileCtaBar";
+import { ToastProvider } from "@heroui/react";
 import Header from "./components/Header";
 import UspBar from "./components/UspBar";
 import Hero from "./components/Hero";
@@ -10,6 +11,7 @@ import Benefits from "./components/Benefits";
 import Comparison from "./components/Comparison";
 import Process from "./components/Process";
 import Estimator from "./components/Estimator";
+import Contact from "./components/Contact";
 import Packages from "./components/Packages";
 import Reviews from "./components/Reviews";
 import Faq from "./components/Faq";
@@ -35,10 +37,12 @@ export default function App() {
         <Reviews />
         <Faq />
         <ClosingCta />
+        <Contact />
       </main>
       <Footer />
       <MobileCtaBar />
       <CookieBanner />
+      <ToastProvider />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import Cta, { MAILTO, TEL } from "./ui/Cta";
+import Cta, { CONTACT_HREF, TEL } from "./ui/Cta";
 import TrustSeal from "./TrustSeal";
 
 export default function ClosingCta() {
@@ -10,8 +10,8 @@ export default function ClosingCta() {
           Klar til at få det løst?
         </h2>
         <p className="mt-3 text-lg opacity-90">
-          Skriv et par linjer om, hvad du står over for. Du får svar inden for 24 timer på
-          hverdage og en fast pris, før vi går i gang.
+          Skriv et par linjer om, hvad du står over for. Vi svarer inden for en hverdag, og prisen
+          ligger fast, før vi går i gang.
         </p>
         {/*
           On a phone the two buttons sized themselves to their labels, so
@@ -22,7 +22,7 @@ export default function ClosingCta() {
         */}
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center [&>a]:w-full sm:[&>a]:w-auto">
           <Cta
-            href={MAILTO}
+            href={CONTACT_HREF}
             variant="onAccent"
             icon={<Mail size={18} strokeWidth={2.5} aria-hidden="true" />}
           >

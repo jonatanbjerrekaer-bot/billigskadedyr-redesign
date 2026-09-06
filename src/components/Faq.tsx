@@ -23,17 +23,17 @@ const ITEMS: FaqItem[] = [
   {
     q: "Hvor hurtigt kan I komme?",
     a: "Vi kører ud i hele Jylland og på Fyn, og vi udvider løbende dækningsområdet. Hvor hurtigt vi kan komme, afhænger af opgaven, sæsonen og hvor du bor, så du får altid en ærlig vurdering, når du kontakter os. Er det akut, for eksempel rotter indendørs eller et hvepsebo tæt på en indgang, så skriv eller ring på 24 24 55 83, så finder vi den hurtigste løsning.",
-    cta: { href: "mailto:info@billigskadedyr.dk", label: "Skriv til os" },
+    cta: { href: "#skriv", label: "Skriv til os" },
   },
   {
     q: "Hvad koster skadedyrsbekæmpelse?",
-    a: "Prisen afhænger af hvilket skadedyr det er, hvor stort området er, og hvor længe angrebet har stået på. Du kan få et vejledende prisoverslag med det samme i prisberegneren her på siden. Den endelige, bundne pris får du efter en kort samtale, og den ændrer sig ikke undervejs. Skriv til os, så vender vi tilbage inden for 24 timer på hverdage.",
+    a: "Prisen afhænger af hvilket skadedyr det er, hvor stort området er, og hvor længe angrebet har stået på. Du kan få et vejledende prisoverslag med det samme i prisberegneren her på siden. Den endelige, bundne pris får du efter en kort samtale, og den ændrer sig ikke undervejs. Skriv til os, så vender vi tilbage inden for en hverdag.",
     cta: { href: "#estimator", label: "Beregn en vejledende pris" },
   },
   {
     q: "Dækker I der, hvor jeg bor?",
     a: "Vi hjælper kunder i hele Jylland og på Fyn, og vi arbejder løbende på at udvide dækningsområdet. Er du i tvivl, om vi dækker din adresse, så skriv til os. Er I flere husstande i samme område, der ønsker behandling, kan vi som regel finde en fornuftig samlet løsning.",
-    cta: { href: "mailto:info@billigskadedyr.dk", label: "Spørg om din adresse" },
+    cta: { href: "#skriv", label: "Spørg om din adresse" },
   },
   {
     q: "Hvem kommer hjem til mig?",

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
+import { publishEstimatorSelection } from "../lib/estimatorSelection";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import { estimate, dkr, diyFrom } from "../lib/pricing";
 import type { PropertyType, Severity } from "../lib/pricing";
@@ -202,6 +203,16 @@ export default function Estimator() {
       ? ["Krav om dokumentation ud over det normale, for eksempel til en audit"]
       : []),
   ];
+
+  // The contact section below drafts its message placeholder from these
+  // answers; publishing is shallow-guarded, so re-renders cost nothing.
+  publishEstimatorSelection({
+    pestLabel: pest.label,
+    m2,
+    property,
+    severity,
+    price: dkr(price),
+  });
 
   const reset = () => {
     m2Touched.current = false;

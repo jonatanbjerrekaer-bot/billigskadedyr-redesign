@@ -6,15 +6,17 @@ import type { ReactNode } from "react";
  * Every call to action on the page, in one place.
  *
  * HeroUI's Button is react-aria's Button and does not navigate, so anything
- * pointing at a mailto:, tel: or #anchor uses HeroUI's Link instead — same
+ * pointing at a tel: or #anchor uses HeroUI's Link instead — same
  * focus and press handling, but it renders a real <a href>.
  *
  * Email leads and phone follows, everywhere. Changing that ordering is a
  * one-line change here rather than a sweep across nine components.
  */
-export const MAILTO =
-  "mailto:info@billigskadedyr.dk?subject=Foresp%C3%B8rgsel%20om%20skadedyrsbek%C3%A6mpelse";
 export const TEL = "tel:+4524245583";
+// Every "Skriv til os" button scrolls to the page's one contact form instead
+// of opening a mail client; the form is the action, the buttons are ways to
+// reach it.
+export const CONTACT_HREF = "#skriv";
 
 const BASE =
   "press rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-[color,background-color,border-color,transform]";
@@ -66,7 +68,7 @@ export function ContactCtas({
   return (
     <div className={`flex flex-col sm:flex-row gap-2 ${className}`}>
       <Cta
-        href={MAILTO}
+        href={CONTACT_HREF}
         variant="primary"
         fullWidth
         icon={<Mail size={17} strokeWidth={2.5} aria-hidden="true" />}

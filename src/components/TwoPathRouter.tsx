@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HardHat, ShoppingCart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import Cta, { MAILTO } from "./ui/Cta";
+import Cta, { CONTACT_HREF } from "./ui/Cta";
 
 /**
  * ponytail: plain buttons in a radiogroup, NOT HeroUI's ToggleButton.
@@ -85,7 +85,7 @@ export default function TwoPathRouter() {
           })}
         </div>
         <div className="flex justify-center mt-8">
-          <Cta href={active === "diy" ? "#shop" : MAILTO}>
+          <Cta href={active === "diy" ? "#shop" : CONTACT_HREF}>
             {active === "diy" ? "Se produkter" : "Få et uforpligtende tilbud"}
           </Cta>
         </div>

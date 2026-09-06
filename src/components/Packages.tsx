@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Disclosure, Surface, ToggleButton } from "@heroui/react";
 import { Check, ChevronDown, Minus, Sparkles } from "lucide-react";
-import Cta, { MAILTO } from "./ui/Cta";
+import Cta, { CONTACT_HREF } from "./ui/Cta";
 import Reveal from "./ui/Reveal";
 
 /**
@@ -170,7 +170,7 @@ export default function Packages() {
                   on one baseline even though the copy lengths differ. */}
               <div className="mt-6">
                 <Cta
-                  href={MAILTO}
+                  href={CONTACT_HREF}
                   variant={t.featured ? "primary" : "secondary"}
                   fullWidth
                 >
