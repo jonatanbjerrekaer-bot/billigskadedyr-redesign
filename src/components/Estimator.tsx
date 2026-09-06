@@ -9,10 +9,12 @@ import {
 import {
   Check,
   ChevronDown,
+  ExternalLink,
   Info,
   MailCheck,
   MapPin,
   RotateCcw,
+  ShieldCheck,
   ShoppingBag,
 } from "lucide-react";
 import Select from "./ui/Select";
@@ -73,6 +75,10 @@ export default function Estimator() {
   const [m2, setM2] = useState(DEFAULTS.m2);
   const [property, setProperty] = useState<PropertyType>(DEFAULTS.property);
   const [severity, setSeverity] = useState<Severity>(DEFAULTS.severity);
+  // True once the visitor changes any input themselves. The contact form
+  // uses it to prefill the message with a draft; defaults alone never do,
+  // the draft must describe the visitor's own situation, not a made-up one.
+  const [selTouched, setSelTouched] = useState(false);
   const [display, setDisplay] = useState(0);
   const [advOpen, setAdvOpen] = useState(false);
   const rafRef = useRef<number | null>(null);
@@ -150,6 +156,40 @@ export default function Estimator() {
   const price = Math.round((low + high) / 2 / 50) * 50;
   const diy = diyFrom(pest.slug);
 
+  // The third fact row carries the same recommendation as the pest grid above
+  // (lib/pests `path`), refined by severity: a pro pest never gets the shop
+  // pitch, and a heavy infestation tips even a diy pest toward the pros. The
+  // old row offered "klar det selv" for every pest at every severity, which
+  // contradicted both.
+  const diyRow = (() => {
+    if (pest.path === "pro" || !diy) {
+      return {
+        icon: ShieldCheck,
+        title: "Bedst med professionel hjælp",
+        line: `Produkter fra hylden er sjældent nok mod ${pest.label.toLowerCase()}. Vi behandler dem, til de er væk, og prisen ligger fast, før vi går i gang.`,
+        href: undefined as string | undefined,
+      };
+    }
+    if (severity === "kraftig") {
+      return {
+        icon: ShoppingBag,
+        title: "Et kraftigt angreb kræver ofte professionel behandling",
+        line: `Du kan starte med produkter mod ${pest.label.toLowerCase()} fra ${diy} i webshoppen. Er angrebet spredt, klarer vi det for dig.`,
+        href: pest.shopUrl,
+      };
+    }
+    return {
+      icon: ShoppingBag,
+      title: (
+        <>
+          Klar det selv fra <span className="text-accent-400">{diy}</span>
+        </>
+      ),
+      line: `Ved et lille angreb er produkter mod ${pest.label.toLowerCase()} fra webshoppen ofte nok.`,
+      href: pest.shopUrl,
+    };
+  })();
+
   // Shneiderman 6: easy reversal. Anyone who has fiddled the inputs can get
   // back to the starting point without reloading the page.
   const touched =
@@ -212,6 +252,7 @@ export default function Estimator() {
     property,
     severity,
     price: dkr(price),
+    touched: selTouched,
   });
 
   const reset = () => {
@@ -219,6 +260,7 @@ export default function Estimator() {
     glideArea(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
     setSeverity(DEFAULTS.severity);
+    setSelTouched(false);
   };
 
   useEffect(() => {
@@ -278,7 +320,10 @@ export default function Estimator() {
             <span>Hvilket skadedyr?</span>
             <Select
               value={slug}
-              onValueChange={setSlug}
+              onValueChange={(v) => {
+                setSelTouched(true);
+                setSlug(v);
+              }}
               ariaLabel="Skadedyr"
               triggerId={PEST_TRIGGER}
               options={PRICED_PESTS.map((p) => ({
@@ -325,6 +370,7 @@ export default function Estimator() {
                       m2Touched.current = true;
                       setAreaAnim(false);
                       instantRef.current = true;
+                      setSelTouched(true);
                     }
                     setM2(Number(v));
                   }}
@@ -349,6 +395,7 @@ export default function Estimator() {
                           m2Touched.current = true;
                           setAreaAnim(false);
                           instantRef.current = true;
+                          setSelTouched(true);
                         }
                         setM2(next);
                       }}
@@ -385,6 +432,7 @@ export default function Estimator() {
                       if (!next) return;
                       const p = next as PropertyType;
                       setProperty(p);
+                      setSelTouched(true);
                       // Sæt arealet til et realistisk gennemsnit for den valgte
                       // boligtype, men aldrig oven i et tal brugeren selv har sat.
                       const preset = AREA_PRESETS[p];
@@ -409,7 +457,10 @@ export default function Estimator() {
                     selectedKeys={[severity]}
                     onSelectionChange={(keys) => {
                       const next = [...keys][0];
-                      if (next) setSeverity(next as Severity);
+                      if (next) {
+                        setSeverity(next as Severity);
+                        setSelTouched(true);
+                      }
                     }}
                     className={GROUP}
                     aria-label="Grad af angreb"
@@ -573,25 +624,36 @@ export default function Estimator() {
                 </li>
               );
             })}
-            {diy && (
-              <li className="flex gap-2.5">
-                <ShoppingBag
-                  size={15}
-                  strokeWidth={2.25}
-                  aria-hidden="true"
-                  className="text-accent-500 shrink-0 mt-0.5"
-                />
-                <span className="min-w-0">
-                  <span className="block text-xs font-medium text-ink-100/90">
-                    Klar det selv fra <span className="text-accent-400">{diy}</span>
+            {(() => {
+              const RowIcon = diyRow.icon;
+              return (
+                <li className="flex gap-2.5">
+                  <RowIcon
+                    size={15}
+                    strokeWidth={2.25}
+                    aria-hidden="true"
+                    className="text-accent-500 shrink-0 mt-0.5"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-xs font-medium text-ink-100/90">
+                      {diyRow.title}
+                    </span>
+                    <span className="block text-xs text-ink-100/70">{diyRow.line}</span>
+                    {diyRow.href && (
+                      <a
+                        href={diyRow.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent-400 underline underline-offset-4 hover:text-accent-300"
+                      >
+                        Se produkter i webshoppen
+                        <ExternalLink size={11} strokeWidth={2.5} aria-hidden="true" />
+                      </a>
+                    )}
                   </span>
-                  <span className="block text-xs text-ink-100/70">
-                    Ved et lille angreb er midler mod {pest.label.toLowerCase()} fra
-                    webshoppen ofte nok.
-                  </span>
-                </span>
-              </li>
-            )}
+                </li>
+              );
+            })()}
           </ul>
 
           <ContactCtas className="mt-auto" />

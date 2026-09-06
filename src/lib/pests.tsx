@@ -28,6 +28,8 @@ export type PestEntry = {
   scale?: number;
   /** What the treatment actually consists of, for the price breakdown. */
   treatment?: string;
+  /** Deep link to this pest's category in the billigskadedyr.dk webshop. */
+  shopUrl?: string;
   Svg?: ComponentType<{
     size?: number;
     strokeWidth?: number;
@@ -38,7 +40,7 @@ export type PestEntry = {
 
 export const PESTS: PestEntry[] = [
   { slug: "rotter", treatment: "Sikring af adgangsveje og opsætning af foderstationer", label: "Rotter & mus", priceKey: "Rotter", path: "pro", Svg: Rat },
-  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", path: "diy", png: "ant", scale: 0.96 },
+  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", path: "diy", png: "ant", scale: 0.96, shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/myrer/" },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
     label: "Hvepse & bier",
@@ -62,6 +64,7 @@ export const PESTS: PestEntry[] = [
     path: "diy",
     png: "silverfish",
     scale: 1.0,
+    shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/soelvfisk-skaegkrae/",
   },
   {
     slug: "borebiller", treatment: "Behandling af det angrebne træværk",
@@ -79,7 +82,7 @@ export const PESTS: PestEntry[] = [
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "fluer", label: "Fluer & myg", path: "diy", png: "mosquito", scale: 1.06 },
+  { slug: "fluer", label: "Fluer & myg", path: "diy", png: "mosquito", scale: 1.06, shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingede-insekter/flue/" },
   // gridHidden keeps the grid at a clean 4x2 rather than orphaning a ninth
   // card alone on a third row.
   {
@@ -90,6 +93,7 @@ export const PESTS: PestEntry[] = [
     png: "spider",
     scale: 1.05,
     gridHidden: true,
+    shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/edderkopper/",
   },
 ];
 
