@@ -52,10 +52,9 @@ const TIERS: Tier[] = [
 /** Cell values in TIERS order. `true` = included, `false` = not, string = detail. */
 const ROWS: { label: string; values: (boolean | string)[] }[] = [
   { label: "Besigtigelse på adressen", values: [true, true, true] },
-  { label: "Behandling", values: ["1 behandling", "Op til 2 besøg", "Efter plan"] },
+  { label: "Behandling", values: ["1 besøg", "Op til 2 besøg", "Efter plan"] },
   { label: "Opfølgningsbesøg", values: [false, true, true] },
   { label: "Skriftlig dokumentation", values: [false, true, true] },
-  { label: "Garanti på behandlingen", values: [true, true, true] },
   { label: "Hos dig senest", values: ["1-2 hverdage", "1-2 hverdage", "1-2 hverdage"] },
   { label: "Løbende kontrol", values: [false, false, true] },
   { label: "Dokumentation til audits", values: [false, false, true] },
