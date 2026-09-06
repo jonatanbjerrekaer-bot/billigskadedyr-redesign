@@ -42,14 +42,6 @@ export default function UspBar() {
           </div>
         ))}
 
-        {/*
-          The fourth slot used to read "e-mærket webshop / Din tryghed er
-          essentiel", which is the certification stated as a slogan. The mark
-          itself is what Danish shoppers recognise, so it goes here instead:
-          same row, no extra height, and above the hero rather than below it.
-          An earlier version sat in the hero and pushed the primary CTA off a
-          14-inch fold, which is a bad trade for a badge.
-        */}
         <TrustSeal variant="bar" />
       </div>
     </div>
