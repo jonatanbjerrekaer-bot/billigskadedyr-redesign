@@ -20,7 +20,19 @@ export default function Hero() {
               Rotter, hvepse, væggelus eller borebiller?
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Webshop og professionel bekæmpelse samme sted. Klar det selv med de rette
+              {/* The subhead names the shop before anything else, so the word is
+                  the link. A third hero button would fight the calculator for
+                  priority; the router section one scroll down already carries
+                  the shop's "Se produkter" button. */}
+              <a
+                href="https://billigskadedyr.dk/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-cream font-semibold underline decoration-accent-500 underline-offset-4 hover:text-accent-400 transition-colors"
+              >
+                Webshop
+              </a>{" "}
+              og professionel bekæmpelse samme sted. Klar det selv med de rette
               midler, eller få os ud til en fast pris.
             </p>
 

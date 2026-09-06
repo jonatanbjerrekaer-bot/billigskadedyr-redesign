@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { label: "FAQ", href: "#faq" },
   // The business's shop lives on its own domain, so it opens in a new tab like
   // every other external link on the page.
-  { label: "Butik", href: "https://billigskadedyr.dk/", external: true },
+  { label: "Webshop", href: "https://billigskadedyr.dk/", external: true },
 ];
 
 export default function Header({

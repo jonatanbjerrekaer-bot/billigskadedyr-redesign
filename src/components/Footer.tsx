@@ -28,7 +28,7 @@ export default function Footer() {
               <li><a href="#estimator" className="block py-3.5 md:py-0 hover:text-accent-400">Priser</a></li>
               <li><a href="#process" className="block py-3.5 md:py-0 hover:text-accent-400">Forløb</a></li>
               <li><a href="#faq" className="block py-3.5 md:py-0 hover:text-accent-400">FAQ</a></li>
-              <li><a href="https://billigskadedyr.dk/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Butik</a></li>
+              <li><a href="https://billigskadedyr.dk/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Webshop</a></li>
             </ul>
           </div>
           <div style={{ flexBasis: "260px", flexGrow: 1, flexShrink: 1 }}>
