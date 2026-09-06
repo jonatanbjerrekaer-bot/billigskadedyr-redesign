@@ -20,7 +20,7 @@ export default function Hero() {
               Rotter, hvepse, væggelus eller borebiller?
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Professionel skadedyrsbekæmpelse til en fast pris. Vi kommer ud i
+              Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i
               hele Jylland og på Fyn, og prisen ligger fast, før vi går i gang.
             </p>
 
