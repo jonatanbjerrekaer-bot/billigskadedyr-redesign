@@ -1,4 +1,5 @@
 import { GRID_PESTS, PestGlyph } from "../lib/pests";
+import { requestPestPick } from "../lib/estimatorSelection";
 import Reveal from "./ui/Reveal";
 
 /**
@@ -28,6 +29,7 @@ export default function PestQuickSelect() {
               href={p.path === "pro" ? "#estimator" : (p.shopUrl ?? "https://billigskadedyr.dk/")}
               target={p.path === "pro" ? undefined : "_blank"}
               rel={p.path === "pro" ? undefined : "noreferrer"}
+              onClick={p.path === "pro" ? () => requestPestPick(p.slug) : undefined}
               className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2 h-full"
             >
               <div className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900">

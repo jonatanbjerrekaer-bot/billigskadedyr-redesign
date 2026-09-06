@@ -19,7 +19,11 @@ import {
 } from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
-import { publishEstimatorSelection } from "../lib/estimatorSelection";
+import {
+  consumePestPick,
+  publishEstimatorSelection,
+  subscribePestPicks,
+} from "../lib/estimatorSelection";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import { estimate, dkr, diyFrom } from "../lib/pricing";
 import type { PropertyType, Severity } from "../lib/pricing";
@@ -100,6 +104,19 @@ export default function Estimator() {
     window.clearTimeout(animTimer.current);
     animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
   };
+
+  // A pro-pest card in the grid above carries its choice here: preselect that
+  // pest and treat it as the visitor's own answer, the same as picking it in
+  // the dropdown. DIY cards go to the webshop instead and never publish.
+  useEffect(() => {
+    return subscribePestPicks(() => {
+      const slug = consumePestPick();
+      if (slug && PRICED_PESTS.some((p) => p.slug === slug)) {
+        setSlug(slug);
+        setSelTouched(true);
+      }
+    });
+  }, []);
 
   // Desktop only: open the refinements as the calculator comes into view, so
   // the controls are already there by the time the eye arrives. On a phone

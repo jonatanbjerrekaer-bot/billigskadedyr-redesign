@@ -48,3 +48,29 @@ export function publishEstimatorSelection(next: EstimatorSelection) {
 export function useEstimatorSelection() {
   return useSyncExternalStore(subscribe, () => current);
 }
+
+/**
+ * One-shot picks from the pest grid: tapping a pro-pest card scrolls to the
+ * calculator and wants that pest preselected. The pick is consumed, not
+ * subscribed, so a pick fired before the calculator exists never fires late.
+ */
+let pendingPick: string | null = null;
+const pickListeners = new Set<() => void>();
+
+export function subscribePestPicks(fn: () => void) {
+  pickListeners.add(fn);
+  return () => {
+    pickListeners.delete(fn);
+  };
+}
+
+export function requestPestPick(slug: string) {
+  pendingPick = slug;
+  pickListeners.forEach((l) => l());
+}
+
+export function consumePestPick(): string | null {
+  const pick = pendingPick;
+  pendingPick = null;
+  return pick;
+}
