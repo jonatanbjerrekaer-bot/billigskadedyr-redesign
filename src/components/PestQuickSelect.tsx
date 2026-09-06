@@ -20,7 +20,7 @@ export default function PestQuickSelect() {
           {GRID_PESTS.map((p, i) => (
             <Reveal key={p.slug} delay={i * 50} className="h-full [&>*]:h-full">
             {/* Each card leads to that pest's own service page, where the
-                treatment is explained in detale. */}
+                treatment is explained in detail. */}
             <a
               href={`${import.meta.env.BASE_URL}service/${p.slug}/`}
               className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2 h-full"
