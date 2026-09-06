@@ -5,7 +5,6 @@ import { ToastProvider } from "@heroui/react";
 import Header from "./components/Header";
 import UspBar from "./components/UspBar";
 import Hero from "./components/Hero";
-import TwoPathRouter from "./components/TwoPathRouter";
 import PestQuickSelect from "./components/PestQuickSelect";
 import Benefits from "./components/Benefits";
 import Comparison from "./components/Comparison";
@@ -27,7 +26,6 @@ export default function App() {
       <Header mobileNavOpen={mobileNavOpen} onNavToggle={() => setMobileNavOpen((v) => !v)} />
       <main>
         <Hero />
-        <TwoPathRouter />
         <PestQuickSelect />
         <Benefits />
         <Comparison />

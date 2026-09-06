@@ -15,8 +15,8 @@ import TrustSeal from "./TrustSeal";
  * two columns, which fits without clipping and keeps all four visible.
  */
 const USPS = [
-  { Icon: Clock, label: "Hurtig levering", text: "Vi sender fra dag til dag" },
-  { Icon: Tag, label: "Billige priser", text: "Fra 19 kr. i webshoppen" },
+  { Icon: Clock, label: "Hurtig hjælp", text: "Hos dig på 1-2 hverdage" },
+  { Icon: Tag, label: "Fast pris", text: "Aftalt, før vi går i gang" },
   { Icon: PhoneCall, label: "Professionel rådgivning", text: "Ring 24 24 55 83" },
 ];
 

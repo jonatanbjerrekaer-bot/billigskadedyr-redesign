@@ -18,7 +18,7 @@ const ITEMS: FaqItem[] = [
   {
     q: "Skal jeg vælge gør-det-selv eller en professionel skadedyrsbekæmper?",
     a: "Gør-det-selv virker bedst på små, tidlige angreb: enkelte myrer, fluer eller et par sølvfisk. Her koster de rette midler typisk under 200 kr., og du kan handle med det samme. Professionel skadedyrsbekæmpelse betaler sig, når problemet er vendt tilbage mere end én gang, når du ikke kan finde reden, eller når det gælder rotter, væggelus eller borebiller. De kræver godkendte midler, adgang til hulrum og dokumentation. Et halvt udført forsøg gør ofte problemet dyrere at løse bagefter.",
-    cta: { href: "#router", label: "Se de to muligheder" },
+    cta: { href: "#pest", label: "Find dit skadedyr" },
   },
   {
     q: "Hvor hurtigt kan I komme?",
@@ -49,7 +49,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Hvad sker der, hvis skadedyret vender tilbage?",
-    a: "Vi følger op på behandlingen. Ser du tegn på skadedyret igen inden for garantiperioden, kommer vi tilbage og kigger på det uden ekstra regning. Kontakt os hellere for tidligt end for sent. Jo før vi ser det, jo mindre bliver indsatsen.",
+    a: "Vi følger op på behandlingen, og du kan altid ringe, hvis du ser tegn på skadedyret igen. Kontakt os hellere for tidligt end for sent. Jo før vi ser det, jo mindre bliver indsatsen.",
     cta: { href: "#packages", label: "Se hvad pakkerne dækker" },
   },
 ];

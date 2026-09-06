@@ -12,16 +12,12 @@ const ROWS: { other: string; us: string }[] = [
     us: "Prisen står på siden. Regn den ud, før du kontakter os",
   },
   {
-    other: "Webshop og fagfolk på hver sit domæne",
-    us: "Ét sted: produkter til dig selv og folk, der kommer ud",
+    other: "Hurtigste vej til kunden, uanset om behandlingen duer",
+    us: "Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter",
   },
   {
-    other: "Kategorier efter produkttype",
-    us: "Kategorier efter skadedyr. Du tænker “rotter”, ikke “smækfælde”",
-  },
-  {
-    other: "Alt sælges som en opgave for en fagmand",
-    us: "Vi siger det ligeud, når du selv kan klare det med et middel til 49 kr.",
+    other: "Besøg uden dokumentation, ingen papir at holde fast i",
+    us: "Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen",
   },
   {
     other: "Ingen dokumentation af behandlingen",

@@ -125,7 +125,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
             dark ? "text-ink-100/70" : "text-ink-900/70",
           ].join(" ")}
         >
-          e-mærket webshop · {EM_COUNT} bedømmelser
+          e-mærket · {EM_COUNT} bedømmelser
         </span>
         <span
           className={[

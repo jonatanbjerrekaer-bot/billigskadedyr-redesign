@@ -9,13 +9,10 @@ import {
 import {
   Check,
   ChevronDown,
-  ExternalLink,
   Info,
   MailCheck,
   MapPin,
   RotateCcw,
-  ShieldCheck,
-  ShoppingBag,
 } from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
@@ -25,7 +22,7 @@ import {
   subscribePestPicks,
 } from "../lib/estimatorSelection";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
-import { estimate, dkr, diyFrom } from "../lib/pricing";
+import { estimate, dkr } from "../lib/pricing";
 import type { PropertyType, Severity } from "../lib/pricing";
 
 /**
@@ -105,9 +102,9 @@ export default function Estimator() {
     animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
   };
 
-  // A pro-pest card in the grid above carries its choice here: preselect that
+  // A pest card in the grid above can carry its choice here: preselect that
   // pest and treat it as the visitor's own answer, the same as picking it in
-  // the dropdown. DIY cards go to the webshop instead and never publish.
+  // the dropdown.
   useEffect(() => {
     return subscribePestPicks(() => {
       const slug = consumePestPick();
@@ -171,41 +168,6 @@ export default function Estimator() {
   // One number, not a range: a range makes the visitor do the arithmetic
   // and still leaves them unsure. Midpoint, rounded to nearest 50 kr.
   const price = Math.round((low + high) / 2 / 50) * 50;
-  const diy = diyFrom(pest.slug);
-
-  // The third fact row carries the same recommendation as the pest grid above
-  // (lib/pests `path`), refined by severity: a pro pest never gets the shop
-  // pitch, and a heavy infestation tips even a diy pest toward the pros. The
-  // old row offered "klar det selv" for every pest at every severity, which
-  // contradicted both.
-  const diyRow = (() => {
-    if (pest.path === "pro" || !diy) {
-      return {
-        icon: ShieldCheck,
-        title: "Bedst med professionel hjælp",
-        line: `Produkter fra hylden er sjældent nok mod ${pest.label.toLowerCase()}. Vi behandler dem, til de er væk, og prisen ligger fast, før vi går i gang.`,
-        href: undefined as string | undefined,
-      };
-    }
-    if (severity === "kraftig") {
-      return {
-        icon: ShoppingBag,
-        title: "Et kraftigt angreb kræver ofte professionel behandling",
-        line: `Du kan starte med produkter mod ${pest.label.toLowerCase()} fra ${diy} i webshoppen. Er angrebet spredt, klarer vi det for dig.`,
-        href: pest.shopUrl,
-      };
-    }
-    return {
-      icon: ShoppingBag,
-      title: (
-        <>
-          Klar det selv fra <span className="text-accent-400">{diy}</span>
-        </>
-      ),
-      line: `Ved et lille angreb er produkter mod ${pest.label.toLowerCase()} fra webshoppen ofte nok.`,
-      href: pest.shopUrl,
-    };
-  })();
 
   // Shneiderman 6: easy reversal. Anyone who has fiddled the inputs can get
   // back to the starting point without reloading the page.
@@ -227,7 +189,6 @@ export default function Estimator() {
     property === "erhverv"
       ? "Dokumentation til egenkontrol og audit"
       : "Skriftlig dokumentation af behandlingen",
-    "Garanti på behandlingen",
   ];
   // The honest inverse of the list above. Unexpected cost at the end is the
   // single most-cited reason people abandon a purchase, so the variables that
@@ -619,9 +580,8 @@ export default function Estimator() {
           </div>
 
           {/*
-            Coverage, what writing actually commits you to, and the cheaper way
-            out. Three paragraphs before this; a labelled row each now, so the
-            eye can take one and leave the rest.
+            Coverage and what writing actually commits you to. Two labelled
+            rows, so the eye can take one and leave the rest.
           */}
           <ul className="flex flex-col gap-3 border-t border-ink-700 pt-4">
             {facts.map((f) => {
@@ -641,36 +601,6 @@ export default function Estimator() {
                 </li>
               );
             })}
-            {(() => {
-              const RowIcon = diyRow.icon;
-              return (
-                <li className="flex gap-2.5">
-                  <RowIcon
-                    size={15}
-                    strokeWidth={2.25}
-                    aria-hidden="true"
-                    className="text-accent-500 shrink-0 mt-0.5"
-                  />
-                  <span className="min-w-0">
-                    <span className="block text-xs font-medium text-ink-100/90">
-                      {diyRow.title}
-                    </span>
-                    <span className="block text-xs text-ink-100/70">{diyRow.line}</span>
-                    {diyRow.href && (
-                      <a
-                        href={diyRow.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent-400 underline underline-offset-4 hover:text-accent-300"
-                      >
-                        Se produkter i webshoppen
-                        <ExternalLink size={11} strokeWidth={2.5} aria-hidden="true" />
-                      </a>
-                    )}
-                  </span>
-                </li>
-              );
-            })()}
           </ul>
 
           <ContactCtas className="mt-auto" />

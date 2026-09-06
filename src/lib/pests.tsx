@@ -20,7 +20,6 @@ export type PestEntry = {
   label: string;
   /** Row in PRICE_TABLE, when this pest has a professional price. */
   priceKey?: string;
-  path: "diy" | "pro";
   png?: string;
   /** Hidden from the quick-select grid, still priced in the calculator. */
   gridHidden?: boolean;
@@ -28,8 +27,6 @@ export type PestEntry = {
   scale?: number;
   /** What the treatment actually consists of, for the price breakdown. */
   treatment?: string;
-  /** Deep link to this pest's category in the billigskadedyr.dk webshop. */
-  shopUrl?: string;
   Svg?: ComponentType<{
     size?: number;
     strokeWidth?: number;
@@ -39,13 +36,12 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
-  { slug: "rotter", treatment: "Sikring af adgangsveje og opsætning af foderstationer", label: "Rotter & mus", priceKey: "Rotter", path: "pro", Svg: Rat },
-  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", path: "diy", png: "ant", scale: 0.96, shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/myrer/" },
+  { slug: "rotter", treatment: "Sikring af adgangsveje og opsætning af foderstationer", label: "Rotter & mus", priceKey: "Rotter", Svg: Rat },
+  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
     label: "Hvepse & bier",
     priceKey: "Hvepse (bo)",
-    path: "pro",
     png: "bee",
     scale: 0.97,
   },
@@ -53,7 +49,6 @@ export const PESTS: PestEntry[] = [
     slug: "vaeggelus", treatment: "Behandling af senge, møbler og fodpaneler",
     label: "Væggelus",
     priceKey: "Væggelus",
-    path: "pro",
     Svg: BedBug,
     scale: 1.05,
   },
@@ -61,16 +56,13 @@ export const PESTS: PestEntry[] = [
     slug: "soelvfisk", treatment: "Behandling af fugtzoner, revner og fodpaneler",
     label: "Skægkræ & sølvfisk",
     priceKey: "Skægkræ/sølvfisk",
-    path: "diy",
     png: "silverfish",
     scale: 1.0,
-    shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/soelvfisk-skaegkrae/",
   },
   {
     slug: "borebiller", treatment: "Behandling af det angrebne træværk",
     label: "Borebiller",
     priceKey: "Borebiller",
-    path: "pro",
     png: "beetle",
     scale: 1.13,
   },
@@ -78,22 +70,19 @@ export const PESTS: PestEntry[] = [
     slug: "kakerlakker", treatment: "Gelbehandling af køkken, skjul og afløb",
     label: "Kakerlakker",
     priceKey: "Kakerlakker",
-    path: "pro",
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "fluer", label: "Fluer & myg", path: "diy", png: "mosquito", scale: 1.06, shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingede-insekter/flue/" },
+  { slug: "fluer", label: "Fluer & myg", png: "mosquito", scale: 1.06 },
   // gridHidden keeps the grid at a clean 4x2 rather than orphaning a ninth
   // card alone on a third row.
   {
     slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
     label: "Edderkopper",
     priceKey: "Edderkopper",
-    path: "diy",
     png: "spider",
     scale: 1.05,
     gridHidden: true,
-    shopUrl: "https://billigskadedyr.dk/vare-kategori/insekter/vingeloese-insekter/edderkopper/",
   },
 ];
 

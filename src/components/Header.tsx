@@ -8,9 +8,6 @@ const NAV_LINKS = [
   { label: "Priser", href: "#estimator" },
   { label: "Forløb", href: "#process" },
   { label: "FAQ", href: "#faq" },
-  // The business's shop lives on its own domain, so it opens in a new tab like
-  // every other external link on the page.
-  { label: "Webshop", href: "https://billigskadedyr.dk/", external: true },
 ];
 
 export default function Header({
@@ -46,8 +43,6 @@ export default function Header({
             <a
               key={l.href}
               href={l.href}
-              target={l.external ? "_blank" : undefined}
-              rel={l.external ? "noreferrer" : undefined}
               className="text-cream hover:text-accent-400 transition-colors"
             >
               {l.label}
@@ -97,8 +92,6 @@ export default function Header({
               <a
                 key={l.href}
                 href={l.href}
-                target={l.external ? "_blank" : undefined}
-                rel={l.external ? "noreferrer" : undefined}
                 onClick={onNavToggle}
                 className="px-3 min-h-[48px] flex items-center rounded-lg text-cream hover:bg-ink-800 text-base"
               >

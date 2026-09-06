@@ -17,7 +17,8 @@ export default function Footer() {
               Billigskadedyr.dk
             </p>
             <p className="text-sm text-ink-100/70 mt-3">
-              Gør-det-selv-produkter og professionel bekæmpelse under ét tag.
+              Professionel skadedyrsbekæmpelse i hele Jylland og på Fyn. Vi
+              kommer ud til dig, og prisen ligger fast, før vi går i gang.
             </p>
             <TrustSeal className="mt-4" />
           </div>
@@ -28,7 +29,6 @@ export default function Footer() {
               <li><a href="#estimator" className="block py-3.5 md:py-0 hover:text-accent-400">Priser</a></li>
               <li><a href="#process" className="block py-3.5 md:py-0 hover:text-accent-400">Forløb</a></li>
               <li><a href="#faq" className="block py-3.5 md:py-0 hover:text-accent-400">FAQ</a></li>
-              <li><a href="https://billigskadedyr.dk/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Webshop</a></li>
             </ul>
           </div>
           <div style={{ flexBasis: "260px", flexGrow: 1, flexShrink: 1 }}>
@@ -43,31 +43,25 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        {/* Accepted payment methods. In Denmark this is a trust signal, not
-            decoration: MobilePay and Dankort in particular are what people
-            look for before they believe a shop is real. Asset is the shop's
-            own sprite, so the set always matches what checkout accepts. */}
         {/*
-          The legal furniture. A Danish buyer looks for these before handing
-          over a card, and their absence reads as an unregistered trader even
-          when the trader is fine. All four pages already exist on the shop; the
-          concept simply stops hiding them.
+          The legal furniture. A Danish buyer looks for these before booking a
+          service visit, and their absence reads as an unregistered trader even
+          when the trader is fine. These are the prof site's own policy pages,
+          the ones that govern a service booking.
         */}
         <div className="mt-10 border-t border-ink-800 pt-6 grid gap-6 sm:grid-cols-2">
           <div>
             <h3 className="text-sm uppercase tracking-widest text-ink-100/60 mb-3">Handel og vilkår</h3>
             <ul className="flex flex-col gap-2 text-sm text-ink-100/80">
-              <li><a href="https://billigskadedyr.dk/handelsbetingelser/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Handelsbetingelser</a></li>
-              <li><a href="https://billigskadedyr.dk/fortrydelsesret/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Fortrydelsesret</a></li>
-              <li><a href="https://billigskadedyr.dk/fortrydelsesformular/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Fortrydelsesformular</a></li>
-              <li><a href="https://billigskadedyr.dk/privatlivspolitik/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Privatlivspolitik</a></li>
+              <li><a href="https://billigskadedyrprof.dk/privatlivspolitik/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Privatlivspolitik</a></li>
+              <li><a href="https://billigskadedyrprof.dk/cookie-politik/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Cookiepolitik</a></li>
             </ul>
           </div>
           <div>
             <h3 className="text-sm uppercase tracking-widest text-ink-100/60 mb-3">Din sikkerhed</h3>
             <ul className="flex flex-col gap-2 text-sm text-ink-100/80">
-              <li>14 dages fuld returret på varer købt her</li>
-              <li>2 års reklamationsret efter købeloven</li>
+              <li>Miljøgodkendte midler, brugt efter de danske regler</li>
+              <li>Skriftlig dokumentation af behandlingen</li>
               <li>Autoriseret til de behandlinger, hvor det kræves</li>
             </ul>
           </div>
