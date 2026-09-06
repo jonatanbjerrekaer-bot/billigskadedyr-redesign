@@ -28,6 +28,7 @@ export default function Footer() {
               <li><a href="#estimator" className="block py-3.5 md:py-0 hover:text-accent-400">Priser</a></li>
               <li><a href="#process" className="block py-3.5 md:py-0 hover:text-accent-400">Forløb</a></li>
               <li><a href="#faq" className="block py-3.5 md:py-0 hover:text-accent-400">FAQ</a></li>
+              <li><a href="https://billigskadedyr.dk/" target="_blank" rel="noreferrer" className="block py-3.5 md:py-0 hover:text-accent-400">Butik</a></li>
             </ul>
           </div>
           <div style={{ flexBasis: "260px", flexGrow: 1, flexShrink: 1 }}>
@@ -37,7 +38,7 @@ export default function Footer() {
               <li className="text-ink-100/60">Vi kører ud i hele Jylland og på Fyn</li>
               <li><a href="tel:+4524245583" className="select-text block py-3.5 md:py-0 hover:text-accent-400">+45 24 24 55 83</a></li>
               <li><a href="mailto:info@billigskadedyr.dk" className="select-text block py-3.5 md:py-0 hover:text-accent-400">info@billigskadedyr.dk</a></li>
-              <li>Man-Fre 08-18 · Lør-Søn 12-16</li>
+              <li>Man-Fre 08-21 · Lør-Søn 12-16 · Helligdage 12-16</li>
               <li className="text-ink-100/50">CVR 40306633</li>
             </ul>
           </div>

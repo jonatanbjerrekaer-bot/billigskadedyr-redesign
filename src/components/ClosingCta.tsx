@@ -46,7 +46,10 @@ export default function ClosingCta() {
           <TrustSeal variant="light" />
         </div>
 
-        <p className="mt-6 text-sm opacity-80">Åbningstider: Man-Fre 08-18 · Lør-Søn 12-16</p>
+        <p className="mt-6 text-sm opacity-80">
+          Åbningstider: Man - Fre: 08:00 - 21:00 · Lør - Søn: 12:00 - 16:00 · Helligdage: 12:00 -
+          16:00.
+        </p>
       </div>
     </section>
   );
