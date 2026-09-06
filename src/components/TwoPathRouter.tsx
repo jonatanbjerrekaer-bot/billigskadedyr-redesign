@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { HardHat, ShoppingCart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import Cta, { CONTACT_HREF } from "./ui/Cta";
+import Cta, { CONTACT_HREF, SHOP_URL } from "./ui/Cta";
 
 /**
  * ponytail: plain buttons in a radiogroup, NOT HeroUI's ToggleButton.
@@ -21,14 +21,6 @@ const PATHS: {
   Icon: LucideIcon;
 }[] = [
   {
-    id: "diy",
-    title: "Klar det selv",
-    desc: "De rigtige fælder og midler til lige dit skadedyr, med en vejledning der er til at følge.",
-    price: "Fra 19,00 kr.",
-    time: "Sendes fra dag til dag",
-    Icon: ShoppingCart,
-  },
-  {
     id: "pro",
     title: "Få en professionel ud",
     desc: "Vi kommer ud, behandler og dokumenterer. Bedst når det er vendt tilbage mere end én gang.",
@@ -36,10 +28,20 @@ const PATHS: {
     time: "Typisk 1-2 besøg",
     Icon: HardHat,
   },
+  {
+    id: "diy",
+    title: "Klar det selv",
+    desc: "De rigtige fælder og midler til lige dit skadedyr, med en vejledning der er til at følge.",
+    price: "Fra 19,00 kr.",
+    time: "Sendes fra dag til dag",
+    Icon: ShoppingCart,
+  },
 ];
 
 export default function TwoPathRouter() {
-  const [active, setActive] = useState("diy");
+  // Professional help is both the business's main service and the safe
+  // default for a first-time visitor, so it leads and starts selected.
+  const [active, setActive] = useState("pro");
 
   return (
     <section id="router" className="bg-ink-950 text-cream">
@@ -85,7 +87,7 @@ export default function TwoPathRouter() {
           })}
         </div>
         <div className="flex justify-center mt-8">
-          <Cta href={active === "diy" ? "#shop" : CONTACT_HREF}>
+          <Cta href={active === "diy" ? SHOP_URL : CONTACT_HREF} external={active === "diy"}>
             {active === "diy" ? "Se produkter" : "Få et uforpligtende tilbud"}
           </Cta>
         </div>

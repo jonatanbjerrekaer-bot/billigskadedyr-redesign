@@ -19,8 +19,15 @@ export default function PestQuickSelect() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {GRID_PESTS.map((p, i) => (
             <Reveal key={p.slug} delay={i * 50} className="h-full [&>*]:h-full">
+            {/*
+              Pro pests route to the calculator; DIY pests open their own
+              category in the webshop, that is where "klarer du selv" happens.
+              The old #shop anchor never existed on the page.
+            */}
             <a
-              href={p.path === "pro" ? "#estimator" : "#shop"}
+              href={p.path === "pro" ? "#estimator" : (p.shopUrl ?? "https://billigskadedyr.dk/")}
+              target={p.path === "pro" ? undefined : "_blank"}
+              rel={p.path === "pro" ? undefined : "noreferrer"}
               className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2 h-full"
             >
               <div className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900">

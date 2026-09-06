@@ -17,6 +17,9 @@ export const TEL = "tel:+4524245583";
 // of opening a mail client; the form is the action, the buttons are ways to
 // reach it.
 export const CONTACT_HREF = "#skriv";
+// The shop lives on the business's main domain. Every "Se produkter" action
+// points here or deeper into a pest's own category.
+export const SHOP_URL = "https://billigskadedyr.dk/";
 
 const BASE =
   "press rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-[color,background-color,border-color,transform]";
@@ -38,17 +41,22 @@ export default function Cta({
   variant = "primary",
   icon,
   fullWidth,
+  external,
   children,
 }: {
   href: string;
   variant?: keyof typeof VARIANTS;
   icon?: ReactNode;
   fullWidth?: boolean;
+  /** External links leave the page, so they open in a new tab. */
+  external?: boolean;
   children: ReactNode;
 }) {
   return (
     <Link
       href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
       className={`${BASE} ${VARIANTS[variant]} ${fullWidth ? "w-full" : ""}`}
     >
       {icon}
