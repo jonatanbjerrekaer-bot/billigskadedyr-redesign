@@ -39,28 +39,32 @@ function seasonNow(now = new Date()) {
  * Bevidst ikke ProductCard: kortet i listen baerer skadedyr, form, forbehold
  * og lagerstatus, og fem informationslag i et hero er stoej.
  *
- * 4:3 og ikke kvadrat. Tre kvadrater i en raekke goer heroet 100 px
- * hoejere, og saa ligger knappen under folden paa en 1280x720-skaerm.
+ * Skyggen er trukket mod ink-900 og ikke sort. Sort skygge paa en groenlig
+ * creme laegger sig som en plet oven paa fladen i stedet for at hoere til.
  */
-function HeroPick({ p }: { p: Product }) {
+function HeroPick({ p, lead }: { p: Product; lead?: boolean }) {
   return (
     <a
       href={`${BASE}shop/produkt/${p.slug}/`}
-      className="press group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white text-ink-950 hover:border-ink-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
+      className="press group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white text-ink-950 shadow-[0_16px_36px_-26px_rgba(12,26,18,0.45)] transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:border-ink-300 hover:shadow-[0_24px_48px_-26px_rgba(12,26,18,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
     >
-      <div className="relative aspect-[4/3] bg-white">
+      <div className={`relative bg-white ${lead ? "aspect-[4/3]" : "flex-1 min-h-[140px]"}`}>
         <img
           src={`${BASE}shop/${p.img}`}
           alt={p.name}
-          width={480}
-          height={360}
+          width={lead ? 640 : 420}
+          height={lead ? 512 : 280}
           loading="eager"
-          className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]"
+          className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
         />
       </div>
-      <div className="flex flex-col gap-0.5 border-t border-ink-200 px-3.5 py-3">
-        <p className="font-display font-bold text-sm leading-snug">{p.name}</p>
-        <p className="font-display font-bold text-base tabular-nums">{dkr(p.price)}</p>
+      <div className="flex flex-col gap-0.5 border-t border-ink-200 px-4 py-3">
+        <p className={`font-display font-semibold leading-snug ${lead ? "text-base" : "text-sm"}`}>
+          {p.name}
+        </p>
+        <p className={`font-display font-bold tabular-nums ${lead ? "text-lg" : "text-base"}`}>
+          {dkr(p.price)}
+        </p>
       </div>
     </a>
   );
@@ -85,15 +89,15 @@ export default function ShopHome() {
           dyret, og filtrene ligger inde i browseren.
         */}
         <section className="border-b border-ink-200">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-9 pb-11 sm:pt-12 sm:pb-14">
-            <div className="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] lg:items-center">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-8 pb-10 sm:pt-10 sm:pb-12">
+            <div className="grid gap-8 lg:gap-14 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:items-center">
               <div>
-                <h1 className="font-display text-[34px] sm:text-[46px] font-bold tracking-tight uppercase leading-[1.03] text-ink-950">
+                <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
                   Midlerne vi
                   <br />
                   selv bruger
                 </h1>
-                <p className="select-none mt-4 max-w-[36ch] text-base sm:text-lg text-ink-700 leading-relaxed">
+                <p className="select-none mt-4 max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed">
                   Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
                   købe her til samme pris som fagfolk.
                 </p>
@@ -115,9 +119,12 @@ export default function ShopHome() {
                 giver heroet den dybde, en flad moerk farve ikke har.
               */}
               {heroPicks.length === 3 && (
-                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 list-none p-0 m-0">
-                  {heroPicks.map((p, i) => (
-                    <li key={p.slug} className={i === 2 ? "col-span-2 sm:col-span-1" : ""}>
+                <ul className="grid grid-cols-2 gap-4 sm:grid-cols-[1.4fr_1fr_1fr] list-none p-0 m-0">
+                  <li className="col-span-2 sm:col-span-1">
+                    <HeroPick p={heroPicks[0]!} lead />
+                  </li>
+                  {heroPicks.slice(1).map((p) => (
+                    <li key={p.slug}>
                       <HeroPick p={p} />
                     </li>
                   ))}
