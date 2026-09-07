@@ -72,6 +72,26 @@ export const OWNER_PRICES: Record<string, Owner> = {
   },
 };
 
+/**
+ * Vejledende fra-priser for the pests he does not publish a price for.
+ *
+ * Deliberately NOT part of OWNER_PRICES and NOT reachable from the
+ * calculator: his four real prices are the only numbers the estimator is
+ * allowed to state. These are shown once, on the pest's own page, under the
+ * word "vejledende" and next to the sentence that says the real price comes
+ * after a look. Keyed by slug. See the header of this file for the market
+ * data and the ratio they were derived from. Owner must confirm.
+ */
+export const ESTIMATED_FROM: Record<string, { from: number; note: string }> = {
+  fluer: { from: 900, note: "Op til 200 m². Prisen afhænger af, hvor mange rum der skal behandles." },
+  moel: { from: 1000, note: "Op til 200 m². Prisen afhænger af, hvor mange skabe og tekstiler der er angrebet." },
+  myg: { from: 900, note: "Prisen afhænger af, hvor mange ynglesteder der skal behandles." },
+  klannere: { from: 1000, note: "Op til 200 m². Prisen afhænger af, hvor stort et areal der er tæpper og tekstiler på." },
+  snegle: { from: 900, note: "Prisen afhænger af havens størrelse." },
+  muldvarpe: { from: 1200, note: "Inkl. opstart og én opfølgning. Prisen afhænger af plænens størrelse." },
+  gaasebiller: { from: 1400, note: "Prisen afhænger af plænens størrelse." },
+};
+
 export function seasonOf(date: Date = new Date()): Season {
   const m = date.getMonth() + 1;
   if (m >= 3 && m <= 5) return "forår";

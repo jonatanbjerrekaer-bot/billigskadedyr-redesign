@@ -10,6 +10,7 @@ import Process from "./Process";
 import Faq from "./Faq";
 import { ToastProvider } from "@heroui/react";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
+import QuotePanel from "./QuotePanel";
 import { PestChips } from "./PestQuickSelect";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
 
@@ -78,7 +79,7 @@ export default function ServicePage({ slug }: { slug: string }) {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <a
-                href={priced ? "#estimator" : "#skriv"}
+                href="#estimator"
                 className="press bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
               >
                 {priced ? "Beregn min pris" : "Få et fast tilbud"}
@@ -151,7 +152,7 @@ export default function ServicePage({ slug }: { slug: string }) {
                   ))}
                 </dl>
                 <a
-                  href={priced ? "#estimator" : "#skriv"}
+                  href="#estimator"
                   className="press mt-8 w-full bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 min-h-[48px] inline-flex items-center justify-center text-center transition-colors"
                 >
                   {priced ? "Se prisen for din bolig" : "Få et fast tilbud"}
@@ -184,7 +185,15 @@ export default function ServicePage({ slug }: { slug: string }) {
 
         <Process />
 
-        {priced && <Estimator initialPest={slug} />}
+        {/* Either the calculator or the answer it would have given. Both
+            carry id="estimator", so Priser in the nav resolves on every
+            service page rather than only on the seven the calculator can
+            price. */}
+        {priced ? (
+          <Estimator initialPest={slug} />
+        ) : (
+          <QuotePanel slug={slug} label={label} treatment={pest.treatment} />
+        )}
 
         <Contact pestLabel={label} />
 

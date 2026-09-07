@@ -1,0 +1,32 @@
+[
+  {
+    "id": "R3-1a",
+    "file": "src/components/Comparison.tsx",
+    "old": "  {\n    other: \"Ingen dokumentation af behandlingen\",\n    us: \"Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen\",\n  },\n];",
+    "new": "  {\n    other: \"Kategorier efter produkttype\",\n    us: \"Kategorier efter skadedyr. Du tænker \u201crotter\u201d, ikke \u201csmækfælde\u201d\",\n  },\n];"
+  },
+  {
+    "id": "R3-1b",
+    "file": "src/components/Comparison.tsx",
+    "old": "Fem steder branchen gør det besværligt, og hvad vi gør i stedet.",
+    "new": "Fire steder branchen gør det besværligt, og hvad vi gør i stedet."
+  },
+  {
+    "id": "R3-2",
+    "file": "src/components/Hero.tsx",
+    "old": "\"Kan du klare det selv, siger vi det ligeud\",",
+    "new": "\"Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter\","
+  },
+  {
+    "id": "R3-3a",
+    "file": "src/components/InquiryForm.tsx",
+    "old": "    const digits = phone.replace(/\\s/g, \"\");\n    if (!digits.trim()) next.phone = \"Skriv dit telefonnummer, så vi kan ringe op.\";\n    else if (digits.replace(/\\D/g, \"\").length < PHONE_MIN_DIGITS)\n      next.phone = \"Det telefonnummer ser for kort ud. Tjek det lige.\";",
+    "new": "    const digits = phone.replace(/\\s/g, \"\");\n    if (digits.trim() && digits.replace(/\\D/g, \"\").length < PHONE_MIN_DIGITS)\n      next.phone = \"Det telefonnummer ser for kort ud. Tjek det lige.\";"
+  },
+  {
+    "id": "R3-3b",
+    "file": "src/components/InquiryForm.tsx",
+    "old": "            Dit telefonnummer\n",
+    "new": "            Dit telefonnummer (valgfrit)\n"
+  }
+]

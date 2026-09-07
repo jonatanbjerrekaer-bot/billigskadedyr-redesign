@@ -1,0 +1,37 @@
+[
+  {
+    "id": "R4-1",
+    "file": "src/components/Comparison.tsx",
+    "why": "Revert the comparison rows to the owner-approved set, minus the webshop row.",
+    "old": "const ROWS: { other: string; us: string }[] = [\n  {\n    other: \"“Kontakt os for pris”. Du ved først noget, når du har ringet\",\n    us: \"Prisen står på siden. Regn den ud, før du kontakter os\",\n  },\n  {\n    other: \"Hurtigste vej til kunden, uanset om behandlingen duer\",\n    us: \"Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter\",\n  },\n  {\n    other: \"Besøg uden dokumentation, ingen papir at holde fast i\",\n    us: \"Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen\",\n  },\n  {\n    other: \"Kategorier efter produkttype\",\n    us: \"Kategorier efter skadedyr. Du tænker “rotter”, ikke “smækfælde”\",\n  },\n];",
+    "new": "const ROWS: { other: string; us: string }[] = [\n  {\n    other: \"“Kontakt os for pris”. Du ved først noget, når du har ringet\",\n    us: \"Prisen står på siden. Regn den ud, før du kontakter os\",\n  },\n  {\n    other: \"Kategorier efter produkttype\",\n    us: \"Kategorier efter skadedyr. Du tænker “rotter”, ikke “smækfælde”\",\n  },\n  {\n    other: \"Alt sælges som en opgave for en fagmand\",\n    us: \"Vi siger det ligeud, når du selv kan klare det med et middel til 49 kr.\",\n  },\n  {\n    other: \"Ingen dokumentation af behandlingen\",\n    us: \"Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen\",\n  },\n];"
+  },
+  {
+    "id": "R4-2",
+    "file": "src/components/Hero.tsx",
+    "why": "Remove the third hero trust point. Do not replace it.",
+    "old": "const TRUST_POINTS = [\n  \"Fast pris, aftalt før vi går i gang\",\n  \"Certificerede teknikere og skriftlig dokumentation\",\n  \"Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter\",\n];",
+    "new": "const TRUST_POINTS = [\n  \"Fast pris, aftalt før vi går i gang\",\n  \"Certificerede teknikere og skriftlig dokumentation\",\n];"
+  },
+  {
+    "id": "R4-3",
+    "file": "src/components/Hero.tsx",
+    "why": "Drop the price sentence from the hero subhead; trust point 1 already says it.",
+    "old": "              Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i\n              hele Jylland og på Fyn, og prisen ligger fast, før vi går i gang.",
+    "new": "              Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i\n              hele Jylland og på Fyn."
+  },
+  {
+    "id": "R4-4a",
+    "file": "src/components/UspBar.tsx",
+    "why": "Label the phone line as acute help.",
+    "old": "  { Icon: PhoneCall, label: \"Professionel rådgivning\", text: \"Ring 24 24 55 83\" },",
+    "new": "  { Icon: PhoneCall, label: \"Akut hjælp\", text: \"Ring 24 24 55 83\" },"
+  },
+  {
+    "id": "R4-4b",
+    "file": "src/components/Hero.tsx",
+    "why": "Qualify the hero phone number the same way.",
+    "old": "            <Phone size={18} aria-hidden=\"true\" className=\"text-accent-500 shrink-0\" />\n            <span className=\"select-text text-sm font-semibold\">24 24 55 83</span>",
+    "new": "            <Phone size={18} aria-hidden=\"true\" className=\"text-accent-500 shrink-0\" />\n            <span className=\"flex flex-col\">\n              <span className=\"select-text text-sm font-semibold\">24 24 55 83</span>\n              <span className=\"text-xs text-ink-100/70\">Akut og igangværende sager</span>\n            </span>"
+  }
+]
