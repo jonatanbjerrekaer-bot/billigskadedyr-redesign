@@ -780,3 +780,10 @@ input[type="search"]::-webkit-search-decoration {
 @media (prefers-reduced-motion: reduce) {
   .buybar { animation: none; }
 }
+
+/* Et #-hop skal stoppe under den klaebende bjaelke, ikke bag den. --hdr
+   saettes af ShopHeader, fordi hoejden skifter mellem mobil og skrivebord.
+   1.5rem er luft, saa kortets overkant kommer med. */
+.anchor {
+  scroll-margin-top: calc(var(--hdr, 4rem) + 2rem);
+}

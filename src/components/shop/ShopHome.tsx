@@ -164,7 +164,7 @@ export default function ShopHome() {
           </div>
         </section>
 
-        <section id="skadedyr" className="bg-ink-950 text-cream scroll-mt-4">
+        <section id="skadedyr" className="anchor bg-ink-950 text-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
             <h2 className="font-display text-2xl sm:text-[30px] font-bold tracking-tight mb-1.5">
               Hvad har du?

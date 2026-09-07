@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@heroui/react";
 import { Menu, Phone, ShoppingCart, X } from "lucide-react";
 import SearchBox from "./SearchBox";
@@ -45,12 +45,29 @@ const MENU_PESTS: PestKey[] = [
 ];
 
 export function ShopHeader() {
+  const el = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const here = usePest();
   const count = useCartCount();
 
+  /*
+   * Bjaelken klaeber til toppen, saa et #-hop lander bag den. Hoejden er
+   * ikke fast: mobilen har sit eget soegebaand, og menuen kan foldes ud.
+   * Vi maaler den og lader .anchor traekke fra i scroll-margin-top.
+   */
+  useEffect(() => {
+    const h = el.current;
+    if (!h) return;
+    const set = () =>
+      document.documentElement.style.setProperty("--hdr", `${h.offsetHeight}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(h);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
+    <header ref={el} className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
       <p className="select-none bg-accent-500 text-ink-950 text-center text-[13px] sm:text-sm font-semibold py-1.5 px-4">
         Fragt fra 59 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
       </p>

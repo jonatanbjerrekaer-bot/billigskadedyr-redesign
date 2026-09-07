@@ -97,7 +97,7 @@ export default function DoseCalculator({
     >
       <h2
         id="beregner"
-        className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950"
+        className="anchor font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950"
       >
         Hvor meget skal du bruge?
       </h2>

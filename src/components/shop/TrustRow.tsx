@@ -35,7 +35,7 @@ const ITEMS = [
 
 export default function TrustRow({ id }: { id?: string }) {
   return (
-    <section id={id} aria-label="Sådan handler du her" className="scroll-mt-4">
+    <section id={id} aria-label="Sådan handler du her" className="anchor">
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 list-none p-0 m-0">
         {ITEMS.map(({ icon: Icon, title, text }) => (
           <li key={title} className="border-t border-ink-300 pt-4">
