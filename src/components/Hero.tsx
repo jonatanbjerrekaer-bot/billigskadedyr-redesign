@@ -3,7 +3,7 @@ import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
 const TRUST_POINTS = [
   "Fast pris, aftalt før vi går i gang",
   "Certificerede teknikere og skriftlig dokumentation",
-  "Kan du klare det selv, siger vi det ligeud",
+  "Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter",
 ];
 
 export default function Hero() {
