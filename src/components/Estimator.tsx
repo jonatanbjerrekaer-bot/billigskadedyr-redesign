@@ -531,7 +531,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 {/* The price never appears without saying what it covers. */}
                 <p className="text-xs text-ink-100/70 leading-relaxed">{quote.caption}</p>
                 {quote.notes.map((n) => (
-                  <p key={n} className="text-xs text-ink-100/70 leading-relaxed">
+                  <p key={n} className="enter-soft text-xs text-ink-100/70 leading-relaxed">
                     {n}
                   </p>
                 ))}
@@ -593,7 +593,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             </p>
             <ul className="mt-2.5 flex flex-col gap-1.5 text-xs leading-relaxed text-ink-100/70">
               {couldChange.map((item) => (
-                <li key={item} className="flex gap-2">
+                <li key={item} className="enter-soft flex gap-2">
                   <span aria-hidden="true" className="text-ink-100/40">·</span>
                   <span>{item}</span>
                 </li>
