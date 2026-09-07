@@ -12,11 +12,17 @@ import type { ReactNode } from "react";
  * Email leads and phone follows, everywhere. Changing that ordering is a
  * one-line change here rather than a sweep across nine components.
  */
-export const TEL = "tel:+452****5583";
+export const TEL = "tel:+4524245583";
 // Every "Skriv til os" button scrolls to the page's one contact form instead
 // of opening a mail client; the form is the action, the buttons are ways to
 // reach it.
 export const CONTACT_HREF = "#skriv";
+// ponytail: the service pages render this header and these buttons but none
+// of the front-page sections, so a bare hash lands nowhere and fails silently.
+// Prefix with the site root when we are not on the front page; on the front
+// page the bare hash is returned untouched and still smooth-scrolls in place.
+export const homeHref = (hash: string) =>
+  location.pathname.includes("/service/") ? import.meta.env.BASE_URL + hash : hash;
 
 const BASE =
   "press rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-[color,background-color,border-color,transform]";
