@@ -42,7 +42,7 @@ export default function QuotePanel({
         <h2 className="font-display text-3xl font-bold tracking-tight uppercase mb-3">
           Hvad koster det?
         </h2>
-        <p className="text-ink-100/70 mb-8 max-w-2xl">
+        <p className="select-none text-ink-100/70 mb-8 max-w-2xl">
           {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med,
           inden vi går i gang.
         </p>
@@ -53,7 +53,7 @@ export default function QuotePanel({
               <>
                 <p className="font-display text-3xl font-bold text-accent-400">
                   Fra {dkr(est.from)}
-                  <span className="ml-2 align-middle text-[11px] font-sans font-semibold uppercase tracking-widest text-ink-100/60">
+                  <span className="select-none ml-2 align-middle text-[11px] font-sans font-semibold uppercase tracking-widest text-ink-100/60">
                     vejledende
                   </span>
                 </p>
@@ -73,18 +73,18 @@ export default function QuotePanel({
                 </p>
               </>
             )}
-            <div className="flex flex-wrap gap-2 text-xs text-ink-100/80">
+            <div className="select-none flex flex-wrap gap-2 text-xs text-ink-100/80">
               <span className="rounded-full bg-ink-900 px-2.5 py-1">Svar på 1 hverdag</span>
               <span className="rounded-full bg-ink-900 px-2.5 py-1">Hos dig på 1-2 hverdage</span>
             </div>
-            <p className="flex items-start gap-2 text-sm text-ink-100/80 mt-1">
+            <p className="select-none flex items-start gap-2 text-sm text-ink-100/80 mt-1">
               <MapPin size={16} strokeWidth={2.5} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
               Hele Jylland og Fyn
             </p>
           </div>
 
           <div>
-            <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
+            <p className="select-none mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
               Prisen dækker
             </p>
             <ul className="text-sm text-ink-100/90 flex flex-col gap-2 list-none p-0 m-0">

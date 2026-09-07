@@ -49,7 +49,7 @@ export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
         <h2 className="font-display text-3xl font-bold tracking-tight uppercase text-center">
           Skriv til os
         </h2>
-        <p className="mt-3 text-center text-sm text-ink-100/80">
+        <p className="select-none mt-3 text-center text-sm text-ink-100/80">
           {touched
             ? "Beskedfeltet er udfyldt ud fra det, du har regnet på i prisberegneren. Læs det gerne igennem, og ret det, hvis der står noget galt. Vi svarer inden for en hverdag, og prisen ligger fast, før vi går i gang."
             : pestLabel

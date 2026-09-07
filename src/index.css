@@ -283,6 +283,14 @@ label,
 [aria-hidden="true"],
 svg,
 h1, h2, h3, h4, h5, h6,
+/* Field labels, buttons and CTA pills are chrome. A visitor selecting the
+   page wants the words, not the frame around them. */
+label,
+button,
+.press {
+  user-select: none;
+}
+
 .select-none {
   -webkit-user-select: none;
   user-select: none;

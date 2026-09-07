@@ -504,7 +504,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               <PestGlyph pest={pest} size={24} />
             </span>
             <span className="min-w-0">
-              <span className="block text-xs uppercase tracking-widest text-ink-100/70">
+              <span className="select-none block text-xs uppercase tracking-widest text-ink-100/70">
                 Vejledende pris
               </span>
               <span className="flex items-center gap-1.5 text-sm text-ink-100/80">
@@ -570,7 +570,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </p>
               </>
             )}
-            <div className="flex flex-wrap gap-2 text-xs text-ink-100/80">
+            <div className="select-none flex flex-wrap gap-2 text-xs text-ink-100/80">
               <span className="rounded-full bg-ink-900 px-2.5 py-1">
                 Svar på 1 hverdag
               </span>
@@ -581,7 +581,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           </div>
 
           <div>
-            <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
+            <p className="select-none mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
               Prisen dækker
             </p>
             <ul className="text-sm text-ink-100/90 flex flex-col gap-2">

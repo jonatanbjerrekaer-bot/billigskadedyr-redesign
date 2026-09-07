@@ -230,7 +230,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
           people describe it fine in words, and the ones who cannot are
           exactly the ones a photo helps most. */}
       <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-medium text-ink-100/70">Billede (valgfrit)</span>
+        <span className="select-none text-xs font-medium text-ink-100/70">Billede (valgfrit)</span>
         <label
           htmlFor="inquiry-photos"
           className="press flex items-center gap-2.5 rounded-lg border border-dashed border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-ink-100/70 cursor-pointer transition-colors hover:border-accent-500 hover:text-cream focus-within:border-accent-500"
