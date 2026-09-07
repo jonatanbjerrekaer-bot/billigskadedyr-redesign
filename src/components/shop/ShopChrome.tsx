@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@heroui/react";
-import { Menu, Phone, ShoppingCart, X } from "lucide-react";
+import { MapPin, Menu, Phone, ShoppingCart, Truck, Undo2, X } from "lucide-react";
 import SearchBox from "./SearchBox";
 import TrustSeal from "../TrustSeal";
 import { PEST_COUNTS, PEST_LABEL, type PestKey } from "../../lib/shop";
@@ -8,6 +8,13 @@ import { useCartCount } from "../../lib/cart";
 import ShopGlyph from "./ShopGlyph";
 
 const BASE = import.meta.env.BASE_URL;
+
+/** De tre loefter, der staar oeverst paa hver side. Tallene er de rigtige. */
+const USP = [
+  { Icon: Truck, stat: "Fragt fra 59 kr.", sub: "Afsendt samme hverdag inden kl. 14" },
+  { Icon: Undo2, stat: "14 dages returret", sub: "På uåbnede varer" },
+  { Icon: MapPin, stat: "Gratis afhentning", sub: "Hos os i Risskov" },
+];
 
 /**
  * Hvilket skadedyr står vi på?
@@ -68,17 +75,25 @@ export function ShopHeader() {
 
   return (
     <header ref={el} className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
-      {/* Vilkaarene samlet ét sted. De stod baade her og i en stribe under
-          heroet, i to formuleringer. Moerkt og ikke limegroent: lime skal
-          pege paa det, man kan trykke paa, ikke ligge som flade bag en
-          fragtpris. */}
-      <p className="select-none flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 border-b border-ink-800 text-center text-[13px] sm:text-sm text-ink-100/80 py-2 px-4">
-        <span className="font-semibold text-cream">Fragt fra 59 kr.</span>
-        <span aria-hidden="true" className="text-accent-500">·</span>
-        <span>Afsendt samme hverdag, hvis du bestiller inden kl. 14</span>
-        <span aria-hidden="true" className="text-accent-500">·</span>
-        <span>14 dages returret</span>
-      </p>
+      {/* Tre loefter med ikon, tal og underlinje, som paa thenap.dk. De
+          stod som én lang saetning, og saa laeses ingen af dem. Paa mobil
+          falder underlinjen bort, men tallet bliver staaende: det er det,
+          der siger hvad loeftet er. */}
+      <ul className="select-none max-w-[1400px] mx-auto grid grid-cols-3 divide-x divide-ink-800 border-b border-ink-800 list-none p-0 m-0">
+        {USP.map(({ Icon, stat, sub }) => (
+          <li key={stat} className="flex items-center justify-center gap-2.5 px-3 py-2.5">
+            <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-500" />
+            <span className="min-w-0">
+              <span className="block text-[13px] sm:text-sm font-semibold text-cream leading-tight">
+                {stat}
+              </span>
+              <span className="hidden sm:block text-[13px] text-ink-100/65 leading-tight">
+                {sub}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
         <Button

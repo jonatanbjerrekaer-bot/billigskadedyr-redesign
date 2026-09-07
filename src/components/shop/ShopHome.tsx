@@ -1,7 +1,6 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import {
   PRODUCTS, BY_SLUG, dkr, isDeal,
-  type Product,
 } from "../../lib/shop";
 import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
@@ -9,6 +8,7 @@ import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
 import TrustRow from "./TrustRow";
+import { EM_COUNT, EM_SCORE } from "../TrustSeal";
 import Reviews from "../Reviews";
 
 const BASE = import.meta.env.BASE_URL;
@@ -33,46 +33,9 @@ function seasonNow(now = new Date()) {
   return SEASON.find((s) => s.months.includes(m)) ?? SEASON[0]!;
 }
 
-/**
- * En vare i heroet. Billede paa hvid, navn, pris.
- *
- * Bevidst ikke ProductCard: kortet i listen baerer skadedyr, form, forbehold
- * og lagerstatus, og fem informationslag i et hero er stoej.
- *
- * Skyggen er trukket mod ink-900 og ikke sort. Sort skygge paa en groenlig
- * creme laegger sig som en plet oven paa fladen i stedet for at hoere til.
- */
-function HeroPick({ p, lead }: { p: Product; lead?: boolean }) {
-  return (
-    <a
-      href={`${BASE}shop/produkt/${p.slug}/`}
-      className="press group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white text-ink-950 shadow-[0_16px_36px_-26px_rgba(12,26,18,0.45)] transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:border-ink-300 hover:shadow-[0_24px_48px_-26px_rgba(12,26,18,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
-    >
-      <div className={`relative bg-white ${lead ? "aspect-[4/3]" : "flex-1 min-h-[140px]"}`}>
-        <img
-          src={`${BASE}shop/${p.img}`}
-          alt={p.name}
-          width={lead ? 640 : 420}
-          height={lead ? 512 : 280}
-          loading="eager"
-          className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
-        />
-      </div>
-      <div className="flex flex-col gap-0.5 border-t border-ink-200 px-4 py-3">
-        <p className={`font-display font-semibold leading-snug ${lead ? "text-base" : "text-sm"}`}>
-          {p.name}
-        </p>
-        <p className={`font-display font-bold tabular-nums ${lead ? "text-lg" : "text-base"}`}>
-          {dkr(p.price)}
-        </p>
-      </div>
-    </a>
-  );
-}
-
 export default function ShopHome() {
   const season = seasonNow();
-  const heroPicks = pick(HERO_PICKS);
+  const featured = pick(HERO_PICKS)[0];
   const seasonItems = pick(season.slugs);
   const best = pick(BESTSELLERS);
   const deals = PRODUCTS.filter(isDeal);
@@ -88,48 +51,75 @@ export default function ShopHome() {
           man skal kende ordet "klannere" for at finde noget. Her er indgangen
           dyret, og filtrene ligger inde i browseren.
         */}
-        <section className="border-b border-ink-200">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-8 pb-10 sm:pt-10 sm:pb-12">
-            <div className="grid gap-8 lg:gap-14 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:items-center">
-              <div>
-                <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
-                  Midlerne vi
-                  <br />
-                  selv bruger
-                </h1>
-                <p className="select-none mt-4 max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed">
-                  Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
-                  købe her til samme pris som fagfolk.
-                </p>
+        {/* Heroet som ét afrundet felt med luft omkring, ikke et baand fra
+            kant til kant. Det er greb fra thenap.dk, og det er forskellen
+            paa en butik og en brochure: indholdet ligger paa noget. */}
+        <section className="pb-2">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="overflow-hidden rounded-3xl border border-ink-200 bg-white shadow-[0_28px_64px_-44px_rgba(12,26,18,0.55)]">
+              <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                <div className="flex flex-col justify-center gap-5 bg-ink-50 px-6 py-9 sm:px-10 sm:py-12">
+                  <span className="select-none w-max rounded-full bg-accent-500 px-3.5 py-1 text-[13px] font-semibold text-ink-950">
+                    Samme priser som fagfolk betaler
+                  </span>
 
-                {/* Én knap. Vejen ind efter dyr staar i baandet lige over,
-                    og en knap, der siger det samme igen, deler bare trykket. */}
-                <a
-                  href={`${BASE}shop/produkter/`}
-                  className="press mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 transition-colors"
-                >
-                  Se alle varer
-                  <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-                </a>
+                  <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
+                    Midlerne vi selv bruger
+                  </h1>
+
+                  <p className="select-none max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed m-0">
+                    Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
+                    købe her.
+                  </p>
+
+                  <a
+                    href={`${BASE}shop/produkter/`}
+                    className="press w-max inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accent-400"
+                  >
+                    Se alle varer
+                    <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
+                  </a>
+
+                  {/* thenap saetter bedoemmelsen lige under knappen, hvor
+                      tvivlen sidder. Tallene er e-maerkets egne. */}
+                  <p className="select-none flex items-center gap-2 text-sm text-ink-700 m-0">
+                    <ShieldCheck size={17} strokeWidth={2.25} aria-hidden="true" className="text-ink-600" />
+                    <span>
+                      <span className="font-semibold text-ink-950">
+                        e-mærket {EM_SCORE.toLocaleString("da-DK", { minimumFractionDigits: 1 })}
+                      </span>{" "}
+                      af 5 · {EM_COUNT} anmeldelser
+                    </span>
+                  </p>
+                </div>
+
+                {/* Ét stort produktfoto baerer toppen, som paa begge
+                    referencer. Her er det en vare og ikke et livsstilsfoto,
+                    fordi det er det materiale, der findes. */}
+                {featured && (
+                  <a
+                    href={`${BASE}shop/produkt/${featured.slug}/`}
+                    className="group relative flex flex-col bg-white focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent-600"
+                  >
+                    <div className="relative flex-1 min-h-[260px] sm:min-h-[320px]">
+                      <img
+                        src={`${BASE}shop/${featured.img}`}
+                        alt={featured.name}
+                        width={880}
+                        height={660}
+                        loading="eager"
+                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-ink-200 px-6 py-4">
+                      <p className="font-display font-semibold text-ink-950 m-0">{featured.name}</p>
+                      <p className="font-display text-lg font-bold tabular-nums text-ink-950 m-0">
+                        {dkr(featured.price)}
+                      </p>
+                    </div>
+                  </a>
+                )}
               </div>
-
-              {/*
-                Varerne er hans egne fotos fra public/shop, paa hvide flader,
-                fordi produktfotos er skudt paa hvid baggrund, og fordi det
-                giver heroet den dybde, en flad moerk farve ikke har.
-              */}
-              {heroPicks.length === 3 && (
-                <ul className="grid grid-cols-2 gap-4 sm:grid-cols-[1.4fr_1fr_1fr] list-none p-0 m-0">
-                  <li className="col-span-2 sm:col-span-1">
-                    <HeroPick p={heroPicks[0]!} lead />
-                  </li>
-                  {heroPicks.slice(1).map((p) => (
-                    <li key={p.slug}>
-                      <HeroPick p={p} />
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
           </div>
         </section>

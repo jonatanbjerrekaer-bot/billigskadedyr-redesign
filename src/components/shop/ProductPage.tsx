@@ -264,34 +264,50 @@ export default function ProductPage({ slug }: { slug: string }) {
               )}
             </ul>
 
+            {/* To felter i stedet for to spalter loes tekst. Uden en kant om
+                hver flyder ja og nej sammen til én liste, og det er netop
+                forskellen, der er pointen. */}
             {d && (
-              <div className="mt-8 grid sm:grid-cols-2 gap-5">
-                <div>
-                  <p className="select-none text-[13px] font-semibold text-green-800 mb-2.5">
-                    Det gør den
-                  </p>
-                  <ul className="flex flex-col gap-2 text-[15px] text-ink-800 list-none p-0 m-0">
-                    {d.does.map((x) => (
-                      <li key={x} className="flex gap-2 leading-snug">
-                        <Check size={16} strokeWidth={3} aria-hidden="true" className="text-green-700 shrink-0 mt-1" />
-                        {x}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
-                    Det gør den ikke
-                  </p>
-                  <ul className="flex flex-col gap-2 text-[15px] text-ink-800 list-none p-0 m-0">
-                    {d.doesNot.map((x) => (
-                      <li key={x} className="flex gap-2 leading-snug">
-                        <X size={16} strokeWidth={3} aria-hidden="true" className="text-ink-500 shrink-0 mt-1" />
-                        {x}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="mt-8 grid sm:grid-cols-2 gap-4">
+                {[
+                  { title: "Det gør den", items: d.does, yes: true },
+                  { title: "Det gør den ikke", items: d.doesNot, yes: false },
+                ].map(({ title, items, yes }) => (
+                  <div
+                    key={title}
+                    className={`rounded-2xl border p-5 ${
+                      yes ? "border-ink-200 bg-white" : "border-ink-200 bg-ink-50"
+                    }`}
+                  >
+                    <p className="select-none flex items-center gap-2 text-sm font-semibold text-ink-950 m-0 mb-3">
+                      <span
+                        className={`grid place-items-center w-6 h-6 rounded-full shrink-0 ${
+                          yes ? "bg-accent-500 text-ink-950" : "bg-ink-200 text-ink-700"
+                        }`}
+                      >
+                        {yes ? (
+                          <Check size={14} strokeWidth={3} aria-hidden="true" />
+                        ) : (
+                          <X size={14} strokeWidth={3} aria-hidden="true" />
+                        )}
+                      </span>
+                      {title}
+                    </p>
+                    <ul className="flex flex-col gap-2.5 text-[15px] text-ink-800 list-none p-0 m-0">
+                      {items.map((x) => (
+                        <li key={x} className="flex gap-2.5 leading-snug">
+                          <span
+                            aria-hidden="true"
+                            className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${
+                              yes ? "bg-accent-600" : "bg-ink-400"
+                            }`}
+                          />
+                          {x}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             )}
 
@@ -345,9 +361,16 @@ export default function ProductPage({ slug }: { slug: string }) {
               <h2 id="saadan" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
                 Sådan bruger du den
               </h2>
-              <ol className="flex flex-col gap-3.5 list-none p-0 m-0 counter-reset">
+              {/* Trinnene som felter i to spalter. Som loes liste laa de fire
+                  linjer i én kolonne og laeste som broedtekst; det er en
+                  fremgangsmaade, man skal kunne finde tilbage til midt i
+                  arbejdet. */}
+              <ol className="grid sm:grid-cols-2 gap-3.5 list-none p-0 m-0">
                 {d.how.map((step, i) => (
-                  <li key={step} className="flex gap-3.5">
+                  <li
+                    key={step}
+                    className="flex gap-3.5 rounded-2xl border border-ink-200 bg-white p-4"
+                  >
                     <span className="select-none shrink-0 grid place-items-center w-8 h-8 rounded-full bg-ink-950 text-cream font-display font-bold text-sm tabular-nums">
                       {i + 1}
                     </span>
