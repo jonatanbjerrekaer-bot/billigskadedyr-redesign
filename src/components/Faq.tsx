@@ -1,6 +1,5 @@
 import { Disclosure } from "@heroui/react";
-import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
-import { ARTICLES } from "../lib/articles";
+import { ArrowRight, Plus } from "lucide-react";
 import { homeHref } from "./ui/Cta";
 
 /**
@@ -114,65 +113,6 @@ export default function Faq({
           ))}
         </div>
 
-        {/*
-          Guides are a front-page thing. A service page answers one pest, and a
-          list of links about the other fifteen only dilutes it, for the reader
-          and for search.
-        */}
-        {!items?.length && (
-        <>
-        {/*
-          Guides, kept as a second group rather than mixed into the FAQ above.
-          Those six answer "should I buy" questions; these answer "how do I deal
-          with this pest" questions, which is a different visit and a different
-          search. Each title is the article's own H1, which is the phrasing
-          people actually search for, and each answer opens with the article's
-          own first lines so the page carries real indexable text rather than a
-          bare list of links.
-        */}
-        <h3 className="font-display text-2xl font-bold tracking-tight text-ink-900 uppercase mt-14 mb-2">
-          Guides til de enkelte skadedyr
-        </h3>
-        <p className="text-ink-900/70 mb-6 max-w-2xl">
-          Uddrag af artiklerne fra billigskadedyr.dk. Klik videre for at læse hele guiden.
-        </p>
-
-        <div className="flex flex-col gap-3 max-w-3xl">
-          {ARTICLES.map((a) => (
-            <Disclosure.Root
-              key={a.slug}
-              className="bg-white rounded-xl border border-ink-100 overflow-hidden"
-            >
-              <Disclosure.Heading>
-                <Disclosure.Trigger className="group w-full text-left cursor-pointer flex items-center justify-between gap-3 px-5 py-4 min-h-[44px] font-medium text-ink-900 outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-inset">
-                  <span>{a.title}</span>
-                  <Plus
-                    size={20}
-                    strokeWidth={2.5}
-                    aria-hidden="true"
-                    className="text-accent-700 shrink-0 transition-transform duration-200 group-aria-expanded:rotate-45"
-                  />
-                </Disclosure.Trigger>
-              </Disclosure.Heading>
-              <Disclosure.Content>
-                <Disclosure.Body className="px-5 pb-4">
-                  <p className="text-sm text-ink-900/80 leading-relaxed">{a.intro}</p>
-                  <a
-                    href={a.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
-                  >
-                    Læs hele artiklen
-                    <ArrowUpRight size={16} strokeWidth={2.5} aria-hidden="true" />
-                  </a>
-                </Disclosure.Body>
-              </Disclosure.Content>
-            </Disclosure.Root>
-          ))}
-        </div>
-        </>
-        )}
       </div>
     </section>
   );
