@@ -3,7 +3,7 @@ import { Button } from "@heroui/react";
 import { ArrowRight, Check, Info } from "lucide-react";
 import type { Product, Variant } from "../../lib/shop";
 import { dkr } from "../../lib/shop";
-import type { Dose } from "../../lib/dosage";
+import type { Dose, Rate } from "../../lib/dosage";
 import { proLinkFor } from "../../lib/shopContent";
 
 /**
@@ -44,10 +44,13 @@ function fmt(amount: number, unit: Dose["unit"]): string {
 }
 
 /** Hvor meget færdig vare én pakning rækker til, i beregnerens enhed. */
-function covers(v: Variant, dose: Dose): number {
+function covers(v: Variant, dose: Dose, rate: Rate): number {
   const base = v.amount * (TO_BASE[v.amountUnit] ?? 0);
   const inDose = base / TO_BASE[dose.unit]!;
-  return v.isConcentrate && dose.concentrate ? inDose * dose.concentrate.yield : inDose;
+  const dil = rate.dilution ?? dose.concentrate;
+  if (!v.isConcentrate) return inDose;
+  // Et koncentrat kan ikke bruges til en behandling, der ikke fortyndes.
+  return dil ? inDose * dil.yield : 0;
 }
 
 export default function DoseCalculator({
@@ -69,9 +72,9 @@ export default function DoseCalculator({
   const tooBig = m2 > dose.proAboveM2;
 
   // Kun de varianter, der har en læsbar mængde, kan indgå i regnestykket.
-  const usable = p.variants.filter((v) => covers(v, dose) > 0);
+  const usable = p.variants.filter((v) => covers(v, dose, rate) > 0);
   const options = usable.map((v) => {
-    const packs = Math.max(1, Math.ceil(need / covers(v, dose)));
+    const packs = Math.max(1, Math.ceil(need / covers(v, dose, rate)));
     return { v, packs, total: packs * v.price };
   });
   const best = options.length
@@ -155,10 +158,11 @@ export default function DoseCalculator({
           <strong className="font-display text-lg text-ink-950">{fmt(need, dose.unit)}</strong>{" "}
           {dose.concentrate ? "færdig blanding" : "af varen"}.
         </p>
-        {dose.concentrate && (
+        {(rate.dilution ?? dose.concentrate) && (
           <p className="mt-1.5 text-sm text-ink-700 m-0">
-            {dose.concentrate.note}, så det svarer til{" "}
-            {fmt(need / dose.concentrate.yield, dose.unit)} koncentrat og resten vand.
+            {(rate.dilution ?? dose.concentrate)!.note}, så det svarer til{" "}
+            {fmt(need / (rate.dilution ?? dose.concentrate)!.yield, dose.unit)} koncentrat
+            og resten vand.
           </p>
         )}
       </div>
@@ -181,7 +185,7 @@ export default function DoseCalculator({
                   </span>
                   {v.isConcentrate && (
                     <span className="select-none text-xs text-ink-600">
-                      giver {fmt(covers(v, dose) * packs, dose.unit)} blanding
+                      giver {fmt(covers(v, dose, rate) * packs, dose.unit)} blanding
                     </span>
                   )}
                   <span className="ml-auto font-display font-bold text-ink-950 tabular-nums">

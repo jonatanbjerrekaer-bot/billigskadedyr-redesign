@@ -9,6 +9,7 @@ import Select from "../ui/Select";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import ShopGlyph from "./ShopGlyph";
 import ProductCard from "./ProductCard";
+import { search } from "../../lib/search";
 import ProPanel from "./ProPanel";
 
 const BASE = import.meta.env.BASE_URL;
@@ -88,13 +89,27 @@ function sortBy(list: Product[], sort: Sort) {
   );
 }
 
-function readUrl(): { f: Filters; sort: Sort } {
+function readUrl(): { f: Filters; sort: Sort; q: string } {
   const q = new URLSearchParams(typeof location === "undefined" ? "" : location.search);
   const set = (k: string) => new Set((q.get(k) ?? "").split(",").filter(Boolean));
   const sort = q.get("sort");
+  const term = q.get("q") ?? "";
+
+  /*
+   * Peger søgningen på ét skadedyr, og har man ikke selv valgt et, så
+   * sættes det. "træorm" er borebiller, og så skal listen vise biller.
+   * Det står som en chip bagefter, så det kan slås fra igen.
+   */
+  const pests = set("dyr");
+  if (term && !pests.size) {
+    const hit = search(term).pest;
+    if (hit) pests.add(hit);
+  }
+
   return {
+    q: term,
     f: {
-      pests: set("dyr"),
+      pests,
       forms: set("type"),
       bands: set("pris"),
       brands: set("maerke"),
@@ -111,7 +126,14 @@ export default function ProductBrowser() {
   const initial = readUrl();
   const [f, setF] = useState<Filters>(initial.f);
   const [sort, setSort] = useState<Sort>(initial.sort);
+  const [term, setTerm] = useState(initial.q);
   const [open, setOpen] = useState(false);
+
+  /*
+   * Søgningen kører før filtrene: den afgør, hvilke varer der er i spil,
+   * og filtrene skærer i dem bagefter.
+   */
+  const found = useMemo(() => (term.trim() ? search(term) : null), [term]);
 
   // Adressen følger filtrene, så et udsnit kan deles og bogmærkes.
   useEffect(() => {
@@ -122,11 +144,16 @@ export default function ProductBrowser() {
     if (f.brands.size) q.set("maerke", [...f.brands].join(","));
     if (f.inStock) q.set("lager", "1");
     if (sort !== "relevans") q.set("sort", sort);
+    if (term.trim()) q.set("q", term);
     const s = q.toString();
     history.replaceState({}, "", location.pathname + (s ? `?${s}` : ""));
-  }, [f, sort]);
+  }, [f, sort, term]);
 
-  const shown = useMemo(() => sortBy(PRODUCTS.filter((p) => matches(p, f)), sort), [f, sort]);
+  const pool = found ? found.products : PRODUCTS;
+  const shown = useMemo(
+    () => sortBy(pool.filter((p) => matches(p, f)), sort),
+    [pool, f, sort],
+  );
 
   /*
    * At komme tilbage til toppen af listen, hver gang man har kigget på en
@@ -181,9 +208,16 @@ export default function ProductBrowser() {
     ...(f.inStock
       ? [{ k: "inStock" as const, v: "1", type: "", label: "Kun på lager" }]
       : []),
+    ...(term.trim()
+      ? [{ k: "term" as const, v: term, type: "Søgning", label: term }]
+      : []),
   ];
 
   function drop(chip: (typeof chips)[number]) {
+    if (chip.k === "term") {
+      setTerm("");
+      return;
+    }
     setF((prev) => {
       if (chip.k === "inStock") return { ...prev, inStock: false };
       const next = new Set(prev[chip.k]);
@@ -192,8 +226,10 @@ export default function ProductBrowser() {
     });
   }
 
-  const clearAll = () =>
+  const clearAll = () => {
+    setTerm("");
     setF({ pests: new Set(), forms: new Set(), bands: new Set(), brands: new Set(), inStock: false });
+  };
 
   const heading =
     f.pests.size === 1 ? `Mod ${PEST_LABEL[[...f.pests][0] as PestKey].toLowerCase()}` : "Alle varer";
@@ -261,6 +297,9 @@ export default function ProductBrowser() {
                 </legend>
                 <p className="select-none text-[13px] text-ink-600 mb-2.5">Vælg gerne flere</p>
                 <ToggleButtonGroup.Root
+                  /* HeroUI's egen baggrund er mørk og gør etiketterne
+                     usynlige på den lyse butiksside. */
+                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.pests]}
                   onSelectionChange={(keys) => toggle("pests", [...keys].map(String))}
@@ -285,6 +324,9 @@ export default function ProductBrowser() {
                   Pris
                 </legend>
                 <ToggleButtonGroup.Root
+                  /* HeroUI's egen baggrund er mørk og gør etiketterne
+                     usynlige på den lyse butiksside. */
+                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.bands]}
                   onSelectionChange={(keys) => toggle("bands", [...keys].map(String))}
@@ -308,6 +350,9 @@ export default function ProductBrowser() {
                   Slags løsning
                 </legend>
                 <ToggleButtonGroup.Root
+                  /* HeroUI's egen baggrund er mørk og gør etiketterne
+                     usynlige på den lyse butiksside. */
+                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.forms]}
                   onSelectionChange={(keys) => toggle("forms", [...keys].map(String))}
@@ -331,6 +376,9 @@ export default function ProductBrowser() {
                   Mærke
                 </legend>
                 <ToggleButtonGroup.Root
+                  /* HeroUI's egen baggrund er mørk og gør etiketterne
+                     usynlige på den lyse butiksside. */
+                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.brands]}
                   onSelectionChange={(keys) => toggle("brands", [...keys].map(String))}
@@ -433,10 +481,40 @@ export default function ProductBrowser() {
               </div>
             </div>
 
+            {/*
+              Når søgningen har tolket noget, siges det højt. En liste over
+              billeprodukter, fordi nogen skrev "huller i træet", er kun
+              hjælpsom, hvis man kan se hvorfor.
+            */}
+            {found?.why && (
+              <p className="mb-4 rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800">
+                {found.why}
+              </p>
+            )}
+
+            {/* Baymard: 66 % af butikker kan ikke finde deres egne
+                infosider. Fragt og returret er søgninger, folk laver. */}
+            {found?.info?.map((i) => (
+              <a
+                key={i.title}
+                href={i.href}
+                className="mb-4 block rounded-xl border-2 border-ink-200 px-4 py-3 hover:border-ink-400 transition-colors"
+              >
+                <p className="font-display font-bold text-ink-950 m-0">{i.title}</p>
+                <p className="mt-0.5 text-[15px] text-ink-700 m-0">{i.text}</p>
+              </a>
+            ))}
+
             {shown.length === 0 ? (
               <div className="rounded-2xl border-2 border-dashed border-ink-300 p-8 text-center">
-                <p className="text-ink-800 font-semibold">Ingen varer med de filtre.</p>
-                <p className="mt-1 text-ink-700">Prøv at fjerne et af dem herover.</p>
+                <p className="text-ink-800 font-semibold">
+                  {term.trim() ? `Ingen varer matcher "${term}".` : "Ingen varer med de filtre."}
+                </p>
+                <p className="mt-1 text-ink-700">
+                  {term.trim()
+                    ? "Prøv et andet ord, eller beskriv hvad du har set: huller i træet, gnavelyde, bid om natten."
+                    : "Prøv at fjerne et af dem herover."}
+                </p>
                 <Button
                   onPress={clearAll}
                   className="mt-4 rounded-full bg-ink-950 text-cream font-display font-bold min-h-[44px] px-5"

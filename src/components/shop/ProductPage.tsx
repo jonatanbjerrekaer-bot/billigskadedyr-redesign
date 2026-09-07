@@ -11,6 +11,8 @@ import { addToCart } from "../../lib/cart";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
+import ProductTabs from "./ProductTabs";
+import TrustRow from "./TrustRow";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -218,7 +220,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             <ul className="select-none mt-5 flex flex-col gap-2 text-sm text-ink-700 list-none p-0 m-0">
               <li className="flex items-center gap-2">
                 <Truck size={16} strokeWidth={2.5} aria-hidden="true" className="text-ink-500" />
-                Fri fragt over 499 kr., ellers 49 kr.
+                Fragt fra 59 kr. Gratis afhentning i Risskov.
               </li>
               <li className="flex items-center gap-2">
                 <Undo2 size={16} strokeWidth={2.5} aria-hidden="true" className="text-ink-500" />
@@ -312,6 +314,11 @@ export default function ProductPage({ slug }: { slug: string }) {
             </section>
           </div>
         )}
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pb-14 flex flex-col gap-12">
+          <ProductTabs slug={p.slug} />
+          <TrustRow id="fragt" />
+        </div>
 
         {related.length > 0 && (
           <section aria-labelledby="relateret" className="bg-ink-100 border-t border-ink-200 py-10 sm:py-14">

@@ -6,6 +6,12 @@ import { useCartCount } from "../../lib/cart";
 import ShopGlyph from "./ShopGlyph";
 
 const BASE = import.meta.env.BASE_URL;
+
+/** Står søgningen i adressen, skal den også stå i feltet. */
+function initialQuery(): string {
+  if (typeof location === "undefined") return "";
+  return new URLSearchParams(location.search).get("q") ?? "";
+}
 const TEL = "tel:+4524245583";
 
 /**
@@ -37,7 +43,7 @@ export function ShopHeader() {
   return (
     <header className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
       <p className="select-none bg-accent-500 text-ink-950 text-center text-[13px] sm:text-sm font-semibold py-1.5 px-4">
-        Fri fragt over 499 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
+        Fragt fra 59 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
       </p>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6">
@@ -53,25 +59,46 @@ export function ShopHeader() {
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </a>
 
-        <TextField.Root className="hidden md:block flex-1 max-w-xl">
-          <Label htmlFor="shop-search" className="sr-only">
-            Søg i butikken
-          </Label>
-          <div className="relative">
-            <Search
-              size={18}
-              strokeWidth={2.5}
-              aria-hidden="true"
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-100/55"
-            />
-            <Input
-              id="shop-search"
-              type="search"
-              placeholder="Søg efter mus, hvepse, myregift…"
-              className={FIELD}
-            />
-          </div>
-        </TextField.Root>
+        {/*
+          En rigtig formular. Feltet var før uden value og uden handler, så
+          man kunne skrive og trykke retur uden at der skete noget.
+          Søgeknappen er synlig, fordi Baymard finder, at mobilbrugere ikke
+          nødvendigvis bruger tastaturets returtast til at søge.
+        */}
+        <form
+          action={`${BASE}shop/produkter/`}
+          method="get"
+          role="search"
+          className="hidden md:flex flex-1 max-w-xl items-center gap-2"
+        >
+          <TextField.Root className="flex-1">
+            <Label htmlFor="shop-search" className="sr-only">
+              Søg i butikken
+            </Label>
+            <div className="relative">
+              <Search
+                size={18}
+                strokeWidth={2.5}
+                aria-hidden="true"
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-100/55"
+              />
+              <Input
+                id="shop-search"
+                name="q"
+                type="search"
+                defaultValue={initialQuery()}
+                placeholder="Søg efter mus, huller i træet, myregift…"
+                className={FIELD}
+              />
+            </div>
+          </TextField.Root>
+          <button
+            type="submit"
+            className="press shrink-0 h-11 px-4 rounded-full bg-accent-500 text-ink-950 font-semibold text-sm hover:bg-accent-400"
+          >
+            Søg
+          </button>
+        </form>
 
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <a

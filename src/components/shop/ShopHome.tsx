@@ -9,6 +9,8 @@ import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
 import ShopGlyph from "./ShopGlyph";
+import TrustRow from "./TrustRow";
+import Reviews from "../Reviews";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -151,7 +153,7 @@ export default function ShopHome() {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4">
             <p className="select-none flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-100/75">
               <Truck size={17} strokeWidth={2.25} aria-hidden="true" className="text-accent-500" />
-              <span>Fri fragt over 499 kr.</span>
+              <span>Fragt fra 59 kr.</span>
               <span aria-hidden="true" className="text-ink-100/30">·</span>
               <span>afsendt samme hverdag inden kl. 14</span>
               <span aria-hidden="true" className="text-ink-100/30">·</span>
@@ -299,6 +301,12 @@ export default function ShopHome() {
                 Få et fast tilbud
               </a>
             </div>
+          </div>
+        </section>
+        <section className="bg-cream">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col gap-14">
+            <TrustRow id="fragt" />
+            <Reviews />
           </div>
         </section>
       </main>

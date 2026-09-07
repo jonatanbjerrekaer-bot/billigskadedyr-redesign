@@ -15,7 +15,17 @@
  * Varer uden en linje her får ingen beregner. Det er meningen.
  */
 
-export type Rate = { key: string; label: string; perM2: number };
+export type Rate = {
+  key: string;
+  label: string;
+  perM2: number;
+  /**
+   * Fortyndingen for netop denne behandling, når den afhænger af den.
+   * A-Tox+ blandes 1:9 forebyggende og 1:5 mod et aktivt angreb, så tallet
+   * hører til behandlingen og ikke til varen.
+   */
+  dilution?: { yield: number; note: string };
+};
 
 export type Dose = {
   /** Enheden på perM2 og på pakningerne. */
@@ -41,19 +51,28 @@ export const DOSAGE: Record<string, Dose> = {
   // derimod ikke for A-Tox+, og vi har sat det efter det forbrug, han selv
   // offentliggør for Protox Svamp på træværk. Det er et kvalificeret tal,
   // ikke hans tal, og det er derfor mærket, så han kan rette ét sted.
+  // Alle fire tal står i hans eget faneblad "Anvendelse" på produktsiden.
   "a-tox-25ltr": {
     unit: "l",
     rates: [
-      { key: "forebyg", label: "Forebyggende, træet er sundt", perM2: 0.25 },
-      { key: "bekaemp", label: "Bekæmpende, der er aktive huller", perM2: 0.5 },
+      { key: "nyt", label: "Nyt træ, brugsklar", perM2: 0.25 },
+      { key: "gammelt", label: "Gammelt træ, brugsklar", perM2: 0.5 },
+      {
+        key: "konc-forebyg",
+        label: "Forebyggende med koncentrat",
+        perM2: 0.2,
+        dilution: { yield: 10, note: "1 liter koncentrat til 9 liter vand" },
+      },
+      {
+        key: "konc-kurativ",
+        label: "Aktivt angreb, koncentrat",
+        perM2: 1 / 3,
+        dilution: { yield: 6, note: "1 liter koncentrat til 5 liter vand" },
+      },
     ],
-    concentrate: {
-      yield: 10,
-      note: "5 liter koncentrat giver op til 50 liter færdig blanding ved forebyggende behandling",
-    },
-    source: "ours",
+    source: "his",
     sourceNote:
-      "Fortyndingen er hans egen. Forbruget pr. m² oplyser A-Tox+ ikke, så det er sat efter det forbrug, han selv angiver for Protox Svamp på træværk. Tjek etiketten, før du bestiller.",
+      "Forbrug og blandingsforhold er hans egne tal: nyt træ 0,25 L/m², gammelt træ 0,50 L/m², forebyggende 1:9 med ca. 1 liter blanding pr. 5 m², kurativt 1:5 med ca. 1 liter pr. 3 m².",
     proAboveM2: 60,
   },
 
