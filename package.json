@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prerender": "python3 scripts/prerender.py",
+    "build:site": "npm run build && npm run prerender"
   },
   "dependencies": {
     "@heroui/react": "^3.2.4",
