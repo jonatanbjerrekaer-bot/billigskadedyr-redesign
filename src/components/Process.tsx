@@ -16,7 +16,7 @@ const STEPS = [
   },
 ];
 
-export default function Process() {
+export default function Process({ note }: { note?: string } = {}) {
   return (
     <section id="process" className="bg-cream py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -38,6 +38,13 @@ export default function Process() {
             </div>
           ))}
         </div>
+        {/* The three steps are the same everywhere. What differs per pest is
+            what actually happens on the visit, so it sits under them. */}
+        {note && (
+          <p className="mt-10 max-w-2xl mx-auto text-center text-base text-ink-900/80 leading-relaxed">
+            {note}
+          </p>
+        )}
       </div>
     </section>
   );

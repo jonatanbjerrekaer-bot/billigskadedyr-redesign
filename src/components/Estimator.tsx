@@ -69,8 +69,14 @@ const TOGGLE = "px-4 py-3 text-sm font-medium data-[selected]:font-semibold";
 const GROUP = "inline-flex";
 const PEST_TRIGGER = "pest-select-trigger";
 
-export default function Estimator() {
-  const [slug, setSlug] = useState(PRICED_PESTS[0].slug);
+export default function Estimator({ initialPest }: { initialPest?: string } = {}) {
+  // A service page knows which pest the visitor came for, so the picker opens
+  // on it. This is not counted as the visitor having used the calculator:
+  // selTouched stays false until they change something themselves, so the
+  // contact form still refuses to prefill a situation nobody described.
+  const [slug, setSlug] = useState(
+    PRICED_PESTS.some((p) => p.slug === initialPest) ? initialPest! : PRICED_PESTS[0].slug,
+  );
   const [m2, setM2] = useState(DEFAULTS.m2);
   const [property, setProperty] = useState<PropertyType>(DEFAULTS.property);
   const [severity, setSeverity] = useState<Severity>(DEFAULTS.severity);

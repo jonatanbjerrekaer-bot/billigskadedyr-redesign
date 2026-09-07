@@ -17,12 +17,14 @@ export const TEL = "tel:+4524245583";
 // of opening a mail client; the form is the action, the buttons are ways to
 // reach it.
 export const CONTACT_HREF = "#skriv";
-// ponytail: the service pages render this header and these buttons but none
-// of the front-page sections, so a bare hash lands nowhere and fails silently.
-// Prefix with the site root when we are not on the front page; on the front
-// page the bare hash is returned untouched and still smooth-scrolls in place.
+// The service pages carry their own estimator, contact form, process and FAQ,
+// so those hashes resolve locally there. The pest grid is the one section that
+// still lives only on the front page, so it is the only hash worth rewriting.
+const HOME_ONLY = new Set(["#pest", "#top"]);
 export const homeHref = (hash: string) =>
-  location.pathname.includes("/service/") ? import.meta.env.BASE_URL + hash : hash;
+  HOME_ONLY.has(hash) && location.pathname.includes("/service/")
+    ? import.meta.env.BASE_URL + hash
+    : hash;
 
 const BASE =
   "press rounded-lg font-semibold min-h-[48px] px-6 py-3.5 inline-flex items-center justify-center gap-2 text-center transition-[color,background-color,border-color,transform]";
