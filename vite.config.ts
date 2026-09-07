@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-    index: 'index.html',    'service/myrer/index.html': 'service/myrer/index.html',    'service/hvepse/index.html': 'service/hvepse/index.html',    'service/vaeggelus/index.html': 'service/vaeggelus/index.html',    'service/soelvfisk/index.html': 'service/soelvfisk/index.html',    'service/borebiller/index.html': 'service/borebiller/index.html',    'service/kakerlakker/index.html': 'service/kakerlakker/index.html',    'service/fluer/index.html': 'service/fluer/index.html',    'service/edderkopper/index.html': 'service/edderkopper/index.html'
+    index: 'index.html',    'service/myrer/index.html': 'service/myrer/index.html',    'service/skaegkrae/index.html': 'service/skaegkrae/index.html',    'service/hvepse/index.html': 'service/hvepse/index.html',    'service/vaeggelus/index.html': 'service/vaeggelus/index.html',    'service/soelvfisk/index.html': 'service/soelvfisk/index.html',    'service/borebiller/index.html': 'service/borebiller/index.html',    'service/kakerlakker/index.html': 'service/kakerlakker/index.html',    'service/fluer/index.html': 'service/fluer/index.html',    'service/edderkopper/index.html': 'service/edderkopper/index.html'
       },
     },
   },

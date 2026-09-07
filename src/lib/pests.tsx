@@ -20,6 +20,9 @@ export type PestEntry = {
   /** Row in PRICE_TABLE, when this pest has a professional price. */
   priceKey?: string;
   png?: string;
+  /** Icon filename under public/pests, when it is not one of the webp
+      masks. His own service SVGs arrive this way. */
+  icon?: string;
   /** Hidden from the quick-select grid, still priced in the calculator. */
   gridHidden?: boolean;
   /** Optical size correction, 1 = no change. Derived, see note above. */
@@ -35,6 +38,7 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
+  { slug: "skaegkrae", treatment: "Behandling af fugtzoner, revner og fodpaneler", label: "Skægkræ", priceKey: "Skægkræ/sølvfisk", icon: "skaegkrae.svg" },
   { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
@@ -121,7 +125,8 @@ export function PestGlyph({
       </span>
     );
   }
-  const url = `url(${import.meta.env.BASE_URL}pests/${pest.png}.webp)`;
+  const file = pest.icon ?? `${pest.png}.webp`;
+  const url = `url(${import.meta.env.BASE_URL}pests/${file})`;
   return (
     <span
       aria-hidden="true"

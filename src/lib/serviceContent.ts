@@ -3,12 +3,14 @@ import { PESTS } from "./pests";
 export type ServiceContent = {
   /** One or two sentences under the page title. */
   intro: string;
-  /** Why getting a professional out is the route that actually holds. */
-  whyProfessional: string[];
-  /** The species or variants people run into here. */
-  species: { name: string; text: string }[];
+  /** Why getting a professional out is the route that actually holds.
+      Absent where he has written none: better a shorter page than one
+      carrying claims he never made. */
+  whyProfessional?: string[];
+  /** The species or variants people run into here, where he lists any. */
+  species?: { name: string; text: string }[];
   /** How the visit runs, in a couple of lines. */
-  processNote: string;
+  processNote?: string;
   /**
    * The owner's own FAQ for this pest, lifted verbatim from
    * billigskadedyrprof.dk. Entries that contradicted this site (nationwide
@@ -20,6 +22,20 @@ export type ServiceContent = {
 };
 
 export const SERVICE_CONTENT: Record<string, ServiceContent> = {
+  skaegkrae: {
+    intro:
+      "Skægkræ er et stigende problem i mange danske hjem. De gemmer sig i sprækker, bag paneler og i konstruktionen, hvilket gør dem svære at bekæmpe med almindelige midler. Hos BilligskadedyrPROF tilbyder vi professionel skægkræ bekæmpelse, hvor vi ikke kun fjerner de synlige insekter – men også årsagen til problemet. Vi udfører professionel skægkræ bekæmpelse i hele Jylland – herunder Nordjylland, Midtjylland, Østjylland og Sydjylland.",
+    faq: [
+      { q: "Tilbyder I skægkræ bekæmpelse i hele Jylland?", a: "Ja. Vi udfører professionel skægkræ bekæmpelse i hele Jylland, herunder Nordjylland, Midtjylland, Østjylland og Sydjylland. Uanset om der er tale om en privat bolig, erhverv eller boligforening, kan vi tilbyde en effektiv og professionel løsning, til en god pris uden at gå på kompromis med virkningen." },
+      { q: "Er professionel skægkræ bekæmpelse en permanent løsning?", a: "Professionel skægkræ bekæmpelse giver en langt mere langtidsholdbar løsning end gør-det-selv produkter. Efter behandling vil skægkræ være fjernet helt, de vil dog formentlig komme igen, for nogen efter et år, og for nogle efter flere år. Hvis du bor i en lejlighed eller andet hvor du deler væg med en eller flere naboer, kan det være mere besværligt. Selvom vi behandler skægkræ i din bolig og fjerner dem helt, vil det være et spørgsmål om tid før de kommer igen, medmindre dine naboer også får behandlet. Vi kan dog se en tendens til at det stadig kan holdes skægkræ-fri i ca. 1 år.\nResultatet afhænger dog af bygningstype, spredning og hvor tidligt indsatsen sættes ind." },
+      { q: "Kan jeg selv slippe af med skægkræ?", a: "Mindre forekomster kan midlertidigt reduceres med fælder, men skægkræ forsvinder sjældent permanent uden professionel behandling. De gemmer sig i sprækker, konstruktioner og bag paneler, hvor almindelige midler ikke når ind. Uden korrekt metode og opfølgning vil problemet ofte vende tilbage. Professionel skægkræ bekæmpelse sikrer, at både synlige insekter og skjulte bestande bliver behandlet." },
+      { q: "Hvornår er professionel skægkræ bekæmpelse nødvendig?", a: "Professionel skægkræ bekæmpelse anbefales, når:\nSkægkræ ses i flere rum\nProblemet vender tilbage efter egen behandling\nAngrebet er udbredt i bygningen\nDer er tale om lejligheder, erhverv eller boligforeninger\nDu ønsker en langtidsholdbar løsning\nVi vurderer altid problemets omfang og vælger den mest effektive metode." },
+      { q: "Er en professionel skægkræ bekæmpelse sikker for børn og kæledyr?", a: "Vores behandling mod skægkræ er helt ufarlig for mennesker og dyr! Vi anvender professionelle men miljø- og allergivenlige midler, korrekt doseret for at sikre bedst mulig effekt med mindst mulig belastning på miljøet og andre omgivelser. Vi giver dig altid klare anvisninger både før og efter behandlingen, så du aldrig er i tvivl om hvordan du skal forholde dig efter en behandling. Behandlingsmetoden er tilpasset, så der tages hensyn til både børn, kæledyr og boligens anvendelse. I alle tilfælde vil boligen kunne benyttes under og efter en behandlingen." },
+      { q: "Er skægkræ skadelige?", a: "Skægkræ er ikke skadelige eller sundhedsfarlige og hverken bider, stikker eller lignende. De kan dog gøre skade på materiel såsom, papir, bøger, malerier, billeder og fotos." },
+      { q: "Hvor kommer skægkræ fra?", a: "Oprindeligt blev skægkræet først opdaget i sydafrika i år 1905. De er dog kendt på alle kontinenter pånær Antarktis, og blev første gang opdaget i Europa i Frankrig i år 1914. De menes at komme i forbindelse med importvarer fra især Indien, Thailand  og andre lande i Asien.\nSkægkræ blev første gang opdaget i Danmark i 2016, hvilket menes at være kommet fra Norge hvor insektet har været et stort problem i flere år.\nDet er derfor vigtigt at du grundigt tjekker dine pakker eller åbner dem udenfor. I det seneste års tid er de fundet på en del skoler, børnehaver, varehuse, arbejdspladser og andre steder med mange “besøgende”. Det kræver kun ét skægkræ for at kunne starte en hel hær. Disse steder står oftest tomme om natten og skægkræet kan derfor brede sig uden at blive opdaget, eller først opdaget når problemets omfang er meget stort. Derfra vil insektet måske bevæge sig i dine sko eller sin taske og du vil derfra tage dem med hjem." },
+      { q: "Hvor lever skægkræ?", a: "Skægkræet foretrækker at opholde sig mørkt og tørt. Det er derfor meget normalt at finde disse i både din bogreol, køkkenskabe, vasketøjskurv og endda også i din seng.\nDa de er meget små i den første fase af deres liv kan de nemt finde vej i selv de mindste sprækker i din bolig.\nDu skal derfor forvente at kunne finde skægkræ mere eller mindre alle steder i din bolig.\nFuldvoksne skægkræ kan overleve i meget lang tid uden at indtage føde. Man regner med at de kan overleve hele 10 måneder uden at indtage noget føde." },
+    ],
+  },
   myrer: {
     intro:
       "Myrer i terrassen eller i køkkenet er sjældent farlige, men de er generende, og en rede vokser hurtigt. " +

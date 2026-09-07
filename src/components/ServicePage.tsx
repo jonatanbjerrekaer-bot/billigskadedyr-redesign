@@ -118,7 +118,7 @@ export default function ServicePage({ slug }: { slug: string }) {
                   første gang.
                 </p>
                 <ul className="mt-8 flex flex-col gap-5 max-w-xl">
-                  {content.whyProfessional.map((w) => (
+                  {(content.whyProfessional ?? []).map((w) => (
                     <li key={w} className="flex items-start gap-3.5">
                       <span className="w-7 h-7 rounded-full bg-accent-500 text-ink-950 flex items-center justify-center shrink-0 mt-0.5">
                         <Check size={16} strokeWidth={3} aria-hidden="true" />
@@ -166,13 +166,14 @@ export default function ServicePage({ slug }: { slug: string }) {
           </div>
         </section>
 
+        {!!content.species?.length && (
         <section className="bg-ink-50 py-14 sm:py-16">
           <div className="max-w-6xl mx-auto px-5 sm:px-8">
             <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight uppercase mb-6">
               Hvad er {label.toLowerCase()}?
             </h2>
             <dl className="grid gap-4 md:grid-cols-2 max-w-3xl">
-              {content.species.map((sp) => (
+              {content.species!.map((sp) => (
                 <div key={sp.name} className="bg-white rounded-2xl border border-ink-900/10 p-6">
                   <dt className="font-display text-lg font-bold text-ink-900 mb-1.5">{sp.name}</dt>
                   <dd className="text-sm text-ink-900/75 leading-relaxed">{sp.text}</dd>
@@ -181,6 +182,7 @@ export default function ServicePage({ slug }: { slug: string }) {
             </dl>
           </div>
         </section>
+        )}
 
         <Process />
 
