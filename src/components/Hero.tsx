@@ -3,7 +3,6 @@ import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
 const TRUST_POINTS = [
   "Fast pris, aftalt før vi går i gang",
   "Certificerede teknikere og skriftlig dokumentation",
-  "Den rigtige behandling først. Vi kigger, vurderer, og behandler derefter",
 ];
 
 export default function Hero() {
@@ -21,7 +20,7 @@ export default function Hero() {
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
               Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i
-              hele Jylland og på Fyn, og prisen ligger fast, før vi går i gang.
+              hele Jylland og på Fyn.
             </p>
 
             <ul className="mt-7 flex flex-col gap-3">
@@ -87,7 +86,10 @@ export default function Hero() {
             className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors border-t sm:border-t-0 sm:border-l border-ink-700"
           >
             <Phone size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
-            <span className="select-text text-sm font-semibold">24 24 55 83</span>
+            <span className="flex flex-col">
+              <span className="select-text text-sm font-semibold">24 24 55 83</span>
+              <span className="text-xs text-ink-100/70">Akut og igangværende sager</span>
+            </span>
           </a>
           <div className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-accent-500 text-ink-950">
             <MapPin size={18} aria-hidden="true" className="shrink-0" />
