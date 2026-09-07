@@ -155,10 +155,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   }, []);
 
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
-  const { low, high } = estimate(pest.priceKey!, m2, property, severity);
-  // One number, not a range: a range makes the visitor do the arithmetic
-  // and still leaves them unsure. Midpoint, rounded to nearest 50 kr.
-  const price = Math.round((low + high) / 2 / 50) * 50;
+  // His published price, or an honest "we set it after a short chat". The old
+  // midpoint arithmetic is gone: these are the figures he actually charges, so
+  // there is nothing left to average. Season comes from the clock inside
+  // estimate(), which is why no control here asks about it.
+  const quote = estimate(pest.priceKey!, m2, property, severity);
+  const price = quote.kind === "fixed" ? quote.price : 0;
 
   // Shneiderman 6: easy reversal. Anyone who has fiddled the inputs can get
   // back to the starting point without reloading the page.
@@ -514,9 +516,31 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             glance and stop taking the checklist's attention.
           */}
           <div className="flex flex-col gap-3">
-            <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
-              {dkr(display)}
-            </div>
+            {quote.kind === "fixed" ? (
+              <>
+                <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
+                  {dkr(display)}
+                </div>
+                {/* The price never appears without saying what it covers. */}
+                <p className="text-xs text-ink-100/70 leading-relaxed">{quote.caption}</p>
+                {quote.notes.map((n) => (
+                  <p key={n} className="text-xs text-ink-100/70 leading-relaxed">
+                    {n}
+                  </p>
+                ))}
+              </>
+            ) : (
+              <>
+                <div className="font-display text-2xl font-bold text-accent-400">
+                  Fast pris efter en kort snak
+                </div>
+                <p className="text-xs text-ink-100/70 leading-relaxed">{quote.why}</p>
+                <p className="text-xs text-ink-100/70 leading-relaxed">
+                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang,
+                  og den ændrer sig ikke undervejs.
+                </p>
+              </>
+            )}
             <div className="flex flex-wrap gap-2 text-xs text-ink-100/80">
               <span className="rounded-full bg-ink-900 px-2.5 py-1">
                 Svar på 1 hverdag
@@ -552,7 +576,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             says "different kind of thing" in a way a fifth hairline cannot,
             and it lets the promises above stay uninterrupted.
           */}
-          <div className="rounded-xl border border-ink-800 bg-ink-900/70 p-4">
+          <div
+            className="rounded-xl border border-ink-800 bg-ink-900/70 p-4"
+            hidden={quote.kind !== "fixed"}
+          >
             <p className="flex items-center gap-2 text-xs font-semibold text-ink-100/90">
               <Info size={14} strokeWidth={2.5} aria-hidden="true" className="text-ink-100/60" />
               Det kan ændre prisen
