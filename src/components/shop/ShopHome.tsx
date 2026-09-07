@@ -14,6 +14,16 @@ import Reviews from "../Reviews";
 const BASE = import.meta.env.BASE_URL;
 
 /**
+ * Fotoet i heroet. Byt navnet for at skifte billede; alle tre ligger i
+ * public/ og er beskaaret til 4:3, saa layoutet ikke flytter sig.
+ * Kilde: Unsplash, fri til kommerciel brug uden navngivning.
+ */
+const SHOT = {
+  src: "shop-hero-skur.webp",
+  alt: "Hvidt havehus med grønt vindue, havemøbler og krukker foran",
+};
+
+/**
  * De tre varer, forsiden aabner med. Mus, hvepse og myrer er de tre
  * skadedyr, han har flest varer til, og alle tre har et brugbart
  * produktfoto og en pris, man kan sige hoejt.
@@ -93,32 +103,51 @@ export default function ShopHome() {
                   </p>
                 </div>
 
-                {/* Ét stort produktfoto baerer toppen, som paa begge
-                    referencer. Her er det en vare og ikke et livsstilsfoto,
-                    fordi det er det materiale, der findes. */}
-                {featured && (
-                  <a
-                    href={`${BASE}shop/produkt/${featured.slug}/`}
-                    className="group relative flex flex-col bg-white focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent-600"
-                  >
-                    <div className="relative flex-1 min-h-[260px] sm:min-h-[320px]">
+                {/* Fotoet baerer toppen, og varen ligger hen over det. Uden
+                    fotoet var heroet to spalter tekst og et produktbillede
+                    paa hvid, og det er en brochure, ikke en butik. */}
+                <div className="relative min-h-[280px] sm:min-h-[360px] bg-ink-100">
+                  <img
+                    src={`${BASE}${SHOT.src}`}
+                    alt={SHOT.alt}
+                    width={1400}
+                    height={1050}
+                    loading="eager"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+
+                  {featured && (
+                    <a
+                      href={`${BASE}shop/produkt/${featured.slug}/`}
+                      className="press group absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-5 sm:bottom-5 sm:w-[20rem] flex items-center gap-3 rounded-2xl border border-ink-200 bg-white/95 p-3 shadow-[0_18px_40px_-24px_rgba(12,26,18,0.6)] backdrop-blur-sm transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+                    >
                       <img
                         src={`${BASE}shop/${featured.img}`}
-                        alt={featured.name}
-                        width={880}
-                        height={660}
+                        alt=""
+                        width={64}
+                        height={64}
                         loading="eager"
-                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04]"
+                        className="h-14 w-14 shrink-0 object-contain"
                       />
-                    </div>
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-ink-200 px-6 py-4">
-                      <p className="font-display font-semibold text-ink-950 m-0">{featured.name}</p>
-                      <p className="font-display text-lg font-bold tabular-nums text-ink-950 m-0">
-                        {dkr(featured.price)}
-                      </p>
-                    </div>
-                  </a>
-                )}
+                      <span className="min-w-0 flex-1">
+                        {/* To linjer i stedet for at klippe navnet af. "Victor
+                            Elektronisk Musefael..." er ikke et varenavn. */}
+                        <span className="block text-sm font-semibold leading-snug text-ink-950 [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden">
+                          {featured.name}
+                        </span>
+                        <span className="block font-display text-lg font-bold tabular-nums text-ink-950">
+                          {dkr(featured.price)}
+                        </span>
+                      </span>
+                      <ArrowRight
+                        size={18}
+                        strokeWidth={2.5}
+                        aria-hidden="true"
+                        className="shrink-0 text-ink-600 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
+                      />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>
