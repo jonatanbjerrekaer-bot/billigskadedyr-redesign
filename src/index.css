@@ -73,6 +73,13 @@
   --color-ink-700: #1b3a2a;
   --color-ink-600: #2c5540;
   /* Boundary colour for controls on ink: 3.29:1 against ink-950. */
+  /* Trinnene mellem ink-100 og ink-500. Butikken er et lyst design og
+     har brug for rammer og skillelinjer, der er lysere end ink-500 og
+     mørkere end ink-100. Uden dem blev border-ink-200 stiltiende
+     ignoreret, og kortene stod uden kant. */
+  --color-ink-200: #c9dbcf;
+  --color-ink-300: #a8c4b3;
+  --color-ink-400: #75a189;
   --color-ink-500: #3d7255;
   --color-ink-100: #e3ede6;
   --color-ink-50: #f2f7f3;

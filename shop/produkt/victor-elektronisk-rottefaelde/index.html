@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="da" data-pest="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/billigskadedyr-redesign/favicon.svg" />
+    <title>Professionel victor elektronisk rottefælde | Billigskadedyr.dk</title>
+    <meta name="description" content="" />
+    <script type="module" src="/src/shop-entry.tsx"></script>
+    <!-- The cross-document transition opt-in lives here, not only in
+         index.css: the browser decides whether to run a transition while it
+         parses the new document, and in dev the stylesheet arrives later as a
+         JS-injected <style>. Inline in the head it is in time in both dev and
+         production. The rest of the transition styling stays in index.css. -->
+    <style>@view-transition { navigation: auto }
+      /* Painted before anything else loads, so a navigation never
+         flashes white on its way to the dark header. */
+      html { background-color: #f2f7f3 }</style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

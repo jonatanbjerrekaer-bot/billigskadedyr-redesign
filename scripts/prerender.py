@@ -99,7 +99,13 @@ def faq_schema(tab):
 
 
 def main():
-    pages = sorted(DIST.glob("service/*/index.html")) + [DIST / "index.html"]
+    pages = (
+        sorted(DIST.glob("service/*/index.html"))
+        + [DIST / "shop" / "index.html", DIST / "shop" / "produkter" / "index.html"]
+        + sorted(DIST.glob("shop/produkt/*/index.html"))
+        + [DIST / "index.html"]
+    )
+    pages = [f for f in pages if f.exists()]
     httpd = serve()
     done = 0
     try:
@@ -120,7 +126,8 @@ def main():
                 })""", timeout=25)
                 tab.js("new Promise(r => setTimeout(r, 400))")
 
-                schema = faq_schema(tab) if str(rel) != "." else None
+                is_shop = str(rel).startswith("shop")
+                schema = None if is_shop or str(rel) == "." else faq_schema(tab)
                 html = tab.js("document.documentElement.outerHTML")
             finally:
                 tab.close()
