@@ -127,16 +127,6 @@ export default function ServicePage({ slug }: { slug: string }) {
                     </li>
                   ))}
                 </ul>
-                {/*
-                  Said out loud, on the page that is trying to sell the visit.
-                  It costs a few jobs and buys the ones that matter.
-                */}
-                <p className="mt-8 max-w-xl rounded-2xl border border-ink-900/10 bg-ink-50/70 p-5 text-sm text-ink-900/80 leading-relaxed">
-                  <span className="font-semibold text-ink-900">Og hvis du selv kan klare det, siger vi det.</span>{" "}
-                  Et lille, nyt angreb klarer du ofte selv med det rette middel til
-                  under 200 kr. Ring eller skriv, så siger vi ærligt, hvad vi ville
-                  gøre i dit sted.
-                </p>
               </div>
 
               {/* The answers to "who is coming into my house, and what does it
