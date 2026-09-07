@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Input, Label, TextArea, TextField, toast } from "@heroui/react";
 import { ClipboardPaste, Eraser, ImagePlus, Loader2, Send, X } from "lucide-react";
+import { LIMITS, prepare, type Prepared } from "../lib/imageUpload";
 
 const FIELD =
   "w-full rounded-lg border border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-cream placeholder:text-ink-100/40 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/50";
@@ -9,10 +10,11 @@ const PLACEHOLDER = "Skriv kort, hvad du har set, og hvor i boligen det er.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// What the endpoint has to accept when it exists. HEIC is here because a
-// photo taken on an iPhone arrives as one and the sender will not know.
+// A hint for the file picker, nothing more: accept is a convenience for the
+// person choosing, not a check. What a file actually is gets decided by its
+// leading bytes in lib/imageUpload, and decided again on the server. HEIC is
+// here because an iPhone photo arrives as one and the sender will not know.
 const PHOTO_ACCEPT = "image/png,image/jpeg,image/webp,image/heic,image/heif";
-const PHOTO_MAX_MB = 10;
 
 // Danish numbers are dialled a handful of ways (24245583, 24 24 55 83,
 // +45 24 24 55 83). The check is on the digits only: strip spaces,
@@ -66,9 +68,11 @@ export default function InquiryForm({ draft }: { draft: string }) {
     }
   }, [draft, message]);
 
-  // Names only. The stub has nothing to upload to, and holding File
-  // objects it will never read would be pretending otherwise.
-  const [photos, setPhotos] = useState<string[]>([]);
+  // Now the prepared blobs rather than just names: they have been re-encoded
+  // down to something a mail server will take, and stripped of the EXIF that
+  // would otherwise carry the sender's home coordinates to the owner.
+  const [photos, setPhotos] = useState<Prepared[]>([]);
+  const [preparing, setPreparing] = useState(false);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -232,9 +236,11 @@ export default function InquiryForm({ draft }: { draft: string }) {
           className="press flex items-center gap-2.5 rounded-lg border border-dashed border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-ink-100/70 cursor-pointer transition-colors hover:border-accent-500 hover:text-cream focus-within:border-accent-500"
         >
           <ImagePlus size={17} strokeWidth={2} aria-hidden="true" className="shrink-0" />
-          {photos.length === 0
-            ? "Vedhæft et billede af dyret eller skaden"
-            : `${photos.length} ${photos.length === 1 ? "billede" : "billeder"} valgt`}
+          {preparing
+            ? "Gør billedet klar…"
+            : photos.length === 0
+              ? "Vedhæft et billede af dyret eller skaden"
+              : `${photos.length} ${photos.length === 1 ? "billede" : "billeder"} valgt`}
         </label>
         <input
           id="inquiry-photos"
@@ -243,30 +249,39 @@ export default function InquiryForm({ draft }: { draft: string }) {
           multiple
           accept={PHOTO_ACCEPT}
           className="sr-only"
-          onChange={(e) => {
+          onChange={async (e) => {
             const picked = Array.from(e.target.files ?? []);
-            const tooBig = picked.filter((f) => f.size > PHOTO_MAX_MB * 1024 * 1024);
-            setErrors((p) => ({
-              ...p,
-              photos: tooBig.length
-                ? `Billedet må fylde højst ${PHOTO_MAX_MB} MB. Prøv at sende det i mindre størrelse.`
-                : undefined,
-            }));
-            setPhotos(picked.filter((f) => f.size <= PHOTO_MAX_MB * 1024 * 1024).map((f) => f.name));
+            // the same file picked twice should not queue twice
+            e.target.value = "";
+            if (!picked.length) return;
+            setPreparing(true);
+            try {
+              const { accepted, rejected } = await prepare(picked, photos);
+              setPhotos((p) => [...p, ...accepted]);
+              setErrors((p) => ({
+                ...p,
+                photos: rejected.length ? rejected[0]!.reason : undefined,
+              }));
+            } finally {
+              setPreparing(false);
+            }
           }}
         />
         {photos.length > 0 && (
           <ul className="flex flex-wrap gap-1.5 list-none p-0 m-0">
-            {photos.map((name) => (
+            {photos.map((photo) => (
               <li
-                key={name}
+                key={photo.name}
                 className="enter-soft inline-flex items-center gap-1.5 rounded-full bg-ink-800 px-2.5 py-1 text-xs text-ink-100/80"
               >
-                <span className="max-w-[16ch] truncate">{name}</span>
+                <span className="max-w-[16ch] truncate">{photo.name}</span>
+                <span className="text-ink-100/45">
+                  {(photo.bytes / 1024 / 1024).toFixed(1)} MB
+                </span>
                 <button
                   type="button"
-                  aria-label={`Fjern ${name}`}
-                  onClick={() => setPhotos((p) => p.filter((n) => n !== name))}
+                  aria-label={`Fjern ${photo.name}`}
+                  onClick={() => setPhotos((p) => p.filter((x) => x.name !== photo.name))}
                   className="press text-ink-100/50 hover:text-cream transition-colors"
                 >
                   <X size={13} strokeWidth={2.5} aria-hidden="true" />
@@ -275,9 +290,14 @@ export default function InquiryForm({ draft }: { draft: string }) {
             ))}
           </ul>
         )}
-        {errors.photos && (
+        {errors.photos ? (
           <p role="alert" className={ERROR}>
             {errors.photos}
+          </p>
+        ) : (
+          <p className="text-xs text-ink-100/50">
+            Højst {LIMITS.maxFiles} billeder. Vi formindsker billedet og fjerner automatisk
+            placering og andre metadata, før det sendes.
           </p>
         )}
       </div>
