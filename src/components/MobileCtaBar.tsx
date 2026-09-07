@@ -1,7 +1,7 @@
 import { Mail, Phone } from "lucide-react";
 import { Link } from "@heroui/react";
 import { useConsent } from "../lib/consent";
-import { CONTACT_HREF, TEL } from "./ui/Cta";
+import { CONTACT_HREF, TEL, homeHref } from "./ui/Cta";
 
 /**
  * Mobile-only contact bar, pinned to the bottom.
@@ -22,7 +22,7 @@ export default function MobileCtaBar() {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-ink-950/95 backdrop-blur border-t border-ink-800 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2 animate-slide-up">
       <Link
-        href={CONTACT_HREF}
+        href={homeHref(CONTACT_HREF)}
         className="press basis-0 grow inline-flex items-center justify-center gap-2 min-h-[48px] rounded-lg bg-accent-500 text-ink-950 font-bold"
       >
         <Mail size={17} strokeWidth={2.5} aria-hidden="true" />

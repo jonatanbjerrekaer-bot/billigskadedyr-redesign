@@ -1,7 +1,7 @@
 import { Button, Link } from "@heroui/react";
 
 import { Mail, Menu, X } from "lucide-react";
-import { CONTACT_HREF } from "./ui/Cta";
+import { CONTACT_HREF, homeHref } from "./ui/Cta";
 
 const NAV_LINKS = [
   { label: "Skadedyr", href: "#pest" },
@@ -27,7 +27,7 @@ export default function Header({
           identity rather than a redesign's idea of it. The name still reaches
           screen readers through the visually-hidden span.
         */}
-        <a href="#top" className="inline-flex items-center min-h-[44px]">
+        <a href={homeHref("#top")} className="inline-flex items-center min-h-[44px]">
           <img
             src={`${import.meta.env.BASE_URL}logo-mark.svg`}
             alt=""
@@ -42,7 +42,7 @@ export default function Header({
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
-              href={l.href}
+              href={homeHref(l.href)}
               className="text-cream hover:text-accent-400 transition-colors"
             >
               {l.label}
@@ -54,7 +54,7 @@ export default function Header({
           {/* Mail leads. The phone number stays one tap away in the hero strip
               and the footer for the people who want it. */}
           <Link
-            href={CONTACT_HREF}
+            href={homeHref(CONTACT_HREF)}
             className="hidden sm:inline-flex gap-2 bg-accent-500 hover:bg-accent-400 text-ink-950 font-semibold rounded-lg px-4 py-2.5 text-sm min-h-[44px] items-center transition-colors"
           >
             <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
@@ -91,7 +91,7 @@ export default function Header({
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
-                href={l.href}
+                href={homeHref(l.href)}
                 onClick={onNavToggle}
                 className="px-3 min-h-[48px] flex items-center rounded-lg text-cream hover:bg-ink-800 text-base"
               >
@@ -99,7 +99,7 @@ export default function Header({
               </a>
             ))}
             <Link
-              href={CONTACT_HREF}
+              href={homeHref(CONTACT_HREF)}
               className="mt-2 w-full bg-accent-500 text-ink-950 text-center font-semibold rounded-lg py-3 min-h-[48px] flex items-center justify-center gap-2"
             >
               <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
