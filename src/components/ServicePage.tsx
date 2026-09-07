@@ -182,8 +182,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           </div>
         </section>
 
-        {/* The front page's three steps, plus what is specific to this pest. */}
-        <Process note={content.processNote} />
+        <Process />
 
         {priced && <Estimator initialPest={slug} />}
 

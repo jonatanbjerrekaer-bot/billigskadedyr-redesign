@@ -519,6 +519,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             {quote.kind === "fixed" ? (
               <>
                 <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
+                  {quote.overArea ? "Fra " : ""}
                   {dkr(display)}
                 </div>
                 {/* The price never appears without saying what it covers. */}

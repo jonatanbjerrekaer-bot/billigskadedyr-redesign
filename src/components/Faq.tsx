@@ -115,6 +115,13 @@ export default function Faq({
         </div>
 
         {/*
+          Guides are a front-page thing. A service page answers one pest, and a
+          list of links about the other fifteen only dilutes it, for the reader
+          and for search.
+        */}
+        {!items?.length && (
+        <>
+        {/*
           Guides, kept as a second group rather than mixed into the FAQ above.
           Those six answer "should I buy" questions; these answer "how do I deal
           with this pest" questions, which is a different visit and a different
@@ -164,6 +171,8 @@ export default function Faq({
             </Disclosure.Root>
           ))}
         </div>
+        </>
+        )}
       </div>
     </section>
   );
