@@ -38,8 +38,8 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
-  { slug: "skaegkrae", treatment: "Behandling af fugtzoner, revner og fodpaneler", label: "Skægkræ", priceKey: "Skægkræ/sølvfisk", icon: "skaegkrae.svg" },
   { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
+  { slug: "skaegkrae", treatment: "Behandling af fugtzoner, revner og fodpaneler", label: "Skægkræ", priceKey: "Skægkræ/sølvfisk", icon: "skaegkrae.svg" },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
     label: "Hvepse & bier",

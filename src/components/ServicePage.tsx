@@ -188,7 +188,7 @@ export default function ServicePage({ slug }: { slug: string }) {
 
         {priced && <Estimator initialPest={slug} />}
 
-        <Contact />
+        <Contact pestLabel={label} />
 
         <Faq
           items={content.faq}
