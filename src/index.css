@@ -514,3 +514,12 @@ img {
     }
   }
 }
+
+/* Safari and Chrome draw their own clear button inside
+   input[type=search], in the system's own colour and size. It ignores
+   the design entirely, so the field hides it and renders its own. */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}

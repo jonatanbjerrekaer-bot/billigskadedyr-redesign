@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { X } from "lucide-react";
 import { GRID_PESTS, PestGlyph, type PestEntry } from "../lib/pests";
 import Reveal from "./ui/Reveal";
 import { homeHref } from "./ui/Cta";
@@ -92,7 +93,7 @@ export default function PestQuickSelect() {
             a beetle, or with huller i tøjet. The field searches the everyday
             words in the registry, so the list answers the question people can
             actually ask. */}
-        <div className="mb-6 max-w-md">
+        <div className="mb-6 max-w-md relative">
           <label htmlFor="pest-search" className="sr-only">
             Søg efter skadedyr
           </label>
@@ -102,8 +103,21 @@ export default function PestQuickSelect() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Fx bille, huller i tøjet, larver i plænen"
-            className="w-full min-h-[48px] rounded-full border border-ink-900/15 bg-white px-5 text-base text-ink-900 placeholder:text-ink-900/45 focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 transition-colors"
+            className="w-full min-h-[48px] rounded-full border border-ink-900/15 bg-white pl-5 pr-12 text-base text-ink-900 placeholder:text-ink-900/45 focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 transition-colors"
           />
+          {/* Safari draws its own clear button for type=search, in the
+              system blue, ignoring the design. That one is hidden in CSS
+              and this is ours. */}
+          {q && (
+            <button
+              type="button"
+              onClick={() => setQ("")}
+              aria-label="Ryd søgning"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center text-ink-900/45 hover:text-ink-900 hover:bg-ink-900/5 press transition-colors"
+            >
+              <X size={18} strokeWidth={2.5} aria-hidden="true" />
+            </button>
+          )}
         </div>
 
         {hits.length > 0 ? (
