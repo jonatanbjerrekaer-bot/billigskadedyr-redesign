@@ -20,27 +20,6 @@ export type ServiceContent = {
 };
 
 export const SERVICE_CONTENT: Record<string, ServiceContent> = {
-  rotter: {
-    intro:
-      "Rotter og mus kan lave mere skade, end de første tegn antyder. De gnaver i ledninger, isolering og selve " +
-      "konstruktionen, og de formerer sig hurtigt. En fagmand finder årsagen til, at de er kommet ind, ikke kun " +
-      "de dyr, du kan se.",
-    whyProfessional: [
-      "Vi sikrer adgangsvejene, så problemet ikke bare vender tilbage",
-      "Foderstationer bliver sat rigtigt op og mærket, så du kan følge med i, hvad der sker",
-      "Skriftlig dokumentation, du kan bruge over for forsikring, udlejer eller ejendomsadministration",
-      "Vi vurderer risikoen for, at problemet spreder sig til naboer og nabobygninger",
-    ],
-    species: [
-      { name: "Brun rotte (kloakrotte)", text: "Den store, gråbrune rotte. Den kommer typisk ind udefra gennem kloak, hulmur eller utætte gennemføringer og kan gnave sig vej gennem bløde materialer." },
-      { name: "Sort rotte", text: "Mindre og mørkere end kloakrotten og holder sig oftest højt, for eksempel på loftet, i skakte og bag væggene i ældre bygninger." },
-      { name: "Husmus", text: "Lille, lys og hurtig. Den finder vej gennem meget smalle sprækker og holder sig tæt på varme, mad og gemmesteder med mennesker i nærheden." },
-    ],
-    processNote:
-      "Først besigtiger vi adressen for at forstå, hvordan dyrene kommer ind, og hvad der tiltrækker dem. " +
-      "Derefter sikrer vi adgangsvejene og sætter foderstationer op efter behov. Prisen ligger fast, før vi " +
-      "går i gang, og du får skriftlig dokumentation for behandlingen.",
-  },
   myrer: {
     intro:
       "Myrer i terrassen eller i køkkenet er sjældent farlige, men de er generende, og en rede vokser hurtigt. " +

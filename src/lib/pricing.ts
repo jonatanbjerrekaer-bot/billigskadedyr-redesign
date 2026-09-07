@@ -70,10 +70,6 @@ export const OWNER_PRICES: Record<string, Owner> = {
     kind: "quote",
     why: "Kakerlakker kræver en vurdering på stedet, før vi sætter en pris.",
   },
-  Rotter: {
-    kind: "quote",
-    why: "Rotter kræver en vurdering på stedet, før vi sætter en pris.",
-  },
 };
 
 export function seasonOf(date: Date = new Date()): Season {

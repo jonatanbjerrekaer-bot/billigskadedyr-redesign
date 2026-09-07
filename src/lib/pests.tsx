@@ -1,4 +1,3 @@
-import { Rat } from "lucide-react";
 import type { ComponentType, CSSProperties } from "react";
 import { BedBug } from "../components/icons/PestIcons";
 
@@ -36,7 +35,6 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
-  { slug: "rotter", treatment: "Sikring af adgangsveje og opsætning af foderstationer", label: "Rotter & mus", priceKey: "Rotter", Svg: Rat },
   { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",

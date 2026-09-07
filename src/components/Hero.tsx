@@ -16,7 +16,7 @@ export default function Hero() {
               Hele Jylland og Fyn · base i Risskov
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
-              Rotter, hvepse, væggelus eller borebiller?
+              Myrer, hvepse, væggelus eller borebiller?
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
               Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i

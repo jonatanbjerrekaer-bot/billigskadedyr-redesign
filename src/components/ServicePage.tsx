@@ -141,7 +141,7 @@ export default function ServicePage({ slug }: { slug: string }) {
                     ["Certificerede teknikere", "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver."],
                     ["Skriftlig dokumentation", "Du får behandlingen på skrift, klar til ejendomsadministrationen eller forsikringssagen."],
                     ["Du ved, hvem der kommer", "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring."],
-                    ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel rotter indendørs eller et bo tæt på en indgang, ringer du bare."],
+                    ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel et hvepsebo tæt på en indgang, ringer du bare."],
                   ].map(([t, d]) => (
                     <div key={t} className="flex items-start gap-3">
                       <Check size={18} strokeWidth={3} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />

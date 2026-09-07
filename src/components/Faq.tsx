@@ -22,7 +22,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Hvor hurtigt kan I komme?",
-    a: "Vi kører ud i hele Jylland og på Fyn, og vi udvider løbende dækningsområdet. Hvor hurtigt vi kan komme, afhænger af opgaven, sæsonen og hvor du bor, så du får altid en ærlig vurdering, når du kontakter os. Er det akut, for eksempel rotter indendørs eller et hvepsebo tæt på en indgang, så skriv eller ring på 24 24 55 83, så finder vi den hurtigste løsning.",
+    a: "Vi kører ud i hele Jylland og på Fyn, og vi udvider løbende dækningsområdet. Hvor hurtigt vi kan komme, afhænger af opgaven, sæsonen og hvor du bor, så du får altid en ærlig vurdering, når du kontakter os. Er det akut, for eksempel et hvepsebo tæt på en indgang, så skriv eller ring på 24 24 55 83, så finder vi den hurtigste løsning.",
     cta: { href: "#skriv", label: "Skriv til os" },
   },
   {
