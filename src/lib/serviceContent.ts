@@ -24,6 +24,28 @@ export type ServiceContent = {
 export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   // his own words, from billigskadedyrprof.dk
   gaasebiller: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Gåsebille", text: "Den voksne bille er små centimeter lang og flyver hen over forsommeren. Det er larven nede i jorden, der æder græsrødderne, så plænen slipper og kan rulles op som et tæppe." },
+      { name: "Oldenborre", text: "Større larve, der lever flere år i jorden, før den bliver til bille. Skaden ligner gåsebillens, men den kommer igen over flere sæsoner." },
+      { name: "Stankelbenslarve", text: "Grå og læderagtig larve uden ben. Den æder også græsrødder, og skaden bliver tit forvekslet med gåsebiller. Behandlingen er ikke den samme, så det er værd at få set efter, hvad der ligger i plænen." },
+    ],
+    processNote:
+      "Vi ser først efter, hvilken larve der sidder i plænen, og hvor dybt den ligger, fordi middel og tidspunkt afhænger af det. Derefter behandles plænen, så midlet når ned i rodzonen. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Hvordan ved jeg, at det er gåsebillelarver i plænen?", a: "Tag fat i en af de gule pletter og træk. Sidder græsset løst og kan rulles op uden rødder, er der noget, der har ædt rødderne væk. Grav så et spadestik og kig efter hvide, krumme larver med brunt hoved. Er de der, er det larver og ikke tørke eller svamp." },
+      { q: "Hvorfor hakker fuglene huller i min græsplæne?", a: "Krager, råger og stære går efter larverne. Fuglene er ikke problemet, de er tegnet på, at der er larver nok til, at det kan betale sig for dem. Hakker de i plænen om efteråret, er det værd at få set efter." },
+      { q: "Hvornår på året skal plænen behandles?", a: "Behandlingen virker bedst, mens larverne er små og ligger højt i jorden. Det er typisk sidst på sommeren og i det tidlige efterår. Om vinteren graver de sig dybere ned, og så er de svære at ramme. Ringer du om foråret, aftaler vi som regel et besøg til sæsonen." },
+      { q: "Udfører I bekæmpelse af gåsebiller i hele Jylland og på Fyn?", a: "Ja. Vi kører ud i hele Jylland og på Fyn, både til private haver, erhverv og boligforeninger." },
+      { q: "Kan jeg selv gøre noget ved larverne?", a: "Du kan holde plænen i god vækst med vand og gødning, så den bedre kan bære en smule larver. Men når rødderne først er ædt, hjælper det ikke at gøde. Skaden er sket, og larverne bliver i jorden til næste sæson." },
+      { q: "Er behandlingen farlig for børn, hunde eller fugle?", a: "Nej. Vi bruger godkendte midler i den dosering, de er godkendt til, og du får at vide, hvor længe plænen skal holdes fri, når vi er færdige." },
+      { q: "Kommer larverne igen næste år?", a: "Billerne flyver, så nye kan komme ind fra naboens plæne eller fra det grønne område ved siden af. En behandling tager den bestand, der er i plænen nu. Ligger du et sted, hvor der er tryk på, er det almindeligt at få set efter hvert år." },
+      { q: "Skal plænen repareres bagefter?", a: "Som regel ja. Der hvor rødderne er ædt, kommer græsset ikke igen af sig selv. Når larverne er væk, kan du rive de løse pletter op, så og vande. Vi siger, hvad vi selv ville gøre, når vi har set plænen." },
+    ],
     intro:
       "Er din græsplæne blevet gul, ujævn eller nem at løfte som et tæppe? Oplever du samtidig, at stære, råger, skader eller andre fugle hakker store huller i plænen? Så kan årsagen være gåsebiller.",
     whyProfessional: [
@@ -34,6 +56,28 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   // his own words, from billigskadedyrprof.dk
   moel: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Klædemøl", text: "Går efter uld, pels og andre dyriske fibre. Larven laver de huller, du finder i en trøje, der har ligget stille i skabet." },
+      { name: "Melmøl", text: "Holder til i køkkenskabet og lever af mel, gryn, müsli og tørret frugt. Du ser tit spind eller sammenklumpet mel i posen, før du ser selve møllet." },
+      { name: "Pelsmøl", text: "Går efter det samme som klædemøl, men findes oftere i pels, i tæpper og under møbler, hvor der ligger hår og støv." },
+    ],
+    processNote:
+      "Først finder vi ud af, om det er klædemøl eller melmøl, fordi de sidder to forskellige steder og skal behandles hver sin vej. Derefter behandler vi skabe, tekstiler eller fødevareskabe der, hvor larverne er. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Hvordan ved jeg, om det er klædemøl eller melmøl?", a: "Kig på, hvor du ser dem. Er det i klædeskabet, i uldtøj eller i et tæppe, er det klædemøl. Er det i køkkenskabet omkring mel, gryn og müsli, er det melmøl. Det er værd at få rigtigt fra start, for behandlingen er ikke den samme." },
+      { q: "Hvorfor bliver mit tøj ødelagt, når jeg ikke ser nogen møl?", a: "Det er larven, der æder, ikke det voksne møl. Larven sidder i tøjet, tit i folder og syninger, og den kan sidde der i månedsvis. De møl, du ser flyve rundt, er dem, der er færdige med at æde." },
+      { q: "Hjælper det at fryse tøjet?", a: "På et enkelt stykke tøj kan det hjælpe, hvis det ligger i fryseren længe nok. Problemet er, at møllene sjældent kun sidder i det ene stykke. De sidder også i skabet, i fodlisterne og i det tøj, du ikke har kigget på endnu." },
+      { q: "Kan møl følge med genbrugstøj hjem?", a: "Ja, og det er en helt almindelig måde at få dem ind på. Det samme gælder brugte tæpper og polstrede møbler. Har du købt noget brugt i uld, er det en god vane at fryse eller vaske det, før det kommer ind i skabet." },
+      { q: "Udfører I mølbekæmpelse i hele Jylland og på Fyn?", a: "Ja, både i private boliger, i erhverv og for boligforeninger." },
+      { q: "Skal jeg tømme skabene, før I kommer?", a: "Det hjælper, og du får besked om, hvad der skal gøres, når vi aftaler besøget. som regel skal tøjet ud, så vi kan komme til bagvæg, hylder og revner. Det er der, larverne og æggene sidder." },
+      { q: "Er behandlingen skadelig for tøjet?", a: "Nej. Vi bruger midler, der er godkendt til indendørs brug og til tekstiler, og vi doserer efter det. Er der noget, du er i tvivl om, for eksempel en dyr uldfrakke eller et gammelt tæppe, så sig til, inden vi går i gang." },
+      { q: "Hvordan undgår jeg møl fremover?", a: "Rent uldtøj tiltrækker mindre end brugt, så vask eller rens tøjet, før det lægges væk for sæsonen. Opbevar det tæt, og lad være med at lade poser og kasser stå urørt i årevis. I køkkenet hjælper det at have mel og gryn i tætte beholdere i stedet for i posen." },
+    ],
     intro:
       "Har du opdaget små møl i køkkenet, larver i dine madvarer eller huller i dit tøj? Så er du langt fra den eneste.",
     whyProfessional: [
@@ -44,6 +88,28 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
   myg: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Stikmyg", text: "Den, der stikker. Hunnen skal bruge blod for at kunne lægge æg, og æggene lægges i vand, der står stille." },
+      { name: "Dansemyg", text: "Sværmer i skyer om aftenen, tit over vand eller over en hæk. Den stikker ikke, men den bliver hyppigt forvekslet med stikmyg." },
+      { name: "Kvægmyg", text: "Mindre og mere kompakt. Stikket klør kraftigt og hæver mere end et almindeligt myggestik. Den holder til ved rindende vand og er værst i forår og forsommer." },
+    ],
+    processNote:
+      "Vi går rundt om huset og finder det vand, myggene yngler i, for det er der, en behandling gør en forskel. Derefter behandler vi ynglestederne og de steder, myggene hviler om dagen. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Hvor yngler myggene omkring mit hus?", a: "Alle steder hvor der står vand stille i mere end en uges tid. Regnvandstønden, en tilstoppet tagrende, et hjulspor, en presenning der ligger i en fold, et fuglebad. Der skal ikke mere til end en spandfuld." },
+      { q: "Hvorfor er der pludselig så mange myg i min have?", a: "Der er som regel kommet vand et sted, hvor der ikke plejer at stå vand. Efter en våd periode kan en enkelt tilstoppet tagrende eller et dæksel med vand i give myg nok til at ødelægge en terrasse." },
+      { q: "Hjælper myggelamper og duftlys?", a: "Ikke ret meget. En lampe tager de myg, der flyver ind i den, og de fleste af dem er ikke stikmyg. Duft kan holde dem lidt fra dig selv, men det gør ikke noget ved dem, der klækker ude i haven." },
+      { q: "Kan man behandle en hel have mod myg?", a: "Vi behandler ynglesteder og de steder, myggene sidder i skygge om dagen, for eksempel under buske og langs en hæk. Vi sprøjter ikke haven ud i et. Det virker ikke bedre, og det er ikke rimeligt over for alt det andet, der lever derude." },
+      { q: "Går behandlingen ud over bier?", a: "Vi lægger den, hvor myggene er, og ikke i blomstrende beplantning, og vi behandler på et tidspunkt, hvor bierne ikke flyver. Har du bistader, eller er du nabo til nogen, der har, så sig det, når vi aftaler besøget." },
+      { q: "Hvornår på året er myggene værst?", a: "Fra sidst på foråret og hen over sommeren, og det bliver værre efter en våd periode. Er sommeren tør, og står der ikke vand omkring huset, er der langt færre." },
+      { q: "Udfører I myggebekæmpelse i hele Jylland og på Fyn?", a: "Ja, både for private, for erhverv og for boligforeninger." },
+      { q: "Kan myg komme op gennem afløb eller fra kælderen?", a: "Det sker. Står der vand i en gulvbrønd, i en pumpebrønd eller i en kælderskakt, kan de yngle der og komme op i huset. Det er værd at kigge efter, hvis du har myg indendørs uden for sæsonen." },
+    ],
     intro:
       "Myg yngler i stillestående vand tæt på boligen, og de finder ind gennem de åbninger, du ikke tænker over. En behandling virker bedst, når den rammer ynglestedet og ikke kun de myg, der allerede er inde.",
     whyProfessional: [
@@ -54,6 +120,28 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
   klannere: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Pelsklanner", text: "Sort eller mørkebrun bille på nogle få millimeter. Larven er behåret og lever af uld, pels, fjer og døde insekter." },
+      { name: "Museumsbille", text: "Mindre og mere rundagtig, tit spættet. Den voksne bille ses hyppigt i vindueskarmen, mens larven sidder i tæppet eller under fodlisten." },
+      { name: "Larven", text: "Larven er den, der laver skaden. Den er behåret, den skyr lys, og den lever i støv, hår og tekstil under møbler og bag fodlister. Den klarer sig længe på det, der ligger og flyder." },
+    ],
+    processNote:
+      "Vi finder først ud af, hvor larverne lever, for det er sjældent der, hvor du ser billerne. Derefter behandler vi tæpper, fodlister og de revner, de sidder i. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Jeg finder små biller i vindueskarmen. Er det klannere?", a: "Det kan det godt være. De voksne biller søger mod lys og ender derfor i vindueskarmen. Larverne er et andet sted i rummet, og det er dem, der laver skaden." },
+      { q: "Hvad går klannere efter?", a: "Uld, pels, fjer og dun. Det vil sige uldtæpper, uldtøj, dyner og puder med fjer, polstrede møbler og udstoppede dyr. De lever også af døde insekter og af hår, der samler sig under møblerne." },
+      { q: "Hvordan kender jeg forskel på klannere og møl?", a: "Møllets skade er huller i tøjet, og du finder tit spind. Klannerlarven efterlader hår og tomme larvehuder, der ligner små tørre skaller. Ser du dem i bunden af et skab eller under et tæppe, er det klannere." },
+      { q: "Hvor kommer de fra?", a: "De kommer typisk ind gennem et åbent vindue, eller de følger med brugte møbler, tæpper og tøj ind i huset. En fuglerede eller et dødt dyr på loftet kan også holde en bestand i gang." },
+      { q: "Kan jeg støvsuge mig ud af det?", a: "Grundig støvsugning under og bag møblerne hjælper, og den skal gøres. Men larverne sidder også i revner og under fodlisterne, hvor mundstykket ikke kommer til, og der bliver de siddende." },
+      { q: "Udfører I bekæmpelse af klannere i hele Jylland og på Fyn?", a: "Ja, både for private, for erhverv og for boligforeninger." },
+      { q: "Er behandlingen sikker indendørs?", a: "Ja. Midlerne er godkendt til indendørs brug, og vi doserer efter det. Du får at vide, hvilke rum du skal holde dig ude af, og hvor længe." },
+      { q: "Hvor lang tid går der, før der er ro på?", a: "Larverne udvikler sig langsomt, og der kan ligge æg, som ikke er klækket, når vi behandler. Derfor kan du godt se en enkelt bille et stykke tid efter. Bliver du ved med at se dem, så ring, så kommer vi igen." },
+    ],
     intro:
       "Klannere ses ofte som små biller i vindueskarmen, men skaden sker af larverne, der lever i tæpper, tekstiler og under fodpaneler. Derfor handler en behandling om at finde ud af, hvor larverne er.",
     whyProfessional: [
@@ -64,6 +152,28 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
   snegle: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Dræbersnegl", text: "Kaldes også iberisk skovsnegl. Rødbrun til mørk, uden hus, og den kan blive godt en håndsbredde lang. Den æder næsten alt i bedene og lægger mange æg." },
+      { name: "Agersnegl", text: "Mindre og gråbrun. Den er der stort set hele året og går især efter salat, kål og spirende planter." },
+      { name: "Vinbjergsnegl", text: "Den store med hus. Den er fredet og skal ikke bekæmpes. Ser du den i haven, er den ikke problemet." },
+    ],
+    processNote:
+      "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen, for det er der, en behandling batter. Derefter behandler vi bede, kanter og skjulesteder. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?", a: "Dræbersneglen er stor, uden hus og rødbrun til næsten sort. Den trækker sig sammen til en hård klump, hvis du rører ved den. Sneglen med hus er som regel vinbjergsneglen, og den er fredet og skal have lov at være." },
+      { q: "Hvornår er sneglene værst?", a: "Efter regn og i fugtige perioder, og især i sensommeren, hvor der er kommet en ny generation. De er aktive om natten og tidligt om morgenen." },
+      { q: "Hvorfor bliver de ved med at komme igen?", a: "Æggene ligger i jorden, tit i kompostbunken, under brædder og i tæt bunddække. En behandling tager de snegle, der går rundt nu. De æg, der ligger, klækker senere, og derfor giver det som regel mest at behandle ad flere omgange." },
+      { q: "Hjælper ølfælder og snegleværn?", a: "Ølfælder fanger nogle, men de trækker også snegle ind i haven, og det er ikke altid en fordel. Snegleværn omkring et enkelt bed kan virke, hvis kanten er høj nok og holdes ren. Ingen af delene gør noget ved dem, der ligger i kompostbunken." },
+      { q: "Kan sneglene komme fra naboen?", a: "Ja, og sådan hænger det tit sammen. Ligger der en have med højt græs eller en ubrugt kompostbunke ved siden af, kommer der nye ind hen over sæsonen. Det hjælper meget, hvis I gør noget ved det samtidig." },
+      { q: "Udfører I sneglebekæmpelse i hele Jylland og på Fyn?", a: "Ja, både til private haver, til erhverv og for boligforeninger." },
+      { q: "Er behandlingen farlig for pindsvin, hunde og fugle?", a: "Vi bruger godkendte midler i den dosering, de er godkendt til, og vi lægger dem der, hvor sneglene er, og ikke ud over det hele. Har du hund, eller fodrer du pindsvin, så sig det, når vi aftaler besøget, så tager vi hensyn til det." },
+      { q: "Hvad kan jeg selv gøre imellem behandlingerne?", a: "Fjern de skjulesteder, du kan undvære. Brædder, løse fliser, gammelt haveaffald og tæt bunddække op ad bedene. Slå græsset langs kanterne. Vand om morgenen i stedet for om aftenen, så haven er tør, når sneglene kommer frem." },
+    ],
     intro:
       "Dræbersnegle og andre snegle æder sig gennem bede og køkkenhave på få nætter. De gemmer sig fugtigt og mørkt om dagen, og det er der, en behandling skal lægges, hvis den skal batte noget.",
     whyProfessional: [
@@ -74,6 +184,28 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
   muldvarpe: {
+    // OURS: he lists no species for this pest, so these are written
+    // for this site and want his eye before they go live.
+    species: [
+      { name: "Muldvarp", text: "Lever af regnorme og insekter under jorden. Den æder ikke planterne, men gangsystemet og skuddene ødelægger plænen og bedene alligevel." },
+      { name: "Mosegris", text: "Kaldes også vandrotte. Den laver skud i haven ligesom muldvarpen, men den æder rødder, løg og rodfrugter. Visner en plante pludselig, og kan du trække den fri uden rod, er det som regel mosegris." },
+      { name: "Skuddene", text: "Muldvarpens skud er runde og fine, og hullet sidder midt under. Mosegrisens er fladere og mere rodede, og jorden er skubbet ud til siden. Det er den nemmeste måde at se, hvem der er på spil." },
+    ],
+    processNote:
+      "Vi finder først ud af, om det er muldvarp eller mosegris, og hvilke gange der er i brug, for der er ingen grund til at bruge tid på de gange, der er forladt. Derefter sættes der ind i selve gangsystemet. Arbejdet udføres efter gældende regler. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for arbejdet.",
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Er det muldvarp eller mosegris?", a: "Kig på skuddene og på planterne. Muldvarpens skud er runde med hullet midt under, og planterne fejler ikke noget. Mosegrisens skud er fladere og mere rodede, og planterne visner, fordi rødderne er ædt. Muldvarpen æder regnorme, ikke planter." },
+      { q: "Er muldvarpen ikke bare god for haven?", a: "Den lufter jorden og æder larver, det er rigtigt nok. Men et gangsystem under en plæne gør den ujævn og blød, og skuddene bliver ved med at komme. Har du en have, du skal kunne slå og gå på, er det sjældent til at leve med." },
+      { q: "Hvorfor kommer skuddene igen, selvom jeg har fjernet dem?", a: "Fordi det kun er jorden, du har fjernet. Gangene ligger der stadig, og det gør dyret også. Så længe der er regnorme nok i jorden, bliver den, og så kommer der nye skud." },
+      { q: "Hvor mange muldvarpe er der i min have?", a: "Som regel færre, end det ser ud til. Et enkelt dyr kan lave rigtig mange skud hen over en sæson, fordi gangsystemet er stort. Mange skud betyder altså ikke nødvendigvis mange dyr." },
+      { q: "Hjælper de vibrationspløkke, man kan købe?", a: "Nogle oplever, at dyret flytter sig et stykke i haven i en periode. Vores erfaring er, at det sjældent holder, og at gangene bare bliver gravet et andet sted. Vi vil hellere finde de aktive gange og sætte ind der." },
+      { q: "Kan de komme igen bagefter?", a: "Ja. Haven ligger, hvor den ligger, og er der regnorme og forbindelse ud til det grønne ved siden af, kan der komme et nyt dyr ind. Det er almindeligt at få set efter igen, hvis skuddene dukker op på ny." },
+      { q: "Udfører I bekæmpelse af muldvarpe i hele Jylland og på Fyn?", a: "Ja, både i private haver, hos erhverv og for boligforeninger." },
+      { q: "Hvad skal jeg gøre ved plænen bagefter?", a: "Kør jorden fra skuddene ud eller fjern den, tryk de bløde gange ned, og efterså de steder, hvor græsset er blevet tyndt. Vent til der er ro på, ellers laver du arbejdet to gange." },
+    ],
     intro:
       "Muldvarpen er ikke ude efter planterne, men efter regnorme, og gangsystemet under plænen ødelægger den alligevel. Skuddene kommer typisk igen, indtil selve gangsystemet bliver taget hånd om.",
     whyProfessional: [
@@ -236,6 +368,19 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     ],
   },
   kakerlakker: {
+    // OURS: his page for this pest carries no questions. These follow
+    // the shape of the ones he wrote himself and claim nothing the site
+    // does not already claim. He should read them before they go live.
+    faq: [
+      { q: "Kan jeg selv komme af med kakerlakker?", a: "Sjældent. De sidder i revner, bag hvidevarer og i tekniske installationer, hvor en spray ikke kommer hen, og en spray driver dem tit bare længere ind i konstruktionen. Æggene bliver ikke ramt, og så er dyrene tilbage igen efter nogle uger." },
+      { q: "Hvordan er de kommet ind?", a: "Oftest med noget, der er båret ind. Papkasser, en flaskekasse, en pakke, en rejsetaske. I etagebyggeri kan de også komme fra naboen gennem rørgennemføringer og skakter." },
+      { q: "Betyder det, at der er beskidt hos mig?", a: "Nej. Kakerlakker går efter varme, fugt og et sted at gemme sig, og det har alle køkkener. Vi ser dem i pæne hjem hver eneste sæson. Det er ikke derfor, du har dem, og det er ikke noget at være flov over." },
+      { q: "Hvor lang tid tager en behandling?", a: "Selve besøget tager sjældent en hel dag i en almindelig bolig. Derefter skal gelen have lov at virke, og der går som regel nogle uger, før der er helt ro på, fordi der klækker æg undervejs." },
+      { q: "Skal jeg flytte ud, mens I behandler?", a: "Nej. Vi bruger gel og behandler målrettet i revner og skjul i stedet for at sprøjte hele boligen. Du får at vide, hvad du skal holde dig fra, og hvad der skal have lov at stå." },
+      { q: "Skal naboerne også behandles?", a: "I et rækkehus eller en etageejendom er svaret som regel ja. Kakerlakker flytter sig mellem lejligheder gennem rør og skakter, og behandler man kun én lejlighed, kommer de tilbage. Vi taler gerne med ejendommen eller administrationen om det." },
+      { q: "Udfører I kakerlakbekæmpelse i hele Jylland og på Fyn?", a: "Ja, både i private boliger, i erhverv, i restauranter og for boligforeninger." },
+      { q: "Hvad skal jeg gøre, indtil I kommer?", a: "Lad være med at sprøjte med noget selv, for det spreder dem. Sæt mad væk i tætte beholdere, tør op efter dig, og lad være med at lade opvasken stå. Kan du tage et billede af et af dyrene, hjælper det os med at vide, hvad vi kommer ud til." },
+    ],
     intro:
       "Kakerlakker i køkken, badeværelse eller erhvervskøkken er mere end et synligt ubehag. De spreder smitte " +
       "og overlever i afløb og skjulesteder. En fagmand behandler kilden, ikke kun dem, du ser om natten.",
