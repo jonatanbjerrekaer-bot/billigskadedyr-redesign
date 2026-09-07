@@ -52,13 +52,25 @@ function matches(p: PestEntry, q: string) {
  * page you are already on is not offered again.
  */
 export function PestChips(
-  { exclude, list, describe }: { exclude?: string; list?: PestEntry[]; describe?: boolean } = {},
+  { exclude, list, describe, instant }: {
+    exclude?: string;
+    list?: PestEntry[];
+    describe?: boolean;
+    /** Set once the visitor has used the search. Results then appear at
+        once instead of waiting to be scrolled into view. */
+    instant?: boolean;
+  } = {},
 ) {
   const pests = list ?? (exclude ? GRID_PESTS.filter((p) => p.slug !== exclude) : GRID_PESTS);
   return (
     <div className={describe ? "grid sm:grid-cols-2 gap-3" : "flex flex-wrap gap-2 sm:gap-2.5"}>
       {pests.map((p, i) => (
-        <Reveal key={p.slug} delay={i * 30} className={describe ? "h-full [&>*]:h-full" : ""}>
+        <Reveal
+          key={p.slug}
+          delay={instant ? 0 : i * 30}
+          immediate={instant}
+          className={describe ? "h-full [&>*]:h-full" : ""}
+        >
           {/* Each chip leads to that pest's own service page, where the
               treatment is explained in detail. */}
           <a
@@ -105,6 +117,7 @@ export function PestChips(
 
 export default function PestQuickSelect() {
   const [q, setQ] = useState("");
+  const [touched, setTouched] = useState(false);
   const searching = q.trim().length > 0;
   // The dictionary carries the everyday words people actually type, so a
   // search for "bille" reaches klannere and gåsebiller, which nobody knows by
@@ -133,7 +146,10 @@ export default function PestQuickSelect() {
             id="pest-search"
             type="search"
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e) => {
+              setQ(e.target.value);
+              setTouched(true);
+            }}
             placeholder="Fx bille, huller i tøjet, larver i plænen"
             className="w-full min-h-[48px] rounded-full border border-ink-900/15 bg-white pl-5 pr-12 text-base text-ink-900 placeholder:text-ink-900/45 focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/30 transition-colors"
           />
@@ -154,7 +170,7 @@ export default function PestQuickSelect() {
 
         {hits.length > 0 ? (
           <>
-            <PestChips list={hits} describe={searching} />
+            <PestChips list={hits} describe={searching} instant={touched} />
             {/* Four beetles can still look alike on the page. Somebody who is
                 not sure should not be left guessing, and a photo settles it
                 faster than any list can. */}
