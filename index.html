@@ -85,7 +85,10 @@
          parses the new document, and in dev the stylesheet arrives later as a
          JS-injected <style>. Inline in the head it is in time in both dev and
          production. The rest of the transition styling stays in index.css. -->
-    <style>@view-transition { navigation: auto }</style>
+    <style>@view-transition { navigation: auto }
+      /* Painted before anything else loads, so a navigation never
+         flashes white on its way to the dark header. */
+      html { background-color: #0a1610 }</style>
   </head>
   <body>
     <div id="root"></div>
