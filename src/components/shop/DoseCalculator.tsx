@@ -57,10 +57,17 @@ export default function DoseCalculator({
   p,
   dose,
   onPickVariant,
+  onUse,
 }: {
   p: Product;
   dose: Dose;
   onPickVariant?: (label: string) => void;
+  /**
+   * Tag beregnerens svar med op i koebsfeltet: saet stoerrelsen, saet
+   * antallet, laeg i kurv. Beregneren ved begge tal; kunden skal ikke
+   * gentage dem i hånden.
+   */
+  onUse?: (label: string, packs: number) => void;
 }) {
   const [m2, setM2] = useState(20);
   const [rateKey, setRateKey] = useState(dose.rates[0]!.key);
@@ -73,6 +80,8 @@ export default function DoseCalculator({
 
   // Kun de varianter, der har en læsbar mængde, kan indgå i regnestykket.
   const usable = p.variants.filter((v) => covers(v, dose, rate) > 0);
+  const [used, setUsed] = useState(false);
+
   const options = usable.map((v) => {
     const packs = Math.max(1, Math.ceil(need / covers(v, dose, rate)));
     return { v, packs, total: packs * v.price };
@@ -104,7 +113,7 @@ export default function DoseCalculator({
       <div>
       {dose.rates.length > 1 && (
         <fieldset className="border-0 p-0 m-0">
-          <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5">
+          <legend className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
             Hvad er opgaven?
           </legend>
           <div className="flex flex-col gap-2">
@@ -133,7 +142,7 @@ export default function DoseCalculator({
           htmlFor="areal"
           className="select-none flex flex-wrap items-baseline justify-between gap-2"
         >
-          <span className="text-[11px] font-bold uppercase tracking-widest text-ink-600">
+          <span className="text-[13px] font-semibold text-ink-600">
             Areal, der skal behandles
           </span>
           <span className="font-display text-2xl font-bold text-ink-950 tabular-nums">
@@ -211,6 +220,30 @@ export default function DoseCalculator({
             );
           })}
         </ul>
+      )}
+
+      {/* Svaret skal kunne bruges. Uden den her knap er beregneren en
+          lommeregner, kunden skal skrive af efter. */}
+      {best && onUse && (
+        <Button
+          onPress={() => {
+            onUse(best.v.label, best.packs);
+            setUsed(true);
+            window.setTimeout(() => setUsed(false), 2200);
+          }}
+          className="press mt-4 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-base min-h-[52px] px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
+        >
+          {used ? (
+            <>
+              <Check size={19} strokeWidth={3} aria-hidden="true" />
+              Lagt i kurven
+            </>
+          ) : (
+            <>
+              Læg {best.packs} × {best.v.label} i kurven
+            </>
+          )}
+        </Button>
       )}
 
       <p className="select-none mt-4 flex gap-2 text-xs text-ink-600 leading-relaxed">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product } from "../../lib/shop";
 import { NUDGE } from "../../lib/shopContent";
 
@@ -74,7 +74,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
       </div>
 
       <div className="flex flex-col gap-1.5 sm:gap-2 p-3 sm:p-5 border-t border-ink-200 flex-1">
-        <p className="select-none text-[11px] uppercase tracking-widest text-ink-500">
+        <p className="select-none text-[13px] text-ink-500">
           {PEST_LABEL[p.pest]} · {p.form}
           {range ? (
             <> · {p.variants.length} størrelser</>
@@ -87,10 +87,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
         </h3>
 
         {nudge?.flag && (
-          <p className="flex items-start gap-1.5 text-[13px] text-ink-700 leading-snug">
-            <AlertTriangle size={14} strokeWidth={2.5} aria-hidden="true" className="text-amber-600 shrink-0 mt-0.5" />
-            {nudge.flag}
-          </p>
+          <p className="text-[13px] text-ink-700 leading-snug">{nudge.flag}</p>
         )}
 
         {p.unit && (

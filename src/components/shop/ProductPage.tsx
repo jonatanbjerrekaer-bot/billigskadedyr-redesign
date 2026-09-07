@@ -126,7 +126,7 @@ export default function ProductPage({ slug }: { slug: string }) {
           </div>
 
           <div>
-            <p className="select-none text-[11px] uppercase tracking-widest text-ink-600 mb-2">
+            <p className="select-none text-[13px] text-ink-600 mb-2">
               {PEST_LABEL[p.pest]} · {p.form}
             </p>
             <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink-950 leading-tight">
@@ -160,7 +160,7 @@ export default function ProductPage({ slug }: { slug: string }) {
 
             {p.variants.length > 1 && (
               <fieldset className="mt-6 border-0 p-0 m-0">
-                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5">
+                <legend className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
                   Vælg størrelse
                 </legend>
                 <div className="flex flex-wrap gap-2">
@@ -251,7 +251,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             {d && (
               <div className="mt-8 grid sm:grid-cols-2 gap-5">
                 <div>
-                  <p className="select-none text-[11px] font-bold uppercase tracking-widest text-green-800 mb-2.5">
+                  <p className="select-none text-[13px] font-semibold text-green-800 mb-2.5">
                     Det gør den
                   </p>
                   <ul className="flex flex-col gap-2 text-[15px] text-ink-800 list-none p-0 m-0">
@@ -264,7 +264,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                   </ul>
                 </div>
                 <div>
-                  <p className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5">
+                  <p className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
                     Det gør den ikke
                   </p>
                   <ul className="flex flex-col gap-2 text-[15px] text-ink-800 list-none p-0 m-0">
@@ -287,6 +287,17 @@ export default function ProductPage({ slug }: { slug: string }) {
                   onPickVariant={(label) => {
                     const i = p.variants.findIndex((x) => x.label === label);
                     if (i >= 0) setSize(i);
+                  }}
+                  onUse={(label, packs) => {
+                    // Beregneren har regnet begge tal ud. Kunden skal ikke
+                    // skrive dem af: stoerrelsen saettes, antallet saettes,
+                    // og varen ryger i kurven i ét tryk.
+                    const i = p.variants.findIndex((x) => x.label === label);
+                    if (i >= 0) setSize(i);
+                    setQty(packs);
+                    addToCart(p.slug, packs);
+                    setAdded(true);
+                    window.setTimeout(() => setAdded(false), 2200);
                   }}
                 />
               </div>

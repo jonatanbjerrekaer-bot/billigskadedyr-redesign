@@ -38,7 +38,7 @@ export default function TrustRow({ id }: { id?: string }) {
     <section id={id} aria-label="Sådan handler du her" className="scroll-mt-4">
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 list-none p-0 m-0">
         {ITEMS.map(({ icon: Icon, title, text }) => (
-          <li key={title} className="rounded-2xl bg-ink-100 p-5">
+          <li key={title} className="border-t border-ink-300 pt-4">
             <Icon size={26} strokeWidth={1.75} aria-hidden="true" className="text-ink-950" />
             <p className="select-none mt-3 font-display font-bold text-ink-950">{title}</p>
             <p className="select-none mt-1 text-[15px] text-ink-700 leading-snug">{text}</p>

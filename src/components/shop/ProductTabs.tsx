@@ -29,12 +29,14 @@ function SafetySheet({ slug }: { slug: string }) {
   const s = SAFETY[slug];
   if (!s) return null;
   return (
-    <div className="mt-4 border-l-[3px] border-amber-600 pl-4 sm:pl-5 py-1">
+    <div className="mt-4 border-t-2 border-ink-950 pt-4">
       <div className="flex flex-wrap items-center gap-2">
         {/* Signalordet er et ord fra etiketten, ikke en dekoration. Det staar
             med versaler, fordi det goer det paa dunken, og uden pille om, saa
             det ikke ligner en rabatmaerkat. */}
-        <span className="select-none font-display text-sm font-bold uppercase tracking-wide text-amber-800">
+        {/* Signalordet staar, som det staar paa dunken. Det er et ord fra
+            etiketten, ikke en maerkat vi har fundet paa. */}
+        <span className="select-none font-display text-sm font-bold text-ink-950">
           {s.signal}
         </span>
         {s.pictograms.map((g) => (
@@ -56,14 +58,14 @@ function SafetySheet({ slug }: { slug: string }) {
         <p className="mt-1 text-[15px] font-semibold text-ink-950 m-0">{s.restriction}</p>
       )}
 
-      <p className="select-none mt-4 text-[11px] font-bold uppercase tracking-widest text-ink-700">
+      <p className="select-none mt-4 text-[13px] font-semibold text-ink-700">
         Faresætninger
       </p>
       <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[15px] text-ink-900">
         {s.hazards.map((h) => <li key={h}>{h}</li>)}
       </ul>
 
-      <p className="select-none mt-4 text-[11px] font-bold uppercase tracking-widest text-ink-700">
+      <p className="select-none mt-4 text-[13px] font-semibold text-ink-700">
         Sikkerhedssætninger
       </p>
       <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[15px] text-ink-900">

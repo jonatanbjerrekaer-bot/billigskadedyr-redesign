@@ -205,7 +205,7 @@ export default function ShopFilters({
           man kigger på varer langt nede i listen. */}
       <div className="shop-filter hidden lg:block lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto lg:pr-1">
         <div className="flex items-center justify-between min-h-[44px]">
-          <h2 className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 m-0">
+          <h2 className="select-none text-[13px] font-semibold text-ink-600 m-0">
             Filtrér
           </h2>
           {hasFilters && (
