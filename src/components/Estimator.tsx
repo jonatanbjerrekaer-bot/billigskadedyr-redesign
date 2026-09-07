@@ -519,7 +519,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             {quote.kind === "fixed" ? (
               <>
                 <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
-                  {quote.overArea ? "Fra " : ""}
+                  {/* Always mounted, so crossing the area threshold is a
+                      transition and not a mount. The slider can be dragged
+                      back and forth across 250 m2 quickly, and a transition
+                      retargets from wherever it is; keyframes would restart. */}
+                  <span className="price-prefix" data-show={quote.overArea || undefined}>
+                    Fra{" "}
+                  </span>
                   {dkr(display)}
                 </div>
                 {/* The price never appears without saying what it covers. */}

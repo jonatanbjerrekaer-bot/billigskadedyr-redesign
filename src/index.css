@@ -434,3 +434,39 @@ img {
   transform: translateY(100%);
   transition: transform 250ms var(--ease-drawer);
 }
+
+/* The "Fra" that appears once the home is bigger than the area he prices.
+   It is a state change the visitor caused, so it earns a transition: without
+   one the number simply jumps sideways and reads as a glitch.
+
+   Enter is opacity plus a short slide, on the shared ease-out at 200ms, inside
+   the 300ms ceiling for UI motion. max-width carries the layout so the price
+   slides over rather than snapping; it is one short text node, not a hot path,
+   and the alternative (reserving the space permanently) leaves a gap whenever
+   the prefix is absent. Under reduced motion only the opacity remains. */
+.price-prefix {
+  display: inline-block;
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-0.25em);
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: pre;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    max-width 200ms var(--ease-out);
+}
+
+.price-prefix[data-show] {
+  max-width: 3em;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .price-prefix {
+    transform: none;
+    transition: opacity 200ms var(--ease-out), max-width 0ms;
+  }
+}
