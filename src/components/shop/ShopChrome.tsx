@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input, Label, TextField } from "@heroui/react";
 import { Menu, Phone, Search, ShoppingCart, X } from "lucide-react";
 import { PEST_COUNTS, PEST_LABEL, type PestKey } from "../../lib/shop";
@@ -37,6 +37,13 @@ const FIELD =
   "w-full rounded-full border border-ink-700 bg-ink-900 pl-11 pr-4 h-11 text-sm text-cream placeholder:text-ink-100/45 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/40";
 
 export function ShopHeader() {
+  /*
+   * Søgeordet er state, ikke defaultValue. Siden er prærenderet uden ?q, så
+   * hydreringen ville ellers beholde den tomme værdi fra HTML'en, og feltet
+   * stod tomt lige efter, man havde søgt. Det så ud, som om intet skete.
+   */
+  const [q, setQ] = useState("");
+  useEffect(() => setQ(initialQuery()), []);
   const [open, setOpen] = useState(false);
   const count = useCartCount();
 
@@ -86,7 +93,8 @@ export function ShopHeader() {
                 id="shop-search"
                 name="q"
                 type="search"
-                defaultValue={initialQuery()}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
                 placeholder="Søg efter mus, huller i træet, myregift…"
                 className={FIELD}
               />

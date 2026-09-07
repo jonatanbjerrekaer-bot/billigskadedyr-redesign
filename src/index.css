@@ -598,3 +598,93 @@ input[type="search"]::-webkit-search-decoration {
     }
   }
 }
+
+/*
+ * Filtrene i butikken.
+ *
+ * HeroUI's ToggleButton er tegnet til en mørk bund: gruppen har en mørk
+ * baggrund, knappen har en mørk hover, og gruppen er kun så bred som sin
+ * længste etiket. På servicesitet ser man det ikke. I butikken, der er lys,
+ * betød det mørk tekst på mørk baggrund og grupper i forskellig bredde.
+ *
+ * Reglerne står her og ikke som klasser på knapperne, fordi to klasser vejer
+ * lige meget, og så afgør rækkefølgen i stilarket. Det skal ikke være et
+ * spørgsmål om held.
+ */
+.shop-filter .toggle-button-group {
+  width: 100%;
+  background: transparent;
+}
+
+.shop-filter .toggle-button {
+  background: transparent;
+}
+
+.shop-filter .toggle-button:hover {
+  background: var(--color-ink-100);
+}
+
+.shop-filter .toggle-button[data-selected] {
+  background: var(--color-ink-950);
+  color: var(--color-cream);
+}
+
+/*
+ * Ting, der dukker op.
+ *
+ * .reveal animerer højden, så indholdet under bliver skubbet blødt ned i
+ * stedet for at hoppe. grid-template-rows fra 0fr til 1fr er den eneste
+ * måde at animere en ukendt højde på uden at måle den i JavaScript.
+ * .reveal-in tager selve indholdet: opacity, en anelse skala og en smule
+ * slør, samme sprog som beregneren på servicesitet.
+ *
+ * @starting-style betyder, at det kun sker, når elementet bliver sat ind i
+ * DOM'en. Panelet spiller ikke sin entré om, hver gang man trækker videre
+ * i m²-skalaen.
+ */
+.reveal {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 260ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @starting-style {
+    grid-template-rows: 0fr;
+  }
+}
+
+.reveal > * {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  transition:
+    opacity 220ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 220ms cubic-bezier(0.23, 1, 0.32, 1),
+    filter 220ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    filter: blur(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+  }
+  .reveal-in {
+    transition: opacity 220ms ease;
+  }
+  .reveal-in {
+    @starting-style {
+      opacity: 0;
+      transform: none;
+      filter: none;
+    }
+  }
+}

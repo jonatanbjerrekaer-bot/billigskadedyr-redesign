@@ -267,9 +267,15 @@ export default function ProductBrowser() {
           {heading}
         </h1>
 
+        {/* Panelet skubbede hele listen ned i ét spring, når man valgte et
+            dyr. Nu folder det sig ud, og listen følger med. */}
         {f.pests.size === 1 && (
-          <div className="mt-6">
-            <ProPanel pest={[...f.pests][0] as PestKey} compact />
+          <div className="reveal mt-6">
+            <div>
+              <div className="reveal-in">
+                <ProPanel pest={[...f.pests][0] as PestKey} compact />
+              </div>
+            </div>
           </div>
         )}
 
@@ -290,16 +296,13 @@ export default function ProductBrowser() {
               )}
             </Button>
 
-            <div className={`${open ? "block" : "hidden"} lg:block mt-4 lg:mt-0`}>
+            <div className={`shop-filter ${open ? "block" : "hidden"} lg:block mt-4 lg:mt-0`}>
               <fieldset className="mb-7 border-0 p-0 m-0">
                 <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-1 p-0">
                   Skadedyr
                 </legend>
                 <p className="select-none text-[13px] text-ink-600 mb-2.5">Vælg gerne flere</p>
                 <ToggleButtonGroup.Root
-                  /* HeroUI's egen baggrund er mørk og gør etiketterne
-                     usynlige på den lyse butiksside. */
-                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.pests]}
                   onSelectionChange={(keys) => toggle("pests", [...keys].map(String))}
@@ -324,9 +327,6 @@ export default function ProductBrowser() {
                   Pris
                 </legend>
                 <ToggleButtonGroup.Root
-                  /* HeroUI's egen baggrund er mørk og gør etiketterne
-                     usynlige på den lyse butiksside. */
-                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.bands]}
                   onSelectionChange={(keys) => toggle("bands", [...keys].map(String))}
@@ -350,9 +350,6 @@ export default function ProductBrowser() {
                   Slags løsning
                 </legend>
                 <ToggleButtonGroup.Root
-                  /* HeroUI's egen baggrund er mørk og gør etiketterne
-                     usynlige på den lyse butiksside. */
-                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.forms]}
                   onSelectionChange={(keys) => toggle("forms", [...keys].map(String))}
@@ -376,9 +373,6 @@ export default function ProductBrowser() {
                   Mærke
                 </legend>
                 <ToggleButtonGroup.Root
-                  /* HeroUI's egen baggrund er mørk og gør etiketterne
-                     usynlige på den lyse butiksside. */
-                  style={{ background: "transparent" }}
                   selectionMode="multiple"
                   selectedKeys={[...f.brands]}
                   onSelectionChange={(keys) => toggle("brands", [...keys].map(String))}
@@ -487,9 +481,13 @@ export default function ProductBrowser() {
               hjælpsom, hvis man kan se hvorfor.
             */}
             {found?.why && (
-              <p className="mb-4 rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800">
-                {found.why}
-              </p>
+              <div className="reveal mb-4">
+                <div>
+                  <p className="reveal-in rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800 m-0">
+                    {found.why}
+                  </p>
+                </div>
+              </div>
             )}
 
             {/* Baymard: 66 % af butikker kan ikke finde deres egne
