@@ -55,7 +55,7 @@ export function ShopHeader() {
         Fragt fra 59 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
       </p>
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
         <Button
           onPress={() => setOpen((v) => !v)}
           className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-cream hover:bg-ink-900 data-[pressed]:bg-ink-800"
@@ -68,9 +68,14 @@ export function ShopHeader() {
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </a>
 
-        <SearchBox />
+        {/* Kun paa skrivebordet. Mobilen har sit eget baand nedenfor, og
+            da begge stod fremme, blev feltet her klemt til en cirkel og
+            skubbede kurven ud over kanten. */}
+        <div className="hidden md:flex flex-1 min-w-0">
+          <SearchBox />
+        </div>
 
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <div className="ml-auto shrink-0 flex items-center gap-1 sm:gap-2">
           <a
             href={TEL}
             className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold px-3 h-11 rounded-full hover:bg-ink-900"

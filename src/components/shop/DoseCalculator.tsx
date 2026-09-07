@@ -116,11 +116,13 @@ export default function DoseCalculator({
           <legend className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
             Hvad er opgaven?
           </legend>
-          <div className="flex flex-col gap-2">
+          {/* To og to paa mobil: fire raekker i fuld bredde er 224 px,
+              altsaa en halv telefonskaerm brugt paa fire ord. */}
+          <div className="grid grid-cols-2 sm:grid-cols-1 gap-2">
             {dose.rates.map((r) => (
               <label
                 key={r.key}
-                className="select-none flex items-center gap-3 cursor-pointer rounded-xl border-2 border-ink-200 px-4 py-3 min-h-[52px] has-[:checked]:border-ink-950 has-[:checked]:bg-ink-100 transition-colors"
+                className="select-none flex items-center gap-2 sm:gap-3 cursor-pointer rounded-xl border-2 border-ink-200 px-3 sm:px-4 py-3 min-h-[52px] has-[:checked]:border-ink-950 has-[:checked]:bg-ink-100 transition-colors"
               >
                 <input
                   type="radio"
@@ -130,7 +132,7 @@ export default function DoseCalculator({
                   onChange={() => setRateKey(r.key)}
                   className="w-5 h-5 accent-ink-950 shrink-0"
                 />
-                <span className="text-[15px] text-ink-900">{r.label}</span>
+                <span className="text-[14px] sm:text-[15px] text-ink-900 leading-tight">{r.label}</span>
               </label>
             ))}
           </div>
@@ -246,10 +248,17 @@ export default function DoseCalculator({
         </Button>
       )}
 
-      <p className="select-none mt-4 flex gap-2 text-[13px] text-ink-600 leading-relaxed">
-        <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0 mt-0.5" />
-        {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
-      </p>
+      {/* Seks linjer med blandingsforhold skal kunne slaas op, ikke laeses
+          hver gang. Native details: browseren klarer tastatur og oplaesning. */}
+      <details className="mt-4">
+        <summary className="select-none flex items-center gap-2 cursor-pointer list-none text-[13px] font-semibold text-ink-700 hover:text-ink-950 min-h-[44px]">
+          <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
+          Sådan er tallene regnet
+        </summary>
+        <p className="select-none mt-1 text-[13px] text-ink-600 leading-relaxed">
+          {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
+        </p>
+      </details>
       </div>
       </div>
 
