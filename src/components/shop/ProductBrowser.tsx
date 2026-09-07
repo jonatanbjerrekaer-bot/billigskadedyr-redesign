@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button, ToggleButton, ToggleButtonGroup } from "@heroui/react";
-import { Check, SlidersHorizontal, X } from "lucide-react";
+import { Button, Checkbox, CheckboxGroup } from "@heroui/react";
+import { SlidersHorizontal, X } from "lucide-react";
 import {
   BRANDS, dkr, FORMS, hasPrice, PEST_COUNTS, PEST_LABEL, PRODUCTS,
   type PestKey, type Product,
@@ -234,23 +234,13 @@ export default function ProductBrowser() {
   const heading =
     f.pests.size === 1 ? `Mod ${PEST_LABEL[[...f.pests][0] as PestKey].toLowerCase()}` : "Alle varer";
 
-  // Feltet fortæller, at man må vælge flere. Firkant, ikke cirkel: en
-  // cirkel ville love et enten-eller, og det er netop ikke reglen her.
-  const OPTION =
-    "w-full flex items-center gap-2.5 rounded-lg px-3 min-h-[44px] text-[15px] font-semibold border-2 border-transparent text-ink-800 hover:border-ink-300 " +
-    "data-[selected]:bg-ink-950 data-[selected]:text-cream data-[selected]:border-ink-950 data-[disabled]:opacity-35 transition-colors " +
-    "[&[data-selected]_[data-box]]:border-cream [&[data-selected]_[data-box]]:bg-cream [&[data-selected]_[data-box]_svg]:opacity-100";
-
-  /** Det firkantede felt foran hver værdi. */
-  const Box = () => (
-    <span
-      data-box
-      aria-hidden="true"
-      className="grid place-items-center w-[18px] h-[18px] rounded-[4px] border-2 border-ink-400 shrink-0 transition-colors"
-    >
-      <Check size={12} strokeWidth={4} className="text-ink-950 opacity-0 transition-opacity" />
-    </span>
-  );
+  /* Rækken. Selve afkrydsningen kommer fra HeroUI; her ligger kun linjen
+     omkring den: fuld bredde, plads til at ramme med en finger, og den mørke
+     flade når den er valgt. */
+  const ROW =
+    "w-full flex items-center gap-2.5 rounded-lg px-3 min-h-[44px] text-[15px] font-semibold " +
+    "border-2 border-transparent text-ink-800 hover:border-ink-300 transition-colors " +
+    "group-data-[selected]:bg-ink-950 group-data-[selected]:text-cream group-data-[selected]:border-ink-950";
 
   return (
     <>
@@ -270,9 +260,9 @@ export default function ProductBrowser() {
         {/* Panelet skubbede hele listen ned i ét spring, når man valgte et
             dyr. Nu folder det sig ud, og listen følger med. */}
         {f.pests.size === 1 && (
-          <div className="reveal mt-6">
+          <div className="expand mt-6">
             <div>
-              <div className="reveal-in">
+              <div className="expand-in">
                 <ProPanel pest={[...f.pests][0] as PestKey} compact />
               </div>
             </div>
@@ -302,111 +292,142 @@ export default function ProductBrowser() {
                   Skadedyr
                 </legend>
                 <p className="select-none text-[13px] text-ink-600 mb-2.5">Vælg gerne flere</p>
-                <ToggleButtonGroup.Root
-                  selectionMode="multiple"
-                  selectedKeys={[...f.pests]}
-                  onSelectionChange={(keys) => toggle("pests", [...keys].map(String))}
+                <CheckboxGroup
+                  value={[...f.pests]}
+                  onChange={(v) => toggle("pests", v)}
                   className="flex flex-wrap lg:flex-col gap-1.5"
                 >
                   {pests.map((k) => {
                     const n = countPest(k);
                     return (
-                      <ToggleButton key={k} id={k} isDisabled={n === 0 && !f.pests.has(k)} className={OPTION}>
-                        <Box />
-                        <ShopGlyph pest={k} size={20} className="opacity-80" />
-                        <span className="grow text-left">{PEST_LABEL[k]}</span>
-                        <span className="text-xs tabular-nums opacity-70">{n}</span>
-                      </ToggleButton>
+                      <Checkbox
+                        key={k}
+                        value={k}
+                        isDisabled={n === 0 && !f.pests.has(k)}
+                        className="group w-full data-[disabled]:opacity-35"
+                      >
+                        <Checkbox.Content className={ROW}>
+                          <Checkbox.Control>
+                            <Checkbox.Indicator />
+                          </Checkbox.Control>
+                          <ShopGlyph pest={k} size={20} className="opacity-80" />
+                          <span className="grow text-left">{PEST_LABEL[k]}</span>
+                          <span className="text-xs tabular-nums opacity-70">{n}</span>
+                        </Checkbox.Content>
+                      </Checkbox>
                     );
                   })}
-                </ToggleButtonGroup.Root>
+                </CheckboxGroup>
               </fieldset>
 
               <fieldset className="mb-7 border-0 p-0 m-0">
                 <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
                   Pris
                 </legend>
-                <ToggleButtonGroup.Root
-                  selectionMode="multiple"
-                  selectedKeys={[...f.bands]}
-                  onSelectionChange={(keys) => toggle("bands", [...keys].map(String))}
+                <CheckboxGroup
+                  value={[...f.bands]}
+                  onChange={(v) => toggle("bands", v)}
                   className="flex flex-wrap lg:flex-col gap-1.5"
                 >
                   {PRICE_BANDS.map((b) => {
                     const n = countBand(b.id);
                     return (
-                      <ToggleButton key={b.id} id={b.id} isDisabled={n === 0 && !f.bands.has(b.id)} className={OPTION}>
-                        <Box />
-                        <span className="grow text-left">{b.label}</span>
-                        <span className="text-xs tabular-nums opacity-70">{n}</span>
-                      </ToggleButton>
+                      <Checkbox
+                        key={b.id}
+                        value={b.id}
+                        isDisabled={n === 0 && !f.bands.has(b.id)}
+                        className="group w-full data-[disabled]:opacity-35"
+                      >
+                        <Checkbox.Content className={ROW}>
+                          <Checkbox.Control>
+                            <Checkbox.Indicator />
+                          </Checkbox.Control>
+                          <span className="grow text-left">{b.label}</span>
+                          <span className="text-xs tabular-nums opacity-70">{n}</span>
+                        </Checkbox.Content>
+                      </Checkbox>
                     );
                   })}
-                </ToggleButtonGroup.Root>
+                </CheckboxGroup>
               </fieldset>
 
               <fieldset className="mb-7 border-0 p-0 m-0">
                 <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
                   Slags løsning
                 </legend>
-                <ToggleButtonGroup.Root
-                  selectionMode="multiple"
-                  selectedKeys={[...f.forms]}
-                  onSelectionChange={(keys) => toggle("forms", [...keys].map(String))}
+                <CheckboxGroup
+                  value={[...f.forms]}
+                  onChange={(v) => toggle("forms", v)}
                   className="flex flex-wrap lg:flex-col gap-1.5"
                 >
                   {FORMS.map((x) => {
                     const n = countForm(x);
                     return (
-                      <ToggleButton key={x} id={x} isDisabled={n === 0 && !f.forms.has(x)} className={OPTION}>
-                        <Box />
-                        <span className="grow text-left">{x}</span>
-                        <span className="text-xs tabular-nums opacity-70">{n}</span>
-                      </ToggleButton>
+                      <Checkbox
+                        key={x}
+                        value={x}
+                        isDisabled={n === 0 && !f.forms.has(x)}
+                        className="group w-full data-[disabled]:opacity-35"
+                      >
+                        <Checkbox.Content className={ROW}>
+                          <Checkbox.Control>
+                            <Checkbox.Indicator />
+                          </Checkbox.Control>
+                          <span className="grow text-left">{x}</span>
+                          <span className="text-xs tabular-nums opacity-70">{n}</span>
+                        </Checkbox.Content>
+                      </Checkbox>
                     );
                   })}
-                </ToggleButtonGroup.Root>
+                </CheckboxGroup>
               </fieldset>
 
               <fieldset className="mb-7 border-0 p-0 m-0">
                 <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
                   Mærke
                 </legend>
-                <ToggleButtonGroup.Root
-                  selectionMode="multiple"
-                  selectedKeys={[...f.brands]}
-                  onSelectionChange={(keys) => toggle("brands", [...keys].map(String))}
+                <CheckboxGroup
+                  value={[...f.brands]}
+                  onChange={(v) => toggle("brands", v)}
                   className="flex flex-wrap lg:flex-col gap-1.5"
                 >
                   {BRANDS.map((x) => {
                     const n = countBrand(x);
                     return (
-                      <ToggleButton key={x} id={x} isDisabled={n === 0 && !f.brands.has(x)} className={OPTION}>
-                        <Box />
-                        <span className="grow text-left">{x}</span>
-                        <span className="text-xs tabular-nums opacity-70">{n}</span>
-                      </ToggleButton>
+                      <Checkbox
+                        key={x}
+                        value={x}
+                        isDisabled={n === 0 && !f.brands.has(x)}
+                        className="group w-full data-[disabled]:opacity-35"
+                      >
+                        <Checkbox.Content className={ROW}>
+                          <Checkbox.Control>
+                            <Checkbox.Indicator />
+                          </Checkbox.Control>
+                          <span className="grow text-left">{x}</span>
+                          <span className="text-xs tabular-nums opacity-70">{n}</span>
+                        </Checkbox.Content>
+                      </Checkbox>
                     );
                   })}
-                </ToggleButtonGroup.Root>
+                </CheckboxGroup>
               </fieldset>
 
-              <ToggleButtonGroup.Root
-                selectionMode="multiple"
-                selectedKeys={f.inStock ? ["lager"] : []}
-                onSelectionChange={(keys) =>
-                  setF((prev) => ({ ...prev, inStock: [...keys].length > 0 }))
-                }
-                className="flex"
+              <Checkbox
+                isSelected={f.inStock}
+                onChange={(on) => setF((prev) => ({ ...prev, inStock: on }))}
+                className="group w-full"
               >
-                <ToggleButton id="lager" className={OPTION}>
-                  <Box />
+                <Checkbox.Content className={ROW}>
+                  <Checkbox.Control>
+                    <Checkbox.Indicator />
+                  </Checkbox.Control>
                   <span className="grow text-left">Kun på lager</span>
                   <span className="text-xs tabular-nums opacity-70">
                     {PRODUCTS.filter((p) => p.inStock && matches(p, f, "inStock")).length}
                   </span>
-                </ToggleButton>
-              </ToggleButtonGroup.Root>
+                </Checkbox.Content>
+              </Checkbox>
 
               {open && (
                 <Button
@@ -481,9 +502,9 @@ export default function ProductBrowser() {
               hjælpsom, hvis man kan se hvorfor.
             */}
             {found?.why && (
-              <div className="reveal mb-4">
+              <div className="expand mb-4">
                 <div>
-                  <p className="reveal-in rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800 m-0">
+                  <p className="expand-in rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800 m-0">
                     {found.why}
                   </p>
                 </div>

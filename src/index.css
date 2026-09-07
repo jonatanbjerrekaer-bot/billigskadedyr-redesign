@@ -194,9 +194,9 @@ a, button, [role="radio"], select, summary {
 .list-box-item[data-hovered],
 .list-box-item[data-highlighted],
 .list-box-item[data-focused],
-[role="option"]:hover,
-[role="option"][data-hovered],
-[role="option"][data-highlighted] {
+[role="option"]:not(.suggest-row):hover,
+[role="option"]:not(.suggest-row)[data-hovered],
+[role="option"]:not(.suggest-row)[data-highlighted] {
   /* !important because the losing rule here is not visible to a stylesheet
      scan: a :hover pseudo-class never matches during static inspection, so
      the only safe assumption is that something outranks this one. The symptom
@@ -208,7 +208,7 @@ a, button, [role="radio"], select, summary {
 
 /* The selected row keeps its lime label on that same ink. */
 .list-box-item[data-selected],
-[role="option"][aria-selected="true"] {
+[role="option"]:not(.suggest-row)[aria-selected="true"] {
   color: var(--color-accent-500) !important;
 }
 
@@ -642,31 +642,29 @@ input[type="search"]::-webkit-search-decoration {
  * DOM'en. Panelet spiller ikke sin entré om, hver gang man trækker videre
  * i m²-skalaen.
  */
-.reveal {
+/* @starting-style stod her foer. Panelet ligger i den praerenderede HTML, saa
+   det var med ved foerste maling; overgangen kom aldrig i gang, og elementet
+   blev staaende paa startvaerdien 0fr. Et 200 px kort blev til tomt rum under
+   overskriften. En keyframe slutter altid paa elementets egen vaerdi. */
+.expand {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 260ms cubic-bezier(0.23, 1, 0.32, 1);
-
-  @starting-style {
-    grid-template-rows: 0fr;
-  }
+  animation: expand-rows 260ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes expand-rows {
+  from { grid-template-rows: 0fr; }
 }
 
-.reveal > * {
+.expand > * {
   overflow: hidden;
   min-height: 0;
 }
 
-.reveal-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-  transition:
-    opacity 220ms cubic-bezier(0.23, 1, 0.32, 1),
-    transform 220ms cubic-bezier(0.23, 1, 0.32, 1),
-    filter 220ms cubic-bezier(0.23, 1, 0.32, 1);
-
-  @starting-style {
+.expand-in {
+  animation: expand-in 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes expand-in {
+  from {
     opacity: 0;
     transform: translateY(-6px) scale(0.98);
     filter: blur(6px);
@@ -674,13 +672,13 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .expand {
     transition: none;
   }
-  .reveal-in {
+  .expand-in {
     transition: opacity 220ms ease;
   }
-  .reveal-in {
+  .expand-in {
     @starting-style {
       opacity: 0;
       transform: none;

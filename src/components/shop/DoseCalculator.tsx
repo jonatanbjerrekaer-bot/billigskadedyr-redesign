@@ -210,9 +210,9 @@ export default function DoseCalculator({
       </p>
 
       {tooBig && (
-        <div className="reveal mt-4">
+        <div className="expand mt-4">
           <div>
-            <div className="reveal-in rounded-xl border-2 border-ink-950 bg-ink-950 text-cream p-4">
+            <div className="expand-in rounded-xl border-2 border-ink-950 bg-ink-950 text-cream p-4">
           <p className="font-display font-bold text-lg m-0">
             {m2} m² er en dags arbejde med sprøjte og maske
           </p>

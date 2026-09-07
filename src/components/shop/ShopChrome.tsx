@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
 import { Menu, Phone, ShoppingCart, X } from "lucide-react";
 import SearchBox from "./SearchBox";
+import TrustSeal from "../TrustSeal";
 import { PEST_COUNTS, PEST_LABEL, type PestKey } from "../../lib/shop";
 import { useCartCount } from "../../lib/cart";
 import ShopGlyph from "./ShopGlyph";
@@ -170,6 +171,33 @@ export function ShopFooter() {
           </p>
         </div>
       </div>
+      {/* Certificeringen stod foer som en enkelt linje i et trustkort. Et
+          maerke, der ikke fortaeller hvad det daekker, er en paastand; her
+          staar hvad det betyder, og seglet linker til det certifikat, hvor
+          det hele kan kontrolleres. */}
+      <div className="border-t border-ink-800">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
+          <TrustSeal className="justify-self-start" />
+          <div className="text-sm max-w-[65ch]">
+            <h3 className="select-none text-cream font-semibold mb-2">Certificeret af e-mærket</h3>
+            <p className="leading-relaxed">
+              e-mærket er den danske certificering af netbutikker. For at bære mærket skal
+              butikken leve op til et regelsæt om handelsbetingelser, priser, levering og
+              behandling af persondata, og den bliver kontrolleret på det løbende.
+            </p>
+            <p className="leading-relaxed mt-3">
+              Går noget galt med en ordre, kan du klage til e-mærket. Det koster dig ikke
+              noget, og de mægler mellem dig og butikken. Det er den del, der er værd at
+              kende: du står ikke alene med en mail, der ikke bliver besvaret.
+            </p>
+            <p className="leading-relaxed mt-3 text-ink-100/55">
+              Certifikatet er offentligt. Scoren og antallet af bedømmelser ovenfor står på
+              e-mærkets egen side, og du kan slå det op uden at tage vores ord for det.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <p className="select-none text-center text-xs text-ink-100/45 pb-8 px-4">
         Bekæmpelsesmidler skal bruges forsvarligt. Læs altid etiket og produktoplysninger før brug.
       </p>

@@ -160,12 +160,15 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
           id={listId}
           role="listbox"
           aria-label="Forslag"
-          className="reveal-in absolute z-50 left-0 right-0 mt-2 max-h-[70vh] overflow-auto rounded-2xl border-2 border-ink-200 bg-cream p-1.5 shadow-2xl list-none"
+          className="expand-in absolute z-50 left-0 right-0 mt-2 max-h-[70vh] overflow-auto rounded-2xl border-2 border-ink-200 bg-cream p-1.5 shadow-2xl list-none"
         >
           {rows.map((r, i) => (
-            <li key={r.href + r.label} id={`${listId}-${i}`} role="option" aria-selected={i === active}>
+            <li key={r.href + r.label} role="none">
               <a
                 href={r.href}
+                id={`${listId}-${i}`}
+                role="option"
+                aria-selected={i === active}
                 data-active={i === active ? "" : undefined}
                 className="suggest-row flex items-center gap-3 rounded-xl px-3 min-h-[52px] py-2 no-underline text-ink-950"
               >
