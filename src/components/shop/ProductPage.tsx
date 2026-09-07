@@ -121,6 +121,9 @@ export default function ProductPage({ slug }: { slug: string }) {
               alt={p.name}
               width={720}
               height={720}
+              // Modtager billedet fra kortet, man kom fra. Se markShot i
+              // shopRouter.
+              style={{ viewTransitionName: "vare" }}
               className="w-full max-w-md object-contain"
             />
           </div>

@@ -69,7 +69,25 @@ function applyScroll() {
   scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 }
 
-function go(url: string) {
+/**
+ * Varebilledet, man klikkede paa, faar navnet "vare". Produktsidens billede
+ * baerer det samme navn, saa browseren flytter det ene hen paa det andet i
+ * stedet for at klippe mellem to sider.
+ *
+ * Navnet saettes ved klikket og staar ikke fast paa hvert kort: den samme
+ * vare kan ligge i to karruseller paa forsiden, og to elementer med samme
+ * navn afbryder hele overgangen. Ét navn ad gangen kan ikke kollidere.
+ */
+function markShot(a: Element): (() => void) | undefined {
+  const img = a.querySelector("img");
+  if (!(img instanceof HTMLImageElement)) return;
+  img.style.viewTransitionName = "vare";
+  return () => {
+    img.style.viewTransitionName = "";
+  };
+}
+
+function go(url: string, clear?: () => void) {
   const run = () => {
     history.pushState({}, "", url);
     flushSync(emit);
@@ -77,9 +95,13 @@ function go(url: string) {
   };
   if (reduced() || !document.startViewTransition) {
     run();
+    clear?.();
     return;
   }
-  document.startViewTransition(run);
+  const vt = document.startViewTransition(run);
+  // Navnet skal af igen. Bliver det staaende, baerer et gammelt kort det
+  // stadig, hvis man gaar tilbage, og saa er der to om det.
+  if (clear) void vt.finished.then(clear, clear);
 }
 
 export function navigate(url: string) {
@@ -113,7 +135,9 @@ export function useShopLinkRouting() {
       if (!url.pathname.startsWith(SHOP)) return;
 
       e.preventDefault();
-      go(url.pathname + url.search + url.hash);
+      const clear =
+        shopRouteOf(url.pathname).kind === "product" ? markShot(a) : undefined;
+      go(url.pathname + url.search + url.hash, clear);
     }
 
     document.addEventListener("click", onClick);

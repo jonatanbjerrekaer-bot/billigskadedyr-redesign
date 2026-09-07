@@ -68,8 +68,16 @@ export function ShopHeader() {
 
   return (
     <header ref={el} className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
-      <p className="select-none bg-accent-500 text-ink-950 text-center text-[13px] sm:text-sm font-semibold py-1.5 px-4">
-        Fragt fra 59 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
+      {/* Vilkaarene samlet ét sted. De stod baade her og i en stribe under
+          heroet, i to formuleringer. Moerkt og ikke limegroent: lime skal
+          pege paa det, man kan trykke paa, ikke ligge som flade bag en
+          fragtpris. */}
+      <p className="select-none flex flex-wrap items-center justify-center gap-x-2.5 gap-y-0.5 border-b border-ink-800 text-center text-[13px] sm:text-sm text-ink-100/80 py-2 px-4">
+        <span className="font-semibold text-cream">Fragt fra 59 kr.</span>
+        <span aria-hidden="true" className="text-accent-500">·</span>
+        <span>Afsendt samme hverdag, hvis du bestiller inden kl. 14</span>
+        <span aria-hidden="true" className="text-accent-500">·</span>
+        <span>14 dages returret</span>
       </p>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">

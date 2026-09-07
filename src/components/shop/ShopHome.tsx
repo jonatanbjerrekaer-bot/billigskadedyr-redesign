@@ -1,29 +1,22 @@
-import { ArrowRight, Truck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
-  PEST_COUNTS, PEST_LABEL, PRODUCTS, BY_SLUG, dkr, isDeal,
-  type PestKey, type Product,
+  PRODUCTS, BY_SLUG, dkr, isDeal,
+  type Product,
 } from "../../lib/shop";
 import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
-import ShopGlyph from "./ShopGlyph";
 import TrustRow from "./TrustRow";
 import Reviews from "../Reviews";
 
 const BASE = import.meta.env.BASE_URL;
 
-/** De skadedyr, folk faktisk lander med, i den rækkefølge en husejer tænker. */
-const ENTRY: PestKey[] = [
-  "mus", "rotter", "myrer", "hvepse", "fluer", "moel",
-  "edderkopper", "vaeggelus", "muldvarpe", "snegle", "kakerlakker",
-];
-
 /**
- * De tre varer, forsiden åbner med. Mus, hvepse og myrer er de tre
+ * De tre varer, forsiden aabner med. Mus, hvepse og myrer er de tre
  * skadedyr, han har flest varer til, og alle tre har et brugbart
- * produktfoto og en pris, man kan sige højt.
+ * produktfoto og en pris, man kan sige hoejt.
  */
 const HERO_PICKS = [
   "victor-elektronisk-musefaelde",
@@ -41,35 +34,33 @@ function seasonNow(now = new Date()) {
 }
 
 /**
- * En vare i heroet. Billede på hvid, navn, pris.
+ * En vare i heroet. Billede paa hvid, navn, pris.
  *
- * Bevidst ikke ProductCard: kortet i listen bærer skadedyr, form, forbehold
- * og lagerstatus, og fem informationslag i et hero er støj. Her er det
- * billedet og prisen, resten står på produktsiden.
+ * Bevidst ikke ProductCard: kortet i listen baerer skadedyr, form, forbehold
+ * og lagerstatus, og fem informationslag i et hero er stoej.
+ *
+ * 4:3 og ikke kvadrat. Tre kvadrater i en raekke goer heroet 100 px
+ * hoejere, og saa ligger knappen under folden paa en 1280x720-skaerm.
  */
-function HeroPick({ p, big }: { p: Product; big?: boolean }) {
+function HeroPick({ p }: { p: Product }) {
   return (
     <a
       href={`${BASE}shop/produkt/${p.slug}/`}
-      className="press group flex h-full flex-col overflow-hidden rounded-2xl bg-cream text-ink-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
+      className="press group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white text-ink-950 hover:border-ink-400 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
     >
-      <div className={`relative bg-white ${big ? "aspect-[16/9]" : "aspect-square"}`}>
+      <div className="relative aspect-[4/3] bg-white">
         <img
           src={`${BASE}shop/${p.img}`}
           alt={p.name}
-          width={big ? 960 : 480}
-          height={big ? 540 : 480}
+          width={480}
+          height={360}
           loading="eager"
-          className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6 transition-transform duration-300 group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]"
         />
       </div>
-      <div className="flex items-end justify-between gap-3 px-3.5 py-3 sm:px-4 sm:py-3.5">
-        <p className={`font-display font-bold leading-snug ${big ? "text-base sm:text-lg" : "text-sm"}`}>
-          {p.name}
-        </p>
-        <p className={`font-display font-bold tabular-nums whitespace-nowrap ${big ? "text-lg sm:text-xl" : "text-base"}`}>
-          {dkr(p.price)}
-        </p>
+      <div className="flex flex-col gap-0.5 border-t border-ink-200 px-3.5 py-3">
+        <p className="font-display font-bold text-sm leading-snug">{p.name}</p>
+        <p className="font-display font-bold text-base tabular-nums">{dkr(p.price)}</p>
       </div>
     </a>
   );
@@ -93,106 +84,46 @@ export default function ShopHome() {
           man skal kende ordet "klannere" for at finde noget. Her er indgangen
           dyret, og filtrene ligger inde i browseren.
         */}
-        <section className="bg-ink-950 text-cream">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-10 pb-12 sm:pt-14 sm:pb-16">
-            <div className="grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] lg:items-center">
+        <section className="border-b border-ink-200">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-9 pb-11 sm:pt-12 sm:pb-14">
+            <div className="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,25rem)_minmax(0,1fr)] lg:items-center">
               <div>
-                <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight uppercase leading-[1.05]">
+                <h1 className="font-display text-[34px] sm:text-[46px] font-bold tracking-tight uppercase leading-[1.03] text-ink-950">
                   Midlerne vi
                   <br />
                   selv bruger
                 </h1>
-                <p className="select-none mt-5 text-lg sm:text-xl text-ink-100/80 max-w-xl leading-relaxed">
+                <p className="select-none mt-4 max-w-[36ch] text-base sm:text-lg text-ink-700 leading-relaxed">
                   Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
                   købe her til samme pris som fagfolk.
                 </p>
 
-                <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                  <a
-                    href={`${BASE}shop/produkter/`}
-                    className="press inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 transition-colors"
-                  >
-                    Se alle varer
-                    <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-                  </a>
-                  <a
-                    href="#skadedyr"
-                    className="press inline-flex items-center justify-center rounded-full border-2 border-ink-100/25 text-cream font-display font-bold text-lg h-14 px-8 hover:border-accent-500 hover:text-accent-500 transition-colors"
-                  >
-                    Find dit skadedyr
-                  </a>
-                </div>
+                {/* Én knap. Vejen ind efter dyr staar i baandet lige over,
+                    og en knap, der siger det samme igen, deler bare trykket. */}
+                <a
+                  href={`${BASE}shop/produkter/`}
+                  className="press mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 transition-colors"
+                >
+                  Se alle varer
+                  <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
+                </a>
               </div>
 
               {/*
-                Varerne er hans egne fotos fra public/shop. De ligger på hvide
-                flader, fordi produktfotos er skudt på hvid baggrund, og fordi
-                det giver heroet den dybde, en flad mørk farve ikke har.
-                Den første er stor, de to andre er små: lige store felter er
-                det mønster, man genkender som skabelon.
+                Varerne er hans egne fotos fra public/shop, paa hvide flader,
+                fordi produktfotos er skudt paa hvid baggrund, og fordi det
+                giver heroet den dybde, en flad moerk farve ikke har.
               */}
               {heroPicks.length === 3 && (
-                <ul className="grid grid-cols-2 gap-3 sm:gap-4 list-none p-0 m-0">
-                  <li className="col-span-2">
-                    <HeroPick p={heroPicks[0]!} big />
-                  </li>
-                  {heroPicks.slice(1).map((p) => (
-                    <li key={p.slug}>
+                <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 list-none p-0 m-0">
+                  {heroPicks.map((p, i) => (
+                    <li key={p.slug} className={i === 2 ? "col-span-2 sm:col-span-1" : ""}>
                       <HeroPick p={p} />
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-          </div>
-        </section>
-
-        {/* Løfterne stod inde i heroet og gjorde det til en stak. De hører
-            hjemme lige under, hvor de kan læses som det, de er: vilkårene. */}
-        <section className="bg-ink-900 border-y border-ink-800 text-cream">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4">
-            <p className="select-none flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-100/75">
-              <Truck size={17} strokeWidth={2.25} aria-hidden="true" className="text-accent-500" />
-              <span>Fragt fra 59 kr.</span>
-              <span aria-hidden="true" className="text-ink-100/30">·</span>
-              <span>afsendt samme hverdag inden kl. 14</span>
-              <span aria-hidden="true" className="text-ink-100/30">·</span>
-              <span>14 dages returret</span>
-              <span aria-hidden="true" className="text-ink-100/30">·</span>
-              <span>samme midler som fagfolk bruger</span>
-            </p>
-          </div>
-        </section>
-
-        <section id="skadedyr" className="anchor bg-ink-950 text-cream">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
-            <h2 className="font-display text-2xl sm:text-[30px] font-bold tracking-tight mb-1.5">
-              Hvad har du?
-            </h2>
-            <p className="select-none text-ink-100/70 mb-5">
-              Vælg dyret, så viser vi kun det, der virker mod det.
-            </p>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 list-none p-0 m-0">
-              {ENTRY.map((p) => (
-                <li key={p}>
-                  <a
-                    href={`${BASE}shop/produkter/?dyr=${p}`}
-                    className="press flex items-center gap-2.5 rounded-xl bg-ink-900 border border-ink-800 px-4 min-h-[56px] font-display font-bold hover:border-accent-500 hover:bg-ink-800 transition-colors"
-                  >
-                    <ShopGlyph
-                      pest={p}
-                      size={22}
-                      className="shrink-0 text-accent-500"
-                    />
-                    <span className="truncate">{PEST_LABEL[p]}</span>
-                    <span className="select-none ml-auto text-[13px] font-sans font-normal text-ink-100/50 tabular-nums">
-                      {PEST_COUNTS[p] ?? 0}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-
           </div>
         </section>
 
