@@ -70,8 +70,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
     if (!em) next.email = "Skriv din e-mail, så vi kan svare dig.";
     else if (!EMAIL_RE.test(em)) next.email = "Den e-mail ser ikke rigtig ud. Tjek den lige.";
     const digits = phone.replace(/\s/g, "");
-    if (!digits.trim()) next.phone = "Skriv dit telefonnummer, så vi kan ringe op.";
-    else if (digits.replace(/\D/g, "").length < PHONE_MIN_DIGITS)
+    if (digits.trim() && digits.replace(/\D/g, "").length < PHONE_MIN_DIGITS)
       next.phone = "Det telefonnummer ser for kort ud. Tjek det lige.";
     if (!message.trim())
       next.message = "Skriv en besked, eller brug udkastet fra beregneren.";
@@ -128,7 +127,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
 
         <TextField.Root className="flex flex-col gap-1.5">
           <Label htmlFor="inquiry-phone" className="text-xs font-medium text-ink-100/70">
-            Dit telefonnummer
+            Dit telefonnummer (valgfrit)
           </Label>
           <Input
             id="inquiry-phone"
