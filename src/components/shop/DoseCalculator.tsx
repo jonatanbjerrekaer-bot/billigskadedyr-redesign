@@ -96,8 +96,14 @@ export default function DoseCalculator({
         Træk i skalaen, så regner vi mængden ud og siger, hvilken pakning der er billigst.
       </p>
 
+      {/* To spalter fra 640 px og op: opgave og areal til venstre, svaret og
+          pakningerne til hoejre. I én spalte var beregneren hoejere end en
+          baerbar skaerm, saa man ikke kunne se sit svar samtidig med den
+          skala, man traak i. Det er hele pointen med at traekke i den. */}
+      <div className="mt-5 grid sm:grid-cols-2 sm:gap-x-6 sm:items-start">
+      <div>
       {dose.rates.length > 1 && (
-        <fieldset className="mt-5 border-0 p-0 m-0">
+        <fieldset className="border-0 p-0 m-0">
           <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5">
             Hvad er opgaven?
           </legend>
@@ -122,7 +128,7 @@ export default function DoseCalculator({
         </fieldset>
       )}
 
-      <div className="mt-5">
+      <div className="mt-5 sm:mt-4">
         <label
           htmlFor="areal"
           className="select-none flex flex-wrap items-baseline justify-between gap-2"
@@ -152,7 +158,10 @@ export default function DoseCalculator({
         </div>
       </div>
 
-      <div className="mt-5 rounded-xl bg-ink-100 px-4 py-4">
+      </div>
+
+      <div className="sm:pl-1">
+      <div className="mt-5 sm:mt-0 rounded-xl bg-ink-100 px-4 py-4">
         <p className="text-[15px] text-ink-800 m-0">
           Til {m2.toLocaleString("da-DK")} m² skal du bruge ca.{" "}
           <strong className="font-display text-lg text-ink-950">{fmt(need, dose.unit)}</strong>{" "}
@@ -208,6 +217,8 @@ export default function DoseCalculator({
         <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0 mt-0.5" />
         {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
       </p>
+      </div>
+      </div>
 
       {tooBig && (
         <div className="expand mt-4">

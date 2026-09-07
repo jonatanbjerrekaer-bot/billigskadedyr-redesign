@@ -29,9 +29,12 @@ function SafetySheet({ slug }: { slug: string }) {
   const s = SAFETY[slug];
   if (!s) return null;
   return (
-    <div className="mt-4 rounded-2xl border-2 border-amber-500 bg-amber-50 p-4 sm:p-5">
+    <div className="mt-4 border-l-[3px] border-amber-600 pl-4 sm:pl-5 py-1">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="select-none rounded-full bg-amber-500 px-3 py-1 font-display text-sm font-bold text-ink-950">
+        {/* Signalordet er et ord fra etiketten, ikke en dekoration. Det staar
+            med versaler, fordi det goer det paa dunken, og uden pille om, saa
+            det ikke ligner en rabatmaerkat. */}
+        <span className="select-none font-display text-sm font-bold uppercase tracking-wide text-amber-800">
           {s.signal}
         </span>
         {s.pictograms.map((g) => (

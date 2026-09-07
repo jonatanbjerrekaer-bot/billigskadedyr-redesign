@@ -40,6 +40,28 @@ const BASE = import.meta.env.BASE_URL;
  * eller gemmes som bogmærke, og browserens tilbage-knap virker.
  */
 
+/*
+ * Sortering.
+ *
+ * Baymard regner fire slags for noedvendige: pris, brugerbedoemmelse,
+ * bedst sælgende og nyeste. Vi har pris, og vi har enhedspris, som er den
+ * kategorispecifikke der giver mening, naar den samme vare fås i fire
+ * pakningsstoerrelser.
+ *
+ * De tre andre er IKKE lavet, og det er med vilje:
+ *
+ *   brugerbedoemmelse  Der er ingen anmeldelser pr. vare i WooCommerce-
+ *                      dataen. average_rating er 0 paa alt.
+ *   bedst sælgende     Der er ingen salgstal i Store API'et.
+ *   nyeste             Der er ingen dato paa varerne i den hentede data.
+ *
+ * Alle tre kan laves den dag, dataen findes. Indtil da ville en sortering
+ * paa dem vaere en raekkefoelge, vi selv fandt paa, og en kunde, der
+ * vaelger "bedst sælgende", tror at listen betyder noget.
+ *
+ * "relevans" er derfor det aerlige navn paa det, vi faktisk kan: paa lager
+ * foerst, billigst indenfor det.
+ */
 type Sort = "relevans" | "billigst" | "dyrest" | "enhed";
 
 /** Prisintervaller lagt der, hvor varerne ligger. */

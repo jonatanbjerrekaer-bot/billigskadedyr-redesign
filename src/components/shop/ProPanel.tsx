@@ -1,6 +1,7 @@
-import { ArrowRight, Phone, ShieldAlert } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { PEST_LABEL, type PestKey } from "../../lib/shop";
 import { NUDGE, proLinkFor } from "../../lib/shopContent";
+import Notice from "./Notice";
 
 const TEL = "tel:+4524245583";
 
@@ -13,60 +14,43 @@ const TEL = "tel:+4524245583";
  * imod varen, det afgrænser den: varen virker på den opgave, den er lavet
  * til, og her er den opgave, den ikke er lavet til.
  *
- * Farven følger alvoren. Gul er "det er sværere, end det ser ud". Rød er
- * "det er farligt eller ulovligt", og den bruges kun til hvepsebo i højden
- * og til rottegift, hvor der er en regel, ikke bare et godt råd.
+ * Alvoren ligger i stregen i venstre kant, ikke i en tonet flade. Rød er
+ * "det er farligt eller ulovligt", gul er "det er sværere, end det ser ud".
+ * Den forrige udgave var en gul kasse med gul ramme og et versalt
+ * "VÆRD AT VIDE FØRST" ovenover, og den slags etiket er kun en etiket:
+ * overskriften siger allerede, hvad der er på spil.
  */
 export default function ProPanel({ pest, compact }: { pest: PestKey; compact?: boolean }) {
   const n = NUDGE[pest];
   if (!n) return null;
 
-  const alarm = n.level !== "svaert";
   const href = proLinkFor(pest);
 
   return (
-    <aside
-      className={`rounded-2xl border-2 ${
-        alarm ? "border-red-300 bg-red-50" : "border-amber-300 bg-amber-50"
-      } ${compact ? "p-4 sm:p-5" : "p-5 sm:p-7"}`}
+    <Notice
+      tone={n.level === "ulovligt" || n.level === "farligt" ? "krav" : "advarsel"}
+      title={n.title}
+      className={compact ? "" : "py-2"}
+      actions={
+        <>
+          <a
+            href={href}
+            className="press inline-flex items-center justify-center gap-2 rounded-full bg-ink-950 text-cream font-display font-bold min-h-[48px] px-6 hover:bg-ink-800 transition-colors"
+          >
+            Lad os klare {PEST_LABEL[pest].toLowerCase()}
+            <ArrowRight size={17} strokeWidth={2.5} aria-hidden="true" />
+          </a>
+          <a
+            href={TEL}
+            className="press inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink-950 text-ink-950 font-display font-bold min-h-[48px] px-6 hover:bg-ink-950 hover:text-cream transition-colors"
+          >
+            <Phone size={17} strokeWidth={2.5} aria-hidden="true" />
+            Ring 24 24 55 83
+          </a>
+        </>
+      }
     >
-      <p className="select-none flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest mb-2">
-        <ShieldAlert
-          size={15}
-          strokeWidth={2.75}
-          aria-hidden="true"
-          className={alarm ? "text-red-700" : "text-amber-700"}
-        />
-        <span className={alarm ? "text-red-800" : "text-amber-800"}>
-          {n.level === "ulovligt" ? "Krav, ikke råd" : n.level === "farligt" ? "Pas på her" : "Værd at vide først"}
-        </span>
-      </p>
-
-      <h3
-        className={`font-display font-bold text-ink-950 leading-tight ${
-          compact ? "text-lg" : "text-xl sm:text-2xl"
-        }`}
-      >
-        {n.title}
-      </h3>
-      <p className="mt-2 text-ink-800 leading-relaxed text-[15px]">{n.body}</p>
-
-      <div className="mt-5 flex flex-col sm:flex-row gap-2.5">
-        <a
-          href={href}
-          className="press inline-flex items-center justify-center gap-2 rounded-full bg-ink-950 text-cream font-display font-bold min-h-[48px] px-6 hover:bg-ink-800 transition-colors"
-        >
-          Lad os klare {PEST_LABEL[pest].toLowerCase()}
-          <ArrowRight size={17} strokeWidth={2.5} aria-hidden="true" />
-        </a>
-        <a
-          href={TEL}
-          className="press inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink-950 text-ink-950 font-display font-bold min-h-[48px] px-6 hover:bg-ink-950 hover:text-cream transition-colors"
-        >
-          <Phone size={17} strokeWidth={2.5} aria-hidden="true" />
-          Ring 24 24 55 83
-        </a>
-      </div>
-    </aside>
+      {n.body}
+    </Notice>
   );
 }

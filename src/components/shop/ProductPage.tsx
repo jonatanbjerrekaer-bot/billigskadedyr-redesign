@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@heroui/react";
 import {
-  AlertTriangle, Check, ChevronLeft, Minus, Plus, ShoppingCart, Truck, Undo2, X,
+  Check, ChevronLeft, Minus, Plus, ShoppingCart, Truck, Undo2, X,
 } from "lucide-react";
 import { BY_SLUG, dkr, hasPrice, isDeal, PEST_LABEL, PRODUCTS } from "../../lib/shop";
 import { DOSAGE } from "../../lib/dosage";
 import { DETAIL } from "../../lib/shopContent";
 import DoseCalculator from "./DoseCalculator";
+import Notice from "./Notice";
 import { addToCart } from "../../lib/cart";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import ProductCard from "./ProductCard";
@@ -186,10 +187,9 @@ export default function ProductPage({ slug }: { slug: string }) {
             )}
 
             {d?.gate && (
-              <p className="mt-5 flex gap-2.5 rounded-xl border-2 border-amber-500 bg-amber-50 px-4 py-3 text-[15px] text-ink-900 leading-snug">
-                <AlertTriangle size={18} strokeWidth={2.5} aria-hidden="true" className="text-amber-600 shrink-0 mt-0.5" />
+              <Notice tone="krav" className="mt-5">
                 {d.gate}
-              </p>
+              </Notice>
             )}
 
             {hasPrice(p) && (
