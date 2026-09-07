@@ -13,8 +13,10 @@ export type EstimatorSelection = {
   m2: number;
   property: PropertyType;
   severity: Severity;
-  /** Formatted price, e.g. "2.200 kr." */
-  price: string;
+  /** Formatted price, e.g. "2.200 kr.". null when this pest is quoted
+      after a visit rather than calculated, so nothing downstream can
+      print a number the calculator never produced. */
+  price: string | null;
   /** True once the visitor has touched any calculator input themselves. */
   touched: boolean;
 };

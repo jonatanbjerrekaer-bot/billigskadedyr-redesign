@@ -28,7 +28,14 @@ export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
   // Only a visitor who used the calculator gets the full sentence. The
   // defaults must never describe a home nobody described.
   const draft = touched && selection
-    ? `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Angrebet er ${SEVERITY_ADVERB[selection.severity]}, og prisberegneren siger omkring ${selection.price.replace(/\.$/, "")}. Jeg vil gerne have et fast tilbud.`
+    ? // A quoted pest has no number yet, so the sentence stops at the facts
+      // he can actually give: which pest, what kind of home, how big. Those
+      // are what let a price be set quickly. Naming a price the calculator
+      // never produced would put "omkring 0 kr." in a field he is about to
+      // send.
+      selection.price
+      ? `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Angrebet er ${SEVERITY_ADVERB[selection.severity]}, og prisberegneren siger omkring ${selection.price.replace(/\.$/, "")}. Jeg vil gerne have et fast tilbud.`
+      : `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Jeg vil gerne have et fast tilbud.`
     : pestLabel
       // Opening this page is the visitor naming the pest, so the draft
       // names it back and stops there. Everything else still waits for

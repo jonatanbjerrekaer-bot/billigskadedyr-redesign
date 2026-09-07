@@ -128,7 +128,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     let dwell: number | undefined;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (advTouched.current) return;
+        // Nothing in that block affects a quoted pest, so it should not
+        // invite the visitor to go and move it.
+        if (advTouched.current || quote.kind !== "fixed") return;
         if (entry.isIntersecting) {
           dwell = window.setTimeout(() => {
             if (!advTouched.current) setAdvOpen(true);
@@ -222,7 +224,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     m2,
     property,
     severity,
-    price: dkr(price),
+    // null, not 0: a quote has no number yet, and dkr(0) would hand the
+    // contact form "omkring 0 kr." to send.
+    price: quote.kind === "fixed" ? dkr(price) : null,
     touched: selTouched,
   });
 
@@ -305,6 +309,11 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             />
           </div>
 
+          {/* Area, property type and severity feed the fixed-price
+              calculation. For a pest that is quoted after a visit they
+              change nothing, and a control that does nothing reads as a
+              broken tool or as a hidden number. */}
+          {quote.kind === "fixed" && (
           <Disclosure.Root
             ref={advRef}
             isExpanded={advOpen}
@@ -460,6 +469,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               </Disclosure.Body>
             </Disclosure.Content>
           </Disclosure.Root>
+          )}
         </div>
 
         <div
