@@ -80,7 +80,7 @@ export const PESTS: PestEntry[] = [
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", icon: "fluer.svg" },
+  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", png: "fluer", scale: 1.02 },
   { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg" },
   { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg" },
   { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito" },

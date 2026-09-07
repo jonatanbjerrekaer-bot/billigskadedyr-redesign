@@ -10,15 +10,13 @@ import Process from "./Process";
 import Faq from "./Faq";
 import { ToastProvider } from "@heroui/react";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
+import { PestChips } from "./PestQuickSelect";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
-import { PESTS } from "../lib/pests";
 
 // The page now carries its own estimator, contact form, process and FAQ, so
 // every in-page target below is a plain local hash. Only links that leave for
 // the front page keep the BASE_URL prefix.
 const B = import.meta.env.BASE_URL;
-const SERVICE_LABELS: Record<string, string> = Object.fromEntries(PESTS.map((p) => [p.slug, p.label]));
-const SIBLINGS: string[] = PESTS.map((p) => p.slug);
 
 export default function ServicePage({ slug }: { slug: string }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -200,16 +198,8 @@ export default function ServicePage({ slug }: { slug: string }) {
             <h2 className="font-display text-2xl font-bold tracking-tight uppercase mb-6">
               Har du et andet skadedyr?
             </h2>
-            <nav aria-label="Andre skadedyr" className="flex flex-wrap gap-2.5">
-              {SIBLINGS.map((s) => (
-                <a
-                  key={s}
-                  href={`${B}service/${s}/`}
-                  className="inline-flex items-center min-h-[44px] rounded-full border border-ink-900/15 bg-white px-4 py-2 text-sm font-medium hover:border-accent-500 transition-colors"
-                >
-                  {SERVICE_LABELS[s] ?? s}
-                </a>
-              ))}
+            <nav aria-label="Andre skadedyr">
+              <PestChips exclude={slug} />
             </nav>
             <p className="mt-6">
               <a
