@@ -60,6 +60,8 @@ def serve():
         def log_message(self, *a):
             pass
 
+    # Back-to-back runs otherwise die on the previous socket's TIME_WAIT.
+    socketserver.TCPServer.allow_reuse_address = True
     httpd = socketserver.TCPServer(("127.0.0.1", PORT), Handler)
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
     return httpd

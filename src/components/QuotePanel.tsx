@@ -43,7 +43,7 @@ export default function QuotePanel({
           Hvad koster det?
         </h2>
         <p className="text-ink-100/70 mb-8 max-w-2xl">
-          {label} sætter vi pris på efter en kort snak. Så ved du, hvad det ender med,
+          {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med,
           inden vi går i gang.
         </p>
 

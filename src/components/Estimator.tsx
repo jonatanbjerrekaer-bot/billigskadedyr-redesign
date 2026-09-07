@@ -548,13 +548,25 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               </>
             ) : (
               <>
-                <div className="font-display text-2xl font-bold text-accent-400">
-                  Fast pris efter en kort snak
-                </div>
+                {quote.inspection ? (
+                  <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
+                    {dkr(quote.inspection.price)}
+                  </div>
+                ) : (
+                  <div className="font-display text-2xl font-bold text-accent-400">
+                    Fast pris efter en kort snak
+                  </div>
+                )}
+                {quote.inspection && (
+                  <p className="text-xs text-ink-100/70 leading-relaxed">
+                    {quote.inspection.text}
+                  </p>
+                )}
                 <p className="text-xs text-ink-100/70 leading-relaxed">{quote.why}</p>
                 <p className="text-xs text-ink-100/70 leading-relaxed">
-                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang,
-                  og den ændrer sig ikke undervejs.
+                  {quote.inspection
+                    ? "Selve behandlingen får du en fast pris på i tilbuddet, og den ændrer sig ikke undervejs."
+                    : "Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den ændrer sig ikke undervejs."}
                 </p>
               </>
             )}

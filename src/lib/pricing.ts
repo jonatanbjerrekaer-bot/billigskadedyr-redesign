@@ -30,7 +30,12 @@ type Owner =
       /** An additional treatment during the summer. */
       summerExtra?: number;
     }
-  | { kind: "quote"; why: string };
+  | {
+      kind: "quote";
+      why: string;
+      /** What he charges to come and look, where he publishes it. */
+      inspection?: { price: number; text: string };
+    };
 
 /** Keyed by the priceKey values in lib/pests. */
 export const OWNER_PRICES: Record<string, Owner> = {
@@ -57,6 +62,10 @@ export const OWNER_PRICES: Record<string, Owner> = {
   Borebiller: {
     kind: "quote",
     why: "Prisen afhænger af angrebets omfang, træværket og adgangsforholdene, så den sætter vi efter en snak.",
+    inspection: {
+      price: 1000,
+      text: "for at komme forbi til en vurdering og et uforpligtende tilbud, inkl. moms",
+    },
   },
   Væggelus: {
     kind: "quote",
@@ -112,7 +121,7 @@ export type Quote =
       /** True when the home is bigger than the price he publishes covers. */
       overArea: boolean;
     }
-  | { kind: "quote"; why: string };
+  | { kind: "quote"; why: string; inspection?: { price: number; text: string } };
 
 export function estimate(
   pest: string,
