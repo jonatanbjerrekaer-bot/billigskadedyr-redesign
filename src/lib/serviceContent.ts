@@ -36,6 +36,76 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { q: "Hvor lever skægkræ?", a: "Skægkræet foretrækker at opholde sig mørkt og tørt. Det er derfor meget normalt at finde disse i både din bogreol, køkkenskabe, vasketøjskurv og endda også i din seng.\nDa de er meget små i den første fase af deres liv kan de nemt finde vej i selv de mindste sprækker i din bolig.\nDu skal derfor forvente at kunne finde skægkræ mere eller mindre alle steder i din bolig.\nFuldvoksne skægkræ kan overleve i meget lang tid uden at indtage føde. Man regner med at de kan overleve hele 10 måneder uden at indtage noget føde." },
     ],
   },
+  // his own words, from billigskadedyrprof.dk
+  gaasebiller: {
+    intro:
+      "Er din græsplæne blevet gul, ujævn eller nem at løfte som et tæppe? Oplever du samtidig, at stære, råger, skader eller andre fugle hakker store huller i plænen? Så kan årsagen være gåsebiller.",
+    whyProfessional: [
+      "Vi ser efter, om det er gåsebillelarver eller noget andet, der har taget plænen",
+      "Behandlingen lægges der, hvor larverne sidder, ikke bare på overfladen",
+      "Du får skriftlig dokumentation for behandlingen",
+    ],
+  },
+  // his own words, from billigskadedyrprof.dk
+  moel: {
+    intro:
+      "Har du opdaget små møl i køkkenet, larver i dine madvarer eller huller i dit tøj? Så er du langt fra den eneste.",
+    whyProfessional: [
+      "Vi finder ud af, om det er melmøl eller klædemøl, fordi behandlingen er forskellig",
+      "Vi behandler der, hvor larverne sidder, og ikke kun de møl, du kan se flyve",
+      "Du får skriftlig dokumentation for behandlingen",
+    ],
+  },
+  // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
+  myg: {
+    intro:
+      "Myg yngler i stillestående vand tæt på boligen, og de finder ind gennem de åbninger, du ikke tænker over. En behandling virker bedst, når den rammer ynglestedet og ikke kun de myg, der allerede er inde.",
+    whyProfessional: [
+      "Vi finder det vand, de yngler i, og behandler der",
+      "Godkendte midler, doseret rigtigt, så de virker og er forsvarlige indendørs",
+      "Råd om, hvordan du undgår, at de kommer igen",
+    ],
+  },
+  // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
+  klannere: {
+    intro:
+      "Klannere ses ofte som små biller i vindueskarmen, men skaden sker af larverne, der lever i tæpper, tekstiler og under fodpaneler. Derfor handler en behandling om at finde ud af, hvor larverne er.",
+    whyProfessional: [
+      "Vi finder ud af, hvor larverne lever, fordi det sjældent er der, du ser billerne",
+      "Behandling af tæpper, fodpaneler og revner, hvor de gemmer sig",
+      "Du får skriftlig dokumentation for behandlingen",
+    ],
+  },
+  // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
+  stankelben: {
+    intro:
+      "Stankelben er harmløse indendørs, men larverne lever i plænen og æder rødderne. Det ses som gule, løse pletter, ofte sammen med fugle, der hakker i græsset for at komme til larverne.",
+    whyProfessional: [
+      "Vi ser efter, om det er stankelbenslarver, der har taget plænen",
+      "Behandlingen lægges der, hvor larverne sidder i rodzonen",
+      "Råd om, hvordan du får plænen ovenpå igen",
+    ],
+  },
+  // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
+  snegle: {
+    intro:
+      "Dræbersnegle og andre snegle æder sig gennem bede og køkkenhave på få nætter. De gemmer sig fugtigt og mørkt om dagen, og det er der, en behandling skal lægges, hvis den skal batte noget.",
+    whyProfessional: [
+      "Vi behandler der, hvor sneglene gemmer sig om dagen, ikke kun der, hvor du ser dem",
+      "Godkendte midler, doseret rigtigt, så de virker og er forsvarlige i haven",
+      "Råd om, hvordan du gør haven mindre attraktiv for dem",
+    ],
+  },
+  // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
+  muldvarpe: {
+    intro:
+      "Muldvarpen er ikke ude efter planterne, men efter regnorme, og gangsystemet under plænen ødelægger den alligevel. Skuddene kommer typisk igen, indtil selve gangsystemet bliver taget hånd om.",
+    whyProfessional: [
+      "Vi finder de aktive gange, så indsatsen lægges det rigtige sted",
+      "Arbejdet udføres efter gældende lovgivning",
+      "Råd om, hvordan du holder plænen fri bagefter",
+    ],
+  },
   myrer: {
     intro:
       "Myrer i terrassen eller i køkkenet er sjældent farlige, men de er generende, og en rede vokser hurtigt. " +

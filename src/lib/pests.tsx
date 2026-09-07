@@ -75,9 +75,16 @@ export const PESTS: PestEntry[] = [
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "fluer", label: "Fluer & myg", png: "mosquito", scale: 1.06 },
+  { slug: "fluer", label: "Fluer", png: "mosquito", scale: 1.06 },
   // gridHidden keeps the grid at a clean 4x2 rather than orphaning a ninth
   // card alone on a third row.
+  { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg" },
+  { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg" },
+  { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito" },
+  { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", icon: "klannere.svg" },
+  { slug: "stankelben", treatment: "Behandling af plænen mod larverne", label: "Stankelben", png: "spider" },
+  { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg" },
+  { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg" },
   {
     slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
     label: "Edderkopper",
