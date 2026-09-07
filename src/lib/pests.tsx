@@ -20,6 +20,10 @@ export type PestEntry = {
   /** Row in PRICE_TABLE, when this pest has a professional price. */
   priceKey?: string;
   png?: string;
+  /** Everyday words a customer might type instead of the label. Nobody
+      searches for "klannere"; they search for a beetle, or for holes in
+      their jumpers. Matched by the search field, never rendered. */
+  aliases?: string[];
   /** Icon filename under public/pests, when it is not one of the webp
       masks. His own service SVGs arrive this way. */
   icon?: string;
@@ -38,13 +42,14 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
-  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
+  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96, aliases: ["myre", "myrer", "ants", "sorte myrer", "krible krable", "myretue", "insekter i køkkenet"] },
   {
     slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
     label: "Edderkopper",
     priceKey: "Edderkopper",
     png: "spider",
     scale: 1.05,
+    aliases: ["edderkop", "spider", "spindelvæv", "spind", "otte ben", "langbenet"],
   },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
@@ -52,6 +57,7 @@ export const PESTS: PestEntry[] = [
     priceKey: "Hvepse (bo)",
     png: "bee",
     scale: 0.97,
+    aliases: ["hveps", "bi", "bier", "gedehams", "hvepsebo", "bo", "sværm", "stik", "wasp"],
   },
   {
     slug: "vaeggelus", treatment: "Behandling af senge, møbler og fodpaneler",
@@ -59,12 +65,14 @@ export const PESTS: PestEntry[] = [
     priceKey: "Væggelus",
     Svg: BedBug,
     scale: 1.05,
+    aliases: ["væggelus", "bedbugs", "bed bugs", "stik i sengen", "bid om natten", "seng", "madras"],
   },
   {
     slug: "soelvfisk", treatment: "Behandling af fugtzoner, revner og fodpaneler",
     label: "Skægkræ & sølvfisk",
     priceKey: "Skægkræ/sølvfisk",
     icon: "skaegkrae.svg",
+    aliases: ["sølvfisk", "skægkræ", "sølvkræ", "sølvfisk i badeværelset", "hurtige insekter", "fugt"],
   },
   {
     slug: "borebiller", treatment: "Behandling af det angrebne træværk",
@@ -72,6 +80,7 @@ export const PESTS: PestEntry[] = [
     priceKey: "Borebiller",
     png: "beetle",
     scale: 1.13,
+    aliases: ["bille", "biller", "beetle", "borebille", "træorm", "orm i træ", "huller i træ", "bjælker", "møbler"],
   },
   {
     slug: "kakerlakker", treatment: "Gelbehandling af køkken, skjul og afløb",
@@ -79,14 +88,15 @@ export const PESTS: PestEntry[] = [
     priceKey: "Kakerlakker",
     png: "cockroach",
     scale: 0.9,
+    aliases: ["kakerlak", "kakerlakker", "cockroach", "roach", "brune biller", "biller i køkkenet", "natdyr"],
   },
-  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", png: "fluer", scale: 1.02 },
-  { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg" },
-  { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg" },
-  { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito" },
-  { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", icon: "klannere.svg" },
-  { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg" },
-  { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg" },
+  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", png: "fluer", scale: 1.02, aliases: ["flue", "fluer", "spyflue", "bananflue", "frugtflue", "flies", "summen"] },
+  { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg", aliases: ["bille", "biller", "beetle", "gåsebille", "larver i plænen", "larver", "engerling", "død plæne", "gule pletter", "oldenborre"] },
+  { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg", aliases: ["møl", "moth", "huller i tøjet", "tøj", "uld", "melmøl", "klædemøl", "larver i skabet", "møl i mel"] },
+  { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito", aliases: ["myg", "mosquito", "stik", "myggestik", "sommerfugl om aftenen", "sværm", "stikkende insekter"] },
+  { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", icon: "klannere.svg", aliases: ["bille", "biller", "beetle", "klanner", "pelsklanner", "museumsbille", "små biller i vindueskarmen", "behåret larve", "huller i tøjet", "tæppe", "uld"] },
+  { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg", aliases: ["snegl", "snegle", "dræbersnegl", "slug", "slim", "æder mine planter", "bed", "have"] },
+  { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg", aliases: ["muldvarp", "muldvarpe", "mole", "muldskud", "skud i plænen", "jordbunker", "mosegris", "gange i plænen"] },
 ];
 
 /** The subset shown in the quick-select grid. */
