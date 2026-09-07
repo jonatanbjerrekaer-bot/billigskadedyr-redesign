@@ -6,6 +6,12 @@
     <link rel="icon" type="image/svg+xml" href="/billigskadedyr-redesign/favicon.svg" />
     <title>Professionel bekæmpelse af kakerlakker | Billigskadedyr.dk</title>
     <meta name="description" content="" />
+    <!-- The cross-document transition opt-in lives here, not only in
+         index.css: the browser decides whether to run a transition while it
+         parses the new document, and in dev the stylesheet arrives later as a
+         JS-injected <style>. Inline in the head it is in time in both dev and
+         production. The rest of the transition styling stays in index.css. -->
+    <style>@view-transition { navigation: auto }</style>
     <script type="module" crossorigin src="/billigskadedyr-redesign/assets/src-CgZrmIuN.js"></script>
     <script type="module" crossorigin src="/billigskadedyr-redesign/assets/service-entry-C7dCadcq.js"></script>
     <link rel="stylesheet" crossorigin href="/billigskadedyr-redesign/assets/src-CM2GLKgS.css">
