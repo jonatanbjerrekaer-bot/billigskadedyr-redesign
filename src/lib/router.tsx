@@ -122,7 +122,20 @@ export function useLinkRouting(onNavigate?: () => void) {
       if (a.hasAttribute("download") || a.getAttribute("rel")?.includes("external")) return;
 
       const href = a.getAttribute("href");
-      if (!href || href.startsWith("#")) return; // same-page anchor: browser scrolls
+      if (!href) return;
+
+      if (href.startsWith("#")) {
+        const id = href.slice(1);
+        // A target that is here is the browser's job, exactly as before.
+        if (!id || document.getElementById(id)) return;
+        // A target that is not here would otherwise be a click that does
+        // nothing. The front page carries every section, so send it there
+        // with the hash and let applyScroll land on it after the render.
+        e.preventDefault();
+        go(BASE + href);
+        onNavigate?.();
+        return;
+      }
 
       const url = new URL(href, location.href);
       if (url.origin !== location.origin) return;
