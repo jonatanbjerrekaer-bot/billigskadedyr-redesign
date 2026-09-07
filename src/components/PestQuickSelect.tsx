@@ -1,13 +1,15 @@
 import { useMemo, useState } from "react";
 import { X } from "lucide-react";
 import { GRID_PESTS, PestGlyph, type PestEntry } from "../lib/pests";
+import { PEST_SEARCH } from "../lib/pestSearch";
 import Reveal from "./ui/Reveal";
 import { homeHref } from "./ui/Cta";
 
 /**
  * Icons come from one registry (lib/pests) shared with the price calculator,
  * so the grid and the dropdown can never show different glyphs for the same
- * pest. Weight normalisation lives there too.
+ * pest. The words people search by, and the line describing what they would
+ * see at home, live in lib/pestSearch.
  */
 
 /**
@@ -28,8 +30,9 @@ const fold = (s: string) =>
     .trim();
 
 function matches(p: PestEntry, q: string) {
-  const hay = fold([p.label, p.treatment ?? "", ...(p.aliases ?? [])].join(" "));
-  // every word must appear somewhere, so "biller koekken" narrows rather than widens
+  const s = PEST_SEARCH[p.slug];
+  const hay = fold([p.label, p.treatment ?? "", s?.tell ?? "", ...(s?.words ?? [])].join(" "));
+  // every word must appear somewhere, so "biller i køkkenet" narrows rather than widens
   return fold(q).split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
 }
 
@@ -39,33 +42,60 @@ function matches(p: PestEntry, q: string) {
  * row; a chip takes the width of its own text, so the left edge lines up with
  * the heading and the wrap is meant to be uneven.
  *
+ * `describe` turns the chips into wider cards carrying the line about what you
+ * would see at home. That is on in search results and off everywhere else: a
+ * search for "bille" returns four pests that look alike as names, and the
+ * visitor cannot choose between them without it. The full list does not need
+ * it, and switching it on there would undo the height the chips saved.
+ *
  * Shared with the bottom of every service page, which passes `exclude` so the
  * page you are already on is not offered again.
  */
-export function PestChips({ exclude, list }: { exclude?: string; list?: PestEntry[] } = {}) {
+export function PestChips(
+  { exclude, list, describe }: { exclude?: string; list?: PestEntry[]; describe?: boolean } = {},
+) {
   const pests = list ?? (exclude ? GRID_PESTS.filter((p) => p.slug !== exclude) : GRID_PESTS);
   return (
-    <div className="flex flex-wrap gap-2 sm:gap-2.5">
+    <div className={describe ? "grid sm:grid-cols-2 gap-3" : "flex flex-wrap gap-2 sm:gap-2.5"}>
       {pests.map((p, i) => (
-        <Reveal key={p.slug} delay={i * 30}>
+        <Reveal key={p.slug} delay={i * 30} className={describe ? "h-full [&>*]:h-full" : ""}>
           {/* Each chip leads to that pest's own service page, where the
               treatment is explained in detail. */}
           <a
             href={`${import.meta.env.BASE_URL}service/${p.slug}/`}
-            className="group bg-white rounded-full border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 pl-1.5 pr-4 py-1.5 gap-2 sm:pl-2 sm:pr-5 sm:py-2 sm:gap-3 flex items-center"
+            className={
+              "group bg-white border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 flex items-center " +
+              (describe
+                ? "rounded-2xl p-3 gap-3.5"
+                : "rounded-full pl-1.5 pr-4 py-1.5 gap-2 sm:pl-2 sm:pr-5 sm:py-2 sm:gap-3")
+            }
           >
             {/* Shares its view-transition-name with the tile in the service
                 page hero, so the icon travels between the two pages instead
                 of the pages cross-fading past each other. */}
             <span
-              className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-full bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900"
+              className={
+                "shrink-0 bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900 " +
+                (describe ? "w-12 h-12 rounded-xl" : "w-8 h-8 sm:w-10 sm:h-10 rounded-full")
+              }
               style={{ viewTransitionName: `pest-${p.slug}` }}
             >
               <PestGlyph pest={p} />
             </span>
-            <span className="font-display font-bold text-sm sm:text-base text-ink-900 whitespace-nowrap">
-              {p.label}
-            </span>
+            {describe ? (
+              <span className="min-w-0">
+                <span className="block font-display font-bold text-ink-900">{p.label}</span>
+                {/* What you would notice at home, so four beetles are
+                    telling apart rather than four names that look alike. */}
+                <span className="block text-sm text-ink-900/70 leading-snug">
+                  {PEST_SEARCH[p.slug]?.tell}
+                </span>
+              </span>
+            ) : (
+              <span className="font-display font-bold text-sm sm:text-base text-ink-900 whitespace-nowrap">
+                {p.label}
+              </span>
+            )}
           </a>
         </Reveal>
       ))}
@@ -75,9 +105,11 @@ export function PestChips({ exclude, list }: { exclude?: string; list?: PestEntr
 
 export default function PestQuickSelect() {
   const [q, setQ] = useState("");
-  // The registry carries the everyday words people actually type, so a search
-  // for "bille" reaches klannere and gåsebiller, which nobody knows by name.
-  const hits = useMemo(() => (q.trim() ? GRID_PESTS.filter((p) => matches(p, q)) : GRID_PESTS), [q]);
+  const searching = q.trim().length > 0;
+  // The dictionary carries the everyday words people actually type, so a
+  // search for "bille" reaches klannere and gåsebiller, which nobody knows by
+  // name.
+  const hits = useMemo(() => (searching ? GRID_PESTS.filter((p) => matches(p, q)) : GRID_PESTS), [q, searching]);
 
   return (
     <section id="pest" className="bg-ink-50 py-12 sm:py-16">
@@ -91,8 +123,8 @@ export default function PestQuickSelect() {
 
         {/* Almost nobody arrives knowing the word "klannere". They arrive with
             a beetle, or with huller i tøjet. The field searches the everyday
-            words in the registry, so the list answers the question people can
-            actually ask. */}
+            words in lib/pestSearch, so the list answers the question people
+            can actually ask. */}
         <div className="mb-6 max-w-md relative">
           <label htmlFor="pest-search" className="sr-only">
             Søg efter skadedyr
@@ -121,7 +153,24 @@ export default function PestQuickSelect() {
         </div>
 
         {hits.length > 0 ? (
-          <PestChips list={hits} />
+          <>
+            <PestChips list={hits} describe={searching} />
+            {/* Four beetles can still look alike on the page. Somebody who is
+                not sure should not be left guessing, and a photo settles it
+                faster than any list can. */}
+            {searching && (
+              <p className="mt-4 text-sm text-ink-900/70">
+                Ikke sikker på, hvilken det er?{" "}
+                <a
+                  href={homeHref("#skriv")}
+                  className="font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
+                >
+                  Send os et billede
+                </a>
+                , så siger vi det.
+              </p>
+            )}
+          </>
         ) : (
           /* A dead end here is a lost job, so it goes straight to the form
              rather than telling the visitor to try other words. */
