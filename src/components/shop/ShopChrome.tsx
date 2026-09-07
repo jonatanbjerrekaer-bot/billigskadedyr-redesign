@@ -82,7 +82,7 @@ export function ShopHeader() {
             <ShoppingCart size={18} strokeWidth={2.5} aria-hidden="true" />
             <span className="hidden sm:inline">Kurv</span>
             {count > 0 && (
-              <span className="min-w-[22px] h-[22px] px-1 grid place-items-center rounded-full bg-accent-500 text-ink-950 text-xs font-bold tabular-nums">
+              <span className="min-w-[22px] h-[22px] px-1 grid place-items-center rounded-full bg-accent-500 text-ink-950 text-[13px] font-bold tabular-nums">
                 {count}
               </span>
             )}
@@ -115,7 +115,7 @@ export function ShopHeader() {
               >
                 <ShopGlyph pest={p} size={22} className="text-accent-500 group-hover:text-accent-400" />
                 {PEST_LABEL[p]}
-                <span className="text-xs text-ink-100/45 tabular-nums">{PEST_COUNTS[p]}</span>
+                <span className="text-[13px] text-ink-100/45 tabular-nums">{PEST_COUNTS[p]}</span>
               </a>
             </li>
           ))}
@@ -198,7 +198,7 @@ export function ShopFooter() {
         </div>
       </div>
 
-      <p className="select-none text-center text-xs text-ink-100/45 pb-8 px-4">
+      <p className="select-none text-center text-[13px] text-ink-100/45 pb-8 px-4">
         Bekæmpelsesmidler skal bruges forsvarligt. Læs altid etiket og produktoplysninger før brug.
       </p>
     </footer>

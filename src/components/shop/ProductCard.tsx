@@ -67,7 +67,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
           </div>
         )}
         {deal && (
-          <span className="select-none absolute top-3 left-3 bg-accent-500 text-ink-950 text-xs font-bold uppercase tracking-wide rounded-full px-2.5 py-1">
+          <span className="select-none absolute top-3 left-3 bg-accent-500 text-ink-950 text-[13px] font-bold uppercase tracking-wide rounded-full px-2.5 py-1">
             Tilbud
           </span>
         )}
@@ -82,7 +82,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
             p.size && <> · {p.size}</>
           )}
         </p>
-        <h3 className="font-display font-bold text-ink-950 leading-snug text-sm sm:text-base">
+        <h3 className="font-display font-bold text-ink-950 leading-snug text-base sm:text-[19px]">
           {p.name}
         </h3>
 
@@ -91,7 +91,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
         )}
 
         {p.unit && (
-          <p className="select-none text-xs text-ink-600 tabular-nums">{p.unit}</p>
+          <p className="select-none text-[13px] text-ink-600 tabular-nums">{p.unit}</p>
         )}
 
         <div className="mt-auto pt-2 flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
@@ -108,12 +108,12 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
               )}
             </p>
           ) : (
-            <p className="font-display text-sm sm:text-base font-bold text-ink-700 leading-snug">
+            <p className="font-display text-base sm:text-[19px] font-bold text-ink-700 leading-snug">
               Pris på forespørgsel
             </p>
           )}
           <p
-            className={`select-none flex items-center gap-1 text-xs font-semibold whitespace-nowrap ${
+            className={`select-none flex items-center gap-1 text-[13px] font-semibold whitespace-nowrap ${
               p.inStock ? "text-green-700" : "text-ink-500"
             }`}
           >

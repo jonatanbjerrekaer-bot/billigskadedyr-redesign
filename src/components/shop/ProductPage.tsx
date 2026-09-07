@@ -99,7 +99,7 @@ export default function ProductPage({ slug }: { slug: string }) {
       <ShopHeader />
 
       <main>
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-5">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-3 pb-2">
           <nav aria-label="Brødkrumme" className="select-none text-sm text-ink-600 flex items-center gap-2">
             <a href={`${BASE}shop/`} className="hover:text-ink-950 underline underline-offset-4">Butik</a>
             <span>/</span>
@@ -126,28 +126,39 @@ export default function ProductPage({ slug }: { slug: string }) {
           </div>
 
           <div>
-            <p className="select-none text-[13px] text-ink-600 mb-2">
-              {PEST_LABEL[p.pest]} · {p.form}
-            </p>
-            <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink-950 leading-tight">
+            <h1 className="font-display text-[32px] sm:text-[44px] font-bold tracking-tight text-ink-950 leading-[1.08]">
               {p.name}
             </h1>
-            {d?.lead && <p className="mt-3 text-lg text-ink-800 leading-relaxed">{d.lead}</p>}
+            {d?.lead && <p className="mt-2.5 text-lg text-ink-800 leading-relaxed">{d.lead}</p>}
             {!d && p.blurb && <p className="mt-3 text-ink-800 leading-relaxed">{p.blurb}</p>}
 
-            <div className="mt-6 flex items-end gap-3">
-              <p className="font-display text-4xl sm:text-5xl font-bold text-ink-950 tabular-nums leading-none">
+            <div className="mt-4 flex items-end gap-3">
+              <p className="font-display text-[28px] sm:text-[34px] font-bold text-ink-950 tabular-nums leading-none">
                 {hasPrice(p) ? dkr(price) : "Pris på forespørgsel"}
               </p>
               {deal && hasPrice(p) && (
                 <p className="text-lg text-ink-500 line-through tabular-nums">{dkr(p.regular)}</p>
               )}
             </div>
-            <p className="select-none mt-1.5 text-sm text-ink-600">
-              {hasPrice(p)
-                ? `Inkl. moms${p.unit && !v ? ` · ${p.unit}` : ""}`
-                : "Ring eller skriv, så får du prisen med det samme"}
-            </p>
+            {/* Beregneren er varens stærkeste argument, og den ligger 1100 px
+                nede. Linket deler linje med momsoplysningen, som står alene
+                med masser af plads til højre: det koster nul px i højden og
+                lander dermed over folden på en bærbar. */}
+            <div className="mt-1.5 flex flex-wrap items-baseline gap-x-5 gap-y-1">
+              <p className="select-none text-sm text-ink-600 m-0">
+                {hasPrice(p)
+                  ? `Inkl. moms${p.unit && !v ? ` · ${p.unit}` : ""}`
+                  : "Ring eller skriv, så får du prisen med det samme"}
+              </p>
+              {dose && (
+                <a
+                  href="#beregner"
+                  className="text-sm font-semibold text-ink-950 underline underline-offset-4 decoration-ink-400 hover:decoration-ink-950"
+                >
+                  Regn ud hvor meget du skal bruge ↓
+                </a>
+              )}
+            </div>
 
             <p
               className={`select-none mt-4 inline-flex items-center gap-2 font-semibold ${
@@ -184,12 +195,6 @@ export default function ProductPage({ slug }: { slug: string }) {
                   ))}
                 </div>
               </fieldset>
-            )}
-
-            {d?.gate && (
-              <Notice tone="krav" className="mt-5">
-                {d.gate}
-              </Notice>
             )}
 
             {hasPrice(p) && (
@@ -232,6 +237,14 @@ export default function ProductPage({ slug }: { slug: string }) {
                 )}
               </Button>
             </div>
+            )}
+
+            {/* Betingelsen hoerer sammen med fragt og returret: det er
+                handelsvilkaar, ikke noget man skal igennem foer prisen. */}
+            {d?.gate && (
+              <Notice tone="krav" className="mt-5">
+                {d.gate}
+              </Notice>
             )}
 
             <ul className="select-none mt-5 flex flex-col gap-2 text-sm text-ink-700 list-none p-0 m-0">
@@ -312,7 +325,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         {d && (
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-14">
             <section aria-labelledby="fakta">
-              <h2 id="fakta" className="font-display text-2xl font-bold tracking-tight text-ink-950 mb-4">
+              <h2 id="fakta" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
                 Kort fortalt
               </h2>
               <dl className="rounded-2xl border border-ink-200 divide-y divide-ink-200 overflow-hidden">
@@ -326,7 +339,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             </section>
 
             <section aria-labelledby="saadan">
-              <h2 id="saadan" className="font-display text-2xl font-bold tracking-tight text-ink-950 mb-4">
+              <h2 id="saadan" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
                 Sådan bruger du den
               </h2>
               <ol className="flex flex-col gap-3.5 list-none p-0 m-0 counter-reset">
@@ -354,7 +367,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         {related.length > 0 && (
           <section aria-labelledby="relateret" className="bg-ink-100 border-t border-ink-200 py-10 sm:py-14">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-              <h2 id="relateret" className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-ink-950 mb-5">
+              <h2 id="relateret" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-5">
                 Andet mod {PEST_LABEL[p.pest].toLowerCase()}
               </h2>
               <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
@@ -392,7 +405,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 <p className="font-display text-xl font-bold text-ink-950 tabular-nums leading-none m-0">
                   {dkr(price * qty)}
                 </p>
-                <p className="select-none text-xs text-ink-600 mt-1 m-0 truncate">
+                <p className="select-none text-[13px] text-ink-600 mt-1 m-0 truncate">
                   {qty > 1 ? `${qty} stk. · ` : ""}
                   {p.inStock ? "På lager" : "Skaffevare"}
                 </p>

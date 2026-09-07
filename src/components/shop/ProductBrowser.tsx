@@ -369,7 +369,7 @@ export default function ProductBrowser() {
                 <SlidersHorizontal size={17} strokeWidth={2.5} aria-hidden="true" />
                 Filtre
                 {chips.length > 0 && (
-                  <span className="font-sans text-xs bg-ink-950 text-cream rounded-full px-2 py-0.5 tabular-nums">
+                  <span className="font-sans text-[13px] bg-ink-950 text-cream rounded-full px-2 py-0.5 tabular-nums">
                     {chips.length}
                   </span>
                 )}

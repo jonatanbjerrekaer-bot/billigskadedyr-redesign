@@ -97,7 +97,7 @@ export default function DoseCalculator({
     >
       <h2
         id="beregner"
-        className="font-display text-xl sm:text-2xl font-bold tracking-tight text-ink-950"
+        className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950"
       >
         Hvor meget skal du bruge?
       </h2>
@@ -161,7 +161,7 @@ export default function DoseCalculator({
           onChange={(e) => setM2(Number(e.target.value))}
           className="mt-2 w-full h-11 accent-accent-500 cursor-pointer"
         />
-        <div className="select-none flex justify-between text-xs text-ink-500 tabular-nums">
+        <div className="select-none flex justify-between text-[13px] text-ink-500 tabular-nums">
           <span>{step} m²</span>
           <span>{max.toLocaleString("da-DK")} m²</span>
         </div>
@@ -202,7 +202,7 @@ export default function DoseCalculator({
                     {packs} × {v.label}
                   </span>
                   {v.isConcentrate && (
-                    <span className="select-none text-xs text-ink-600">
+                    <span className="select-none text-[13px] text-ink-600">
                       giver {fmt(covers(v, dose, rate) * packs, dose.unit)} blanding
                     </span>
                   )}
@@ -210,7 +210,7 @@ export default function DoseCalculator({
                     {dkr(total)}
                   </span>
                   {win && (
-                    <span className="select-none w-full flex items-center gap-1.5 text-xs font-semibold text-green-800">
+                    <span className="select-none w-full flex items-center gap-1.5 text-[13px] font-semibold text-green-800">
                       <Check size={14} strokeWidth={3} aria-hidden="true" />
                       Billigst til dit areal
                     </span>
@@ -246,7 +246,7 @@ export default function DoseCalculator({
         </Button>
       )}
 
-      <p className="select-none mt-4 flex gap-2 text-xs text-ink-600 leading-relaxed">
+      <p className="select-none mt-4 flex gap-2 text-[13px] text-ink-600 leading-relaxed">
         <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0 mt-0.5" />
         {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
       </p>

@@ -42,7 +42,7 @@ function SafetySheet({ slug }: { slug: string }) {
         {s.pictograms.map((g) => (
           <span
             key={g}
-            className="select-none rounded-md border border-ink-400 px-2 py-0.5 text-xs font-semibold text-ink-800"
+            className="select-none rounded-md border border-ink-400 px-2 py-0.5 text-[13px] font-semibold text-ink-800"
           >
             {g}
           </span>
@@ -73,7 +73,7 @@ function SafetySheet({ slug }: { slug: string }) {
       </ul>
 
       <p className="mt-4 font-semibold text-ink-950 m-0">{POISON_LINE}</p>
-      <p className="select-none mt-2 text-xs text-ink-700 m-0">{s.source}</p>
+      <p className="select-none mt-2 text-[13px] text-ink-700 m-0">{s.source}</p>
     </div>
   );
 }
@@ -84,7 +84,7 @@ export default function ProductTabs({ slug }: { slug: string }) {
 
   return (
     <section aria-labelledby="detaljer" className="max-w-3xl">
-      <h2 id="detaljer" className="font-display text-2xl font-bold tracking-tight text-ink-950 mb-4">
+      <h2 id="detaljer" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
         Det hele om varen
       </h2>
       <div className="border-t border-ink-200">
@@ -121,7 +121,7 @@ export default function ProductTabs({ slug }: { slug: string }) {
           </details>
         ))}
       </div>
-      <p className="select-none mt-3 text-xs text-ink-600">
+      <p className="select-none mt-3 text-[13px] text-ink-600">
         Teksten er hans egen fra billigskadedyr.dk. Etiketten på emballagen gælder frem for alt andet.
       </p>
     </section>

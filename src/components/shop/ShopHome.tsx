@@ -165,8 +165,8 @@ export default function ShopHome() {
         </section>
 
         <section id="skadedyr" className="bg-ink-950 text-cream scroll-mt-4">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-12">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-1.5">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
+            <h2 className="font-display text-2xl sm:text-[30px] font-bold tracking-tight mb-1.5">
               Hvad har du?
             </h2>
             <p className="select-none text-ink-100/70 mb-5">
@@ -185,7 +185,7 @@ export default function ShopHome() {
                       className="shrink-0 text-accent-500"
                     />
                     <span className="truncate">{PEST_LABEL[p]}</span>
-                    <span className="select-none ml-auto text-xs font-sans font-normal text-ink-100/50 tabular-nums">
+                    <span className="select-none ml-auto text-[13px] font-sans font-normal text-ink-100/50 tabular-nums">
                       {PEST_COUNTS[p] ?? 0}
                     </span>
                   </a>
@@ -226,9 +226,9 @@ export default function ShopHome() {
             ))}
           </Carousel>
         ) : (
-          <section aria-labelledby="tilbud" className="py-8 sm:py-12">
+          <section aria-labelledby="tilbud" className="py-12 sm:py-16">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-              <h2 id="tilbud" className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-ink-950">
+              <h2 id="tilbud" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950">
                 Tilbud
               </h2>
               <p className="select-none mt-2 text-ink-700 max-w-2xl">{DEALS_NOTE}</p>
@@ -277,7 +277,7 @@ export default function ShopHome() {
               />
             </figure>
             <div>
-              <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight uppercase text-ink-950">
+              <h2 className="font-display text-2xl sm:text-[30px] font-bold tracking-tight uppercase text-ink-950">
                 Har du prøvet selv to gange?
               </h2>
               <p className="mt-4 text-ink-800 leading-relaxed max-w-2xl text-lg">

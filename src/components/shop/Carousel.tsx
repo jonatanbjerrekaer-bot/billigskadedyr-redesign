@@ -60,7 +60,7 @@ export default function Carousel({
     <section aria-labelledby={id} className="py-8 sm:py-12">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between gap-4 mb-1">
-          <h2 id={id} className={`font-display text-2xl sm:text-3xl font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
+          <h2 id={id} className={`font-display text-2xl sm:text-[30px] font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
             {heading}
           </h2>
           <div className="flex items-center gap-2 shrink-0">

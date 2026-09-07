@@ -65,7 +65,7 @@ function Group({
       <summary className="flex items-center gap-2 cursor-pointer list-none select-none min-h-[44px] font-display font-bold text-ink-950">
         <span className="grow">{title}</span>
         {selected.size > 0 && (
-          <span className="rounded-full bg-ink-950 text-cream text-xs font-sans font-bold tabular-nums px-2 py-0.5">
+          <span className="rounded-full bg-ink-950 text-cream text-[13px] font-sans font-bold tabular-nums px-2 py-0.5">
             {selected.size}
           </span>
         )}
@@ -96,7 +96,7 @@ function Group({
               </Checkbox.Control>
               {renderIcon?.(o.id)}
               <span className="grow text-left">{o.label}</span>
-              <span className="text-xs tabular-nums opacity-70">{o.count}</span>
+              <span className="text-[13px] tabular-nums opacity-70">{o.count}</span>
             </Checkbox.Content>
           </Checkbox>
         ))}
@@ -192,7 +192,7 @@ export default function ShopFilters({
               <Checkbox.Indicator />
             </Checkbox.Control>
             <span className="grow text-left">Kun på lager</span>
-            <span className="text-xs tabular-nums opacity-70">{inStockCount}</span>
+            <span className="text-[13px] tabular-nums opacity-70">{inStockCount}</span>
           </Checkbox.Content>
         </Checkbox>
       </div>
