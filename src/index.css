@@ -1,6 +1,33 @@
 @import "@heroui/react/styles";
 @import "tailwindcss";
 
+/* Navigating to a service page and back is a real document navigation, so the
+   browser's own cross-document transition does the animation. No library, no
+   client router: browsers without support simply navigate as before. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* The pest tile is the one element that exists on both pages, so it moves
+   rather than fading. Everything else crossfades underneath it. */
+::view-transition-group(*) {
+  animation-duration: 320ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* Self-hosted @font-face (below) replaces the @fontsource-variable packages:
    two woff2 files total instead of every weight/italic/range combination, and
    fixed public URLs that index.html can preload. */

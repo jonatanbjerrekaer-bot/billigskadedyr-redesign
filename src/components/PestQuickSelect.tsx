@@ -25,7 +25,13 @@ export default function PestQuickSelect() {
               href={`${import.meta.env.BASE_URL}service/${p.slug}/`}
               className="group bg-white rounded-2xl border border-ink-900/10 hover:border-accent-500 shadow-sm hover:shadow-md lift-sm press transition-[color,background-color,border-color,box-shadow,transform] duration-150 p-6 flex flex-col items-center gap-2 h-full"
             >
-              <div className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900">
+              {/* Shares its view-transition-name with the tile in the service
+                  page hero, so the icon travels between the two pages instead
+                  of the pages cross-fading past each other. */}
+              <div
+                className="w-14 h-14 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center transition-colors group-hover:bg-accent-500 group-hover:text-ink-900"
+                style={{ viewTransitionName: `pest-${p.slug}` }}
+              >
                 <PestGlyph pest={p} />
               </div>
               <span className="font-display font-bold text-ink-900 text-center">{p.label}</span>

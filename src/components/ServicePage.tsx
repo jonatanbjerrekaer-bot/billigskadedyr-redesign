@@ -1,17 +1,21 @@
 import { useState } from "react";
-import { Check, ArrowRight, Calculator, Mail } from "lucide-react";
+import { Check, ArrowLeft, ArrowRight } from "lucide-react";
 import Header from "./Header";
 import UspBar from "./UspBar";
 import Footer from "./Footer";
 import MobileCtaBar from "./MobileCtaBar";
+import Estimator from "./Estimator";
+import Contact from "./Contact";
+import Process from "./Process";
+import Faq from "./Faq";
 import { ToastProvider } from "@heroui/react";
-import { PestGlyph } from "../lib/pests";
+import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
 import { PESTS } from "../lib/pests";
 
-// Relative in-page targets point at the front page's sections (the estimator, the
-// contact form and the pest grid live on the home page). BASE_URL is the Vite base
-// with a trailing slash, so `${BASE_URL}#estimator` yields a valid root-relative URL.
+// The page now carries its own estimator, contact form, process and FAQ, so
+// every in-page target below is a plain local hash. Only links that leave for
+// the front page keep the BASE_URL prefix.
 const B = import.meta.env.BASE_URL;
 const SERVICE_LABELS: Record<string, string> = Object.fromEntries(PESTS.map((p) => [p.slug, p.label]));
 const SIBLINGS: string[] = PESTS.map((p) => p.slug);
@@ -33,6 +37,9 @@ export default function ServicePage({ slug }: { slug: string }) {
   }
 
   const label = pest.label;
+  // Fluer has no price key, so the calculator has nothing to quote for it.
+  // Showing a calculator that cannot answer is worse than not showing one.
+  const priced = PRICED_PESTS.some((p) => p.slug === slug);
 
   return (
     <div className="min-h-screen bg-cream text-ink-900 font-sans pb-20 md:pb-0">
@@ -40,9 +47,23 @@ export default function ServicePage({ slug }: { slug: string }) {
       <Header mobileNavOpen={mobileNavOpen} onNavToggle={() => setMobileNavOpen((v) => !v)} />
       <main>
         <section className="bg-ink-900 text-cream">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-5 pb-14 sm:pb-20">
+            {/* Sat above the title rather than floated over it: on a page reached
+                from the grid, getting back is the second thing people want. */}
+            <a
+              href={`${B}#pest`}
+              className="press inline-flex items-center gap-2 -ml-2 mb-8 rounded-lg px-3 py-2 min-h-[44px] text-sm font-semibold text-ink-100/80 hover:text-cream hover:bg-ink-800 transition-colors"
+            >
+              <ArrowLeft size={18} strokeWidth={2.5} aria-hidden="true" />
+              Alle skadedyr
+            </a>
             <div className="flex items-start gap-4 sm:gap-6">
-              <span className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-accent-500 text-ink-900 flex items-center justify-center shrink-0">
+              {/* Named for the view transition, so this tile is the same object
+                  as the card on the front page rather than a new one. */}
+              <span
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-accent-500 text-ink-900 flex items-center justify-center shrink-0"
+                style={{ viewTransitionName: `pest-${slug}` }}
+              >
                 <PestGlyph pest={pest} size={40} />
               </span>
               <div className="min-w-0">
@@ -59,18 +80,16 @@ export default function ServicePage({ slug }: { slug: string }) {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <a
-                href={`${B}#estimator`}
+                href={priced ? "#estimator" : "#skriv"}
                 className="press bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
               >
-                <Calculator size={18} strokeWidth={2.5} aria-hidden="true" />
-                Beregn min pris
+                {priced ? "Beregn min pris" : "Få et fast tilbud"}
               </a>
               <a
-                href={`${B}#skriv`}
+                href="#skriv"
                 className="press bg-white text-ink-900 hover:bg-ink-50 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
               >
-                <Mail size={18} strokeWidth={2.5} aria-hidden="true" />
-                Få et fast tilbud
+                Skriv til os
               </a>
             </div>
           </div>
@@ -110,25 +129,17 @@ export default function ServicePage({ slug }: { slug: string }) {
           </div>
         </section>
 
-        <section className="bg-white py-14 sm:py-16">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8">
-            <div className="max-w-2xl">
-              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight uppercase mb-4">
-                Sådan foregår behandlingen
-              </h2>
-              <p className="text-base text-ink-900/80 leading-relaxed">{content.processNote}</p>
-              <p className="mt-6 text-sm text-ink-900/70">
-                <a
-                  href={`${B}#estimator`}
-                  className="inline-flex items-center gap-1.5 font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700 min-h-[44px]"
-                >
-                  Se vejledende pris i beregneren
-                  <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-                </a>
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* The front page's three steps, plus what is specific to this pest. */}
+        <Process note={content.processNote} />
+
+        {priced && <Estimator initialPest={slug} />}
+
+        <Contact />
+
+        <Faq
+          items={content.faq}
+          title={`Ofte stillede spørgsmål om ${label.toLowerCase()}`}
+        />
 
         <section className="bg-cream border-t border-ink-100 py-12 sm:py-14">
           <div className="max-w-6xl mx-auto px-5 sm:px-8">
