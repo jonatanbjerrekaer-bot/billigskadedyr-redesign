@@ -9,6 +9,14 @@ export type ServiceContent = {
   species: { name: string; text: string }[];
   /** How the visit runs, in a couple of lines. */
   processNote: string;
+  /**
+   * The owner's own FAQ for this pest, lifted verbatim from
+   * billigskadedyrprof.dk. Entries that contradicted this site (nationwide
+   * coverage, the old brand name, guarantee or "gratis" framing) were left
+   * out rather than reworded. Pests with no entry here fall back to the
+   * shared list in Faq.tsx.
+   */
+  faq?: { q: string; a: string }[];
 };
 
 export const SERVICE_CONTENT: Record<string, ServiceContent> = {
@@ -53,6 +61,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Først fastlægger vi, hvilken myreart det er, og hvor reden sidder, fordi middel og metode afhænger af " +
       "det. Derefter behandles reden og adgangsvejene. Prisen ligger fast, før vi går i gang, og du får " +
       "skriftlig dokumentation for behandlingen.",
+    faq: [
+      { q: "Er myrebekæmpelse relevant året rundt?", a: "Myrebekæmpelse udføres typisk i forår og sommer, hvor myrerne er aktive. Tidlig indsats giver ofte det bedste resultat og mindsker risikoen for større problemer senere på sæsonen. Dog har vi set en stigende tendens til myreangreb om vinteren. Dette kommer sig af at vi er blevet bedre til at skrue op for gulvvarmen, og et eventuelt bo direkte under huset derved kan være aktivt, selvom der er koldt ude." },
+      { q: "Udfører I myrebekæmpelse i hele Jylland?", a: "Ja. Vi udfører professionel myrebekæmpelse i hele Jylland & Fyn– for både private boliger, erhverv og boligforeninger." },
+      { q: "Hvad er forskellen på professionel myrebekæmpelse og gør-det-selv midler?", a: "Gør-det-selv produkter rammer ofte kun de synlige myrer og ikke selv kolonien, eller dronningen. Professionel myrebekæmpelse er målrettet hele myreboet og udføres med midler og metoder, der har en langt mere langtidsholdbar effekt." },
+      { q: "Hvor hurtigt kan I komme og udføre myrebekæmpelse?", a: "Vi bestræber os på at rykke hurtigt ud, da myreproblemer ofte forværres, hvis de ikke behandles i tide. I mange tilfælde kan vi tilbyde behandling inden for få hverdage. Kontakt os for at høre om mulighederne i dit område i Jylland." },
+      { q: "Er der forskellige slags myrer?", a: "Længere oppe på siden kan du læse om de tre mest udbredte myrearter vi har i Danmark." },
+      { q: "Burde mine naboer også få behandlet?", a: "Det er altid en god ide at i er flere naboer der får behandlet årligt. Det hjælper på at holde den naturlig bestand, der kan bevæge sig ind på din grund, nede. Det er dog ikke nødvendigt at dine naboer får behandlet før du kan blive myrefri, men det hjælper helt sikkert." },
+      { q: "Hvordan fungere giften?", a: "Giften fungerer som k-vitamin, hvilket er et naturligt stof for mennesker og dyr. Stoffet hjælper blodet med at størkne ved for eksempel en rift eller et sår. K-Vitamin er et stof som mange indtager hvis de har problemer med kraftige blødninger eller før og efter fødsel. De mængder vi benytter til en behandling er derfor ikke farligt for os mennesker og dyr, store som små.\nGiften går ind og størkner myrernes væskeomløb, og fungere som en stor blodprop. Det vil derfor se ud som en naturlig dødsårsag til de andre myrer, hvilket gør at de tager dem med ned i boet og spiser de døde. Med tiden vil boet dø ud og du kan herefter være myrefri." },
+      { q: "Husmor-råd mod myrer?", a: "Der findes mange husmor-råd som glorificeres af forskellige medier på nettet, men her er min klare mening om dem. Virker de? NEJ!\nDe mest populære husmor-råd er:\nKanel og kaffegrums er et af de mest populære råd mod myrer og kan måske irritere myrerne i en kort periode men bekæmper dem altså ikke.\nKogende vand er endnu et populært råd. Kogende vand vil naturligvis bekæmpe de myrer det berører og det lyder jo meget godt, hvis ikke det var fordi der findes en halv til en hel million myrer i et bo. De få hundrede måske tusinde myrer du rammer gør desværre ikke en forskel. Desuden skader det din græsplæne og andre planter i din have, som set på billedet under.\nProblemet med disse husmor-råd er at myrerne vil flytte til en nyt område i en periode, indtil de kan flytte tilbage til boet igen. Når de for eksempel vender sig til lugten af kaffegrums, salt, eddike eller gær. Nu har du så myrer to …" },
+    ],
   },
   hvepse: {
     intro:
@@ -72,6 +90,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Boet bliver fjernet, og stedet bliver efterbehandlet, så hvepsene ikke bygger det op igen. Vi fortæller " +
       "dig på forhånd, om du skal være hjemme, og hvornår området kan bruges som før.",
+    faq: [
+      { q: "Hvornår bør jeg kontakte en professionel skadedyrsbekæmper?", a: "Du bør kontakte en professionel, hvis du har fundet et aktivt hvepsebo, oplever mange hvepse omkring boligen eller er usikker på, hvor problemet stammer fra. Professionel hjælp anbefales især ved jordhvepse, murhvepse, store kolonier eller bo placeret tæt på terrasser, legeområder og indgange. Jo tidligere problemet håndteres, desto lettere og mere sikkert er det som regel at løse." },
+      { q: "Kan hvepse vende tilbage til samme sted?", a: "Ja. Selvom et gammelt hvepsebo sjældent genbruges, kan nye dronninger vælge at etablere et nyt bo i samme område året efter. Det sker især, hvis placeringen giver god beskyttelse mod vind og vejr. Derfor kan det være en fordel at tætne sprækker, ventilationsåbninger og andre adgangsveje efter en bekæmpelse for at reducere risikoen for nye kolonier." },
+      { q: "Hvor hurtigt virker en professionel hvepsebehandling?", a: "I de fleste tilfælde vil aktiviteten omkring boet falde markant inden for få timer efter behandlingen. Enkelte hvepse kan dog fortsat være aktive i op til et par døgn, afhængigt af boets størrelse og placering. Derfor anbefales det ofte at holde vinduer og døre nær boet lukkede de første 24-48 timer. Herefter vil kolonien normalt være elimineret." },
+      { q: "Forsvinder hvepse af sig selv om vinteren?", a: "Ja. Når vinteren kommer, dør arbejderne og den gamle dronning. Kun nye befrugtede dronninger overlever vinteren og søger ly et andet sted. Det gamle bo genbruges normalt ikke året efter. Selvom problemet ofte forsvinder naturligt i vinterhalvåret, kan et aktivt bo i sommermånederne skabe så store gener, at bekæmpelse er nødvendig længe før kulden sætter ind." },
+      { q: "Hvor stort kan et hvepsebo blive?", a: "Et hvepsebo starter typisk med én dronning i foråret, men kan udvikle sig til en koloni med flere tusinde hvepse i løbet af sommeren. Størrelsen afhænger af vejrforhold, fødetilgængelighed og placering. De største bo kan være på størrelse med en fodbold eller større. Jo tidligere et hvepsebo opdages og behandles, desto lettere er det normalt at bekæmpe." },
+      { q: "Kan murhvepse skade huset?", a: "Murhvepse ødelægger normalt ikke murværket direkte, men de kan skabe betydelige gener omkring boligen. Mange oplever utryghed, når hundredvis af hvepse flyver omkring facaden, terrassen eller indgangspartiet. Hvis hvepsene etablerer sig i hulmure eller loftrum, kan de også finde vej ind i boligen. Derfor vælger mange boligejere at få murhvepse bekæmpet, selvom der ikke nødvendigvis er tale om en egentlig bygningsskade." },
+      { q: "Hvad er murhvepse?", a: "Murhvepse er hvepse, som bygger bo i hulrum i bygninger. Det kan være i murværk, hulmure, tagkonstruktioner, ventilationskanaler eller andre skjulte områder. Hvepsene benytter eksisterende sprækker og åbninger til at komme ind og ud af boet. Murhvepse kan være særligt generende, fordi aktiviteten foregår tæt på boligen, og fordi hvepsene i nogle tilfælde kan finde vej ind i huset gennem vægge eller loftsrum." },
+      { q: "Er jordhvepse mere aggressive end almindelige hvepse?", a: "Jordhvepse er ikke nødvendigvis mere aggressive end andre hvepsearter, men de opleves ofte som mere problematiske. Det skyldes primært, at mennesker og kæledyr lettere kommer tæt på boet uden at opdage det. Når græsset klippes eller jorden forstyrres, kan kolonien føle sig truet og gå til angreb. Derfor sker mange hvepsestik netop i forbindelse med jordhvepsebo i haver og omkring terrasser." },
+    ],
   },
   vaeggelus: {
     intro:
@@ -90,6 +118,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Forløbet er ofte to eller flere besøg med mellemrum, fordi æggene ikke bliver ramt første gang. Du får " +
       "konkret råd om, hvad der skal vaskes og ryddes mellem besøgene. Prisen aftales, før forløbet går i gang.",
+    faq: [
+      { q: "Er væggelus tegn på dårlig hygiejne?", a: "Nej. Dette er en af de mest udbredte myter om væggelus. De kan forekomme i alle typer boliger – uanset rengøringsniveau. Væggelus søger mennesker, ikke snavs. Derfor kan både private hjem, hoteller, kontorer og offentlige bygninger blive ramt." },
+      { q: "Kan væggelus komme igen?", a: "Ja. Hvis en ny væggelus bringes med hjem efter en rejse eller via brugte møbler, kan et nyt angreb opstå. Derfor er forebyggelse og opmærksomhed vigtige, også efter en vellykket bekæmpelse. Vi rådgiver altid om, hvordan risikoen for nye angreb kan reduceres." },
+      { q: "Skal madrassen smides ud?", a: "Ikke nødvendigvis. Mange tror, at en madras altid skal kasseres ved væggelus, men det er langt fra tilfældet. I mange tilfælde kan madrassen behandles som en del af den samlede bekæmpelse. Det vigtigste er at få hele bestanden bekæmpet – ikke kun de væggelus, der måtte befinde sig i madrassen." },
+      { q: "Hjælper frost mod væggelus?", a: "Væggelus kan dø ved meget lave temperaturer, men det kræver, at de udsættes for tilstrækkelig kulde i en længere periode. En almindelig dansk vinter er sjældent nok til at bekæmpe et angreb inde i en bolig. Frysebehandling kan være relevant for mindre genstande, men bør udføres korrekt for at sikre, at både voksne væggelus og æg bliver dræbt." },
+      { q: "Kan jeg støvsuge væggelus væk?", a: "Støvsugning kan fjerne enkelte væggelus og reducere antallet midlertidigt, men den løser sjældent problemet. Æg og skjulte individer bliver ofte siddende dybt inde i sprækker, hvor støvsugeren ikke kan nå. Støvsugning bør derfor betragtes som et supplement til en professionel behandling – ikke som en løsning i sig selv." },
+      { q: "Hvordan ser væggelusenes æg ud?", a: "Væggelusenes æg er små, hvide og cirka én millimeter lange. De lægges dybt inde i sprækker, samlinger og andre skjulesteder, hvor de er vanskelige at få øje på med det blotte øje. Netop fordi æggene er godt skjult, er de en af årsagerne til, at væggelus kan være vanskelige at bekæmpe uden professionel hjælp." },
+      { q: "Kan væggelus overleve uden mennesker?", a: "Ja. Voksne væggelus kan overleve i flere måneder uden at få et blodmåltid, og under kølige forhold kan de i nogle tilfælde overleve endnu længere. Derfor forsvinder et angreb ikke nødvendigvis, fordi en bolig står tom i en periode. Professionel bekæmpelse er normalt nødvendig for at sikre, at hele bestanden bliver elimineret." },
+      { q: "Kan væggelus sprede sig til hele huset?", a: "Ja. Hvis et angreb ikke behandles, kan væggelus gradvist sprede sig til flere rum. De bevæger sig gennem sprækker, bag paneler, langs rørføringer og i nogle tilfælde mellem lejligheder. Jo længere tid problemet får lov til at udvikle sig, desto mere omfattende bliver bekæmpelsen. Tidlig indsats er derfor afgørende." },
+    ],
   },
   soelvfisk: {
     intro:
@@ -108,6 +146,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Vi behandler fugtzoner, revner og områder bag fodlister og fortæller dig, hvad du selv kan gøre for at " +
       "tørre forholdene ud. Prisen ligger fast, før vi går i gang.",
+    faq: [
+      { q: "Hvordan forebygger jeg sølvfisk?", a: "Den bedste forebyggelse er at holde fugtigheden nede og fjerne de fødekilder, som sølvfisk lever af. Rens afløb jævnligt, tør gulve af efter bad, sørg for god udluftning og reparer eventuelle fugtskader. Disse enkle tiltag kan gøre en stor forskel." },
+      { q: "Kan sølvfisk kravle op i sengen?", a: "Sølvfisk kan bevæge sig over gulve og ru overflader, men de holder sig normalt til fugtige områder. Ser du gentagne gange sølvlignende insekter i sengen, bør du overveje, om det kan være skægkræ eller et andet insekt." },
+      { q: "Kan sølvfisk ødelægge tøj?", a: "Det sker kun meget sjældent. Sølvfisk kan gnave i tekstiler med stivelse eller naturlige fibre, hvis de mangler anden føde, men de forårsager normalt ikke de omfattende skader, som andre skadedyr kan gøre." },
+      { q: "Kan sølvfisk leve i sengen?", a: "Det er meget usædvanligt. Sølvfisk foretrækker fugtige omgivelser og ses derfor sjældent i senge eller soveværelser. Finder du sølvlignende insekter i sengen eller andre tørre rum, bør du undersøge, om der i stedet kan være tale om skægkræ." },
+      { q: "Er sølvfisk aktive om dagen?", a: "Nej. Sølvfisk er primært nataktive og gemmer sig i revner, sprækker og omkring afløb om dagen. Ser du mange sølvfisk i dagslys, kan det være tegn på, at bestanden er blevet stor, eller at de mangler skjulesteder." },
+      { q: "Kan sølvfisk komme fra naboen?", a: "Det er muligt, især i lejlighedskomplekser og rækkehuse, hvor insekterne kan bevæge sig gennem rørgennemføringer, revner og andre små åbninger. Almindelige sølvfisk spreder sig dog langt mindre end skægkræ, som er væsentligt mere mobile." },
+      { q: "Hvad tiltrækker sølvfisk?", a: "Sølvfisk tiltrækkes af varme, fugt og organiske rester. Særligt badeværelser og bryggers giver gode levevilkår, fordi der ofte er høj luftfugtighed og små mængder sæberester, hudskæl og andet organisk materiale. God rengøring og ventilation er derfor en vigtig del af forebyggelsen." },
+      { q: "Kan sølvfisk leve i afløbet?", a: "Sølvfisk lever normalt ikke inde i selve afløbet, men de opholder sig ofte omkring gulvafløb, hvor der er fugt og adgang til sæberester samt organisk materiale. Derfor kan en grundig rensning af afløbet fjerne en vigtig fødekilde og gøre området mindre attraktivt for dem." },
+    ],
   },
   borebiller: {
     intro:
@@ -127,6 +175,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Først fastlægger vi, om det er borebiller, og hvor vidt angrebet er gået. Derefter behandles det " +
       "angrebne træværk, og du får dokumentation for behandlingen.",
+    faq: [
+      { q: "Hvad koster professionel bekæmpelse af borebiller?", a: "Prisen afhænger af flere faktorer, herunder angrebets omfang, typen af træværk, bygningens størrelse og adgangsforhold. Derfor tilbyder vi altid en ekspertvurdering og et uforpligtende tilbud, så du får en løsning, der passer præcist til dit behov – uden skjulte omkostninger." },
+      { q: "Hvornår på året er det bedst at bekæmpe borebiller?", a: "Borebillebekæmpelse kan udføres året rundt, men angreb opdages ofte i foråret og sommeren, hvor de voksne biller er aktive. Det vigtigste er ikke tidspunktet, men at behandlingen udføres, så snart et aktivt angreb konstateres." },
+      { q: "Skal beskadiget træ udskiftes efter behandling?", a: "Ikke nødvendigvis. Behandlingen stopper borebillerne, men den genskaber ikke allerede beskadiget træ. I de fleste tilfælde kan træværket dog bevares, hvis skaderne ikke er strukturelt kritiske. Ved alvorlige skader kan det være nødvendigt at få en byggeteknisk vurdering af, om udskiftning er nødvendig." },
+      { q: "Kan borebiller sprede sig til andet træværk?", a: "Ja. Hvis borebiller ikke behandles, vil de sprede sig til andet træværk i bygningen. De voksne biller kan flyve og dermed lægge æg i nærliggende træ, hvilket medfører nye angreb. Derfor er det vigtigt at behandle problemet samlet og ikke kun det træ, hvor skaderne først opdages." },
+      { q: "Stopper én behandling borebiller permanent?", a: "I langt de fleste tilfælde er én korrekt udført professionel behandling tilstrækkelig til at stoppe et borebilleangreb. Ved meget omfattende angreb, ældre bygninger eller særligt udsatte områder kan der dog være behov for opfølgning. En professionel vurdering sikrer, at behandlingen tilpasses netop dit træværk og angrebets omfang." },
+      { q: "Er behandlingen sikker for mennesker og kæledyr?", a: "Ja. Professionel borebillebekæmpelse udføres med godkendte midler og korrekt dosering. Du får altid klare anvisninger om, hvordan du skal forholde dig før og efter behandlingen, så den udføres sikkert. I langt de fleste tilfælde kan boligen benyttes normalt kort tid efter behandlingen." },
+      { q: "Hvor lang tid tager en professionel borebillebehandling?", a: "Selve behandlingen kan ofte udføres på én dag, afhængigt af omfanget og tilgængeligheden af det angrebne træværk. Effekten sker dog over tid, da midlerne arbejder inde i træet og stopper larvernes livscyklus. Det betyder, at nye borehuller ikke længere vil opstå efter behandlingen, selvom eksisterende skader fortsat vil være synlige." },
+      { q: "Kan jeg selv bekæmpe borebiller?", a: "Det er sjældent muligt at bekæmpe borebiller effektivt med gør-det-selv løsninger. Årsagen er, at larverne lever dybt inde i træet, hvor overfladiske midler ikke når ind. Mange produkter kan midlertidigt reducere synlige tegn, men stopper ikke angrebet. Professionel borebillebekæmpelse sikrer, at korrekt metode og midler anvendes, så larvernes udvikling standses helt." },
+    ],
   },
   kakerlakker: {
     intro:
@@ -165,6 +223,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Vi fastlægger, hvor fluerne kommer fra, og behandler kilden. Derefter får du konkrete råd til " +
       "forebyggelse, så du slipper for, at det vender tilbage. Prisen ligger fast, før vi går i gang.",
+    faq: [
+      { q: "Kan jeg forebygge et flueproblem?", a: "Ja. Regelmæssig rengøring, hurtig bortskaffelse af affald, tætsluttende affaldsbeholdere og fjernelse af organiske materialer reducerer risikoen betydeligt. Samtidig kan det være en fordel at holde døre og vinduer lukkede eller montere insektnet i perioder med mange fluer." },
+      { q: "Kan fluer bekæmpes uden kemi?", a: "Mindre problemer kan ofte begrænses med god rengøring, korrekt affaldshåndtering og mekaniske fælder. Ved større eller tilbagevendende angreb er en professionel kemisk behandling dog ofte den mest effektive løsning." },
+      { q: "Hjælper en professionel behandling med det samme?", a: "Mange oplever en tydelig reduktion i antallet af fluer kort tid efter behandlingen. Den endelige effekt afhænger blandt andet af problemets omfang, fluearten og om eventuelle ynglesteder bliver fjernet eller begrænset." },
+      { q: "Virker professionel fluebekæmpelse?", a: "Ja. En professionel behandling kan reducere bestanden markant, især når den kombineres med en grundig gennemgang af ejendommen og rådgivning om forebyggelse. Ved at behandle fluernes foretrukne hvilepladser opnås ofte en hurtig og effektiv bekæmpelse." },
+      { q: "Kan fluer komme ind gennem små sprækker?", a: "Ja. Fluer kommer oftest ind gennem åbne døre og vinduer, men de kan også finde vej gennem mindre sprækker, ventilationsåbninger og utætte konstruktioner. Insektnet og tætte døre kan være med til at reducere antallet." },
+      { q: "Hvornår er fluer mest aktive?", a: "Fluer er mest aktive fra forår til sensommer, hvor varme temperaturer giver optimale betingelser for formering. Særligt juni, juli og august er høj­sæson for fluer, men i opvarmede bygninger kan enkelte arter være aktive hele året." },
+      { q: "Kan fluer skade fødevarer?", a: "Ja. Fluer kan forurene fødevarer ved at overføre bakterier fra de steder, de tidligere har opholdt sig. Derfor bør fødevarer altid opbevares tildækket, og større flueproblemer bør bekæmpes hurtigt – især i erhverv, hvor der håndteres mad." },
+      { q: "Hjælper fluespray mod mange fluer?", a: "Fluespray kan være effektiv mod de fluer, der rammes direkte, men ved større angreb løser den sjældent selve årsagen til problemet. Hvis fluerne fortsætter med at formere sig, vil bestanden hurtigt vende tilbage. Ved tilbagevendende problemer anbefales en professionel vurdering." },
+    ],
   },
   edderkopper: {
     intro:
@@ -184,6 +252,16 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Vi behandler de steder, hvor spindet sidder, og giver råd om, hvordan du forebygger nye. Prisen ligger " +
       "fast, før vi går i gang.",
+    faq: [
+      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger til både erhverv og boligforeninger, herunder faste aftaler og dokumentation ved behov." },
+      { q: "Virker behandlingen også forebyggende?", a: "Ja. Professionel bekæmpelse af edderkopper har en forebyggende effekt, fordi både fødegrundlag og adgangsveje behandles. Det reducerer sandsynligheden for, at nye edderkopper hurtigt vender tilbage." },
+      { q: "Hvorfor er der ekstra mange edderkopper i sensommeren og efteråret?", a: "Edderkopper bliver særligt synlige i sensommeren og efteråret, når de søger indendørs for at finde læ, varme og føde. Samtidig er det parringssæson for flere arter, hvilket øger aktiviteten. Det er derfor helt normalt at opleve flere edderkopper i denne periode." },
+      { q: "Hvor hurtigt virker behandlingen mod edderkopper?", a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Resultatet forbedres typisk over de efterfølgende uger, dog vil den fulde effekt først mærkes efter flere behandlinger." },
+      { q: "Kan jeg selv slippe af med edderkopper?", a: "Man kan fjerne synlige edderkopper med støvsuger eller rengøring, men det løser ikke problemet permanent. Uden forebyggende behandling vil nye edderkopper hurtigt finde vej ind, især hvis der fortsat er føde i form af andre insekter. Professionel bekæmpelse fokuserer både på edderkopperne og deres fødegrundlag, hvilket giver et mere langtidsholdbart resultat." },
+      { q: "Er edderkopper farlige?", a: "Edderkopper i Danmark er som udgangspunkt ikke farlige for mennesker. De fleste arter er sky og undgår kontakt. I sjældne tilfælde kan en edderkop bide, men et bid er normalt harmløst og kan sammenlignes med et let myggestik. Problemet med edderkopper handler derfor typisk ikke om sundhedsrisiko, men om ubehag, spind og gentagen forekomst i boligen." },
+      { q: "Er Edderkopper nyttedyr?", a: "Man kan godt sige at edderkopper er nyttedyr, da de spiser mange andre typer insekter. Dog vil vores behandling også tage disse. Det er derfor ikke nødvendigt at leve med dem i din bolig!" },
+      { q: "Hvor mange edderkopper er der i min bolig?", a: "Det er svært at sige præcist, men det siges at der som hovedregel er et sted mellem 100 og 150 edderkopper pr m2. Du kan derfor nemt have flere tusinde i din bolig." },
+    ],
   },
 };
 

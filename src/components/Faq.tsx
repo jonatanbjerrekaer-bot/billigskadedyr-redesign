@@ -1,6 +1,7 @@
 import { Disclosure } from "@heroui/react";
 import { ArrowRight, ArrowUpRight, Plus } from "lucide-react";
 import { ARTICLES } from "../lib/articles";
+import { homeHref } from "./ui/Cta";
 
 /**
  * Answers are written for search as well as for readers: each one opens with
@@ -54,19 +55,24 @@ const ITEMS: FaqItem[] = [
   },
 ];
 
-export default function Faq() {
+export default function Faq({
+  items,
+  title,
+  intro,
+}: { items?: FaqItem[]; title?: string; intro?: string } = {}) {
+  const list = items?.length ? items : ITEMS;
   return (
     <section id="faq" className="bg-cream py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <h2 className="font-display text-3xl font-bold tracking-tight text-ink-900 uppercase mb-2">
-          Ofte stillede spørgsmål
+          {title ?? "Ofte stillede spørgsmål"}
         </h2>
         <p className="text-ink-900/70 mb-8 max-w-2xl">
-          Om priser, sikkerhed og hvornår det kan betale sig at få professionel hjælp.
+          {intro ?? "Om priser, sikkerhed og hvornår det kan betale sig at få professionel hjælp."}
         </p>
 
         <div className="flex flex-col gap-3 max-w-3xl">
-          {ITEMS.map((item) => (
+          {list.map((item) => (
             <Disclosure.Root
               key={item.q}
               className="bg-white rounded-xl border border-ink-100 overflow-hidden"
@@ -95,7 +101,7 @@ export default function Faq() {
                   */}
                   {item.cta && (
                     <a
-                      href={item.cta.href}
+                      href={homeHref(item.cta.href)}
                       className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
                     >
                       {item.cta.label}
