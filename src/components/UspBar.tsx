@@ -17,7 +17,7 @@ import TrustSeal from "./TrustSeal";
 const USPS = [
   { Icon: Clock, label: "Hurtig hjælp", text: "Hos dig på 1-2 hverdage" },
   { Icon: Tag, label: "Fast pris", text: "Aftalt, før vi går i gang" },
-  { Icon: PhoneCall, label: "Professionel rådgivning", text: "Ring 24 24 55 83" },
+  { Icon: PhoneCall, label: "Akut hjælp", text: "Ring 24 24 55 83" },
 ];
 
 export default function UspBar() {
