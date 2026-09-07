@@ -39,7 +39,13 @@ export type PestEntry = {
 
 export const PESTS: PestEntry[] = [
   { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
-  { slug: "skaegkrae", treatment: "Behandling af fugtzoner, revner og fodpaneler", label: "Skægkræ", priceKey: "Skægkræ/sølvfisk", icon: "skaegkrae.svg" },
+  {
+    slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
+    label: "Edderkopper",
+    priceKey: "Edderkopper",
+    png: "spider",
+    scale: 1.05,
+  },
   {
     slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
     label: "Hvepse & bier",
@@ -58,8 +64,7 @@ export const PESTS: PestEntry[] = [
     slug: "soelvfisk", treatment: "Behandling af fugtzoner, revner og fodpaneler",
     label: "Skægkræ & sølvfisk",
     priceKey: "Skægkræ/sølvfisk",
-    png: "silverfish",
-    scale: 1.0,
+    icon: "skaegkrae.svg",
   },
   {
     slug: "borebiller", treatment: "Behandling af det angrebne træværk",
@@ -75,24 +80,13 @@ export const PESTS: PestEntry[] = [
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "fluer", label: "Fluer", png: "mosquito", scale: 1.06 },
-  // gridHidden keeps the grid at a clean 4x2 rather than orphaning a ninth
-  // card alone on a third row.
+  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", icon: "fluer.svg" },
   { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg" },
   { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg" },
   { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito" },
   { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", icon: "klannere.svg" },
-  { slug: "stankelben", treatment: "Behandling af plænen mod larverne", label: "Stankelben", png: "spider" },
   { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg" },
   { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg" },
-  {
-    slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
-    label: "Edderkopper",
-    priceKey: "Edderkopper",
-    png: "spider",
-    scale: 1.05,
-    gridHidden: true,
-  },
 ];
 
 /** The subset shown in the quick-select grid. */
