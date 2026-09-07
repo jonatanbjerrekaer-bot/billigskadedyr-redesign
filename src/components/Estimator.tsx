@@ -41,14 +41,14 @@ const AREA_PRESETS: Partial<Record<PropertyType, number>> = {
 };
 
 const DEFAULTS = {
-  m2: AREA_PRESETS.lejlighed!,
-  property: "lejlighed" as PropertyType,
+  m2: AREA_PRESETS.hus!,
+  property: "hus" as PropertyType,
   severity: "normal" as Severity,
 };
 
 const PROPERTIES: { id: PropertyType; label: string }[] = [
-  { id: "lejlighed", label: "Lejlighed" },
   { id: "hus", label: "Hus" },
+  { id: "lejlighed", label: "Lejlighed" },
   { id: "erhverv", label: "Erhverv" },
 ];
 
@@ -319,8 +319,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 <span>
                   Tilpas beregningen
                   <span className="block text-xs font-normal text-ink-100/60">
-                    Areal, boligtype og hvor slemt det er. Ellers regner vi på en gennemsnitlig
-                    lejlighed.
+                    Areal, boligtype og hvor slemt det er. Ellers regner vi på et
+                    gennemsnitligt hus.
                   </span>
                 </span>
                 <ChevronDown
