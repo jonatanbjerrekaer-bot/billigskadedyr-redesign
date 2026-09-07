@@ -20,8 +20,8 @@ const ROWS: { other: string; us: string }[] = [
     us: "Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen",
   },
   {
-    other: "Ingen dokumentation af behandlingen",
-    us: "Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen",
+    other: "Kategorier efter produkttype",
+    us: "Kategorier efter skadedyr. Du tænker “rotter”, ikke “smækfælde”",
   },
 ];
 
@@ -33,7 +33,7 @@ export default function Comparison() {
           Sådan gør vi det anderledes
         </h2>
         <p className="text-center text-ink-900/70 mt-3 mb-12 max-w-xl mx-auto">
-          Fem steder branchen gør det besværligt, og hvad vi gør i stedet.
+          Fire steder branchen gør det besværligt, og hvad vi gør i stedet.
         </p>
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-8">
