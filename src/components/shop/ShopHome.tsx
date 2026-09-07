@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import {
   PRODUCTS, BY_SLUG, dkr, isDeal,
@@ -14,14 +15,21 @@ import Reviews from "../Reviews";
 const BASE = import.meta.env.BASE_URL;
 
 /**
- * Fotoet i heroet. Byt navnet for at skifte billede; alle tre ligger i
- * public/ og er beskaaret til 4:3, saa layoutet ikke flytter sig.
+ * Billedbanken i heroet. Alle ligger i public/, er beskaaret til 4:3 og
+ * vejer under 210 KB, saa de kan hentes uden at siden bliver tung.
  * Kilde: Unsplash, fri til kommerciel brug uden navngivning.
+ *
+ * Tilfoej et billede ved at laegge filen i public/ og skrive en linje her.
  */
-const SHOT = {
-  src: "shop-hero-skur.webp",
-  alt: "Hvidt havehus med grønt vindue, havemøbler og krukker foran",
-};
+const SHOTS = [
+  { src: "shop-hero-skur.webp", alt: "Hvidt havehus med grønt vindue, haveredskaber og krukker" },
+  { src: "shop-hero-roser.webp", alt: "Gule huse med stokroser og lavendel langs fortovet" },
+  { src: "shop-hero-gulthus.webp", alt: "Gult hus med rødt tegltag bag et træ" },
+  { src: "shop-hero-margeritter.webp", alt: "Gule margeritter foran hvide huse" },
+  { src: "shop-hero-hus.webp", alt: "Rødt træhus mellem træer i efterårslys" },
+];
+
+const SKIFT_MS = 7000;
 
 /**
  * De tre varer, forsiden aabner med. Mus, hvepse og myrer er de tre
@@ -46,6 +54,19 @@ function seasonNow(now = new Date()) {
 export default function ShopHome() {
   const season = seasonNow();
   const featured = pick(HERO_PICKS)[0];
+
+  /*
+   * Billedbanken skifter af sig selv. Der staar intet paa billederne, saa
+   * ingen gaar glip af noget ved ikke at se dem alle; det er derfor den
+   * her rotation er i orden, hvor en karrusel med varer ikke ville vaere.
+   */
+  const [shot, setShot] = useState(0);
+  useEffect(() => {
+    if (SHOTS.length < 2) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setShot((n) => (n + 1) % SHOTS.length), SKIFT_MS);
+    return () => clearInterval(id);
+  }, []);
   const seasonItems = pick(season.slugs);
   const best = pick(BESTSELLERS);
   const deals = PRODUCTS.filter(isDeal);
@@ -61,94 +82,89 @@ export default function ShopHome() {
           man skal kende ordet "klannere" for at finde noget. Her er indgangen
           dyret, og filtrene ligger inde i browseren.
         */}
-        {/* Heroet som ét afrundet felt med luft omkring, ikke et baand fra
-            kant til kant. Det er greb fra thenap.dk, og det er forskellen
-            paa en butik og en brochure: indholdet ligger paa noget. */}
-        <section className="pb-2">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-            <div className="overflow-hidden rounded-3xl border border-ink-200 bg-white shadow-[0_28px_64px_-44px_rgba(12,26,18,0.55)]">
-              <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-                <div className="flex flex-col justify-center gap-5 bg-ink-50 px-6 py-9 sm:px-10 sm:py-12">
-                  <span className="select-none w-max rounded-full bg-accent-500 px-3.5 py-1 text-[13px] font-semibold text-ink-950">
-                    Samme priser som fagfolk betaler
-                  </span>
+        {/* Ud til kanten uden ramme og skygge. Et foto, der stopper 24 px
+            fra skaermkanten med en streg omkring, ligner et vindue ind til
+            siden; det her ér siden. */}
+        <section className="border-b border-ink-200">
+          <div className="grid lg:grid-cols-2">
+            <div className="flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1400px)/2+1.5rem))]">
+              <span className="select-none w-max rounded-full bg-accent-500 px-3.5 py-1 text-[13px] font-semibold text-ink-950">
+                Samme priser som fagfolk betaler
+              </span>
 
-                  <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
-                    Midlerne vi selv bruger
-                  </h1>
+              <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
+                Midlerne vi selv bruger
+              </h1>
 
-                  <p className="select-none max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed m-0">
-                    Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
-                    købe her.
-                  </p>
+              <p className="select-none max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed m-0">
+                Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
+                købe her.
+              </p>
 
-                  <a
-                    href={`${BASE}shop/produkter/`}
-                    className="press w-max inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accent-400"
-                  >
-                    Se alle varer
-                    <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-                  </a>
+              <a
+                href={`${BASE}shop/produkter/`}
+                className="press w-max inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accent-400"
+              >
+                Se alle varer
+                <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
+              </a>
 
-                  {/* thenap saetter bedoemmelsen lige under knappen, hvor
-                      tvivlen sidder. Tallene er e-maerkets egne. */}
-                  <p className="select-none flex items-center gap-2 text-sm text-ink-700 m-0">
-                    <ShieldCheck size={17} strokeWidth={2.25} aria-hidden="true" className="text-ink-600" />
-                    <span>
-                      <span className="font-semibold text-ink-950">
-                        e-mærket {EM_SCORE.toLocaleString("da-DK", { minimumFractionDigits: 1 })}
-                      </span>{" "}
-                      af 5 · {EM_COUNT} anmeldelser
-                    </span>
-                  </p>
-                </div>
+              <p className="select-none flex items-center gap-2 text-sm text-ink-700 m-0">
+                <ShieldCheck size={17} strokeWidth={2.25} aria-hidden="true" className="text-ink-600" />
+                <span>
+                  <span className="font-semibold text-ink-950">
+                    e-mærket {EM_SCORE.toLocaleString("da-DK", { minimumFractionDigits: 1 })}
+                  </span>{" "}
+                  af 5 · {EM_COUNT} anmeldelser
+                </span>
+              </p>
+            </div>
 
-                {/* Fotoet baerer toppen, og varen ligger hen over det. Uden
-                    fotoet var heroet to spalter tekst og et produktbillede
-                    paa hvid, og det er en brochure, ikke en butik. */}
-                <div className="relative min-h-[280px] sm:min-h-[360px] bg-ink-100">
+            <div className="relative min-h-[300px] sm:min-h-[380px] bg-ink-100">
+              {SHOTS.map((s, n) => (
+                <img
+                  key={s.src}
+                  src={`${BASE}${s.src}`}
+                  alt={n === shot ? s.alt : ""}
+                  aria-hidden={n === shot ? undefined : true}
+                  width={1200}
+                  height={900}
+                  loading={n === 0 ? "eager" : "lazy"}
+                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                    n === shot ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+
+              {featured && (
+                <a
+                  href={`${BASE}shop/produkt/${featured.slug}/`}
+                  className="press group absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-5 sm:bottom-5 sm:w-[20rem] flex items-center gap-3 rounded-2xl bg-white/95 p-3 backdrop-blur-sm transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+                >
                   <img
-                    src={`${BASE}${SHOT.src}`}
-                    alt={SHOT.alt}
-                    width={1400}
-                    height={1050}
+                    src={`${BASE}shop/${featured.img}`}
+                    alt=""
+                    width={64}
+                    height={64}
                     loading="eager"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="h-14 w-14 shrink-0 object-contain"
                   />
-
-                  {featured && (
-                    <a
-                      href={`${BASE}shop/produkt/${featured.slug}/`}
-                      className="press group absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-5 sm:bottom-5 sm:w-[20rem] flex items-center gap-3 rounded-2xl border border-ink-200 bg-white/95 p-3 shadow-[0_18px_40px_-24px_rgba(12,26,18,0.6)] backdrop-blur-sm transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
-                    >
-                      <img
-                        src={`${BASE}shop/${featured.img}`}
-                        alt=""
-                        width={64}
-                        height={64}
-                        loading="eager"
-                        className="h-14 w-14 shrink-0 object-contain"
-                      />
-                      <span className="min-w-0 flex-1">
-                        {/* To linjer i stedet for at klippe navnet af. "Victor
-                            Elektronisk Musefael..." er ikke et varenavn. */}
-                        <span className="block text-sm font-semibold leading-snug text-ink-950 [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden">
-                          {featured.name}
-                        </span>
-                        <span className="block font-display text-lg font-bold tabular-nums text-ink-950">
-                          {dkr(featured.price)}
-                        </span>
-                      </span>
-                      <ArrowRight
-                        size={18}
-                        strokeWidth={2.5}
-                        aria-hidden="true"
-                        className="shrink-0 text-ink-600 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-semibold leading-snug text-ink-950 [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden">
+                      {featured.name}
+                    </span>
+                    <span className="block font-display text-lg font-bold tabular-nums text-ink-950">
+                      {dkr(featured.price)}
+                    </span>
+                  </span>
+                  <ArrowRight
+                    size={18}
+                    strokeWidth={2.5}
+                    aria-hidden="true"
+                    className="shrink-0 text-ink-600 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5"
+                  />
+                </a>
+              )}
             </div>
           </div>
         </section>
