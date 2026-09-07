@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
-import { Button, Input, Label, TextField } from "@heroui/react";
-import { Menu, Phone, Search, ShoppingCart, X } from "lucide-react";
+import { Button } from "@heroui/react";
+import { Menu, Phone, ShoppingCart, X } from "lucide-react";
+import SearchBox from "./SearchBox";
 import { PEST_COUNTS, PEST_LABEL, type PestKey } from "../../lib/shop";
 import { useCartCount } from "../../lib/cart";
 import ShopGlyph from "./ShopGlyph";
 
 const BASE = import.meta.env.BASE_URL;
 
-/** Står søgningen i adressen, skal den også stå i feltet. */
-function initialQuery(): string {
-  if (typeof location === "undefined") return "";
-  return new URLSearchParams(location.search).get("q") ?? "";
+/**
+ * Hvilket skadedyr står vi på?
+ *
+ * Baymard: 95 % af butikker markerer ikke den valgte kategori i
+ * navigationen, og så mister man fornemmelsen af, hvor i katalogget man er.
+ * Det læses efter montering, fordi siden er prærenderet uden parametre.
+ */
+function usePest(): string {
+  const [p, setP] = useState("");
+  useEffect(() => {
+    setP(new URLSearchParams(location.search).get("dyr") ?? "");
+  }, []);
+  return p;
 }
+
 const TEL = "tel:+4524245583";
 
 /**
@@ -32,19 +43,9 @@ const MENU_PESTS: PestKey[] = [
   "edderkopper", "vaeggelus", "muldvarpe", "snegle",
 ];
 
-// Samme felt-stil som kontaktformularen på servicesitet.
-const FIELD =
-  "w-full rounded-full border border-ink-700 bg-ink-900 pl-11 pr-4 h-11 text-sm text-cream placeholder:text-ink-100/45 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/40";
-
 export function ShopHeader() {
-  /*
-   * Søgeordet er state, ikke defaultValue. Siden er prærenderet uden ?q, så
-   * hydreringen ville ellers beholde den tomme værdi fra HTML'en, og feltet
-   * stod tomt lige efter, man havde søgt. Det så ud, som om intet skete.
-   */
-  const [q, setQ] = useState("");
-  useEffect(() => setQ(initialQuery()), []);
   const [open, setOpen] = useState(false);
+  const here = usePest();
   const count = useCartCount();
 
   return (
@@ -66,47 +67,7 @@ export function ShopHeader() {
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </a>
 
-        {/*
-          En rigtig formular. Feltet var før uden value og uden handler, så
-          man kunne skrive og trykke retur uden at der skete noget.
-          Søgeknappen er synlig, fordi Baymard finder, at mobilbrugere ikke
-          nødvendigvis bruger tastaturets returtast til at søge.
-        */}
-        <form
-          action={`${BASE}shop/produkter/`}
-          method="get"
-          role="search"
-          className="hidden md:flex flex-1 max-w-xl items-center gap-2"
-        >
-          <TextField.Root className="flex-1">
-            <Label htmlFor="shop-search" className="sr-only">
-              Søg i butikken
-            </Label>
-            <div className="relative">
-              <Search
-                size={18}
-                strokeWidth={2.5}
-                aria-hidden="true"
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-100/55"
-              />
-              <Input
-                id="shop-search"
-                name="q"
-                type="search"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="Søg efter mus, huller i træet, myregift…"
-                className={FIELD}
-              />
-            </div>
-          </TextField.Root>
-          <button
-            type="submit"
-            className="press shrink-0 h-11 px-4 rounded-full bg-accent-500 text-ink-950 font-semibold text-sm hover:bg-accent-400"
-          >
-            Søg
-          </button>
-        </form>
+        <SearchBox />
 
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <a
@@ -128,6 +89,13 @@ export function ShopHeader() {
         </div>
       </div>
 
+      {/* På mobil er der ikke plads til feltet i logolinjen, og det må ikke
+          bare forsvinde: søgning er vejen, folk tager, når kategorierne
+          svigter. Det får sit eget bånd. */}
+      <div className="md:hidden px-4 pb-3">
+        <SearchBox mobile />
+      </div>
+
       <nav
         className={`${open ? "block" : "hidden"} lg:block border-t border-ink-800 bg-ink-950`}
         aria-label="Skadedyr"
@@ -137,7 +105,12 @@ export function ShopHeader() {
             <li key={p}>
               <a
                 href={`${BASE}shop/produkter/?dyr=${p}`}
-                className="group flex items-center gap-2 whitespace-nowrap px-2.5 py-2.5 lg:py-3 text-sm font-semibold text-ink-100/85 hover:text-cream hover:bg-ink-900 rounded-lg"
+                aria-current={here === p ? "page" : undefined}
+                className={`group flex items-center gap-2 whitespace-nowrap px-2.5 py-2.5 lg:py-3 text-sm font-semibold rounded-lg ${
+                  here === p
+                    ? "bg-ink-900 text-cream"
+                    : "text-ink-100/85 hover:text-cream hover:bg-ink-900"
+                }`}
               >
                 <ShopGlyph pest={p} size={22} className="text-accent-500 group-hover:text-accent-400" />
                 {PEST_LABEL[p]}

@@ -688,3 +688,29 @@ input[type="search"]::-webkit-search-decoration {
     }
   }
 }
+
+/* Forslagene i søgefeltet.
+
+   Musen markerer med ren CSS. Det lå før i React-state, og så blev hele
+   listen tegnet om, hver gang musen flyttede sig en pixel: rækkerne blinkede
+   hvidt, når man kørte hurtigt hen over dem. Piletasterne sætter
+   data-active, og det er den eneste markering, der går gennem state.
+
+   Ingen overgang på baggrunden. En markering, der følger musen, skal være
+   der med det samme; 150 ms fade er halen, der logrer med hunden. */
+.suggest-row {
+  background: transparent;
+  transition: none;
+}
+@media (hover: hover) {
+  .suggest-row:hover {
+    background: var(--color-ink-100);
+  }
+}
+.suggest-row[data-active] {
+  background: var(--color-ink-100);
+}
+.suggest-row:focus-visible {
+  outline: 2px solid var(--color-ink-950);
+  outline-offset: -2px;
+}

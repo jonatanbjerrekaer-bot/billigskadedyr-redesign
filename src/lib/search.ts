@@ -41,6 +41,11 @@ export function norm(s: string): string {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9 ]+/g, " ")
+    // "5l" skrives af mange uden mellemrum. Uden det her er det et andet
+    // ord end "5 l", og så finder man ikke sin egen dunk.
+    .replace(/(\d)\s*(ltr|liter|l|ml|kg|g|stk)\b/g, "$1 $2")
+    // og enhederne selv skal folde sammen
+    .replace(/\b(ltr|liter)\b/g, "l")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -217,4 +222,32 @@ export function search(raw: string): SearchResult {
 
   const info = INFO_HITS.filter((i) => i.match.some((m) => q.includes(norm(m))));
   return { q: raw, pest, why, products, info };
+}
+
+/**
+ * Forslag, mens der skrives.
+ *
+ * Skadedyret først, fordi den, der taster "mus", som regel vil se alt mod
+ * mus og ikke en bestemt fælde. Så varerne, med billede og pris, fordi et
+ * navn alene ikke fortæller, om det er den rigtige. Til sidst infosiderne.
+ */
+export function suggest(raw: string): {
+  pests: PestKey[];
+  pestCounts: Record<string, number>;
+  products: Product[];
+  info: typeof INFO_HITS;
+} {
+  const r = search(raw);
+  const counts: Record<string, number> = {};
+  for (const p of PRODUCTS) counts[p.pest] = (counts[p.pest] ?? 0) + 1;
+
+  // Kun ét skadedyr foreslås. To gæt er ikke et forslag, det er en menu.
+  const pests = r.pest ? [r.pest] : [];
+
+  return {
+    pests,
+    pestCounts: counts,
+    products: r.products.slice(0, 6),
+    info: r.info,
+  };
 }
