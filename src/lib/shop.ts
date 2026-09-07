@@ -2878,7 +2878,18 @@ export const SIZE_BANDS = SIZE_ORDER.filter((b) =>
 );
 
 export function dkr(n: number): string {
-  return n.toLocaleString("da-DK") + " kr.";
+  // Afrundes foerst: 2099.95 * 2 giver 4199.900000000001 i flydende tal, og
+  // uden afrundingen bliver det til "4.199,9" naar decimalerne skaeres.
+  const v = Math.round(n * 100) / 100;
+  // Har beloebet oerer, staar der to decimaler. Uden det her droppede
+  // toLocaleString et afsluttende nul: 4199.90 blev "4.199,9".
+  const d = Number.isInteger(v) ? 0 : 2;
+  return (
+    v.toLocaleString("da-DK", {
+      minimumFractionDigits: d,
+      maximumFractionDigits: d,
+    }) + " kr."
+  );
 }
 
 /** Fire varer har ingen pris i hans katalog. "0 kr." ville laeses som
