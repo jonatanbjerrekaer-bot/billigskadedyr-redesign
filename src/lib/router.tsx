@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from "react";
+import { flushSync } from "react-dom";
 
 /**
  * A router small enough to read in one sitting.
@@ -60,10 +61,36 @@ const reduced = () =>
  * motion, the swap is instant, which is the correct fallback rather than a
  * degraded imitation.
  */
+/**
+ * Where the reader lands after a swap. A hash goes to its target, anything
+ * else to the top, because arriving halfway down a page you have not seen is
+ * disorienting. Always instant: this runs inside the transition callback, and
+ * a smooth scroll would still be moving when the browser takes its snapshot.
+ */
+function applyScroll() {
+  const hash = location.hash.slice(1);
+  if (hash) {
+    const el = document.getElementById(hash);
+    if (el) {
+      el.scrollIntoView({ behavior: "instant" as ScrollBehavior });
+      return;
+    }
+  }
+  scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+}
+
 function go(url: string, replace = false) {
   const run = () => {
     history[replace ? "replaceState" : "pushState"]({}, "", url);
-    emit();
+    // startViewTransition captures the new state the moment this returns.
+    // emit() only schedules a React render, so without flushSync the browser
+    // would snapshot the old page as the destination and the icon would fly
+    // to where it used to be. This is what flushSync is for.
+    flushSync(emit);
+    // Scroll is part of that snapshot too. The chip can be far down the page
+    // while the hero tile is at the top, so moving after the capture would
+    // measure the flight against a viewport about to change.
+    applyScroll();
   };
   if (reduced() || !document.startViewTransition) {
     run();
@@ -119,22 +146,5 @@ export function useLinkRouting(onNavigate?: () => void) {
   }, [onNavigate]);
 }
 
-/**
- * After a swap, put the reader where the link promised. A hash scrolls to its
- * target; anything else starts at the top, because arriving halfway down a
- * page you have not seen is disorienting. Back and forward are left alone:
- * the browser restores those positions itself and does it better.
- */
-export function useRouteScroll(pathname: string) {
-  useEffect(() => {
-    const hash = location.hash.slice(1);
-    if (hash) {
-      const el = document.getElementById(hash);
-      if (el) {
-        el.scrollIntoView({ behavior: reduced() ? "auto" : "smooth" });
-        return;
-      }
-    }
-    scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-  }, [pathname]);
-}
+// Back and forward do not scroll here on purpose: the browser restores
+// those positions itself and does it better than we would.

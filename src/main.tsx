@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import ServicePage from "./components/ServicePage.tsx";
 import { serviceContentFor, servicePest } from "./lib/serviceContent.ts";
-import { slugOf, usePathname, useLinkRouting, useRouteScroll } from "./lib/router.tsx";
+import { slugOf, usePathname, useLinkRouting } from "./lib/router.tsx";
 import "./index.css";
 
 /**
@@ -54,7 +54,6 @@ function Site() {
   const pathname = usePathname();
   const slug = slugOf(pathname);
   useLinkRouting();
-  useRouteScroll(pathname);
   useDocumentMeta(slug);
 
   // A slug the registry does not know means the URL is wrong, and the front

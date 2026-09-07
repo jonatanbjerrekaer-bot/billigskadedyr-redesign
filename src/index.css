@@ -8,16 +8,33 @@
   navigation: auto;
 }
 
+/* The pest tile is the one element that exists on both pages, so it moves
+   rather than fading. Everything else crossfades underneath it.
+
+   The two tiles are not the same shape: a 32px circle in the grid, a 64px
+   rounded square in the hero, with the colours inverted. The group animates
+   size and position while the old and new snapshots cross-fade over each
+   other, and stretched across the full 320ms that shape change reads as a
+   smear. Ending the cross-fade at 140ms, while the group keeps travelling,
+   gets the shape change over before the eye settles on it, so what is left
+   to watch is the movement. */
+::view-transition-group(*) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 140ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* The page underneath keeps its own, slower fade. After the wildcard above,
+   so it wins. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 260ms;
   animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-}
-
-/* The pest tile is the one element that exists on both pages, so it moves
-   rather than fading. Everything else crossfades underneath it. */
-::view-transition-group(*) {
-  animation-duration: 320ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
