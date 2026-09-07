@@ -65,6 +65,17 @@ export type Product = {
   variants: Variant[];
   /** Dyreste variant. Lig price, når varen kun fås i én størrelse. */
   priceMax: number;
+  /**
+   * Flere billeder af samme vare, ud over img.
+   *
+   * Baymard: 80 % af butikker giver ikke 3 eller flere billeder i listen,
+   * og ét ekstra er ikke nok. Uden dem er kunden nødt til at åbne varen for
+   * at se, hvad han kigger på, og det er netop det, listen skal spare ham
+   * for. Tom, hvor butikken ikke har flere billeder; vi opfinder ingen.
+   */
+  images: string[];
+  /** Størrelsesgruppe til filteret. Tom, når mængden ikke kan læses. */
+  sizeBand: string;
 };
 
 export type PestKey =
@@ -123,6 +134,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 0,
+    sizeBand: "",
+    images: ["kvanol-10-1.jpg"],
     variants: [],
   },
   {
@@ -142,6 +155,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 0,
+    sizeBand: "",
+    images: ["kvanol-50-1.jpg", "kvanol-50-2.jpg"],
     variants: [],
   },
   {
@@ -161,6 +176,8 @@ export const PRODUCTS: Product[] = [
     unit: "1,98 kr./100 ml",
     unitValue: 1.98,
     priceMax: 1399,
+    sizeBand: "5 kg/l og op",
+    images: [],
     variants: [
       { label: "5ltr", sku: "37344", price: 99, inStock: true, amount: 5, amountUnit: "l", isConcentrate: false },
       { label: "23ltr", sku: "37345", price: 1399, inStock: true, amount: 23, amountUnit: "l", isConcentrate: false },
@@ -183,6 +200,8 @@ export const PRODUCTS: Product[] = [
     unit: "8,40 kr./100 ml",
     unitValue: 8.3998,
     priceMax: 2599.95,
+    sizeBand: "5 kg/l og op",
+    images: ["a-tox-25ltr-1.jpg"],
     variants: [
       { label: "25ltr", sku: "23018", price: 2099.95, inStock: true, amount: 25, amountUnit: "l", isConcentrate: false },
       { label: "5ltr koncentrat", sku: "1203001023", price: 2599.95, inStock: true, amount: 5, amountUnit: "l", isConcentrate: true },
@@ -205,6 +224,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 2599.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -224,6 +245,8 @@ export const PRODUCTS: Product[] = [
     unit: "30,00 kr./100 ml",
     unitValue: 29.995,
     priceMax: 1049.95,
+    sizeBand: "1-5 kg/l",
+    images: ["protox-kombi-protect-1.webp"],
     variants: [
       { label: "1ltr", sku: "1047", price: 299.95, inStock: true, amount: 1, amountUnit: "l", isConcentrate: false },
       { label: "2,5ltr", sku: "1041", price: 599.95, inStock: true, amount: 25, amountUnit: "l", isConcentrate: false },
@@ -247,6 +270,8 @@ export const PRODUCTS: Product[] = [
     unit: "26,00 kr./100 ml",
     unitValue: 25.995,
     priceMax: 2849,
+    sizeBand: "1-5 kg/l",
+    images: ["protox-insekt-1.webp", "protox-insekt-2.png"],
     variants: [
       { label: "1ltr", sku: "1038", price: 259.95, inStock: false, amount: 1, amountUnit: "l", isConcentrate: false },
       { label: "2,5ltr", sku: "1031", price: 489.95, inStock: false, amount: 25, amountUnit: "l", isConcentrate: false },
@@ -271,6 +296,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 159.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -290,6 +317,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1449,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -309,6 +338,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 199,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -328,6 +359,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 149,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -347,6 +380,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 499,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -366,6 +401,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -385,6 +422,8 @@ export const PRODUCTS: Product[] = [
     unit: "26,66 kr./100 ml",
     unitValue: 0,
     priceMax: 199.95,
+    sizeBand: "0,5-1 kg/l",
+    images: [],
     variants: [],
   },
   {
@@ -404,6 +443,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 74.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -423,6 +464,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1599.95,
+    sizeBand: "",
+    images: ["fly-in-monster-fluefaelde-1.jpg"],
     variants: [
       { label: "Fly-in Monster Refill", sku: "120203", price: 49.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Fly-in Monster Mini", sku: "120200", price: 649.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -446,6 +489,8 @@ export const PRODUCTS: Product[] = [
     unit: "333,00 kr./100 ml",
     unitValue: 333,
     priceMax: 169.95,
+    sizeBand: "Under 0,5 kg/l",
+    images: ["frugtfluefaelde-1.jpg", "frugtfluefaelde-2.png"],
     variants: [
       { label: "15ml", sku: "3428", price: 49.95, inStock: true, amount: 15, amountUnit: "ml", isConcentrate: false },
       { label: "200ml refill", sku: "3492", price: 89.95, inStock: true, amount: 200, amountUnit: "ml", isConcentrate: false },
@@ -469,6 +514,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 119,
+    sizeBand: "Under 0,5 kg/l",
+    images: ["frugtfluefaelde-prof-1.webp", "frugtfluefaelde-prof-2.webp"],
     variants: [
       { label: "Fælde", sku: "125580", price: 59, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "200ml Lokkemiddel", sku: "125581", price: 89, inStock: true, amount: 200, amountUnit: "ml", isConcentrate: false },
@@ -492,6 +539,8 @@ export const PRODUCTS: Product[] = [
     unit: "24,90 kr./stk.",
     unitValue: 0,
     priceMax: 249,
+    sizeBand: "10 stk. og op",
+    images: [],
     variants: [],
   },
   {
@@ -511,6 +560,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 129.95,
+    sizeBand: "",
+    images: ["ps-flue-stop-1.jpg"],
     variants: [],
   },
   {
@@ -530,6 +581,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -549,6 +602,8 @@ export const PRODUCTS: Product[] = [
     unit: "4,75 kr./stk.",
     unitValue: 0,
     priceMax: 19,
+    sizeBand: "2-9 stk.",
+    images: [],
     variants: [],
   },
   {
@@ -568,6 +623,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -587,6 +644,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 59,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -606,6 +665,8 @@ export const PRODUCTS: Product[] = [
     unit: "37,59 kr./100 ml",
     unitValue: 0,
     priceMax: 109,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [],
   },
   {
@@ -625,6 +686,8 @@ export const PRODUCTS: Product[] = [
     unit: "7,90 kr./stk.",
     unitValue: 7.9,
     priceMax: 4499,
+    sizeBand: "10 stk. og op",
+    images: [],
     variants: [
       { label: "Clips til bjælker 10stk", sku: "27007", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
       { label: "Clips til tagrende 10stk", sku: "27134", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
@@ -652,6 +715,8 @@ export const PRODUCTS: Product[] = [
     unit: "7,90 kr./stk.",
     unitValue: 7.9,
     priceMax: 4299,
+    sizeBand: "10 stk. og op",
+    images: [],
     variants: [
       { label: "Clips til bjælker 10stk", sku: "27007-1-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
       { label: "Clips til tagrende 10stk", sku: "27134-1-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
@@ -678,6 +743,8 @@ export const PRODUCTS: Product[] = [
     unit: "7,90 kr./stk.",
     unitValue: 7.9,
     priceMax: 4499,
+    sizeBand: "10 stk. og op",
+    images: [],
     variants: [
       { label: "Clips til bjælker 10stk", sku: "27007-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
       { label: "Clips til tagrende 10stk", sku: "27134-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
@@ -704,6 +771,8 @@ export const PRODUCTS: Product[] = [
     unit: "7,90 kr./stk.",
     unitValue: 7.9,
     priceMax: 8999,
+    sizeBand: "10 stk. og op",
+    images: [],
     variants: [
       { label: "Clips til bjælker 10stk", sku: "27007-1-1-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
       { label: "Clips til tagrende 10stk", sku: "27134-1-1-1", price: 79, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
@@ -730,6 +799,8 @@ export const PRODUCTS: Product[] = [
     unit: "64,50 kr./100 g",
     unitValue: 0,
     priceMax: 199.95,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [],
   },
   {
@@ -749,6 +820,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1499,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -768,6 +841,8 @@ export const PRODUCTS: Product[] = [
     unit: "300,00 kr./100 ml",
     unitValue: 0,
     priceMax: 2999.95,
+    sizeBand: "1-5 kg/l",
+    images: ["aquapy-1ltr-1.jpg", "aquapy-1ltr-2.png"],
     variants: [],
   },
   {
@@ -787,6 +862,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 249,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -806,6 +883,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 129.95,
+    sizeBand: "",
+    images: ["green-protect-hvepsefaelde-1.jpg"],
     variants: [],
   },
   {
@@ -825,6 +904,8 @@ export const PRODUCTS: Product[] = [
     unit: "13,80 kr./100 ml",
     unitValue: 13.8,
     priceMax: 79,
+    sizeBand: "0,5-1 kg/l",
+    images: [],
     variants: [
       { label: "Lokkemiddel 500ml", sku: "23617", price: 69, inStock: true, amount: 500, amountUnit: "ml", isConcentrate: false },
       { label: "Hvepsefælde", sku: "23012", price: 79, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -847,6 +928,8 @@ export const PRODUCTS: Product[] = [
     unit: "19,99 kr./100 ml",
     unitValue: 19.995,
     priceMax: 499.95,
+    sizeBand: "1-5 kg/l",
+    images: ["hvepselokkemiddel-1.jpg"],
     variants: [
       { label: "1ltr", sku: "23020", price: 199.95, inStock: false, amount: 1, amountUnit: "l", isConcentrate: false },
       { label: "5ltr", sku: "23021", price: 499.95, inStock: true, amount: 5, amountUnit: "l", isConcentrate: false },
@@ -869,6 +952,8 @@ export const PRODUCTS: Product[] = [
     unit: "708,31 kr./100 ml",
     unitValue: 0,
     priceMax: 1699.95,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [],
   },
   {
@@ -888,6 +973,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 139.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -907,6 +994,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 0,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -926,6 +1015,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 189.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -945,6 +1036,8 @@ export const PRODUCTS: Product[] = [
     unit: "2096,67 kr./100 g",
     unitValue: 2096.67,
     priceMax: 2399,
+    sizeBand: "Under 0,5 kg/l",
+    images: ["advion-gel-1.webp"],
     variants: [
       { label: "1x30g", sku: "110269-1", price: 629, inStock: true, amount: 30, amountUnit: "g", isConcentrate: false },
       { label: "2x30g", sku: "", price: 1199, inStock: true, amount: 60, amountUnit: "g", isConcentrate: false },
@@ -968,6 +1061,8 @@ export const PRODUCTS: Product[] = [
     unit: "189,90 kr./100 ml",
     unitValue: 0,
     priceMax: 1899,
+    sizeBand: "1-5 kg/l",
+    images: [],
     variants: [],
   },
   {
@@ -987,6 +1082,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 4599,
+    sizeBand: "",
+    images: ["maxforce-platin-1.png"],
     variants: [],
   },
   {
@@ -1006,6 +1103,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 99,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1025,6 +1124,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 79,
+    sizeBand: "",
+    images: ["trinol-klaedemoel-detektor-1.webp"],
     variants: [],
   },
   {
@@ -1044,6 +1145,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 79,
+    sizeBand: "",
+    images: ["trinol-melmoel-detektor-1.webp"],
     variants: [],
   },
   {
@@ -1063,6 +1166,8 @@ export const PRODUCTS: Product[] = [
     unit: "229,90 kr./100 g",
     unitValue: 229.9,
     priceMax: 3899.95,
+    sizeBand: "1-5 kg/l",
+    images: ["fosforbrinte-1.jpg"],
     variants: [
       { label: "Fosforbrinte 1kg", sku: "150015", price: 2299, inStock: true, amount: 1, amountUnit: "kg", isConcentrate: false },
       { label: "Opstartssæt inkl Fosforbrinte", sku: "150014", price: 3899.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1085,6 +1190,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 49,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1104,6 +1211,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 89.95,
+    sizeBand: "",
+    images: ["pest-stop-muldvarpesaks-1.png"],
     variants: [],
   },
   {
@@ -1123,6 +1232,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1142,6 +1253,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1161,6 +1274,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 499,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1180,6 +1295,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 0,
+    sizeBand: "",
+    images: ["alfa-korn-mod-mus-1.webp", "alfa-korn-mod-mus-2.webp"],
     variants: [],
   },
   {
@@ -1199,6 +1316,8 @@ export const PRODUCTS: Product[] = [
     unit: "14,97 kr./stk.",
     unitValue: 0,
     priceMax: 29.95,
+    sizeBand: "2-9 stk.",
+    images: [],
     variants: [],
   },
   {
@@ -1218,6 +1337,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 999.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1237,6 +1358,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 39.95,
+    sizeBand: "",
+    images: ["edialux-warden-1.png"],
     variants: [],
   },
   {
@@ -1256,6 +1379,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1599,
+    sizeBand: "",
+    images: ["goodnature-a24-1.png", "goodnature-a24-2.jpg"],
     variants: [
       { label: "CO2 patron", sku: "170882", price: 49, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Automatisk lokkemadspumpe", sku: "758702", price: 129.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1283,6 +1408,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 29.95,
+    sizeBand: "",
+    images: ["metal-smaekfaelde-proff-1.jpg"],
     variants: [
       { label: "Musesmækfælde Proff", sku: "2163", price: 19.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Rottesmækfælde Proff", sku: "2158", price: 29.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1305,6 +1432,8 @@ export const PRODUCTS: Product[] = [
     unit: "9,90 kr./stk.",
     unitValue: 9.9,
     priceMax: 599,
+    sizeBand: "10 stk. og op",
+    images: ["nara-lure-lokkeblok-1.jpg", "nara-lure-lokkeblok-2.jpg"],
     variants: [
       { label: "Vanille 10stk", sku: "", price: 99, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
       { label: "Choco-Nut 10stk", sku: "", price: 99, inStock: true, amount: 10, amountUnit: "stk", isConcentrate: false },
@@ -1341,6 +1470,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 39,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1360,6 +1491,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 179,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1379,6 +1512,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69.95,
+    sizeBand: "",
+    images: ["pest-stop-fingersikker-1.png"],
     variants: [],
   },
   {
@@ -1398,6 +1533,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 129.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1417,6 +1554,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 79.95,
+    sizeBand: "",
+    images: ["pest-stop-musegift-1.jpg", "pest-stop-musegift-2.png"],
     variants: [],
   },
   {
@@ -1436,6 +1575,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 29.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1455,6 +1596,8 @@ export const PRODUCTS: Product[] = [
     unit: "24,98 kr./stk.",
     unitValue: 24.975,
     priceMax: 49.95,
+    sizeBand: "2-9 stk.",
+    images: ["powercat-1.jpg", "powercat-2.webp"],
     variants: [
       { label: "PowerCat Mus 2stk", sku: "100651", price: 49.95, inStock: true, amount: 2, amountUnit: "stk", isConcentrate: false },
       { label: "PowerCat rotte 1stk", sku: "100691", price: 49.95, inStock: true, amount: 1, amountUnit: "stk", isConcentrate: false },
@@ -1477,6 +1620,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 159.95,
+    sizeBand: "",
+    images: ["protecta-evo-ambush-1.png", "protecta-evo-ambush-2.jpg"],
     variants: [
       { label: "Nøgle til Protecta rottestationer", sku: "", price: 10, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Protecta EVO Ambush", sku: "170826", price: 159.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1499,6 +1644,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 249.95,
+    sizeBand: "",
+    images: [],
     variants: [
       { label: "Nøgle til Protecta rottestationer", sku: "", price: 12.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Protecta EVO Express", sku: "170836", price: 249.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1521,6 +1668,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 249.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1540,6 +1689,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 39.95,
+    sizeBand: "",
+    images: ["quick-snap-proff-1.jpg"],
     variants: [
       { label: "Musesmækfælde", sku: "", price: 34.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Rottesmækfælde", sku: "2157", price: 39.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1562,6 +1713,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 229,
+    sizeBand: "",
+    images: ["roban-gold-1.jpg"],
     variants: [],
   },
   {
@@ -1581,6 +1734,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 79,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1600,6 +1755,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 199.95,
+    sizeBand: "",
+    images: [],
     variants: [
       { label: "Advarsels etikette", sku: "170812", price: 9, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Giftspyd", sku: "2115", price: 29, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1625,6 +1782,8 @@ export const PRODUCTS: Product[] = [
     unit: "39,95 kr./stk.",
     unitValue: 39.95,
     priceMax: 49.95,
+    sizeBand: "1 stk.",
+    images: ["tilo-smaekfaelde-1.webp"],
     variants: [
       { label: "Musesmækfælde 1stk", sku: "", price: 39.95, inStock: true, amount: 1, amountUnit: "stk", isConcentrate: false },
       { label: "Rottesmækfælde Proff", sku: "170849", price: 49.95, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1647,6 +1806,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 129.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1666,6 +1827,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 59.95,
+    sizeBand: "",
+    images: ["t-rex-rotte-og-musesmaekfaelde-1.webp"],
     variants: [],
   },
   {
@@ -1685,6 +1848,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 99,
+    sizeBand: "",
+    images: [],
     variants: [
       { label: "Alfa Rottestation ekls fælde", sku: "100590", price: 79, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Alfa Rottestation inkl fælde", sku: "100591", price: 99, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1707,6 +1872,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 179.95,
+    sizeBand: "",
+    images: ["trinol-giftstation-1.webp", "trinol-giftstation-2.webp"],
     variants: [
       { label: "Musegiftstation", sku: "140326", price: 149.95, inStock: false, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Rottegiftstation", sku: "170800", price: 179.95, inStock: false, amount: 0, amountUnit: "", isConcentrate: false },
@@ -1729,6 +1896,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 899.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1748,6 +1917,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 299,
+    sizeBand: "",
+    images: ["trinol-elektronisk-musefaelde-1.jpg"],
     variants: [],
   },
   {
@@ -1767,6 +1938,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 29,
+    sizeBand: "",
+    images: ["trinol-muselokkeboks-1.jpg"],
     variants: [],
   },
   {
@@ -1786,6 +1959,8 @@ export const PRODUCTS: Product[] = [
     unit: "24,00 kr./stk.",
     unitValue: 24,
     priceMax: 29,
+    sizeBand: "1 stk.",
+    images: ["trinol-traesmaekfaelde-1.jpg"],
     variants: [
       { label: "Rottesmækfælde 1stk", sku: "100693", price: 24, inStock: true, amount: 1, amountUnit: "stk", isConcentrate: false },
       { label: "Musesmækfælde 2stk", sku: "100684", price: 29, inStock: true, amount: 2, amountUnit: "stk", isConcentrate: false },
@@ -1808,6 +1983,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 299.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1827,6 +2004,8 @@ export const PRODUCTS: Product[] = [
     unit: "2663,33 kr./100 g",
     unitValue: 2663.33,
     priceMax: 2999,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [
       { label: "1x30g", sku: "", price: 799, inStock: true, amount: 30, amountUnit: "g", isConcentrate: false },
       { label: "2x30g", sku: "", price: 1499, inStock: true, amount: 60, amountUnit: "g", isConcentrate: false },
@@ -1850,6 +2029,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 15,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1869,6 +2050,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1299,
+    sizeBand: "",
+    images: ["forlaenger-til-bait-gun-1.webp"],
     variants: [],
   },
   {
@@ -1888,6 +2071,8 @@ export const PRODUCTS: Product[] = [
     unit: "1496,67 kr./100 g",
     unitValue: 1496.67,
     priceMax: 2599,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [
       { label: "1x30g", sku: "", price: 449, inStock: true, amount: 30, amountUnit: "g", isConcentrate: false },
       { label: "2x30g", sku: "", price: 889, inStock: true, amount: 60, amountUnit: "g", isConcentrate: false },
@@ -1912,6 +2097,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 49,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -1931,6 +2118,8 @@ export const PRODUCTS: Product[] = [
     unit: "3163,33 kr./100 g",
     unitValue: 3163.33,
     priceMax: 3649,
+    sizeBand: "Under 0,5 kg/l",
+    images: [],
     variants: [
       { label: "1x30g", sku: "110271-1", price: 949, inStock: true, amount: 30, amountUnit: "g", isConcentrate: false },
       { label: "2x30g", sku: "", price: 1849, inStock: true, amount: 60, amountUnit: "g", isConcentrate: false },
@@ -1954,6 +2143,8 @@ export const PRODUCTS: Product[] = [
     unit: "55,00 kr./100 g",
     unitValue: 54.9975,
     priceMax: 4999.95,
+    sizeBand: "1-5 kg/l",
+    images: ["myreudvanding-xtra-1.png", "myreudvanding-xtra-2.jpg"],
     variants: [
       { label: "2kg", sku: "3130", price: 1099.95, inStock: true, amount: 2, amountUnit: "kg", isConcentrate: false },
       { label: "10kg", sku: "3131", price: 4999.95, inStock: true, amount: 10, amountUnit: "kg", isConcentrate: false },
@@ -1976,6 +2167,8 @@ export const PRODUCTS: Product[] = [
     unit: "890,00 kr./100 g",
     unitValue: 0,
     priceMax: 89,
+    sizeBand: "Under 0,5 kg/l",
+    images: ["ps-myre-gel-10g-1.jpg"],
     variants: [],
   },
   {
@@ -1995,6 +2188,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 119.95,
+    sizeBand: "",
+    images: ["ps-myrelokkedaase-1.jpg"],
     variants: [],
   },
   {
@@ -2014,6 +2209,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 9,
+    sizeBand: "",
+    images: ["tom-myrelokkedaase-1.webp"],
     variants: [],
   },
   {
@@ -2033,6 +2230,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 129,
+    sizeBand: "",
+    images: ["trinol-myrestop-1.webp"],
     variants: [],
   },
   {
@@ -2052,6 +2251,8 @@ export const PRODUCTS: Product[] = [
     unit: "39,98 kr./stk.",
     unitValue: 0,
     priceMax: 79.95,
+    sizeBand: "2-9 stk.",
+    images: [],
     variants: [],
   },
   {
@@ -2071,6 +2272,8 @@ export const PRODUCTS: Product[] = [
     unit: "12,99 kr./100 ml",
     unitValue: 12.995,
     priceMax: 499.95,
+    sizeBand: "1-5 kg/l",
+    images: ["trinol-myresand-1.jpg"],
     variants: [
       { label: "1ltr", sku: "100530", price: 129.95, inStock: true, amount: 1, amountUnit: "l", isConcentrate: false },
       { label: "5ltr", sku: "100531", price: 499.95, inStock: true, amount: 5, amountUnit: "l", isConcentrate: false },
@@ -2093,6 +2296,8 @@ export const PRODUCTS: Product[] = [
     unit: "9,00 kr./100 g",
     unitValue: 8.9995,
     priceMax: 949.95,
+    sizeBand: "5 kg/l og op",
+    images: ["bromablok-pro-1.jpg"],
     variants: [
       { label: "Bromablok Pro 10kg á 200g", sku: "2027", price: 899.95, inStock: true, amount: 10, amountUnit: "kg", isConcentrate: false },
       { label: "Bromablok Pro 10kg á 20g", sku: "2025", price: 949.95, inStock: true, amount: 10, amountUnit: "kg", isConcentrate: false },
@@ -2115,6 +2320,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1399.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2134,6 +2341,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 149,
+    sizeBand: "",
+    images: ["edialux-aptum-1.png"],
     variants: [],
   },
   {
@@ -2153,6 +2362,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1699.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2172,6 +2383,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 699.95,
+    sizeBand: "",
+    images: ["generation-mix-1.jpg"],
     variants: [],
   },
   {
@@ -2191,6 +2404,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1199,
+    sizeBand: "",
+    images: ["generation-pasta-1.webp"],
     variants: [],
   },
   {
@@ -2210,6 +2425,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 1899.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2229,6 +2446,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 189,
+    sizeBand: "",
+    images: ["neo-rottegiftstation-1.png", "neo-rottegiftstation-2.png"],
     variants: [],
   },
   {
@@ -2248,6 +2467,8 @@ export const PRODUCTS: Product[] = [
     unit: "666,64 kr./100 g",
     unitValue: 666.644,
     priceMax: 1499.95,
+    sizeBand: "Under 0,5 kg/l",
+    images: ["notrac-blox-1.jpg"],
     variants: [
       { label: "225g Blokke (9kg Karton)", sku: "170014", price: 1499.95, inStock: true, amount: 225, amountUnit: "g", isConcentrate: false },
       { label: "28g Blokke (8kg Spand)", sku: "170015", price: 1499.95, inStock: true, amount: 28, amountUnit: "g", isConcentrate: false },
@@ -2270,6 +2491,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 179,
+    sizeBand: "",
+    images: ["pest-stop-flerfangstfaelde-1.jpg", "pest-stop-flerfangstfaelde-2.png"],
     variants: [],
   },
   {
@@ -2289,6 +2512,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 179.95,
+    sizeBand: "",
+    images: ["protecta-evo-landscape-1.jpg", "protecta-evo-landscape-2.jpg"],
     variants: [
       { label: "Ekstra nøgle", sku: "170831", price: 12.95, inStock: false, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Protecta EVO Landscape", sku: "2107", price: 179.95, inStock: false, amount: 0, amountUnit: "", isConcentrate: false },
@@ -2311,6 +2536,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 999.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2330,6 +2557,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 799.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2349,6 +2578,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 349,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2368,6 +2599,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 249.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2387,6 +2620,8 @@ export const PRODUCTS: Product[] = [
     unit: "3,49 kr./100 g",
     unitValue: 3.49,
     priceMax: 449,
+    sizeBand: "5 kg/l og op",
+    images: ["tanaco-bromakorn-1.jpg", "tanaco-bromakorn-2.png"],
     variants: [
       { label: "Bromakorn Pro 10kg (hele)", sku: "20230", price: 349, inStock: true, amount: 10, amountUnit: "kg", isConcentrate: false },
       { label: "Bromakorn 12kg á 100g", sku: "2009", price: 449, inStock: true, amount: 12, amountUnit: "kg", isConcentrate: false },
@@ -2409,6 +2644,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 99,
+    sizeBand: "",
+    images: ["trap-in-a-box-1.jpg", "trap-in-a-box-2.jpg"],
     variants: [],
   },
   {
@@ -2428,6 +2665,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 429,
+    sizeBand: "",
+    images: ["trinol-elektronisk-rottefaelde-1.jpg"],
     variants: [],
   },
   {
@@ -2447,6 +2686,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 69,
+    sizeBand: "",
+    images: ["trinol-raptor-smaekfaelde-1.jpg"],
     variants: [
       { label: "Raptor Smækfælde", sku: "170842", price: 49, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Raptor Smækfælde inkl cover", sku: "170841", price: 69, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -2469,6 +2710,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 599.95,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2488,6 +2731,8 @@ export const PRODUCTS: Product[] = [
     unit: "31,99 kr./100 g",
     unitValue: 31.99,
     priceMax: 1999.95,
+    sizeBand: "0,5-1 kg/l",
+    images: [],
     variants: [
       { label: "500g", sku: "", price: 159.95, inStock: true, amount: 500, amountUnit: "g", isConcentrate: false },
       { label: "1kg", sku: "", price: 269.95, inStock: true, amount: 1, amountUnit: "kg", isConcentrate: false },
@@ -2512,6 +2757,8 @@ export const PRODUCTS: Product[] = [
     unit: "10,00 kr./100 g",
     unitValue: 0,
     priceMax: 1999.95,
+    sizeBand: "5 kg/l og op",
+    images: [],
     variants: [],
   },
   {
@@ -2531,6 +2778,8 @@ export const PRODUCTS: Product[] = [
     unit: "17,80 kr./100 g",
     unitValue: 17.8,
     priceMax: 149,
+    sizeBand: "0,5-1 kg/l",
+    images: ["trinol-ferroslug-1.jpg"],
     variants: [
       { label: "500g", sku: "100904", price: 89, inStock: true, amount: 500, amountUnit: "g", isConcentrate: false },
       { label: "1kg", sku: "100906", price: 149, inStock: true, amount: 1, amountUnit: "kg", isConcentrate: false },
@@ -2553,6 +2802,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 79,
+    sizeBand: "",
+    images: ["trinol-sneglefaelde-1.webp", "trinol-sneglefaelde-2.webp"],
     variants: [],
   },
   {
@@ -2572,6 +2823,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 59,
+    sizeBand: "",
+    images: [],
     variants: [],
   },
   {
@@ -2591,6 +2844,8 @@ export const PRODUCTS: Product[] = [
     unit: "",
     unitValue: 0,
     priceMax: 49,
+    sizeBand: "",
+    images: ["trinol-bed-bug-barrier-1.webp"],
     variants: [
       { label: "Hvid", sku: "125574", price: 49, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
       { label: "Sort", sku: "125979", price: 49, inStock: true, amount: 0, amountUnit: "", isConcentrate: false },
@@ -2611,6 +2866,16 @@ export const FORMS = [...new Set(PRODUCTS.map((p) => p.form))].sort();
 /** Mærkerne, der faktisk optræder. Baymard: mærke er et af de filtre,
     folk leder efter, og 51 % af butikker mangler det. */
 export const BRANDS = [...new Set(PRODUCTS.map((p) => p.brand).filter(Boolean))].sort();
+
+/** Størrelsesgrupperne i stigende orden, ikke alfabetisk. "10 stk. og op"
+    hører efter "2-9 stk.", uanset hvad bogstaverne siger. */
+const SIZE_ORDER = [
+  "Under 0,5 kg/l", "0,5-1 kg/l", "1-5 kg/l", "5 kg/l og op",
+  "1 stk.", "2-9 stk.", "10 stk. og op",
+];
+export const SIZE_BANDS = SIZE_ORDER.filter((b) =>
+  PRODUCTS.some((p) => p.sizeBand === b),
+);
 
 export function dkr(n: number): string {
   return n.toLocaleString("da-DK") + " kr.";

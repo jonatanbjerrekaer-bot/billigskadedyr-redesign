@@ -118,6 +118,55 @@ const SYMPTOMS: { phrase: string; pest: PestKey; because: string }[] = [
   { phrase: "glatte fliser", pest: "alger", because: "belægning på tag og fliser" },
 ];
 
+/**
+ * Sted og situation.
+ *
+ * Kunden søger ikke altid på et dyr eller en vare. Han søger på, hvor han
+ * har problemet. Et sted peger på flere dyr, og alle skal med: den, der
+ * skriver "til køkkenet", ved ikke nødvendigvis, om det er myrer eller
+ * sølvfisk, han har.
+ *
+ * Kun steder, hvor butikken faktisk har varer. Et sted uden varer er et nul
+ * med ekstra trin.
+ */
+const USE_CASES: { phrases: string[]; pests: PestKey[]; because: string }[] = [
+  {
+    phrases: ["koekken", "i koekkenet", "spisekammer", "madvarer", "paa koekkenbordet"],
+    pests: ["myrer", "fluer", "kakerlakker", "moel"],
+    because: "det, der plejer at gå efter mad indendørs",
+  },
+  {
+    phrases: ["udendoers", "i haven", "havemoebler", "terrasse", "paa terrassen", "altan"],
+    pests: ["hvepse", "myrer", "snegle", "muldvarpe"],
+    because: "det, der plejer at være udenfor",
+  },
+  {
+    phrases: ["sovevaerelse", "i sengen", "seng", "madras", "soveværelset"],
+    pests: ["vaeggelus", "lopper"],
+    because: "det, der bider om natten",
+  },
+  {
+    phrases: ["loft", "paa loftet", "tagrum", "spaer", "traevaerk", "bjaelker"],
+    pests: ["mus", "biller", "hvepse"],
+    because: "det, der holder til i tag og træværk",
+  },
+  {
+    phrases: ["kaelder", "i kaelderen", "fugtigt", "vaskerum"],
+    pests: ["mus", "edderkopper"],
+    because: "det, der trives, hvor der er fugtigt",
+  },
+  {
+    phrases: ["klaedeskab", "toej", "garderobe", "uld", "tekstiler"],
+    pests: ["moel"],
+    because: "det, der går i tekstiler",
+  },
+  {
+    phrases: ["husdyr", "hund", "kat", "kaeledyr"],
+    pests: ["lopper", "fluer"],
+    because: "det, der følger med dyr",
+  },
+];
+
 /** Sider, der ikke er varer. Baymard: 66 % af butikker finder dem slet ikke. */
 export const INFO_HITS: { match: string[]; title: string; text: string; href: string }[] = [
   {
@@ -221,6 +270,29 @@ export function search(raw: string): SearchResult {
       : [];
 
   const info = INFO_HITS.filter((i) => i.match.some((m) => q.includes(norm(m))));
+
+  /*
+   * Sidste udvej før nul træffere: er det et sted, kunden har beskrevet?
+   * Det tjekkes til sidst, fordi "myrer i køkkenet" skal give myrer, ikke
+   * hele køkkenlisten. Kun når intet andet har ramt, læses stedet.
+   */
+  if (!products.length && !pest) {
+    const uc = USE_CASES.find((u) => u.phrases.some((ph) => q.includes(norm(ph))));
+    if (uc) {
+      const set = new Set<string>(uc.pests);
+      const hits = PRODUCTS.filter((p) => set.has(p.pest));
+      if (hits.length) {
+        return {
+          q: raw,
+          pest: null,
+          why: `Vi viser ${uc.because}. Vælg selv dyret i filtrene, hvis du ved hvad det er.`,
+          products: hits,
+          info,
+        };
+      }
+    }
+  }
+
   return { q: raw, pest, why, products, info };
 }
 

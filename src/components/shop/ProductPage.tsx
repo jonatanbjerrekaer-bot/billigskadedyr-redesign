@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@heroui/react";
 import {
   AlertTriangle, Check, ChevronLeft, Minus, Plus, ShoppingCart, Truck, Undo2, X,
@@ -38,6 +38,23 @@ const BASE = import.meta.env.BASE_URL;
 export default function ProductPage({ slug }: { slug: string }) {
   const p = BY_SLUG.get(slug);
   const [qty, setQty] = useState(1);
+
+  /*
+   * Baaren i bunden paa mobil. Den vises kun, naar den rigtige koebsknap er
+   * ude af syne, saa der aldrig staar to koebsknapper paa skaermen.
+   */
+  const buyRef = useRef<HTMLDivElement>(null);
+  const [showBar, setShowBar] = useState(false);
+  useEffect(() => {
+    const el = buyRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => setShowBar(!e!.isIntersecting),
+      { rootMargin: "0px 0px -80px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const [added, setAdded] = useState(false);
   // Den billigste variant er valgt fra start, så prisen på siden altid
   // er en pris, man kan købe for, og aldrig et interval.
@@ -176,7 +193,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             )}
 
             {hasPrice(p) && (
-            <div className="mt-6 flex flex-wrap items-stretch gap-3">
+            <div ref={buyRef} className="mt-6 flex flex-wrap items-stretch gap-3">
               <div className="flex items-center rounded-full border-2 border-ink-300 h-14">
                 <Button
                   onPress={() => setQty((q) => Math.max(1, q - 1))}
@@ -315,6 +332,9 @@ export default function ProductPage({ slug }: { slug: string }) {
           </div>
         )}
 
+        {/* Plads under baaren, saa den ikke daekker det sidste af siden. */}
+        {hasPrice(p) && <div aria-hidden="true" className="lg:hidden h-20" />}
+
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pb-14 flex flex-col gap-12">
           <ProductTabs slug={p.slug} />
           <TrustRow id="fragt" />
@@ -343,6 +363,49 @@ export default function ProductPage({ slug }: { slug: string }) {
             </div>
           </section>
         )}
+
+        {/* Koebsbaaren paa mobil.
+
+            Siden er lang: beregner, faneblade, sikkerhed, anbefalinger. Naar
+            man har regnet ud, at man skal bruge ti liter, er den rigtige
+            knap fire skaerme oppe. Baaren kommer frem, naar knappen er ude
+            af syne, og gaar igen naar den er tilbage, saa der aldrig staar
+            to koebsknapper paa skaermen samtidig.
+
+            Prisen staar paa, ganget med antallet: man skal kunne se, hvad
+            man siger ja til, uden at rulle op efter det. */}
+        {hasPrice(p) && showBar && (
+          <div className="buybar lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t-2 border-ink-200 bg-cream px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(0,0,0,0.10)]">
+            <div className="flex items-center gap-3">
+              <div className="min-w-0">
+                <p className="font-display text-xl font-bold text-ink-950 tabular-nums leading-none m-0">
+                  {dkr(price * qty)}
+                </p>
+                <p className="select-none text-xs text-ink-600 mt-1 m-0 truncate">
+                  {qty > 1 ? `${qty} stk. · ` : ""}
+                  {p.inStock ? "På lager" : "Skaffevare"}
+                </p>
+              </div>
+              <Button
+                onPress={add}
+                className="press ml-auto shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-base min-h-[52px] px-6 hover:bg-accent-400"
+              >
+                {added ? (
+                  <>
+                    <Check size={19} strokeWidth={3} aria-hidden="true" />
+                    Lagt i kurven
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart size={19} strokeWidth={2.5} aria-hidden="true" />
+                    Læg i kurv
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        )}
+
       </main>
 
       <ShopFooter />

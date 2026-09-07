@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AlertTriangle, Check } from "lucide-react";
 import { dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product } from "../../lib/shop";
 import { NUDGE } from "../../lib/shopContent";
@@ -16,6 +17,10 @@ const BASE = import.meta.env.BASE_URL;
 export default function ProductCard({ p, priority }: { p: Product; priority?: boolean }) {
   const nudge = NUDGE[p.pest];
   const deal = isDeal(p);
+  // Hovedbilledet foerst, saa de ekstra. Har varen ingen ekstra, staar der
+  // ét, og saa vises striben ikke.
+  const shots = [p.img, ...p.images];
+  const [shot, setShot] = useState(0);
   // Fås varen i flere størrelser, er én pris en halv sandhed.
   const range = hasRange(p);
 
@@ -26,13 +31,41 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
     >
       <div className="relative aspect-square bg-white">
         <img
-          src={`${BASE}shop/${p.img}`}
+          src={`${BASE}shop/${shots[shot]}`}
           alt={p.name}
           width={400}
           height={400}
           loading={priority ? "eager" : "lazy"}
           className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6 transition-transform duration-300 group-hover:scale-[1.03]"
         />
+
+        {/* Billedskifteren. Prikker frem for pile: der er to eller tre
+            billeder, ikke tyve, og en prik viser både hvor mange der er og
+            hvilket man står på. */}
+        {shots.length > 1 && (
+          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+            {shots.map((s, i) => (
+              <button
+                key={s}
+                type="button"
+                aria-label={`Vis billede ${i + 1} af ${shots.length}`}
+                aria-current={i === shot}
+                onMouseEnter={() => setShot(i)}
+                onFocus={() => setShot(i)}
+                onClick={(e) => {
+                  // Prikken sidder inde i kortets link. Uden det her aabner
+                  // et klik paa prikken varen i stedet for at skifte billede.
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShot(i);
+                }}
+                className={`shot-dot h-6 w-6 grid place-items-center rounded-full border-0 bg-transparent p-0 cursor-pointer ${
+                  i === shot ? "is-on" : ""
+                }`}
+              />
+            ))}
+          </div>
+        )}
         {deal && (
           <span className="select-none absolute top-3 left-3 bg-accent-500 text-ink-950 text-xs font-bold uppercase tracking-wide rounded-full px-2.5 py-1">
             Tilbud

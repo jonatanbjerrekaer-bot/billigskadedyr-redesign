@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button, Checkbox, CheckboxGroup } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { SlidersHorizontal, X } from "lucide-react";
 import {
-  BRANDS, dkr, FORMS, hasPrice, PEST_COUNTS, PEST_LABEL, PRODUCTS,
+  BRANDS, dkr, FORMS, hasPrice, PEST_COUNTS, PEST_LABEL, PRODUCTS, SIZE_BANDS,
   type PestKey, type Product,
 } from "../../lib/shop";
 import Select from "../ui/Select";
@@ -11,6 +11,7 @@ import ShopGlyph from "./ShopGlyph";
 import ProductCard from "./ProductCard";
 import { search } from "../../lib/search";
 import ProPanel from "./ProPanel";
+import ShopFilters, { type GroupSpec } from "./ShopFilters";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -55,6 +56,8 @@ type Filters = {
   forms: Set<string>;
   bands: Set<string>;
   brands: Set<string>;
+  /** Størrelse. Baymard regner den blandt de fem, folk leder efter. */
+  sizes: Set<string>;
   inStock: boolean;
 };
 
@@ -66,6 +69,7 @@ function matches(p: Product, f: Filters, skip?: keyof Filters) {
     if (!hit) return false;
   }
   if (skip !== "brands" && f.brands.size && !f.brands.has(p.brand)) return false;
+  if (skip !== "sizes" && f.sizes.size && !f.sizes.has(p.sizeBand)) return false;
   if (skip !== "inStock" && f.inStock && !p.inStock) return false;
   return true;
 }
@@ -113,6 +117,7 @@ function readUrl(): { f: Filters; sort: Sort; q: string } {
       forms: set("type"),
       bands: set("pris"),
       brands: set("maerke"),
+      sizes: set("stoerrelse"),
       inStock: q.get("lager") === "1",
     },
     sort:
@@ -142,6 +147,7 @@ export default function ProductBrowser() {
     if (f.forms.size) q.set("type", [...f.forms].join(","));
     if (f.bands.size) q.set("pris", [...f.bands].join(","));
     if (f.brands.size) q.set("maerke", [...f.brands].join(","));
+    if (f.sizes.size) q.set("stoerrelse", [...f.sizes].join(","));
     if (f.inStock) q.set("lager", "1");
     if (sort !== "relevans") q.set("sort", sort);
     if (term.trim()) q.set("q", term);
@@ -182,6 +188,8 @@ export default function ProductBrowser() {
     PRODUCTS.filter((p) => p.form === x && matches(p, f, "forms")).length;
   const countBrand = (x: string) =>
     PRODUCTS.filter((p) => p.brand === x && matches(p, f, "brands")).length;
+  const countSize = (x: string) =>
+    PRODUCTS.filter((p) => p.sizeBand === x && matches(p, f, "sizes")).length;
   const countBand = (id: string) => {
     const b = PRICE_BANDS.find((x) => x.id === id)!;
     return PRODUCTS.filter((p) => b.test(p) && matches(p, f, "bands")).length;
@@ -205,6 +213,7 @@ export default function ProductBrowser() {
       label: PRICE_BANDS.find((b) => b.id === v)?.label ?? v,
     })),
     ...[...f.brands].map((v) => ({ k: "brands" as const, v, type: "Mærke", label: v })),
+    ...[...f.sizes].map((v) => ({ k: "sizes" as const, v, type: "Størrelse", label: v })),
     ...(f.inStock
       ? [{ k: "inStock" as const, v: "1", type: "", label: "Kun på lager" }]
       : []),
@@ -228,19 +237,55 @@ export default function ProductBrowser() {
 
   const clearAll = () => {
     setTerm("");
-    setF({ pests: new Set(), forms: new Set(), bands: new Set(), brands: new Set(), inStock: false });
+    setF({
+      pests: new Set(), forms: new Set(), bands: new Set(),
+      brands: new Set(), sizes: new Set(), inStock: false,
+    });
   };
+
+  /* Filtergrupperne, i den raekkefoelge de skal staa. */
+  const groups: GroupSpec[] = [
+    {
+      key: "pests",
+      title: "Skadedyr",
+      options: pests.map((k) => ({ id: k, label: PEST_LABEL[k], count: countPest(k) })),
+      selected: f.pests,
+      onChange: (v) => toggle("pests", v),
+      renderIcon: (id) => <ShopGlyph pest={id as PestKey} size={20} className="opacity-80" />,
+    },
+    {
+      key: "bands",
+      title: "Pris",
+      options: PRICE_BANDS.map((b) => ({ id: b.id, label: b.label, count: countBand(b.id) })),
+      selected: f.bands,
+      onChange: (v) => toggle("bands", v),
+    },
+    {
+      key: "forms",
+      title: "Slags løsning",
+      options: FORMS.map((x) => ({ id: x, label: x, count: countForm(x) })),
+      selected: f.forms,
+      onChange: (v) => toggle("forms", v),
+    },
+    {
+      key: "sizes",
+      title: "Størrelse",
+      options: SIZE_BANDS.map((x) => ({ id: x, label: x, count: countSize(x) })),
+      selected: f.sizes,
+      onChange: (v) => toggle("sizes", v),
+    },
+    {
+      key: "brands",
+      title: "Mærke",
+      options: BRANDS.map((x) => ({ id: x, label: x, count: countBrand(x) })),
+      selected: f.brands,
+      onChange: (v) => toggle("brands", v),
+    },
+  ];
 
   const heading =
     f.pests.size === 1 ? `Mod ${PEST_LABEL[[...f.pests][0] as PestKey].toLowerCase()}` : "Alle varer";
 
-  /* Rækken. Selve afkrydsningen kommer fra HeroUI; her ligger kun linjen
-     omkring den: fuld bredde, plads til at ramme med en finger, og den mørke
-     flade når den er valgt. */
-  const ROW =
-    "w-full flex items-center gap-2.5 rounded-lg px-3 min-h-[44px] text-[15px] font-semibold " +
-    "border-2 border-transparent text-ink-800 hover:border-ink-300 transition-colors " +
-    "group-data-[selected]:bg-ink-950 group-data-[selected]:text-cream group-data-[selected]:border-ink-950";
 
   return (
     <>
@@ -269,180 +314,45 @@ export default function ProductBrowser() {
           </div>
         )}
 
-        <div className="mt-6 grid lg:grid-cols-[minmax(0,15rem)_1fr] gap-6 lg:gap-8">
+        {/* Filtergrupperne. Rækkefølgen er den, kunden tænker i: hvad er
+            det for et dyr, hvad må det koste, hvor meget skal jeg bruge.
+            Mærke ligger sidst, fordi det er det eneste, der forudsætter at
+            man ved noget om branchen i forvejen. */}
+        <div className="mt-6 grid lg:grid-cols-[minmax(0,16rem)_1fr] gap-6 lg:gap-8">
           <div>
-            <Button
-              onPress={() => setOpen((v) => !v)}
-              className="lg:hidden w-full inline-flex items-center justify-between gap-2 rounded-xl border-2 border-ink-300 bg-transparent min-h-[52px] px-4 font-display font-bold text-ink-950"
-            >
-              <span className="inline-flex items-center gap-2">
-                <SlidersHorizontal size={18} strokeWidth={2.5} aria-hidden="true" />
-                Filtre
-              </span>
-              {chips.length > 0 && (
-                <span className="text-xs font-sans bg-ink-950 text-cream rounded-full px-2 py-0.5">
-                  {chips.length}
-                </span>
-              )}
-            </Button>
-
-            <div className={`shop-filter ${open ? "block" : "hidden"} lg:block mt-4 lg:mt-0`}>
-              <fieldset className="mb-7 border-0 p-0 m-0">
-                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-1 p-0">
-                  Skadedyr
-                </legend>
-                <p className="select-none text-[13px] text-ink-600 mb-2.5">Vælg gerne flere</p>
-                <CheckboxGroup
-                  value={[...f.pests]}
-                  onChange={(v) => toggle("pests", v)}
-                  className="flex flex-wrap lg:flex-col gap-1.5"
-                >
-                  {pests.map((k) => {
-                    const n = countPest(k);
-                    return (
-                      <Checkbox
-                        key={k}
-                        value={k}
-                        isDisabled={n === 0 && !f.pests.has(k)}
-                        className="group w-full data-[disabled]:opacity-35"
-                      >
-                        <Checkbox.Content className={ROW}>
-                          <Checkbox.Control>
-                            <Checkbox.Indicator />
-                          </Checkbox.Control>
-                          <ShopGlyph pest={k} size={20} className="opacity-80" />
-                          <span className="grow text-left">{PEST_LABEL[k]}</span>
-                          <span className="text-xs tabular-nums opacity-70">{n}</span>
-                        </Checkbox.Content>
-                      </Checkbox>
-                    );
-                  })}
-                </CheckboxGroup>
-              </fieldset>
-
-              <fieldset className="mb-7 border-0 p-0 m-0">
-                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
-                  Pris
-                </legend>
-                <CheckboxGroup
-                  value={[...f.bands]}
-                  onChange={(v) => toggle("bands", v)}
-                  className="flex flex-wrap lg:flex-col gap-1.5"
-                >
-                  {PRICE_BANDS.map((b) => {
-                    const n = countBand(b.id);
-                    return (
-                      <Checkbox
-                        key={b.id}
-                        value={b.id}
-                        isDisabled={n === 0 && !f.bands.has(b.id)}
-                        className="group w-full data-[disabled]:opacity-35"
-                      >
-                        <Checkbox.Content className={ROW}>
-                          <Checkbox.Control>
-                            <Checkbox.Indicator />
-                          </Checkbox.Control>
-                          <span className="grow text-left">{b.label}</span>
-                          <span className="text-xs tabular-nums opacity-70">{n}</span>
-                        </Checkbox.Content>
-                      </Checkbox>
-                    );
-                  })}
-                </CheckboxGroup>
-              </fieldset>
-
-              <fieldset className="mb-7 border-0 p-0 m-0">
-                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
-                  Slags løsning
-                </legend>
-                <CheckboxGroup
-                  value={[...f.forms]}
-                  onChange={(v) => toggle("forms", v)}
-                  className="flex flex-wrap lg:flex-col gap-1.5"
-                >
-                  {FORMS.map((x) => {
-                    const n = countForm(x);
-                    return (
-                      <Checkbox
-                        key={x}
-                        value={x}
-                        isDisabled={n === 0 && !f.forms.has(x)}
-                        className="group w-full data-[disabled]:opacity-35"
-                      >
-                        <Checkbox.Content className={ROW}>
-                          <Checkbox.Control>
-                            <Checkbox.Indicator />
-                          </Checkbox.Control>
-                          <span className="grow text-left">{x}</span>
-                          <span className="text-xs tabular-nums opacity-70">{n}</span>
-                        </Checkbox.Content>
-                      </Checkbox>
-                    );
-                  })}
-                </CheckboxGroup>
-              </fieldset>
-
-              <fieldset className="mb-7 border-0 p-0 m-0">
-                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5 p-0">
-                  Mærke
-                </legend>
-                <CheckboxGroup
-                  value={[...f.brands]}
-                  onChange={(v) => toggle("brands", v)}
-                  className="flex flex-wrap lg:flex-col gap-1.5"
-                >
-                  {BRANDS.map((x) => {
-                    const n = countBrand(x);
-                    return (
-                      <Checkbox
-                        key={x}
-                        value={x}
-                        isDisabled={n === 0 && !f.brands.has(x)}
-                        className="group w-full data-[disabled]:opacity-35"
-                      >
-                        <Checkbox.Content className={ROW}>
-                          <Checkbox.Control>
-                            <Checkbox.Indicator />
-                          </Checkbox.Control>
-                          <span className="grow text-left">{x}</span>
-                          <span className="text-xs tabular-nums opacity-70">{n}</span>
-                        </Checkbox.Content>
-                      </Checkbox>
-                    );
-                  })}
-                </CheckboxGroup>
-              </fieldset>
-
-              <Checkbox
-                isSelected={f.inStock}
-                onChange={(on) => setF((prev) => ({ ...prev, inStock: on }))}
-                className="group w-full"
-              >
-                <Checkbox.Content className={ROW}>
-                  <Checkbox.Control>
-                    <Checkbox.Indicator />
-                  </Checkbox.Control>
-                  <span className="grow text-left">Kun på lager</span>
-                  <span className="text-xs tabular-nums opacity-70">
-                    {PRODUCTS.filter((p) => p.inStock && matches(p, f, "inStock")).length}
-                  </span>
-                </Checkbox.Content>
-              </Checkbox>
-
-              {open && (
-                <Button
-                  onPress={() => setOpen(false)}
-                  className="lg:hidden mt-5 w-full rounded-full bg-accent-500 text-ink-950 font-display font-bold min-h-[52px]"
-                >
-                  Vis {shown.length} {shown.length === 1 ? "vare" : "varer"}
-                </Button>
-              )}
-            </div>
+            <ShopFilters
+              groups={groups}
+              inStock={f.inStock}
+              inStockCount={PRODUCTS.filter((p) => p.inStock && matches(p, f, "inStock")).length}
+              onInStock={(v) => setF((prev) => ({ ...prev, inStock: v }))}
+              open={open}
+              onClose={() => setOpen(false)}
+              resultCount={shown.length}
+              onClear={clearAll}
+              hasFilters={chips.length > 0}
+            />
           </div>
 
           <div>
             {/* Valgte filtre står, hvor man kigger, og kan fjernes enkeltvis. */}
             <div className="flex flex-wrap items-center gap-2 mb-4">
+              {/* Paa mobil er filtrene i en skuffe, og knappen til den skal
+                  staa der, hvor antallet staar: det er samme spoergsmaal.
+                  Antallet af valgte filtre staar paa, saa man kan se at der
+                  er noget slaaet til uden at aabne skuffen. */}
+              <Button
+                onPress={() => setOpen(true)}
+                className="lg:hidden inline-flex items-center gap-2 rounded-full border-2 border-ink-950 bg-transparent text-ink-950 font-display font-bold h-11 px-4"
+              >
+                <SlidersHorizontal size={17} strokeWidth={2.5} aria-hidden="true" />
+                Filtre
+                {chips.length > 0 && (
+                  <span className="font-sans text-xs bg-ink-950 text-cream rounded-full px-2 py-0.5 tabular-nums">
+                    {chips.length}
+                  </span>
+                )}
+              </Button>
+
               <p className="select-none text-ink-700 mr-1">
                 <span className="tabular-nums font-semibold text-ink-950">{shown.length}</span>{" "}
                 {shown.length === 1 ? "vare" : "varer"}
