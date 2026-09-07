@@ -69,7 +69,7 @@ export function PestChips(
           key={p.slug}
           delay={instant ? 0 : i * 30}
           immediate={instant}
-          className={describe ? "h-full [&>*]:h-full" : ""}
+          className={`${instant ? "result-in" : ""} ${describe ? "h-full [&>*]:h-full" : ""}`}
         >
           {/* Each chip leads to that pest's own service page, where the
               treatment is explained in detail. */}

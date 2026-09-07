@@ -523,3 +523,46 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
+
+/* Search results.
+
+   Filtering happens on every keystroke, which is normally the frequency at
+   which an entrance has to be dropped. @starting-style saves it: it fires
+   only for elements the browser has just inserted, so a chip that survives
+   the keystroke never re-animates. Typing b, bi, bil stages the beetles once
+   rather than three times.
+
+   Not staggered on purpose. A stagger puts a growing delay on every
+   keystroke, and the last of fourteen results would land after the rest had
+   settled. Everything new arrives together.
+
+   scale starts at 0.98, not 0: things do not appear out of nothing. The blur
+   blends the arriving chip into the row instead of snapping it in, the same
+   job it does on the estimator's Fra prefix. */
+.result-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 180ms var(--ease-out),
+    filter 180ms var(--ease-out);
+}
+@starting-style {
+  .result-in {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+    filter: blur(3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-in {
+    transition-property: opacity;
+  }
+  @starting-style {
+    .result-in {
+      transform: none;
+      filter: none;
+    }
+  }
+}

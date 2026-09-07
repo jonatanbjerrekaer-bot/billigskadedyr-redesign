@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Input, Label, TextArea, TextField, toast } from "@heroui/react";
-import { ClipboardPaste, Eraser, Loader2, Send } from "lucide-react";
+import { ClipboardPaste, Eraser, ImagePlus, Loader2, Send, X } from "lucide-react";
 
 const FIELD =
   "w-full rounded-lg border border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-cream placeholder:text-ink-100/40 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/50";
@@ -9,13 +9,18 @@ const PLACEHOLDER = "Skriv kort, hvad du har set, og hvor i boligen det er.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// What the endpoint has to accept when it exists. HEIC is here because a
+// photo taken on an iPhone arrives as one and the sender will not know.
+const PHOTO_ACCEPT = "image/png,image/jpeg,image/webp,image/heic,image/heif";
+const PHOTO_MAX_MB = 10;
+
 // Danish numbers are dialled a handful of ways (24245583, 24 24 55 83,
 // +45 24 24 55 83). The check is on the digits only: strip spaces,
 // require at least eight of them. Anything stricter repels people who
 // type their number with dots or brackets.
 const PHONE_MIN_DIGITS = 8;
 
-type Errors = { email?: string; phone?: string; message?: string };
+type Errors = { email?: string; phone?: string; message?: string; photos?: string };
 
 /**
  * The page's one contact form. There is no backend yet, so the submit
@@ -61,6 +66,10 @@ export default function InquiryForm({ draft }: { draft: string }) {
     }
   }, [draft, message]);
 
+  // Names only. The stub has nothing to upload to, and holding File
+  // objects it will never read would be pretending otherwise.
+  const [photos, setPhotos] = useState<string[]>([]);
+
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (sending) return;
@@ -85,6 +94,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
       setEmail("");
       setPhone("");
       setMessage("");
+      setPhotos([]);
       setErrors({});
       appliedDraft.current = "";
       cleared.current = false;
@@ -210,6 +220,67 @@ export default function InquiryForm({ draft }: { draft: string }) {
           Ryd beskedfeltet
         </button>
       )}
+
+      {/* Two places on the site tell the visitor to send a picture, and
+          until now the form had nowhere to put one. Optional, because most
+          people describe it fine in words, and the ones who cannot are
+          exactly the ones a photo helps most. */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-xs font-medium text-ink-100/70">Billede (valgfrit)</span>
+        <label
+          htmlFor="inquiry-photos"
+          className="press flex items-center gap-2.5 rounded-lg border border-dashed border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-ink-100/70 cursor-pointer transition-colors hover:border-accent-500 hover:text-cream focus-within:border-accent-500"
+        >
+          <ImagePlus size={17} strokeWidth={2} aria-hidden="true" className="shrink-0" />
+          {photos.length === 0
+            ? "Vedhæft et billede af dyret eller skaden"
+            : `${photos.length} ${photos.length === 1 ? "billede" : "billeder"} valgt`}
+        </label>
+        <input
+          id="inquiry-photos"
+          name="photos"
+          type="file"
+          multiple
+          accept={PHOTO_ACCEPT}
+          className="sr-only"
+          onChange={(e) => {
+            const picked = Array.from(e.target.files ?? []);
+            const tooBig = picked.filter((f) => f.size > PHOTO_MAX_MB * 1024 * 1024);
+            setErrors((p) => ({
+              ...p,
+              photos: tooBig.length
+                ? `Billedet må fylde højst ${PHOTO_MAX_MB} MB. Prøv at sende det i mindre størrelse.`
+                : undefined,
+            }));
+            setPhotos(picked.filter((f) => f.size <= PHOTO_MAX_MB * 1024 * 1024).map((f) => f.name));
+          }}
+        />
+        {photos.length > 0 && (
+          <ul className="flex flex-wrap gap-1.5 list-none p-0 m-0">
+            {photos.map((name) => (
+              <li
+                key={name}
+                className="enter-soft inline-flex items-center gap-1.5 rounded-full bg-ink-800 px-2.5 py-1 text-xs text-ink-100/80"
+              >
+                <span className="max-w-[16ch] truncate">{name}</span>
+                <button
+                  type="button"
+                  aria-label={`Fjern ${name}`}
+                  onClick={() => setPhotos((p) => p.filter((n) => n !== name))}
+                  className="press text-ink-100/50 hover:text-cream transition-colors"
+                >
+                  <X size={13} strokeWidth={2.5} aria-hidden="true" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        {errors.photos && (
+          <p role="alert" className={ERROR}>
+            {errors.photos}
+          </p>
+        )}
+      </div>
 
       <button
         type="submit"
