@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { Button } from "@heroui/react";
 import {
-  Check, ChevronLeft, Minus, Plus, ShoppingCart, Truck, Undo2, X,
+  AlertTriangle, Check, ChevronLeft, Minus, Plus, ShoppingCart, Truck, Undo2, X,
 } from "lucide-react";
 import { BY_SLUG, dkr, hasPrice, isDeal, PEST_LABEL, PRODUCTS } from "../../lib/shop";
+import { DOSAGE } from "../../lib/dosage";
 import { DETAIL } from "../../lib/shopContent";
+import DoseCalculator from "./DoseCalculator";
 import { addToCart } from "../../lib/cart";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import ProductCard from "./ProductCard";
@@ -34,6 +37,9 @@ export default function ProductPage({ slug }: { slug: string }) {
   const p = BY_SLUG.get(slug);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  // Den billigste variant er valgt fra start, så prisen på siden altid
+  // er en pris, man kan købe for, og aldrig et interval.
+  const [size, setSize] = useState(0);
 
   if (!p) {
     return (
@@ -54,7 +60,12 @@ export default function ProductPage({ slug }: { slug: string }) {
   }
 
   const d = DETAIL[p.slug];
+  const dose = DOSAGE[p.slug];
   const deal = isDeal(p);
+  const v = p.variants[size] ?? null;
+  const price = v ? v.price : p.price;
+  const sku = v ? v.sku : p.sku;
+  const inStock = v ? v.inStock : p.inStock;
   const related = PRODUCTS.filter((x) => x.pest === p.pest && x.slug !== p.slug).slice(0, 8);
 
   function add() {
@@ -106,54 +117,88 @@ export default function ProductPage({ slug }: { slug: string }) {
 
             <div className="mt-6 flex items-end gap-3">
               <p className="font-display text-4xl sm:text-5xl font-bold text-ink-950 tabular-nums leading-none">
-                {hasPrice(p) ? dkr(p.price) : "Pris på forespørgsel"}
+                {hasPrice(p) ? dkr(price) : "Pris på forespørgsel"}
               </p>
               {deal && hasPrice(p) && (
                 <p className="text-lg text-ink-500 line-through tabular-nums">{dkr(p.regular)}</p>
               )}
             </div>
             <p className="select-none mt-1.5 text-sm text-ink-600">
-              {hasPrice(p) ? "Inkl. moms" : "Ring eller skriv, så får du prisen med det samme"}
+              {hasPrice(p)
+                ? `Inkl. moms${p.unit && !v ? ` · ${p.unit}` : ""}`
+                : "Ring eller skriv, så får du prisen med det samme"}
             </p>
 
             <p
               className={`select-none mt-4 inline-flex items-center gap-2 font-semibold ${
-                p.inStock ? "text-green-700" : "text-ink-600"
+                inStock ? "text-green-700" : "text-ink-600"
               }`}
             >
-              {p.inStock ? <Check size={18} strokeWidth={3} aria-hidden="true" /> : null}
-              {p.inStock ? "På lager, sendes samme hverdag inden kl. 14" : "Skaffevare, 5-8 hverdage"}
+              {inStock ? <Check size={18} strokeWidth={3} aria-hidden="true" /> : null}
+              {inStock ? "På lager, sendes samme hverdag inden kl. 14" : "Skaffevare, 5-8 hverdage"}
             </p>
+
+            {p.variants.length > 1 && (
+              <fieldset className="mt-6 border-0 p-0 m-0">
+                <legend className="select-none text-[11px] font-bold uppercase tracking-widest text-ink-600 mb-2.5">
+                  Vælg størrelse
+                </legend>
+                <div className="flex flex-wrap gap-2">
+                  {p.variants.map((x, i) => (
+                    <label
+                      key={x.label}
+                      className={`press select-none cursor-pointer rounded-full border-2 px-5 min-h-[48px] flex items-center gap-2 transition-colors ${
+                        i === size ? "border-ink-950 bg-ink-950 text-cream" : "border-ink-300 hover:border-ink-500"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="stoerrelse"
+                        checked={i === size}
+                        onChange={() => setSize(i)}
+                        className="sr-only"
+                      />
+                      <span className="font-semibold">{x.label}</span>
+                      <span className="text-sm tabular-nums opacity-80">{dkr(x.price)}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
+
+            {d?.gate && (
+              <p className="mt-5 flex gap-2.5 rounded-xl border-2 border-amber-500 bg-amber-50 px-4 py-3 text-[15px] text-ink-900 leading-snug">
+                <AlertTriangle size={18} strokeWidth={2.5} aria-hidden="true" className="text-amber-600 shrink-0 mt-0.5" />
+                {d.gate}
+              </p>
+            )}
 
             {hasPrice(p) && (
             <div className="mt-6 flex flex-wrap items-stretch gap-3">
               <div className="flex items-center rounded-full border-2 border-ink-300 h-14">
-                <button
-                  type="button"
-                  onClick={() => setQty((q) => Math.max(1, q - 1))}
+                <Button
+                  onPress={() => setQty((q) => Math.max(1, q - 1))}
                   aria-label="Færre"
-                  className="w-12 h-full grid place-items-center rounded-l-full hover:bg-ink-100 disabled:opacity-30"
-                  disabled={qty <= 1}
+                  className="w-12 h-full grid place-items-center rounded-l-full bg-transparent text-ink-950 hover:bg-ink-100 data-[disabled]:opacity-30"
+                  isDisabled={qty <= 1}
                 >
                   <Minus size={18} strokeWidth={3} aria-hidden="true" />
-                </button>
+                </Button>
                 <span className="w-10 text-center font-display font-bold text-lg tabular-nums" aria-live="polite">
                   {qty}
                 </span>
-                <button
-                  type="button"
-                  onClick={() => setQty((q) => Math.min(20, q + 1))}
+                <Button
+                  onPress={() => setQty((q) => Math.min(20, q + 1))}
                   aria-label="Flere"
-                  className="w-12 h-full grid place-items-center rounded-r-full hover:bg-ink-100"
+                  className="w-12 h-full grid place-items-center rounded-r-full bg-transparent text-ink-950 hover:bg-ink-100"
                 >
                   <Plus size={18} strokeWidth={3} aria-hidden="true" />
-                </button>
+                </Button>
               </div>
 
-              <button
-                type="button"
-                onClick={add}
-                className="press flex-1 min-w-[200px] inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 transition-colors"
+              <Button
+                onPress={add}
+                className="press flex-1 min-w-[200px] inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
               >
                 {added ? (
                   <>
@@ -166,7 +211,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                     Læg i kurv
                   </>
                 )}
-              </button>
+              </Button>
             </div>
             )}
 
@@ -179,8 +224,8 @@ export default function ProductPage({ slug }: { slug: string }) {
                 <Undo2 size={16} strokeWidth={2.5} aria-hidden="true" className="text-ink-500" />
                 14 dages returret på uåbnede varer
               </li>
-              {p.sku && (
-                <li className="flex items-center gap-2 text-ink-500">Varenummer {p.sku}</li>
+              {sku && (
+                <li className="flex items-center gap-2 text-ink-500">Varenummer {sku}</li>
               )}
             </ul>
 
@@ -212,6 +257,19 @@ export default function ProductPage({ slug }: { slug: string }) {
                     ))}
                   </ul>
                 </div>
+              </div>
+            )}
+
+            {dose && (
+              <div className="mt-8">
+                <DoseCalculator
+                  p={p}
+                  dose={dose}
+                  onPickVariant={(label) => {
+                    const i = p.variants.findIndex((x) => x.label === label);
+                    if (i >= 0) setSize(i);
+                  }}
+                />
               </div>
             )}
 

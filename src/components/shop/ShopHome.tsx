@@ -1,10 +1,11 @@
-import { ArrowRight, Package, ShieldCheck, Truck } from "lucide-react";
+import { ArrowRight, Truck } from "lucide-react";
 import { PEST_COUNTS, PEST_LABEL, PRODUCTS, BY_SLUG, isDeal, type PestKey } from "../../lib/shop";
 import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
+import ShopGlyph from "./ShopGlyph";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -59,10 +60,15 @@ export default function ShopHome() {
                 <li key={p}>
                   <a
                     href={`${BASE}shop/produkter/?dyr=${p}`}
-                    className="press flex items-center justify-between gap-2 rounded-xl bg-ink-900 border border-ink-800 px-4 min-h-[56px] font-display font-bold hover:border-accent-500 hover:bg-ink-800 transition-colors"
+                    className="press flex items-center gap-2.5 rounded-xl bg-ink-900 border border-ink-800 px-4 min-h-[56px] font-display font-bold hover:border-accent-500 hover:bg-ink-800 transition-colors"
                   >
-                    {PEST_LABEL[p]}
-                    <span className="select-none text-xs font-sans font-normal text-ink-100/50 tabular-nums">
+                    <ShopGlyph
+                      pest={p}
+                      size={22}
+                      className="shrink-0 text-accent-500"
+                    />
+                    <span className="truncate">{PEST_LABEL[p]}</span>
+                    <span className="select-none ml-auto text-xs font-sans font-normal text-ink-100/50 tabular-nums">
                       {PEST_COUNTS[p] ?? 0}
                     </span>
                   </a>
@@ -70,24 +76,19 @@ export default function ShopHome() {
               ))}
             </ul>
 
-            <div className="select-none mt-8 grid sm:grid-cols-3 gap-4 text-sm">
-              {[
-                [Truck, "Fri fragt over 499 kr.", "Afsendes samme hverdag inden kl. 14"],
-                [ShieldCheck, "Godkendte midler", "Samme produkter som fagfolk bruger"],
-                [Package, "14 dages returret", "Uåbnede varer tages retur"],
-              ].map(([Icon, t, s]) => {
-                const I = Icon as typeof Truck;
-                return (
-                  <p key={t as string} className="flex items-start gap-3">
-                    <I size={20} strokeWidth={2.25} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
-                    <span>
-                      <span className="block font-semibold text-cream">{t as string}</span>
-                      <span className="text-ink-100/65">{s as string}</span>
-                    </span>
-                  </p>
-                );
-              })}
-            </div>
+            {/* Én linje, ikke tre felter. De tre løfter er én sætning om,
+                hvordan man handler her, og tre lige ikon-felter er det
+                mest genkendelige AI-mønster på en forside. */}
+            <p className="select-none mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-100/70">
+              <Truck size={17} strokeWidth={2.25} aria-hidden="true" className="text-accent-500" />
+              <span>Fri fragt over 499 kr.</span>
+              <span aria-hidden="true" className="text-ink-100/30">·</span>
+              <span>afsendt samme hverdag inden kl. 14</span>
+              <span aria-hidden="true" className="text-ink-100/30">·</span>
+              <span>14 dages returret</span>
+              <span aria-hidden="true" className="text-ink-100/30">·</span>
+              <span>samme midler som fagfolk bruger</span>
+            </p>
           </div>
         </section>
 
@@ -138,23 +139,39 @@ export default function ShopHome() {
           </section>
         )}
 
-        <Carousel
-          id="mest-solgte"
-          heading="Mest solgte"
-          href={`${BASE}shop/produkter/`}
-          count={best.length}
-        >
-          {best.map((p) => (
-            <CarouselItem key={p.slug}>
-              <ProductCard p={p} />
-            </CarouselItem>
-          ))}
-        </Carousel>
+        {/* Mørk flade. Tre ens karruseller i træk er den samme sektion tre
+            gange; lys, mørk, lys giver siden en rytme uden at introducere
+            en eneste ny farve. */}
+        <div className="bg-ink-950 text-cream mt-4">
+          <Carousel
+            id="mest-solgte"
+            heading="Mest solgte"
+            href={`${BASE}shop/produkter/`}
+            count={best.length}
+            onDark
+          >
+            {best.map((p) => (
+              <CarouselItem key={p.slug}>
+                <ProductCard p={p} />
+              </CarouselItem>
+            ))}
+          </Carousel>
+        </div>
 
         {/* Den brede overgang til servicesiden, for dem der er nået hertil
             uden at lægge noget i kurven. */}
         <section className="bg-ink-100 border-y border-ink-200">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16 grid lg:grid-cols-[1fr_minmax(0,22rem)] gap-8 items-center">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16 grid lg:grid-cols-[minmax(0,18rem)_1fr_minmax(0,20rem)] gap-8 items-center">
+            <figure className="hidden lg:block m-0">
+              <img
+                src={`${BASE}hero.webp`}
+                alt="Skadedyrsbekæmper på arbejde"
+                width={720}
+                height={540}
+                loading="lazy"
+                className="w-full aspect-[4/3] object-cover rounded-2xl"
+              />
+            </figure>
             <div>
               <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight uppercase text-ink-950">
                 Har du prøvet selv to gange?

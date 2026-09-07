@@ -224,9 +224,41 @@ export type ProductDetail = {
   specs: { k: string; v: string }[];
   /** Hvad man skal gøre, i rækkefølge. */
   how: string[];
+  /**
+   * En betingelse, der afgør om kunden overhovedet må købe varen. Står
+   * over købsknappen, fordi det er værre at opdage den i kassen.
+   */
+  gate?: string;
 };
 
 export const DETAIL: Record<string, ProductDetail> = {
+  "a-tox-25ltr": {
+    lead: "Træbeskyttelse mod borebiller og husbukke. Vandbaseret, transparent og lugtsvag, til nyt og gammelt træværk indendørs.",
+    gate: "Købet kræver et gyldigt CVR-nummer. Er du privat husejer, kan du ikke bestille den her, og så er en fagmand vejen frem.",
+    does: [
+      "Behandler træværk både forebyggende og der, hvor der allerede er aktivitet",
+      "Trænger ind uden at ændre træets udseende, fordi den er transparent",
+      "Fås både brugsklar og som koncentrat, så den kan skaleres til opgaven",
+    ],
+    doesNot: [
+      "Siger ikke noget om, hvorvidt træets bæreevne er i behold. Ved husbuk er det det vigtigste spørgsmål, og det kræver, at nogen kigger på konstruktionen",
+      "Når ikke ind i det træ, du ikke kan komme til. Larverne sidder inde i materialet, ikke på overfladen",
+      "Kan ikke købes uden CVR-nummer",
+    ],
+    specs: [
+      { k: "Mod", v: "Almindelig borebille og husbuk" },
+      { k: "Type", v: "Vandbaseret, transparent, lugtsvag" },
+      { k: "Størrelser", v: "25 liter brugsklar eller 5 liter koncentrat" },
+      { k: "Rækkeevne", v: "5 liter koncentrat giver op til 50 liter færdig blanding ved forebyggende behandling" },
+      { k: "Køb", v: "Kræver gyldigt CVR-nummer" },
+    ],
+    how: [
+      "Find ud af, om angrebet er aktivt: frisk, lyst boremel og nye flyvehuller. Gamle huller alene betyder ingenting",
+      "Ved husbuk, eller hvis træet føles blødt: stop her, og få set på bæreevnen først",
+      "Gør træet rent og tørt, og fjern maling og lak, hvor midlet skal ind",
+      "Påfør efter etiketten, og hold øje med boremel igen næste sæson",
+    ],
+  },
   "pest-stop-hvepsespray": {
     lead: "Skumspray med lang rækkevidde til hvepsebo, du kan se og nå fra jorden.",
     does: [

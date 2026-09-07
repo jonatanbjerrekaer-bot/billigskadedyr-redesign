@@ -1,4 +1,5 @@
 import { useRef, useState, type ReactNode } from "react";
+import { Button } from "@heroui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
@@ -21,6 +22,7 @@ export default function Carousel({
   hrefLabel = "Se alle",
   children,
   count,
+  onDark,
 }: {
   id: string;
   heading: string;
@@ -29,6 +31,8 @@ export default function Carousel({
   hrefLabel?: string;
   children: ReactNode;
   count: number;
+  /** Sektionen står på den mørke flade og vender farverne. */
+  onDark?: boolean;
 }) {
   const track = useRef<HTMLUListElement>(null);
   const [atStart, setAtStart] = useState(true);
@@ -56,43 +60,41 @@ export default function Carousel({
     <section aria-labelledby={id} className="py-8 sm:py-12">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <div className="flex items-end justify-between gap-4 mb-1">
-          <h2 id={id} className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-ink-950">
+          <h2 id={id} className={`font-display text-2xl sm:text-3xl font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
             {heading}
           </h2>
           <div className="flex items-center gap-2 shrink-0">
             {href && (
-              <a href={href} className="hidden sm:inline text-sm font-semibold text-ink-700 hover:text-ink-950 underline underline-offset-4">
+              <a href={href} className={`hidden sm:inline text-sm font-semibold underline underline-offset-4 ${onDark ? "text-ink-100/80 hover:text-cream" : "text-ink-700 hover:text-ink-950"}`}>
                 {hrefLabel}
               </a>
             )}
             <div className="hidden md:flex gap-1.5">
-              <button
-                type="button"
-                onClick={() => nudge(-1)}
-                disabled={atStart}
+              <Button
+                onPress={() => nudge(-1)}
+                isDisabled={atStart}
                 aria-label="Rul tilbage"
-                className="grid place-items-center w-11 h-11 rounded-full border border-ink-300 text-ink-950 hover:bg-ink-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                className={`grid place-items-center w-11 h-11 rounded-full border bg-transparent data-[disabled]:opacity-30 transition-colors ${onDark ? "border-ink-700 text-cream hover:bg-ink-900" : "border-ink-300 text-ink-950 hover:bg-ink-100"}`}
               >
                 <ChevronLeft size={20} strokeWidth={2.5} aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => nudge(1)}
-                disabled={atEnd}
+              </Button>
+              <Button
+                onPress={() => nudge(1)}
+                isDisabled={atEnd}
                 aria-label="Rul frem"
-                className="grid place-items-center w-11 h-11 rounded-full border border-ink-300 text-ink-950 hover:bg-ink-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                className={`grid place-items-center w-11 h-11 rounded-full border bg-transparent data-[disabled]:opacity-30 transition-colors ${onDark ? "border-ink-700 text-cream hover:bg-ink-900" : "border-ink-300 text-ink-950 hover:bg-ink-100"}`}
               >
                 <ChevronRight size={20} strokeWidth={2.5} aria-hidden="true" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
-        {note && <p className="select-none text-ink-700 mb-5 max-w-2xl">{note}</p>}
+        {note && <p className={`select-none mb-5 max-w-2xl ${onDark ? "text-ink-100/75" : "text-ink-700"}`}>{note}</p>}
 
         <ul
           ref={track}
           onScroll={onScroll}
-          className="flex items-start gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 list-none m-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 list-none m-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {children}
         </ul>

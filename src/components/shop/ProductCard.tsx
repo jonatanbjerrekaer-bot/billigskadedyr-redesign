@@ -1,5 +1,5 @@
 import { AlertTriangle, Check } from "lucide-react";
-import { dkr, hasPrice, isDeal, PEST_LABEL, type Product } from "../../lib/shop";
+import { dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product } from "../../lib/shop";
 import { NUDGE } from "../../lib/shopContent";
 
 const BASE = import.meta.env.BASE_URL;
@@ -16,11 +16,13 @@ const BASE = import.meta.env.BASE_URL;
 export default function ProductCard({ p, priority }: { p: Product; priority?: boolean }) {
   const nudge = NUDGE[p.pest];
   const deal = isDeal(p);
+  // Fås varen i flere størrelser, er én pris en halv sandhed.
+  const range = hasRange(p);
 
   return (
     <a
       href={`${BASE}shop/produkt/${p.slug}/`}
-      className="group flex flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-400 hover:shadow-lg transition-[border-color,box-shadow] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+      className="group flex h-full flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-400 hover:shadow-lg transition-[border-color,box-shadow] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
     >
       <div className="relative aspect-square bg-white">
         <img
@@ -38,11 +40,16 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
         )}
       </div>
 
-      <div className="flex flex-col gap-2 p-4 sm:p-5 border-t border-ink-200 flex-1">
+      <div className="flex flex-col gap-1.5 sm:gap-2 p-3 sm:p-5 border-t border-ink-200 flex-1">
         <p className="select-none text-[11px] uppercase tracking-widest text-ink-500">
           {PEST_LABEL[p.pest]} · {p.form}
+          {range ? (
+            <> · {p.variants.length} størrelser</>
+          ) : (
+            p.size && <> · {p.size}</>
+          )}
         </p>
-        <h3 className="font-display font-bold text-ink-950 leading-snug text-[15px] sm:text-base">
+        <h3 className="font-display font-bold text-ink-950 leading-snug text-sm sm:text-base">
           {p.name}
         </h3>
 
@@ -53,9 +60,16 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
           </p>
         )}
 
-        <div className="mt-auto pt-2 flex items-end justify-between gap-2">
+        {p.unit && (
+          <p className="select-none text-xs text-ink-600 tabular-nums">{p.unit}</p>
+        )}
+
+        <div className="mt-auto pt-2 flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
           {hasPrice(p) ? (
-            <p className="font-display text-xl sm:text-2xl font-bold text-ink-950 tabular-nums leading-none">
+            <p className="font-display text-lg sm:text-2xl font-bold text-ink-950 tabular-nums leading-none whitespace-nowrap">
+              {range && (
+                <span className="select-none mr-1 text-sm font-sans font-semibold text-ink-600">Fra</span>
+              )}
               {dkr(p.price)}
               {deal && (
                 <span className="ml-2 text-sm font-sans font-normal text-ink-500 line-through">
@@ -64,12 +78,12 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
               )}
             </p>
           ) : (
-            <p className="font-display text-base font-bold text-ink-700 leading-none">
+            <p className="font-display text-sm sm:text-base font-bold text-ink-700 leading-snug">
               Pris på forespørgsel
             </p>
           )}
           <p
-            className={`select-none flex items-center gap-1 text-xs font-semibold ${
+            className={`select-none flex items-center gap-1 text-xs font-semibold whitespace-nowrap ${
               p.inStock ? "text-green-700" : "text-ink-500"
             }`}
           >

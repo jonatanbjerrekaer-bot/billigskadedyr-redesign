@@ -1,26 +1,34 @@
 import { useState } from "react";
-import { Menu, Phone, Search, ShoppingCart } from "lucide-react";
+import { Button, Input, Label, TextField } from "@heroui/react";
+import { Menu, Phone, Search, ShoppingCart, X } from "lucide-react";
 import { PEST_COUNTS, PEST_LABEL, type PestKey } from "../../lib/shop";
 import { useCartCount } from "../../lib/cart";
+import ShopGlyph from "./ShopGlyph";
 
 const BASE = import.meta.env.BASE_URL;
 const TEL = "tel:+4524245583";
 
 /**
- * Butikkens ramme.
+ * Butikkens ramme, bygget på de samme komponenter som servicesitet.
  *
- * Den nuværende butik har 72 kategorier i én flad liste, hvor mærke,
- * skadedyr og virkemåde ligger side om side. Her er der ét spørgsmål i
- * menuen, "hvilket dyr", fordi det er det eneste, kunden ved med sikkerhed,
- * når han lander. Mærke og virkemåde er filtre inde i browseren, hvor de
- * hører hjemme, ikke navigation.
+ * Søgefeltet er HeroUI's TextField og Input i stedet for en <input> i en
+ * div med sin egen ramme. Den gamle udgave tegnede to rammer, når feltet
+ * fik fokus: min egen focus-within på wrapperen og browserens fokusring på
+ * selve feltet. Feltet har nu én ramme, og det er feltets egen.
+ *
+ * Menuen viser samme skadedyrsikoner som servicesitet. På den her side er
+ * de ikke pynt: de er den hurtigste måde at finde "mus" i en række på ti,
+ * når man kigger efter et dyr og ikke efter et ord.
  */
 
-/** De skadedyr, der har nok varer til at fortjene en plads i menuen. */
 const MENU_PESTS: PestKey[] = [
   "mus", "rotter", "myrer", "fluer", "hvepse", "moel",
   "edderkopper", "vaeggelus", "muldvarpe", "snegle",
 ];
+
+// Samme felt-stil som kontaktformularen på servicesitet.
+const FIELD =
+  "w-full rounded-full border border-ink-700 bg-ink-900 pl-11 pr-4 h-11 text-sm text-cream placeholder:text-ink-100/45 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/40";
 
 export function ShopHeader() {
   const [open, setOpen] = useState(false);
@@ -28,39 +36,42 @@ export function ShopHeader() {
 
   return (
     <header className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
-      {/* Fri fragt-linjen står øverst, fordi fragt er den hyppigste grund til
-          at folk forlader en kurv, og den bør besvares før den bliver stillet. */}
       <p className="select-none bg-accent-500 text-ink-950 text-center text-[13px] sm:text-sm font-semibold py-1.5 px-4">
         Fri fragt over 499 kr. · Afsendes samme hverdag, hvis du bestiller inden kl. 14
       </p>
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6">
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="lg:hidden -ml-1 p-2 rounded-lg hover:bg-ink-900"
-          aria-expanded={open}
+        <Button
+          onPress={() => setOpen((v) => !v)}
+          className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-cream hover:bg-ink-900 data-[pressed]:bg-ink-800"
           aria-label={open ? "Luk menu" : "Åbn menu"}
         >
-          {open ? <Menu size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
-        </button>
+          {open ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
+        </Button>
 
         <a href={`${BASE}shop/`} className="font-display font-bold text-lg sm:text-xl tracking-tight shrink-0">
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </a>
 
-        <form
-          className="hidden md:flex flex-1 max-w-xl items-center gap-2 bg-ink-900 border border-ink-800 rounded-full px-4 h-11 focus-within:border-accent-500"
-          onSubmit={(e) => e.preventDefault()}
-          role="search"
-        >
-          <Search size={18} strokeWidth={2.5} aria-hidden="true" className="text-ink-100/60 shrink-0" />
-          <input
-            type="search"
-            placeholder="Søg efter mus, hvepse, myregift…"
-            className="bg-transparent outline-none text-sm w-full placeholder:text-ink-100/50"
-          />
-        </form>
+        <TextField.Root className="hidden md:block flex-1 max-w-xl">
+          <Label htmlFor="shop-search" className="sr-only">
+            Søg i butikken
+          </Label>
+          <div className="relative">
+            <Search
+              size={18}
+              strokeWidth={2.5}
+              aria-hidden="true"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-100/55"
+            />
+            <Input
+              id="shop-search"
+              type="search"
+              placeholder="Søg efter mus, hvepse, myregift…"
+              className={FIELD}
+            />
+          </div>
+        </TextField.Root>
 
         <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <a
@@ -70,10 +81,7 @@ export function ShopHeader() {
             <Phone size={17} strokeWidth={2.5} aria-hidden="true" className="text-accent-500" />
             24 24 55 83
           </a>
-          <button
-            type="button"
-            className="relative inline-flex items-center gap-2 px-3 sm:px-4 h-11 rounded-full bg-ink-900 hover:bg-ink-800 font-semibold text-sm"
-          >
+          <Button className="relative inline-flex items-center gap-2 px-3 sm:px-4 h-11 rounded-full bg-ink-900 text-cream hover:bg-ink-800 data-[pressed]:bg-ink-700 font-semibold text-sm">
             <ShoppingCart size={18} strokeWidth={2.5} aria-hidden="true" />
             <span className="hidden sm:inline">Kurv</span>
             {count > 0 && (
@@ -81,24 +89,24 @@ export function ShopHeader() {
                 {count}
               </span>
             )}
-          </button>
+          </Button>
         </div>
       </div>
 
-      {/* Skadedyrene som en linje, ikke som en rullemenu med 72 punkter. */}
       <nav
         className={`${open ? "block" : "hidden"} lg:block border-t border-ink-800 bg-ink-950`}
         aria-label="Skadedyr"
       >
-        <ul className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-1 py-2 lg:py-0 list-none m-0 overflow-x-auto">
+        <ul className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-0.5 py-2 lg:py-0 list-none m-0 overflow-x-auto">
           {MENU_PESTS.map((p) => (
             <li key={p}>
               <a
                 href={`${BASE}shop/produkter/?dyr=${p}`}
-                className="block whitespace-nowrap px-3 py-3 lg:py-3.5 text-sm font-semibold text-ink-100/85 hover:text-cream hover:bg-ink-900 rounded-lg"
+                className="group flex items-center gap-2 whitespace-nowrap px-2.5 py-2.5 lg:py-3 text-sm font-semibold text-ink-100/85 hover:text-cream hover:bg-ink-900 rounded-lg"
               >
+                <ShopGlyph pest={p} size={22} className="text-accent-500 group-hover:text-accent-400" />
                 {PEST_LABEL[p]}
-                <span className="ml-1.5 text-xs text-ink-100/45 tabular-nums">{PEST_COUNTS[p]}</span>
+                <span className="text-xs text-ink-100/45 tabular-nums">{PEST_COUNTS[p]}</span>
               </a>
             </li>
           ))}
