@@ -8,7 +8,6 @@ import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import Guides from "./Guides";
-import ProPanel from "./ProPanel";
 import TrustRow from "./TrustRow";
 import { EM_COUNT, EM_SCORE } from "../TrustSeal";
 import Reviews from "../Reviews";
@@ -88,8 +87,8 @@ export default function ShopHome() {
             siden; det her ér siden. */}
         <section className="border-b border-ink-200">
           <div className="grid lg:grid-cols-2">
-            <div className="flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1240px)/2+2rem))]">
-              <span className="select-none w-max rounded-full bg-accent-500 px-3.5 py-1 text-[13px] font-semibold text-ink-950">
+            <div className="hero-in flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1240px)/2+2rem))]">
+              <span className="select-none w-max rounded-full bg-ink-950 px-3.5 py-1 text-[13px] font-semibold text-cream">
                 Samme priser som fagfolk betaler
               </span>
 
@@ -121,7 +120,7 @@ export default function ShopHome() {
               </p>
             </div>
 
-            <div className="relative min-h-[300px] sm:min-h-[380px] bg-ink-100">
+            <div className="hero-photo relative min-h-[300px] sm:min-h-[380px] bg-ink-100">
               {SHOTS.map((s, n) => (
                 <img
                   key={s.src}
@@ -189,12 +188,6 @@ export default function ShopHome() {
             traek er den samme rytme fire gange. */}
         <Guides />
 
-        {/* Det store nudge midt på siden, ikke gemt nederst. Rotter er det
-            tydeligste tilfælde: det er ikke et spørgsmål om at være dygtig nok. */}
-        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-4">
-          <ProPanel pest="rotter" />
-        </section>
-
         {deals.length > 0 ? (
           <Carousel id="tilbud" heading="Tilbud" href={`${BASE}shop/produkter/`} count={deals.length}>
             {deals.map((p) => (
@@ -221,66 +214,59 @@ export default function ShopHome() {
           </section>
         )}
 
-        {/* Mørk flade. Tre ens karruseller i træk er den samme sektion tre
-            gange; lys, mørk, lys giver siden en rytme uden at introducere
-            en eneste ny farve. */}
-        <div className="bg-ink-950 text-cream mt-4">
-          <Carousel
-            id="mest-solgte"
-            heading="Mest solgte"
-            href={`${BASE}shop/produkter/`}
-            count={best.length}
-            onDark
-          >
-            {best.map((p) => (
-              <CarouselItem key={p.slug}>
-                <ProductCard p={p} />
-              </CarouselItem>
-            ))}
-          </Carousel>
-        </div>
-
-        {/* Den brede overgang til servicesiden, for dem der er nået hertil
-            uden at lægge noget i kurven. */}
-        <section className="bg-ink-100 border-y border-ink-200">
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16 grid lg:grid-cols-[minmax(0,18rem)_1fr_minmax(0,20rem)] gap-8 items-center">
-            <figure className="hidden lg:block m-0">
-              <img
-                src={`${BASE}hero.webp`}
-                alt="Skadedyrsbekæmper på arbejde"
-                width={720}
-                height={540}
-                loading="lazy"
-                className="w-full aspect-[4/3] object-cover rounded-2xl"
-              />
-            </figure>
-            <div>
-              <h2 className="font-display text-2xl sm:text-[30px] font-bold tracking-tight uppercase text-ink-950">
+        {/* Sidens ene moerke flade, og det er fagmanden. Fotoet gaar til
+            kanten, teksten staar paa det, og knappen er den eneste lime
+            uden for heroet og prisskiltene. */}
+        <section className="relative isolate overflow-hidden bg-ink-950 text-cream">
+          <img
+            src={`${BASE}hero.webp`}
+            alt=""
+            width={1280}
+            height={720}
+            loading="lazy"
+            className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/85 to-ink-950/25"
+          />
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-20 sm:py-28 lg:py-32">
+            <div className="max-w-[36rem]">
+              <h2 className="font-display text-3xl sm:text-[40px] font-bold tracking-tight uppercase text-balance leading-[1.05] m-0">
                 Har du prøvet selv to gange?
               </h2>
-              <p className="mt-4 text-ink-800 leading-relaxed max-w-2xl text-lg">
+              <p className="mt-5 text-lg text-ink-100/85 leading-relaxed text-pretty">
                 Så er det sjældent produktet, der er galt. Det er som regel, at dyret
                 sidder et andet sted, end der hvor du kan se det. Vi kommer forbi, kigger
                 efter, og siger en fast pris, før vi går i gang.
               </p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <a
-                href={BASE}
-                className="press inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 text-ink-950 font-display font-bold min-h-[52px] px-7 text-lg hover:bg-accent-400 transition-colors"
-              >
-                Se hvad vi laver
-                <ArrowRight size={18} strokeWidth={2.5} aria-hidden="true" />
-              </a>
-              <a
-                href={`${BASE}#skriv`}
-                className="press inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink-950 text-ink-950 font-display font-bold min-h-[52px] px-7 text-lg hover:bg-ink-950 hover:text-cream transition-colors"
-              >
-                Få et fast tilbud
-              </a>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={BASE}
+                  className="press inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 text-ink-950 font-display font-bold min-h-[52px] px-7 text-lg hover:bg-accent-400 transition-colors"
+                >
+                  Se hvad vi laver
+                  <ArrowRight size={18} strokeWidth={2.5} aria-hidden="true" />
+                </a>
+                <a
+                  href={`${BASE}#skriv`}
+                  className="press inline-flex items-center justify-center gap-2 rounded-full border-2 border-cream/70 text-cream font-display font-bold min-h-[52px] px-7 text-lg hover:bg-cream hover:text-ink-950 transition-colors"
+                >
+                  Få et fast tilbud
+                </a>
+              </div>
             </div>
           </div>
         </section>
+
+        <Carousel id="mest-solgte" heading="Mest solgte" href={`${BASE}shop/produkter/`} count={best.length}>
+          {best.map((p) => (
+            <CarouselItem key={p.slug}>
+              <ProductCard p={p} />
+            </CarouselItem>
+          ))}
+        </Carousel>
+
         <section className="bg-cream">
           <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16 flex flex-col gap-14">
             <TrustRow id="fragt" />

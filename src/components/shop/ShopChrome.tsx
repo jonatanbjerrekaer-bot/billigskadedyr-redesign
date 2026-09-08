@@ -103,7 +103,7 @@ export function ShopHeader() {
   }, []);
 
   return (
-    <header ref={el} className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
+    <header ref={el} className="sticky top-0 z-40 bg-white text-ink-950 border-b border-ink-200">
       {/* Tre loefter med ikon, tal og underlinje, som paa thenap.dk. De
           stod som én lang saetning, og saa laeses ingen af dem. Paa mobil
           falder underlinjen bort, men tallet bliver staaende: det er det,
@@ -114,16 +114,16 @@ export function ShopHeader() {
           skjulUsp ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
         }`}
       >
-        <div className="min-h-0 overflow-hidden">
-      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-800 border-b border-ink-800 list-none p-0 m-0">
+        <div className="min-h-0 overflow-hidden bg-ink-50">
+      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-200 border-b border-ink-200 list-none p-0 m-0">
         {USP.map(({ Icon, stat, sub }) => (
           <li key={stat} className="flex items-center justify-center gap-2.5 px-3 py-2.5">
-            <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-500" />
+            <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-700" />
             <span className="min-w-0">
-              <span className="block text-[13px] sm:text-sm font-semibold text-cream leading-tight">
+              <span className="block text-[13px] sm:text-sm font-semibold text-ink-950 leading-tight">
                 {stat}
               </span>
-              <span className="hidden sm:block text-[13px] text-ink-100/65 leading-tight">
+              <span className="hidden sm:block text-[13px] text-ink-600 leading-tight">
                 {sub}
               </span>
             </span>
@@ -136,14 +136,14 @@ export function ShopHeader() {
       <div className="max-w-[1240px] mx-auto px-5 sm:px-8 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
         <Button
           onPress={() => setOpen((v) => !v)}
-          className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-cream hover:bg-ink-900 data-[pressed]:bg-ink-800"
+          className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-ink-950 hover:bg-ink-50 data-[pressed]:bg-ink-100"
           aria-label={open ? "Luk menu" : "Åbn menu"}
         >
           {open ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
         </Button>
 
         <a href={`${BASE}shop/`} className="font-display font-bold text-lg sm:text-xl tracking-tight shrink-0">
-          Billig<span className="text-accent-500">skadedyr</span>.dk
+          Billig<span className="text-accent-700">skadedyr</span>.dk
         </a>
 
         {/* Kun paa skrivebordet. Mobilen har sit eget baand nedenfor, og
@@ -156,12 +156,12 @@ export function ShopHeader() {
         <div className="ml-auto shrink-0 flex items-center gap-1 sm:gap-2">
           <a
             href={TEL}
-            className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold px-3 h-11 rounded-full hover:bg-ink-900"
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold px-3 h-11 rounded-full hover:bg-ink-50"
           >
-            <Phone size={17} strokeWidth={2.5} aria-hidden="true" className="text-accent-500" />
+            <Phone size={17} strokeWidth={2.5} aria-hidden="true" className="text-ink-600" />
             24 24 55 83
           </a>
-          <Button className="relative inline-flex items-center gap-2 px-3 sm:px-4 h-11 rounded-full bg-ink-900 text-cream hover:bg-ink-800 data-[pressed]:bg-ink-700 font-semibold text-sm">
+          <Button className="relative inline-flex items-center gap-2 px-3 sm:px-4 h-11 rounded-full bg-ink-950 text-cream hover:bg-ink-800 data-[pressed]:bg-ink-700 font-semibold text-sm">
             <ShoppingCart size={18} strokeWidth={2.5} aria-hidden="true" />
             <span className="hidden sm:inline">Kurv</span>
             {count > 0 && (
@@ -181,7 +181,7 @@ export function ShopHeader() {
       </div>
 
       <nav
-        className={`${open ? "block" : "hidden"} lg:block border-t border-ink-800 bg-ink-950`}
+        className={`${open ? "block" : "hidden"} lg:block border-t border-ink-200 bg-white`}
         aria-label="Skadedyr"
       >
         <ul className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-0.5 py-2 lg:py-0 list-none m-0 overflow-x-auto">
@@ -192,20 +192,20 @@ export function ShopHeader() {
                 aria-current={here === p ? "page" : undefined}
                 className={`group flex items-center gap-2 whitespace-nowrap px-2.5 py-2.5 lg:py-3 text-sm font-semibold rounded-lg ${
                   here === p
-                    ? "bg-ink-900 text-cream"
-                    : "text-ink-100/85 hover:text-cream hover:bg-ink-900"
+                    ? "bg-ink-100 text-ink-950"
+                    : "text-ink-800 hover:text-ink-950 hover:bg-ink-50"
                 }`}
               >
-                <ShopGlyph pest={p} size={22} className="text-accent-500 group-hover:text-accent-400" />
+                <ShopGlyph pest={p} size={22} className="text-ink-600 group-hover:text-ink-950 group-aria-[current=page]:text-ink-950" />
                 {PEST_LABEL[p]}
-                <span className="text-[13px] text-ink-100/45 tabular-nums">{PEST_COUNTS[p]}</span>
+                <span className="text-[13px] text-ink-500 tabular-nums">{PEST_COUNTS[p]}</span>
               </a>
             </li>
           ))}
           <li className="lg:ml-auto">
             <a
               href={`${BASE}shop/produkter/`}
-              className="block whitespace-nowrap px-3 py-3 lg:py-3.5 text-sm font-semibold text-accent-400 hover:text-accent-300"
+              className="block whitespace-nowrap px-3 py-3 lg:py-3.5 text-sm font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
             >
               Se alle varer
             </a>

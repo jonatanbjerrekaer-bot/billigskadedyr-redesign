@@ -110,7 +110,7 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
             size={18}
             strokeWidth={2.5}
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-100/55"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-500"
           />
           <input
             id={`søg-${listId}`}
@@ -131,7 +131,7 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
             onFocus={() => setOpen(true)}
             onKeyDown={onKey}
             placeholder="Søg efter mus, huller i træet, myregift…"
-            className="w-full h-11 rounded-full bg-ink-900 border-2 border-ink-800 pl-11 pr-10 text-cream placeholder:text-ink-100/45 focus:outline-none focus:border-accent-500"
+            className="w-full h-11 rounded-full bg-ink-50 border-2 border-ink-200 pl-11 pr-10 text-ink-950 placeholder:text-ink-500 focus:outline-none focus:border-ink-950"
           />
           {q && (
             <button
@@ -141,7 +141,7 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
                 setOpen(false);
               }}
               aria-label="Ryd søgningen"
-              className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-7 h-7 rounded-full text-ink-100/60 hover:bg-ink-800 hover:text-cream"
+              className="absolute right-3 top-1/2 -translate-y-1/2 grid place-items-center w-7 h-7 rounded-full text-ink-500 hover:bg-ink-100 hover:text-ink-950"
             >
               <X size={16} strokeWidth={3} aria-hidden="true" />
             </button>
