@@ -88,7 +88,7 @@ export default function ShopHome() {
             siden; det her ér siden. */}
         <section className="border-b border-ink-200">
           <div className="grid lg:grid-cols-2">
-            <div className="flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1400px)/2+1.5rem))]">
+            <div className="flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1240px)/2+2rem))]">
               <span className="select-none w-max rounded-full bg-accent-500 px-3.5 py-1 text-[13px] font-semibold text-ink-950">
                 Samme priser som fagfolk betaler
               </span>
@@ -191,7 +191,7 @@ export default function ShopHome() {
 
         {/* Det store nudge midt på siden, ikke gemt nederst. Rotter er det
             tydeligste tilfælde: det er ikke et spørgsmål om at være dygtig nok. */}
-        <section className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4">
+        <section className="max-w-[1240px] mx-auto px-5 sm:px-8 py-4">
           <ProPanel pest="rotter" />
         </section>
 
@@ -205,7 +205,7 @@ export default function ShopHome() {
           </Carousel>
         ) : (
           <section aria-labelledby="tilbud" className="py-12 sm:py-16">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+            <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
               <h2 id="tilbud" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950">
                 Tilbud
               </h2>
@@ -243,7 +243,7 @@ export default function ShopHome() {
         {/* Den brede overgang til servicesiden, for dem der er nået hertil
             uden at lægge noget i kurven. */}
         <section className="bg-ink-100 border-y border-ink-200">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16 grid lg:grid-cols-[minmax(0,18rem)_1fr_minmax(0,20rem)] gap-8 items-center">
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16 grid lg:grid-cols-[minmax(0,18rem)_1fr_minmax(0,20rem)] gap-8 items-center">
             <figure className="hidden lg:block m-0">
               <img
                 src={`${BASE}hero.webp`}
@@ -282,7 +282,7 @@ export default function ShopHome() {
           </div>
         </section>
         <section className="bg-cream">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col gap-14">
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16 flex flex-col gap-14">
             <TrustRow id="fragt" />
             <Reviews />
           </div>

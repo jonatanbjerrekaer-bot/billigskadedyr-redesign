@@ -99,7 +99,7 @@ export default function ProductPage({ slug }: { slug: string }) {
       <ShopHeader />
 
       <main>
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-3 pb-2">
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-3 pb-2">
           <nav aria-label="Brødkrumme" className="select-none text-sm text-ink-600 flex items-center gap-2">
             <a href={`${BASE}shop/`} className="hover:text-ink-950 underline underline-offset-4">Butik</a>
             <span>/</span>
@@ -114,7 +114,7 @@ export default function ProductPage({ slug }: { slug: string }) {
           </nav>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-10">
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-10">
           <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-12 grid place-items-center">
             <img
               src={`${BASE}shop/${p.img}`}
@@ -342,7 +342,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         </div>
 
         {d && (
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-14">
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-14">
             <section aria-labelledby="fakta">
               <h2 id="fakta" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
                 Kort fortalt
@@ -385,14 +385,14 @@ export default function ProductPage({ slug }: { slug: string }) {
         {/* Plads under baaren, saa den ikke daekker det sidste af siden. */}
         {hasPrice(p) && <div aria-hidden="true" className="lg:hidden h-20" />}
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pb-14 flex flex-col gap-12">
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-14 flex flex-col gap-12">
           <ProductTabs slug={p.slug} />
           <TrustRow id="fragt" />
         </div>
 
         {related.length > 0 && (
           <section aria-labelledby="relateret" className="bg-ink-100 border-t border-ink-200 py-10 sm:py-14">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+            <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
               <h2 id="relateret" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-5">
                 Andet mod {PEST_LABEL[p.pest].toLowerCase()}
               </h2>

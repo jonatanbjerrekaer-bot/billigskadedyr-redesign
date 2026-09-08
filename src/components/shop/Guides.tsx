@@ -42,7 +42,7 @@ const KORT = [
 export default function Guides() {
   return (
     <section aria-labelledby="vaerd-at-vide" className="border-y border-ink-200 bg-white">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-14 sm:py-20">
         <h2
           id="vaerd-at-vide"
           className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950"

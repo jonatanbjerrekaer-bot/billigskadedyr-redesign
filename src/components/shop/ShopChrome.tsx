@@ -54,6 +54,7 @@ const MENU_PESTS: PestKey[] = [
 export function ShopHeader() {
   const el = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
+  const [skjulUsp, setSkjulUsp] = useState(false);
   const here = usePest();
   const count = useCartCount();
 
@@ -73,13 +74,48 @@ export function ShopHeader() {
     return () => ro.disconnect();
   }, []);
 
+  /*
+   * Loeftebaandet vejer ~50 px af bjaelken hele vejen ned ad siden. De tre
+   * vilkaar er noget, man laeser én gang, ikke noget man skal have foran
+   * sig, mens man kigger paa varer. Det viger, naar man ruller ned, og
+   * kommer igen, naar man ruller op eller er tilbage i toppen.
+   *
+   * Taersklen paa 6 px er der, fordi traekkeplader og momentum giver
+   * smaa udsving i begge retninger; uden den blinker baandet.
+   */
+  useEffect(() => {
+    let sidst = window.scrollY;
+    let venter = false;
+    const paaRul = () => {
+      if (venter) return;
+      venter = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < 80) setSkjulUsp(false);
+        else if (y > sidst + 6) setSkjulUsp(true);
+        else if (y < sidst - 6) setSkjulUsp(false);
+        sidst = y;
+        venter = false;
+      });
+    };
+    window.addEventListener("scroll", paaRul, { passive: true });
+    return () => window.removeEventListener("scroll", paaRul);
+  }, []);
+
   return (
     <header ref={el} className="sticky top-0 z-40 bg-ink-950 text-cream border-b border-ink-800">
       {/* Tre loefter med ikon, tal og underlinje, som paa thenap.dk. De
           stod som én lang saetning, og saa laeses ingen af dem. Paa mobil
           falder underlinjen bort, men tallet bliver staaende: det er det,
           der siger hvad loeftet er. */}
-      <ul className="select-none max-w-[1400px] mx-auto grid grid-cols-3 divide-x divide-ink-800 border-b border-ink-800 list-none p-0 m-0">
+      <div
+        aria-hidden={skjulUsp || undefined}
+        className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none ${
+          skjulUsp ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
+        }`}
+      >
+        <div className="min-h-0 overflow-hidden">
+      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-800 border-b border-ink-800 list-none p-0 m-0">
         {USP.map(({ Icon, stat, sub }) => (
           <li key={stat} className="flex items-center justify-center gap-2.5 px-3 py-2.5">
             <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-500" />
@@ -94,8 +130,10 @@ export function ShopHeader() {
           </li>
         ))}
       </ul>
+        </div>
+      </div>
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
         <Button
           onPress={() => setOpen((v) => !v)}
           className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-cream hover:bg-ink-900 data-[pressed]:bg-ink-800"
@@ -146,7 +184,7 @@ export function ShopHeader() {
         className={`${open ? "block" : "hidden"} lg:block border-t border-ink-800 bg-ink-950`}
         aria-label="Skadedyr"
       >
-        <ul className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-0.5 py-2 lg:py-0 list-none m-0 overflow-x-auto">
+        <ul className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-0.5 py-2 lg:py-0 list-none m-0 overflow-x-auto">
           {MENU_PESTS.map((p) => (
             <li key={p}>
               <a
@@ -181,7 +219,7 @@ export function ShopHeader() {
 export function ShopFooter() {
   return (
     <footer className="bg-ink-950 text-ink-100/70 border-t border-ink-800 mt-16">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div>
           <p className="select-none font-display font-bold text-cream mb-3">Billigskadedyr.dk</p>
           <p className="leading-relaxed">
@@ -221,7 +259,7 @@ export function ShopFooter() {
           staar hvad det betyder, og seglet linker til det certifikat, hvor
           det hele kan kontrolleres. */}
       <div className="border-t border-ink-800">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
+        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
           <TrustSeal className="justify-self-start" />
           <div className="text-sm max-w-[65ch]">
             <h3 className="select-none text-cream font-semibold mb-2">Certificeret af e-mærket</h3>

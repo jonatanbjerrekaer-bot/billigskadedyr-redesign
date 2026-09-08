@@ -313,7 +313,7 @@ export default function ProductBrowser() {
     <>
       <ShopHeader />
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <main className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 sm:py-10">
         <nav aria-label="Brødkrumme" className="select-none text-sm text-ink-600 mb-3">
           <a href={`${BASE}shop/`} className="hover:text-ink-950 underline underline-offset-4">Butik</a>
           <span className="mx-2">/</span>

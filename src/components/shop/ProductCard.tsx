@@ -82,7 +82,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
             p.size && <> · {p.size}</>
           )}
         </p>
-        <h3 className="font-display font-bold text-ink-950 leading-snug text-base sm:text-[19px]">
+        <h3 className="font-display font-semibold text-ink-950 leading-snug text-[17px]">
           {p.name}
         </h3>
 
@@ -94,7 +94,10 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
           <p className="select-none text-[13px] text-ink-600 tabular-nums">{p.unit}</p>
         )}
 
-        <div className="mt-auto pt-2 flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
+        {/* Raekken skal kunne bryde. Med et tilbud staar der pris, foerpris og
+              lagerstatus, og uden ombrydning bliver den sidste skubbet ud
+              over kortets kant. */}
+          <div className="mt-auto pt-2 flex flex-col items-start gap-1 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-x-2 sm:gap-y-1">
           {hasPrice(p) ? (
             <p className="font-display text-lg sm:text-2xl font-bold text-ink-950 tabular-nums leading-none whitespace-nowrap">
               {range && (
@@ -113,7 +116,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
             </p>
           )}
           <p
-            className={`select-none flex items-center gap-1 text-[13px] font-semibold whitespace-nowrap ${
+            className={`select-none flex items-center gap-1 text-[13px] font-medium whitespace-nowrap ${
               p.inStock ? "text-green-700" : "text-ink-500"
             }`}
           >

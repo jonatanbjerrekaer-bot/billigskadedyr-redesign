@@ -57,8 +57,8 @@ export default function Carousel({
   if (count === 0) return null;
 
   return (
-    <section aria-labelledby={id} className="py-8 sm:py-12">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+    <section aria-labelledby={id} className="py-14 sm:py-20">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between gap-4 mb-1">
           <h2 id={id} className={`font-display text-2xl sm:text-[30px] font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
             {heading}
@@ -94,7 +94,7 @@ export default function Carousel({
         <ul
           ref={track}
           onScroll={onScroll}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 list-none m-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-5 px-5 sm:mx-0 sm:px-0 list-none m-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {children}
         </ul>
@@ -111,7 +111,7 @@ export default function Carousel({
 
 export function CarouselItem({ children }: { children: ReactNode }) {
   return (
-    <li className="snap-start shrink-0 w-[calc(75%-0.5rem)] sm:w-[240px] lg:w-[264px]">
+    <li className="snap-start shrink-0 w-[calc(78%-0.5rem)] sm:w-[300px] lg:w-[368px]">
       {children}
     </li>
   );
