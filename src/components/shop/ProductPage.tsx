@@ -213,7 +213,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             >
               <Button
                 onPress={add}
-                className="press grow inline-flex items-center justify-center gap-2.5 rounded-none bg-accent-500 text-ink-950 font-display font-bold text-lg px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
+                className="press grow h-full inline-flex items-center justify-center gap-2.5 rounded-none bg-accent-500 text-ink-950 font-display font-bold text-lg px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
               >
                 {added ? (
                   <>
