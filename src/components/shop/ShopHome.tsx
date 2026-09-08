@@ -7,6 +7,7 @@ import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
+import Guides from "./Guides";
 import ProPanel from "./ProPanel";
 import TrustRow from "./TrustRow";
 import { EM_COUNT, EM_SCORE } from "../TrustSeal";
@@ -183,6 +184,10 @@ export default function ShopHome() {
             </CarouselItem>
           ))}
         </Carousel>
+
+        {/* Billeder og rigtig tekst mellem karrusellerne. Fire kortgitre i
+            traek er den samme rytme fire gange. */}
+        <Guides />
 
         {/* Det store nudge midt på siden, ikke gemt nederst. Rotter er det
             tydeligste tilfælde: det er ikke et spørgsmål om at være dygtig nok. */}
