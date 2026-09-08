@@ -93,7 +93,7 @@ export default function DoseCalculator({
   return (
     <section
       aria-labelledby="beregner"
-      className="rounded-2xl border-2 border-ink-200 bg-white p-5 sm:p-6"
+      className="rounded-2xl bg-white p-5 sm:p-6"
     >
       <h2
         id="beregner"

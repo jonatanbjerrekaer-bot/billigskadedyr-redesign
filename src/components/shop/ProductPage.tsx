@@ -116,7 +116,7 @@ export default function ProductPage({ slug }: { slug: string }) {
         </div>
 
         <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-10">
-          <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-12 grid place-items-center">
+          <div className="bg-white rounded-2xl p-6 sm:p-12 grid place-items-center">
             <img
               src={`${BASE}shop/${p.img}`}
               alt={p.name}
@@ -265,9 +265,11 @@ export default function ProductPage({ slug }: { slug: string }) {
               )}
             </ul>
 
-            {/* To felter i stedet for to spalter loes tekst. Uden en kant om
-                hver flyder ja og nej sammen til én liste, og det er netop
-                forskellen, der er pointen. */}
+            {/* To felter i stedet for to spalter loes tekst. Begge er hvide
+                paa den lyse flade, og saa er fyldet kanten: en streg
+                udenom ville tegne det, farveskiftet allerede siger.
+                Forskellen paa ja og nej ligger i maerket foran
+                overskriften, ikke i en ramme. */}
             {d && (
               <div className="mt-8 grid sm:grid-cols-2 gap-4">
                 {[
@@ -276,9 +278,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 ].map(({ title, items, yes }) => (
                   <div
                     key={title}
-                    className={`rounded-2xl border p-5 ${
-                      yes ? "border-ink-200 bg-white" : "border-ink-200 bg-ink-50"
-                    }`}
+                    className="rounded-2xl bg-white p-5"
                   >
                     <p className="select-none flex items-center gap-2 text-sm font-semibold text-ink-950 m-0 mb-3">
                       <span
@@ -370,7 +370,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 {d.how.map((step, i) => (
                   <li
                     key={step}
-                    className="flex gap-3.5 rounded-2xl border border-ink-200 bg-white p-4"
+                    className="flex gap-3.5 rounded-2xl bg-white p-4"
                   >
                     <span className="select-none shrink-0 grid place-items-center w-8 h-8 rounded-full bg-ink-950 text-cream font-display font-bold text-sm tabular-nums">
                       {i + 1}
