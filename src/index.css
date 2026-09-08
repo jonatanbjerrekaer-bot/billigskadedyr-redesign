@@ -48,6 +48,35 @@
 /* Self-hosted @font-face (below) replaces the @fontsource-variable packages:
    two woff2 files total instead of every weight/italic/range combination, and
    fixed public URLs that index.html can preload. */
+/* Butikkens egen skrift.
+ *
+ * Inter er den skrift, enhver generator griber efter, og det kan man se.
+ * Servicesitet beholder den; butikken faar sin egen stemme, og saa maa de
+ * to sider ligne hinanden paa farverne i stedet.
+ *
+ * Switzer i broedteksten: hoej x-hoejde og aabne bugter, hvilket er det,
+ * der afgoer, om 14 px kan laeses af en paa tres. Cabinet Grotesk i
+ * overskrifterne: den har en kant, Archivo ikke har, uden at blive et
+ * plakatskrift.
+ *
+ * Begge er variable, ét woff2 hver, fra Fontshare og frit til kommerciel
+ * brug. Samme opsaetning som de to andre: selvhostet, font-display: swap.
+ */
+@font-face {
+  font-family: "Switzer";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/switzer-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/cabinet-latin-wght-normal.woff2") format("woff2");
+}
+
 @font-face {
   font-family: "Inter Variable";
   font-style: normal;
@@ -825,8 +854,11 @@ input[type="search"]::-webkit-search-decoration {
  * goer for alt, der er skrevet i rem: skrift, luft, containeren, kortene.
  * 87,5 % svarer til at sidde paa 87,5 % zoom uden at roere browseren.
  *
- * Kun butikken: servicesiderne har data-pest="<dyr>", forsiden har slet ingen,
- * og butikkens 140 sider har den tom. Ingen JavaScript, intet blink.
+ * Kun butikken. Foerste forsoeg brugte data-pest="", men servicesitets
+ * forside saetter selv den attribut til tom streng, naar den monterer, saa
+ * den blev ramt med. Butikssiderne har class="butik" i deres egen
+ * index.html; det staar i filen, ikke i JavaScript, saa der er intet blink
+ * og ingen anden side, der kan komme til at ligne dem.
  *
  * Kun fra 768 px og op: paa en telefon er containeren allerede kant til kant,
  * saa der er ingen tom margen at vinde, og skriften skal ikke vaere mindre.
@@ -835,7 +867,7 @@ input[type="search"]::-webkit-search-decoration {
  * taettere paa i dag, 80 % er taettere paa den zoom, du kigger paa.
  */
 @media (min-width: 48rem) {
-  html[data-pest=""] { font-size: 87.5%; }
+  html.butik { font-size: 87.5%; }
 }
 
 /* En <details>, der folder ud i stedet for at springe.
@@ -877,4 +909,13 @@ input[type="search"]::-webkit-search-decoration {
   .udfold-pil {
     transition: none;
   }
+}
+
+/* Kun butikken skifter skrift. Samme afgraensning som skalaknappen.
+   font-family staar eksplicit, saa <html> ikke bliver hos Tailwinds egen
+   standard. */
+html.butik {
+  --font-sans: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
 }
