@@ -61,10 +61,10 @@ function ProductRow({ p }: { p: Product }) {
         className="h-20 w-20 shrink-0 rounded-xl border border-ink-200 bg-white object-contain p-2"
       />
       <span className="min-w-0 flex-1">
-        <span className="select-none block text-[13px] text-ink-500">
+        <span className="select-none block text-[0.8125rem] text-ink-500">
           {PEST_LABEL[p.pest]} · {p.form}
         </span>
-        <span className="block font-display font-semibold text-[17px] leading-snug text-ink-950 underline-offset-4 decoration-ink-300 group-hover:underline">
+        <span className="block font-display font-semibold text-[1.0625rem] leading-snug text-ink-950 underline-offset-4 decoration-ink-300 group-hover:underline">
           {p.name}
         </span>
       </span>
@@ -123,7 +123,7 @@ export default function ShopHome() {
             siden; det her ér siden. */}
         <section className="border-b border-ink-200">
           <div className="grid lg:grid-cols-2">
-            <div className="hero-in flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1240px)/2+2rem))]">
+            <div className="hero-in flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-77.5rem)/2+2rem))]">
               <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
                 Midlerne vi selv bruger
               </h1>
@@ -152,7 +152,7 @@ export default function ShopHome() {
               </p>
             </div>
 
-            <div className="hero-photo relative min-h-[300px] sm:min-h-[380px] bg-ink-100">
+            <div className="hero-photo relative min-h-[18.75rem] sm:min-h-[23.75rem] bg-ink-100">
               {SHOTS.map((s, n) => (
                 <img
                   key={s.src}
@@ -205,9 +205,9 @@ export default function ShopHome() {
             saelger lige saa godt som en karrusel, og ingen skal rulle for at
             se den sjette. Tilbud laengere nede er karrusellen. */}
         <section aria-labelledby="saeson" className="pt-12 pb-20 sm:pt-16 sm:pb-24">
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+          <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
             <div className="max-w-[62ch]">
-              <h2 id="saeson" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 m-0">
+              <h2 id="saeson" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 m-0">
                 {season.heading}
               </h2>
               <p className="select-none mt-2 mb-8 text-ink-700 leading-relaxed m-0">{season.note}</p>
@@ -243,8 +243,8 @@ export default function ShopHome() {
           </Carousel>
         ) : (
           <section aria-labelledby="tilbud" className="py-12 sm:py-16">
-            <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
-              <h2 id="tilbud" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950">
+            <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
+              <h2 id="tilbud" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950">
                 Tilbud
               </h2>
               <p className="select-none mt-2 text-ink-700 max-w-2xl">{DEALS_NOTE}</p>
@@ -275,9 +275,9 @@ export default function ShopHome() {
             aria-hidden="true"
             className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/85 to-ink-950/25"
           />
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-20 sm:py-28 lg:py-32">
+          <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 py-20 sm:py-28 lg:py-32">
             <div className="max-w-[36rem]">
-              <h2 className="font-display text-3xl sm:text-[40px] font-bold tracking-tight uppercase text-balance leading-[1.05] m-0">
+              <h2 className="font-display text-3xl sm:text-[2.5rem] font-bold tracking-tight uppercase text-balance leading-[1.05] m-0">
                 Har du prøvet selv to gange?
               </h2>
               <p className="mt-5 text-lg text-ink-100/85 leading-relaxed text-pretty">
@@ -308,8 +308,8 @@ export default function ShopHome() {
             samme sektion en gang til. Ingen numre: listen er hans, men jeg
             ved ikke, om raekkefoelgen er salgstal. */}
         <section aria-labelledby="mest-solgte" className="pt-16 pb-24 sm:pt-20 sm:pb-28">
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
-            <h2 id="mest-solgte" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 m-0">
+          <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
+            <h2 id="mest-solgte" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 m-0">
               Mest solgte
             </h2>
             <ul className="mt-6 grid sm:grid-cols-2 gap-x-10 list-none p-0 m-0 border-t border-ink-200">

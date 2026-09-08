@@ -813,3 +813,27 @@ input[type="search"]::-webkit-search-decoration {
 @media (prefers-reduced-motion: reduce) {
   .hero-in > *, .hero-photo { animation: none; }
 }
+
+/* Skalaknappen for butikken.
+ *
+ * Siden laeste bedre paa 75 % zoom paa en baerbar. Grunden er ikke, at noget
+ * er for stort i sig selv, men forholdet: paa 1446 px fyldte indholdet 86 %
+ * af skaermen, og paa 75 % fylder det 64 %. Layoutet er tegnet til en
+ * 1920-skaerm og set paa en baerbar.
+ *
+ * Zoom skalerer alt paa én gang, og det er praecis, hvad et rodskriftstoerrelse
+ * goer for alt, der er skrevet i rem: skrift, luft, containeren, kortene.
+ * 87,5 % svarer til at sidde paa 87,5 % zoom uden at roere browseren.
+ *
+ * Kun butikken: servicesiderne har data-pest="<dyr>", forsiden har slet ingen,
+ * og butikkens 140 sider har den tom. Ingen JavaScript, intet blink.
+ *
+ * Kun fra 768 px og op: paa en telefon er containeren allerede kant til kant,
+ * saa der er ingen tom margen at vinde, og skriften skal ikke vaere mindre.
+ *
+ * Vil du have mere eller mindre luft, er det det ene tal her. 90 % er
+ * taettere paa i dag, 80 % er taettere paa den zoom, du kigger paa.
+ */
+@media (min-width: 48rem) {
+  html[data-pest=""] { font-size: 87.5%; }
+}

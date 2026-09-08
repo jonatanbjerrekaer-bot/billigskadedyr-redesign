@@ -42,7 +42,7 @@ function SafetySheet({ slug }: { slug: string }) {
         {s.pictograms.map((g) => (
           <span
             key={g}
-            className="select-none rounded-md border border-ink-400 px-2 py-0.5 text-[13px] font-semibold text-ink-800"
+            className="select-none rounded-md border border-ink-400 px-2 py-0.5 text-[0.8125rem] font-semibold text-ink-800"
           >
             {g}
           </span>
@@ -50,30 +50,30 @@ function SafetySheet({ slug }: { slug: string }) {
       </div>
 
       {s.active && (
-        <p className="mt-3 text-[15px] text-ink-900 m-0">
+        <p className="mt-3 text-[0.9375rem] text-ink-900 m-0">
           <span className="font-semibold">Aktivstof:</span> {s.active}
         </p>
       )}
       {s.restriction && (
-        <p className="mt-1 text-[15px] font-semibold text-ink-950 m-0">{s.restriction}</p>
+        <p className="mt-1 text-[0.9375rem] font-semibold text-ink-950 m-0">{s.restriction}</p>
       )}
 
-      <p className="select-none mt-4 text-[13px] font-semibold text-ink-700">
+      <p className="select-none mt-4 text-[0.8125rem] font-semibold text-ink-700">
         Faresætninger
       </p>
-      <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[15px] text-ink-900">
+      <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[0.9375rem] text-ink-900">
         {s.hazards.map((h) => <li key={h}>{h}</li>)}
       </ul>
 
-      <p className="select-none mt-4 text-[13px] font-semibold text-ink-700">
+      <p className="select-none mt-4 text-[0.8125rem] font-semibold text-ink-700">
         Sikkerhedssætninger
       </p>
-      <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[15px] text-ink-900">
+      <ul className="mt-1.5 flex flex-col gap-1 list-none p-0 m-0 text-[0.9375rem] text-ink-900">
         {s.precautions.map((x) => <li key={x}>{x}</li>)}
       </ul>
 
       <p className="mt-4 font-semibold text-ink-950 m-0">{POISON_LINE}</p>
-      <p className="select-none mt-2 text-[13px] text-ink-700 m-0">{s.source}</p>
+      <p className="select-none mt-2 text-[0.8125rem] text-ink-700 m-0">{s.source}</p>
     </div>
   );
 }
@@ -84,7 +84,7 @@ export default function ProductTabs({ slug }: { slug: string }) {
 
   return (
     <section aria-labelledby="detaljer" className="max-w-3xl">
-      <h2 id="detaljer" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
+      <h2 id="detaljer" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 mb-4">
         Det hele om varen
       </h2>
       <div className="border-t border-ink-200">
@@ -105,13 +105,13 @@ export default function ProductTabs({ slug }: { slug: string }) {
             </summary>
             <div className="pb-5 flex flex-col gap-3">
               {t.body.map((p) => (
-                <p key={p} className="text-[15px] text-ink-800 leading-relaxed m-0">
+                <p key={p} className="text-[0.9375rem] text-ink-800 leading-relaxed m-0">
                   {p}
                 </p>
               ))}
               {t.title.startsWith("Sikkerhed") && <SafetySheet slug={slug} />}
               {t.list && (
-                <ul className="flex flex-col gap-1.5 pl-5 m-0 text-[15px] text-ink-800 list-disc marker:text-ink-400">
+                <ul className="flex flex-col gap-1.5 pl-5 m-0 text-[0.9375rem] text-ink-800 list-disc marker:text-ink-400">
                   {t.list.map((x) => (
                     <li key={x} className="leading-snug">{x}</li>
                   ))}
@@ -121,7 +121,7 @@ export default function ProductTabs({ slug }: { slug: string }) {
           </details>
         ))}
       </div>
-      <p className="select-none mt-3 text-[13px] text-ink-600">
+      <p className="select-none mt-3 text-[0.8125rem] text-ink-600">
         Teksten er hans egen fra billigskadedyr.dk. Etiketten på emballagen gælder frem for alt andet.
       </p>
     </section>

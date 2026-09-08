@@ -313,7 +313,7 @@ export default function ProductBrowser() {
     <>
       <ShopHeader />
 
-      <main className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 sm:py-10">
+      <main className="max-w-[77.5rem] mx-auto px-5 sm:px-8 py-8 sm:py-10">
         <nav aria-label="Brødkrumme" className="select-none text-sm text-ink-600 mb-3">
           <a href={`${BASE}shop/`} className="hover:text-ink-950 underline underline-offset-4">Butik</a>
           <span className="mx-2">/</span>
@@ -369,7 +369,7 @@ export default function ProductBrowser() {
                 <SlidersHorizontal size={17} strokeWidth={2.5} aria-hidden="true" />
                 Filtre
                 {chips.length > 0 && (
-                  <span className="font-sans text-[13px] bg-ink-950 text-cream rounded-full px-2 py-0.5 tabular-nums">
+                  <span className="font-sans text-[0.8125rem] bg-ink-950 text-cream rounded-full px-2 py-0.5 tabular-nums">
                     {chips.length}
                   </span>
                 )}
@@ -412,7 +412,7 @@ export default function ProductBrowser() {
                 <span className="select-none text-sm text-ink-600 whitespace-nowrap">
                   Sortér efter
                 </span>
-                <div className="flex-1 sm:w-[210px]">
+                <div className="flex-1 sm:w-[13.125rem]">
                   <Select
                     ariaLabel="Sortér varerne"
                     value={sort}
@@ -436,7 +436,7 @@ export default function ProductBrowser() {
             {found?.why && (
               <div className="expand mb-4">
                 <div>
-                  <p className="expand-in rounded-xl bg-ink-100 px-4 py-3 text-[15px] text-ink-800 m-0">
+                  <p className="expand-in rounded-xl bg-ink-100 px-4 py-3 text-[0.9375rem] text-ink-800 m-0">
                     {found.why}
                   </p>
                 </div>
@@ -452,7 +452,7 @@ export default function ProductBrowser() {
                 className="mb-4 block rounded-xl border-2 border-ink-200 px-4 py-3 hover:border-ink-400 transition-colors"
               >
                 <p className="font-display font-bold text-ink-950 m-0">{i.title}</p>
-                <p className="mt-0.5 text-[15px] text-ink-700 m-0">{i.text}</p>
+                <p className="mt-0.5 text-[0.9375rem] text-ink-700 m-0">{i.text}</p>
               </a>
             ))}
 

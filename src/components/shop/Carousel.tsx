@@ -58,9 +58,9 @@ export default function Carousel({
 
   return (
     <section aria-labelledby={id} className="py-14 sm:py-20">
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+      <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between gap-4 mb-1">
-          <h2 id={id} className={`font-display text-2xl sm:text-[30px] font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
+          <h2 id={id} className={`font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight ${onDark ? "text-cream" : "text-ink-950"}`}>
             {heading}
           </h2>
           <div className="flex items-center gap-2 shrink-0">
@@ -111,7 +111,7 @@ export default function Carousel({
 
 export function CarouselItem({ children }: { children: ReactNode }) {
   return (
-    <li className="snap-start shrink-0 w-[calc(78%-0.5rem)] sm:w-[300px] lg:w-[368px]">
+    <li className="snap-start shrink-0 w-[calc(78%-0.5rem)] sm:w-[18.75rem] lg:w-[23rem]">
       {children}
     </li>
   );

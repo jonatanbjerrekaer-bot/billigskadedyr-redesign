@@ -85,12 +85,34 @@ export function ShopHeader() {
    */
   useEffect(() => {
     let sidst = window.scrollY;
+    let sidstHoejde = document.documentElement.scrollHeight;
     let venter = false;
     const paaRul = () => {
       if (venter) return;
       venter = true;
       requestAnimationFrame(() => {
         const y = window.scrollY;
+        const hoejde = document.documentElement.scrollHeight;
+        /*
+         * Kun et rul paa en side, der ikke selv skifter hoejde, er et rul.
+         *
+         * Naar beregneren faar et nyt svar, bliver siden hoejere eller
+         * lavere, og browserens scroll anchoring retter scrollY, saa
+         * indholdet bliver staaende, hvor man kigger. Den rettelse kommer
+         * ind her som et scroll-event, selv om ingen har rullet. Baandet
+         * klappede sammen, hvilket aendrede hoejden igen, hvilket gav en ny
+         * rettelse: maalt til 16 hoejdeskift paa ét traek i skalaen.
+         *
+         * Sammenlign derfor hoejden foerst. Skiftede den, er forskellen i
+         * scrollY browserens egen, ikke brugerens, og vi flytter kun vores
+         * referencepunkt.
+         */
+        if (hoejde !== sidstHoejde) {
+          sidstHoejde = hoejde;
+          sidst = y;
+          venter = false;
+          return;
+        }
         if (y < 80) setSkjulUsp(false);
         else if (y > sidst + 6) setSkjulUsp(true);
         else if (y < sidst - 6) setSkjulUsp(false);
@@ -115,15 +137,15 @@ export function ShopHeader() {
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-100 border-b border-ink-100 list-none p-0 m-0">
+      <ul className="select-none max-w-[77.5rem] mx-auto grid grid-cols-3 divide-x divide-ink-100 border-b border-ink-100 list-none p-0 m-0">
         {USP.map(({ Icon, stat, sub }) => (
           <li key={stat} className="flex items-center justify-center gap-2.5 px-3 py-2.5">
             <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-700" />
             <span className="min-w-0">
-              <span className="block text-[13px] sm:text-sm font-semibold text-ink-950 leading-tight">
+              <span className="block text-[0.8125rem] sm:text-sm font-semibold text-ink-950 leading-tight">
                 {stat}
               </span>
-              <span className="hidden sm:block text-[13px] text-ink-600 leading-tight">
+              <span className="hidden sm:block text-[0.8125rem] text-ink-600 leading-tight">
                 {sub}
               </span>
             </span>
@@ -133,7 +155,7 @@ export function ShopHeader() {
         </div>
       </div>
 
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 h-16 sm:h-[72px] flex items-center gap-3 sm:gap-6 min-w-0">
+      <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 h-16 sm:h-[4.5rem] flex items-center gap-3 sm:gap-6 min-w-0">
         <Button
           onPress={() => setOpen((v) => !v)}
           className="lg:hidden -ml-1 p-2 rounded-lg bg-transparent text-ink-950 hover:bg-ink-50 data-[pressed]:bg-ink-100"
@@ -165,7 +187,7 @@ export function ShopHeader() {
             <ShoppingCart size={18} strokeWidth={2.5} aria-hidden="true" />
             <span className="hidden sm:inline">Kurv</span>
             {count > 0 && (
-              <span className="min-w-[22px] h-[22px] px-1 grid place-items-center rounded-full bg-accent-500 text-ink-950 text-[13px] font-bold tabular-nums">
+              <span className="min-w-[22px] h-[22px] px-1 grid place-items-center rounded-full bg-accent-500 text-ink-950 text-[0.8125rem] font-bold tabular-nums">
                 {count}
               </span>
             )}
@@ -184,7 +206,7 @@ export function ShopHeader() {
         className={`${open ? "block" : "hidden"} lg:block bg-ink-50`}
         aria-label="Skadedyr"
       >
-        <ul className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-1 py-2 lg:py-1.5 list-none m-0 overflow-x-auto">
+        <ul className="max-w-[77.5rem] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-1 py-2 lg:py-1.5 list-none m-0 overflow-x-auto">
           {MENU_PESTS.map((p) => (
             <li key={p}>
               <a
@@ -199,7 +221,7 @@ export function ShopHeader() {
                 <ShopGlyph pest={p} size={24} className="text-ink-700 group-hover:text-ink-950 group-aria-[current=page]:text-ink-950" />
                 <span className="flex items-baseline gap-1">
                   {PEST_LABEL[p]}
-                  <span className="text-[12px] text-ink-500 tabular-nums">{PEST_COUNTS[p]}</span>
+                  <span className="text-[0.8125rem] text-ink-500 tabular-nums">{PEST_COUNTS[p]}</span>
                 </span>
               </a>
             </li>
@@ -224,11 +246,11 @@ export function ShopFooter() {
       {/* Ordmaerket oeverst og stort, én linje links, kontakten som en saetning.
           Fire kolonner med overskrifter er et sitemap, og butikken har ikke et
           sitemap; den har seks links og et telefonnummer. */}
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-14 pb-10">
+      <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 pt-14 pb-10">
         <p className="select-none font-display font-bold text-cream text-3xl sm:text-4xl tracking-tight m-0">
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </p>
-        <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed m-0">
+        <p className="mt-3 max-w-[52ch] text-[0.9375rem] leading-relaxed m-0">
           Professionelle midler og fælder til private og erhverv. Vi er de samme folk,
           der rykker ud, så vi sælger kun det, vi selv bruger.
         </p>
@@ -255,7 +277,7 @@ export function ShopFooter() {
           staar hvad det betyder, og seglet linker til det certifikat, hvor
           det hele kan kontrolleres. */}
       <div className="border-t border-ink-800">
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
+        <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 py-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
           <TrustSeal className="justify-self-start" />
           <div className="text-sm max-w-[65ch]">
             <h3 className="select-none text-cream font-semibold mb-2">Certificeret af e-mærket</h3>
@@ -277,7 +299,7 @@ export function ShopFooter() {
         </div>
       </div>
 
-      <p className="select-none text-center text-[13px] text-ink-100/45 pb-8 px-4">
+      <p className="select-none text-center text-[0.8125rem] text-ink-100/45 pb-8 px-4">
         Bekæmpelsesmidler skal bruges forsvarligt. Læs altid etiket og produktoplysninger før brug.
       </p>
     </footer>

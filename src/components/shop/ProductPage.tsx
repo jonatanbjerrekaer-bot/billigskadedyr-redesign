@@ -99,7 +99,7 @@ export default function ProductPage({ slug }: { slug: string }) {
       <ShopHeader />
 
       <main>
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-3 pb-2">
+        <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 pt-3 pb-2">
           <nav aria-label="Brødkrumme" className="select-none text-sm text-ink-600 flex items-center gap-2">
             <a href={`${BASE}shop/`} className="hover:text-ink-950 underline underline-offset-4">Butik</a>
             <span>/</span>
@@ -114,7 +114,7 @@ export default function ProductPage({ slug }: { slug: string }) {
           </nav>
         </div>
 
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-10">
+        <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-10">
           <div className="bg-white rounded-2xl border border-ink-200 p-6 sm:p-12 grid place-items-center">
             <img
               src={`${BASE}shop/${p.img}`}
@@ -129,14 +129,14 @@ export default function ProductPage({ slug }: { slug: string }) {
           </div>
 
           <div>
-            <h1 className="font-display text-[32px] sm:text-[44px] font-bold tracking-tight text-ink-950 leading-[1.08]">
+            <h1 className="font-display text-[2rem] sm:text-[2.75rem] font-bold tracking-tight text-ink-950 leading-[1.08]">
               {p.name}
             </h1>
             {d?.lead && <p className="mt-2.5 text-lg text-ink-800 leading-relaxed">{d.lead}</p>}
             {!d && p.blurb && <p className="mt-3 text-ink-800 leading-relaxed">{p.blurb}</p>}
 
             <div className="mt-4 flex items-end gap-3">
-              <p className="font-display text-[28px] sm:text-[34px] font-bold text-ink-950 tabular-nums leading-none">
+              <p className="font-display text-[1.75rem] sm:text-[2.125rem] font-bold text-ink-950 tabular-nums leading-none">
                 {hasPrice(p) ? dkr(price) : "Pris på forespørgsel"}
               </p>
               {deal && hasPrice(p) && (
@@ -174,7 +174,7 @@ export default function ProductPage({ slug }: { slug: string }) {
 
             {p.variants.length > 1 && (
               <fieldset className="mt-6 border-0 p-0 m-0">
-                <legend className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
+                <legend className="select-none text-[0.8125rem] font-semibold text-ink-600 mb-2.5">
                   Vælg størrelse
                 </legend>
                 <div className="flex flex-wrap gap-2">
@@ -225,7 +225,7 @@ export default function ProductPage({ slug }: { slug: string }) {
 
               <Button
                 onPress={add}
-                className="press flex-1 min-w-[200px] inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
+                className="press flex-1 min-w-[12.5rem] inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
               >
                 {added ? (
                   <>
@@ -293,7 +293,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                       </span>
                       {title}
                     </p>
-                    <ul className="flex flex-col gap-2.5 text-[15px] text-ink-800 list-none p-0 m-0">
+                    <ul className="flex flex-col gap-2.5 text-[0.9375rem] text-ink-800 list-none p-0 m-0">
                       {items.map((x) => (
                         <li key={x} className="flex gap-2.5 leading-snug">
                           <span
@@ -342,23 +342,23 @@ export default function ProductPage({ slug }: { slug: string }) {
         </div>
 
         {d && (
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-14">
+          <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-8 lg:gap-14 pb-14">
             <section aria-labelledby="fakta">
-              <h2 id="fakta" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
+              <h2 id="fakta" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 mb-4">
                 Kort fortalt
               </h2>
               <dl className="rounded-2xl border border-ink-200 divide-y divide-ink-200 overflow-hidden">
                 {d.specs.map((s) => (
                   <div key={s.k} className="grid sm:grid-cols-[minmax(0,11rem)_1fr] gap-1 sm:gap-4 px-4 py-3.5">
                     <dt className="select-none text-sm font-semibold text-ink-600">{s.k}</dt>
-                    <dd className="text-[15px] text-ink-900 m-0">{s.v}</dd>
+                    <dd className="text-[0.9375rem] text-ink-900 m-0">{s.v}</dd>
                   </div>
                 ))}
               </dl>
             </section>
 
             <section aria-labelledby="saadan">
-              <h2 id="saadan" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-4">
+              <h2 id="saadan" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 mb-4">
                 Sådan bruger du den
               </h2>
               {/* Trinnene som felter i to spalter. Som loes liste laa de fire
@@ -374,7 +374,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                     <span className="select-none shrink-0 grid place-items-center w-8 h-8 rounded-full bg-ink-950 text-cream font-display font-bold text-sm tabular-nums">
                       {i + 1}
                     </span>
-                    <span className="text-[15px] text-ink-800 leading-relaxed pt-1">{step}</span>
+                    <span className="text-[0.9375rem] text-ink-800 leading-relaxed pt-1">{step}</span>
                   </li>
                 ))}
               </ol>
@@ -385,15 +385,15 @@ export default function ProductPage({ slug }: { slug: string }) {
         {/* Plads under baaren, saa den ikke daekker det sidste af siden. */}
         {hasPrice(p) && <div aria-hidden="true" className="lg:hidden h-20" />}
 
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pb-14 flex flex-col gap-12">
+        <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 pb-14 flex flex-col gap-12">
           <ProductTabs slug={p.slug} />
           <TrustRow id="fragt" />
         </div>
 
         {related.length > 0 && (
           <section aria-labelledby="relateret" className="bg-ink-100 border-t border-ink-200 py-10 sm:py-14">
-            <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
-              <h2 id="relateret" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 mb-5">
+            <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
+              <h2 id="relateret" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 mb-5">
                 Andet mod {PEST_LABEL[p.pest].toLowerCase()}
               </h2>
               <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
@@ -431,7 +431,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 <p className="font-display text-xl font-bold text-ink-950 tabular-nums leading-none m-0">
                   {dkr(price * qty)}
                 </p>
-                <p className="select-none text-[13px] text-ink-600 mt-1 m-0 truncate">
+                <p className="select-none text-[0.8125rem] text-ink-600 mt-1 m-0 truncate">
                   {qty > 1 ? `${qty} stk. · ` : ""}
                   {p.inStock ? "På lager" : "Skaffevare"}
                 </p>

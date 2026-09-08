@@ -42,10 +42,10 @@ export default function Guides() {
   const [stor, ...smaa] = KORT;
   return (
     <section aria-labelledby="vaerd-at-vide" className="border-y border-ink-200 bg-white">
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-20 sm:py-28">
+      <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8 py-20 sm:py-28">
         <h2
           id="vaerd-at-vide"
-          className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 m-0"
+          className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 m-0"
         >
           Værd at vide, før du køber
         </h2>
@@ -73,7 +73,7 @@ export default function Guides() {
               <h3 className="font-display text-xl sm:text-2xl font-bold leading-snug tracking-tight text-ink-950 m-0">
                 {NUDGE[stor.pest]?.title}
               </h3>
-              <p className="max-w-[60ch] text-[15px] text-ink-700 leading-relaxed m-0">{NUDGE[stor.pest]?.body}</p>
+              <p className="max-w-[60ch] text-[0.9375rem] text-ink-700 leading-relaxed m-0">{NUDGE[stor.pest]?.body}</p>
               <Link href={stor.href}>{stor.cta}</Link>
             </div>
           </article>
@@ -99,7 +99,7 @@ export default function Guides() {
                   </div>
                   <div className="flex flex-col gap-2 p-5">
                     <h3 className="font-display text-lg font-bold leading-snug text-ink-950 m-0">{n.title}</h3>
-                    <p className="text-[15px] text-ink-700 leading-relaxed m-0">{n.body}</p>
+                    <p className="text-[0.9375rem] text-ink-700 leading-relaxed m-0">{n.body}</p>
                     <Link href={href}>{cta}</Link>
                   </div>
                 </article>

@@ -57,7 +57,7 @@ export default function Notice({
       ) : null}
 
       <div
-        className={`text-[15px] text-ink-800 leading-relaxed max-w-[62ch] ${
+        className={`text-[0.9375rem] text-ink-800 leading-relaxed max-w-[62ch] ${
           title ? "mt-2" : ""
         }`}
       >

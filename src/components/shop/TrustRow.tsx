@@ -38,7 +38,7 @@ export default function TrustRow({ id }: { id?: string }) {
         {ITEMS.map(({ title, text }) => (
           <div key={title} className="grid grid-cols-[minmax(8.5rem,10rem)_1fr] gap-4 py-4 border-b border-ink-200">
             <dt className="select-none font-display font-semibold text-ink-950 leading-snug m-0">{title}</dt>
-            <dd className="select-none text-[15px] text-ink-700 leading-snug m-0">{text}</dd>
+            <dd className="select-none text-[0.9375rem] text-ink-700 leading-snug m-0">{text}</dd>
           </div>
         ))}
       </dl>

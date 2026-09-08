@@ -189,7 +189,7 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
                   </span>
                 )}
                 <span className="min-w-0 flex-1">
-                  <span className="block font-semibold text-ink-950 text-[15px] truncate">
+                  <span className="block font-semibold text-ink-950 text-[0.9375rem] truncate">
                     {r.label}
                   </span>
                   {r.sub && (

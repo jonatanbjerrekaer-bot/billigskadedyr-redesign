@@ -65,7 +65,7 @@ function Group({
       <summary className="flex items-center gap-2 cursor-pointer list-none select-none min-h-[44px] font-display font-bold text-ink-950">
         <span className="grow">{title}</span>
         {selected.size > 0 && (
-          <span className="rounded-full bg-ink-950 text-cream text-[13px] font-sans font-bold tabular-nums px-2 py-0.5">
+          <span className="rounded-full bg-ink-950 text-cream text-[0.8125rem] font-sans font-bold tabular-nums px-2 py-0.5">
             {selected.size}
           </span>
         )}
@@ -96,7 +96,7 @@ function Group({
               </Checkbox.Control>
               {renderIcon?.(o.id)}
               <span className="grow text-left">{o.label}</span>
-              <span className="text-[13px] tabular-nums opacity-70">{o.count}</span>
+              <span className="text-[0.8125rem] tabular-nums opacity-70">{o.count}</span>
             </Checkbox.Content>
           </Checkbox>
         ))}
@@ -147,7 +147,7 @@ export default function ShopFilters({
   hasFilters: boolean;
 }) {
   const ROW =
-    "w-full flex items-center gap-2.5 rounded-lg px-3 min-h-[44px] text-[15px] font-semibold " +
+    "w-full flex items-center gap-2.5 rounded-lg px-3 min-h-[44px] text-[0.9375rem] font-semibold " +
     "border-2 border-transparent text-ink-800 hover:border-ink-300 transition-colors " +
     "group-data-[selected]:bg-ink-950 group-data-[selected]:text-cream group-data-[selected]:border-ink-950";
 
@@ -192,7 +192,7 @@ export default function ShopFilters({
               <Checkbox.Indicator />
             </Checkbox.Control>
             <span className="grow text-left">Kun på lager</span>
-            <span className="text-[13px] tabular-nums opacity-70">{inStockCount}</span>
+            <span className="text-[0.8125rem] tabular-nums opacity-70">{inStockCount}</span>
           </Checkbox.Content>
         </Checkbox>
       </div>
@@ -205,7 +205,7 @@ export default function ShopFilters({
           man kigger på varer langt nede i listen. */}
       <div className="shop-filter hidden lg:block lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto lg:pr-1">
         <div className="flex items-center justify-between min-h-[44px]">
-          <h2 className="select-none text-[13px] font-semibold text-ink-600 m-0">
+          <h2 className="select-none text-[0.8125rem] font-semibold text-ink-600 m-0">
             Filtrér
           </h2>
           {hasFilters && (

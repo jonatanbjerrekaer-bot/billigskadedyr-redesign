@@ -97,7 +97,7 @@ export default function DoseCalculator({
     >
       <h2
         id="beregner"
-        className="anchor font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950"
+        className="anchor font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950"
       >
         Hvor meget skal du bruge?
       </h2>
@@ -113,7 +113,7 @@ export default function DoseCalculator({
       <div>
       {dose.rates.length > 1 && (
         <fieldset className="border-0 p-0 m-0">
-          <legend className="select-none text-[13px] font-semibold text-ink-600 mb-2.5">
+          <legend className="select-none text-[0.8125rem] font-semibold text-ink-600 mb-2.5">
             Hvad er opgaven?
           </legend>
           {/* To og to paa mobil: fire raekker i fuld bredde er 224 px,
@@ -132,7 +132,7 @@ export default function DoseCalculator({
                   onChange={() => setRateKey(r.key)}
                   className="w-5 h-5 accent-ink-950 shrink-0"
                 />
-                <span className="text-[14px] sm:text-[15px] text-ink-900 leading-tight">{r.label}</span>
+                <span className="text-[0.875rem] sm:text-[0.9375rem] text-ink-900 leading-tight">{r.label}</span>
               </label>
             ))}
           </div>
@@ -144,7 +144,7 @@ export default function DoseCalculator({
           htmlFor="areal"
           className="select-none flex flex-wrap items-baseline justify-between gap-2"
         >
-          <span className="text-[13px] font-semibold text-ink-600">
+          <span className="text-[0.8125rem] font-semibold text-ink-600">
             Areal, der skal behandles
           </span>
           <span className="font-display text-2xl font-bold text-ink-950 tabular-nums">
@@ -163,7 +163,7 @@ export default function DoseCalculator({
           onChange={(e) => setM2(Number(e.target.value))}
           className="mt-2 w-full h-11 accent-accent-500 cursor-pointer"
         />
-        <div className="select-none flex justify-between text-[13px] text-ink-500 tabular-nums">
+        <div className="select-none flex justify-between text-[0.8125rem] text-ink-500 tabular-nums">
           <span>{step} m²</span>
           <span>{max.toLocaleString("da-DK")} m²</span>
         </div>
@@ -173,7 +173,7 @@ export default function DoseCalculator({
 
       <div className="sm:pl-1">
       <div className="mt-5 sm:mt-0 rounded-xl bg-ink-100 px-4 py-4">
-        <p className="text-[15px] text-ink-800 m-0">
+        <p className="text-[0.9375rem] text-ink-800 m-0">
           Til {m2.toLocaleString("da-DK")} m² skal du bruge ca.{" "}
           <strong className="font-display text-lg text-ink-950">{fmt(need, dose.unit)}</strong>{" "}
           {dose.concentrate ? "færdig blanding" : "af varen"}.
@@ -204,7 +204,7 @@ export default function DoseCalculator({
                     {packs} × {v.label}
                   </span>
                   {v.isConcentrate && (
-                    <span className="select-none text-[13px] text-ink-600">
+                    <span className="select-none text-[0.8125rem] text-ink-600">
                       giver {fmt(covers(v, dose, rate) * packs, dose.unit)} blanding
                     </span>
                   )}
@@ -212,7 +212,7 @@ export default function DoseCalculator({
                     {dkr(total)}
                   </span>
                   {win && (
-                    <span className="select-none w-full flex items-center gap-1.5 text-[13px] font-semibold text-green-800">
+                    <span className="select-none w-full flex items-center gap-1.5 text-[0.8125rem] font-semibold text-green-800">
                       <Check size={14} strokeWidth={3} aria-hidden="true" />
                       Billigst til dit areal
                     </span>
@@ -251,11 +251,11 @@ export default function DoseCalculator({
       {/* Seks linjer med blandingsforhold skal kunne slaas op, ikke laeses
           hver gang. Native details: browseren klarer tastatur og oplaesning. */}
       <details className="mt-4">
-        <summary className="select-none flex items-center gap-2 cursor-pointer list-none text-[13px] font-semibold text-ink-700 hover:text-ink-950 min-h-[44px]">
+        <summary className="select-none flex items-center gap-2 cursor-pointer list-none text-[0.8125rem] font-semibold text-ink-700 hover:text-ink-950 min-h-[44px]">
           <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
           Sådan er tallene regnet
         </summary>
-        <p className="select-none mt-1 text-[13px] text-ink-600 leading-relaxed">
+        <p className="select-none mt-1 text-[0.8125rem] text-ink-600 leading-relaxed">
           {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
         </p>
       </details>
@@ -269,7 +269,7 @@ export default function DoseCalculator({
           <p className="font-display font-bold text-lg m-0">
             {m2} m² er en dags arbejde med sprøjte og maske
           </p>
-          <p className="mt-1.5 text-[15px] text-ink-200 m-0">
+          <p className="mt-1.5 text-[0.9375rem] text-ink-200 m-0">
             På det areal skal midlet fordeles ensartet, og det, du ikke rammer, er der stadig
             insekter i. Vi kommer forbi, ser på det og giver en fast pris.
           </p>

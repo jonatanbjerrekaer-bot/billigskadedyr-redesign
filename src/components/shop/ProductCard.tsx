@@ -27,7 +27,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
   return (
     <a
       href={`${BASE}shop/produkt/${p.slug}/`}
-      className="group flex h-full flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-950 transition-[border-color] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+      className="group flex h-full w-full flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-950 transition-[border-color] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
     >
       <div className="relative aspect-square bg-white">
         <img
@@ -67,14 +67,14 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
           </div>
         )}
         {deal && (
-          <span className="select-none absolute top-3 left-3 bg-accent-500 text-ink-950 text-[13px] font-bold uppercase tracking-wide rounded-full px-2.5 py-1">
+          <span className="select-none absolute top-3 left-3 bg-accent-500 text-ink-950 text-[0.8125rem] font-bold uppercase tracking-wide rounded-full px-2.5 py-1">
             Tilbud
           </span>
         )}
       </div>
 
       <div className="flex flex-col gap-1.5 sm:gap-2 p-3 sm:p-5 border-t border-ink-200 flex-1">
-        <p className="select-none text-[13px] text-ink-500">
+        <p className="select-none text-[0.8125rem] text-ink-500">
           {PEST_LABEL[p.pest]} · {p.form}
           {range ? (
             <> · {p.variants.length} størrelser</>
@@ -82,16 +82,16 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
             p.size && <> · {p.size}</>
           )}
         </p>
-        <h3 className="font-display font-semibold text-ink-950 leading-snug text-[17px]">
+        <h3 className="font-display font-semibold text-ink-950 leading-snug text-[1.0625rem]">
           {p.name}
         </h3>
 
         {nudge?.flag && (
-          <p className="text-[13px] text-ink-700 leading-snug">{nudge.flag}</p>
+          <p className="text-[0.8125rem] text-ink-700 leading-snug">{nudge.flag}</p>
         )}
 
         {p.unit && (
-          <p className="select-none text-[13px] text-ink-600 tabular-nums">{p.unit}</p>
+          <p className="select-none text-[0.8125rem] text-ink-600 tabular-nums">{p.unit}</p>
         )}
 
         {/* Raekken skal kunne bryde. Med et tilbud staar der pris, foerpris og
@@ -111,12 +111,12 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
               )}
             </p>
           ) : (
-            <p className="font-display text-base sm:text-[19px] font-bold text-ink-700 leading-snug">
+            <p className="font-display text-base sm:text-[1.1875rem] font-bold text-ink-700 leading-snug">
               Pris på forespørgsel
             </p>
           )}
           <p
-            className={`select-none flex items-center gap-1 text-[13px] font-medium whitespace-nowrap ${
+            className={`select-none flex items-center gap-1 text-[0.8125rem] font-medium whitespace-nowrap ${
               p.inStock ? "text-green-700" : "text-ink-500"
             }`}
           >
