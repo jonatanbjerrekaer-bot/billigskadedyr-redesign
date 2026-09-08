@@ -50,7 +50,7 @@ export default function Guides() {
           Værd at vide, før du køber
         </h2>
         <p className="select-none mt-2 mb-8 max-w-[62ch] text-ink-700 leading-relaxed m-0">
-          Det, vi oftest bliver ringet op om, når midlet ikke gjorde det, folk håbede.
+          Det, folk ringer om, når midlet ikke gjorde det, de havde regnet med.
         </p>
 
         {/* Ét stort kort og to smaa paa tvaers. Tre ens kort paa en raekke er

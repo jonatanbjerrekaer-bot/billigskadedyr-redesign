@@ -21,7 +21,7 @@ function useShopMeta(route: ShopRoute) {
 
     document.title =
       route.kind === "home"
-        ? "Skadedyrsmidler og fælder til hus og have | Billigskadedyr.dk"
+        ? "Midler og fælder mod skadedyr | Billigskadedyr.dk"
         : route.kind === "browse"
           ? // Titlen skal sige, hvad man ser på. Et filter er en side i sig
             // selv for den, der bogmærker eller deler den.
@@ -42,12 +42,18 @@ function useShopMeta(route: ShopRoute) {
       meta.setAttribute("name", "description");
       document.head.appendChild(meta);
     }
-    meta.setAttribute(
-      "content",
-      p
-        ? p.blurb.slice(0, 155)
-        : "Godkendte midler, fælder og sikring mod mus, rotter, hvepse, myrer og møl. Fri fragt over 499 kr.",
-    );
+
+    // Varens egen beskrivelse er hans, og den er bedre end noget, vi kunne
+    // skrive om den. Paa de to andre sidetyper staar tilbuddet foerst:
+    // vi kan komme, og ellers kan du koebe midlet.
+    const dyr = new URLSearchParams(location.search).get("dyr");
+    const dyrLabel = dyr && dyr in PEST_LABEL ? PEST_LABEL[dyr as PestKey].toLowerCase() : null;
+    const beskrivelse = p
+      ? p.blurb.slice(0, 155)
+      : route.kind === "browse" && dyrLabel
+        ? `Midler og fælder mod ${dyrLabel} til hus og have. Vi sælger det, vi selv bruger — og rykker ud, hvis du hellere vil have os til det.`
+        : "Mus, rotter, hvepse eller borebiller? Vi rykker ud i Jylland og på Fyn og giver en fast pris, før vi går i gang. Vil du selv, sælger vi midlerne.";
+    meta.setAttribute("content", beskrivelse);
   }, [route.kind, route.kind === "product" ? route.slug : ""]);
 }
 

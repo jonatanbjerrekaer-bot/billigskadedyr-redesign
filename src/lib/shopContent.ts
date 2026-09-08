@@ -67,66 +67,66 @@ export const NUDGE: Partial<Record<PestKey, ProNudge>> = {
     flag: "Rotter skal anmeldes til kommunen",
     title: "Rotter må du ikke selv bekæmpe med gift",
     body:
-      "Rotter er anmeldepligtige. Ser du en rotte, skal du melde det til din kommune, og gift må kun lægges ud af folk med autorisation fra Miljøstyrelsen. Vi sælger midlerne til dem, der har den. Har du rotter i hus eller have, er anmeldelsen det første, du skal gøre, og derefter er en autoriseret bekæmper den eneste lovlige vej.",
+      "Ser du en rotte, skal du melde det til kommunen. Gift må kun lægges ud af folk med autorisation fra Miljøstyrelsen, så vi sælger den kun til dem — resten af vejen går gennem en bekæmper.",
   },
   hvepse: {
     level: "farligt",
     flag: "Sidder boet højt?",
     title: "Et bo i jordhøjde kan du klare. Et bo på taget kan du ikke",
     body:
-      "En spray rækker to-tre meter, og det er nok til et bo i en hæk eller under en terrasseplade. Sidder boet under tagsten, i en skunk eller bag en facadebeklædning, skal du op på en stige med en hånd optaget, mens hvepsene kommer ud. Det er sådan folk falder ned. Er du allergisk, eller er boet højere end du kan nå med begge fødder på jorden, så lad være.",
+      "En spray rækker to-tre meter, og det er nok til et bo i en hæk eller under en terrasseplade. Skal du op på en stige med en hånd optaget, mens hvepsene kommer ud, så lad være — det er sådan, folk falder ned.",
   },
   vaeggelus: {
     level: "svaert",
     flag: "Fælder finder dem, de fjerner dem ikke",
     title: "Væggelus overlever næsten altid første forsøg",
     body:
-      "Væggelus sidder i sprækker i sengeramme, fodpaneler og bag stikkontakter, og en behandling, der kun rammer det, du kan se, flytter dem længere ind i boligen i stedet for at fjerne dem. Fælder og barrierer er gode til at opdage dem og til at holde øje bagefter. De er ikke en behandling. Har du bid to nætter i træk, er det en fagmand fra starten.",
+      "De sidder i sprækker i sengeramme, fodpaneler og bag stikkontakter, og en behandling, der kun rammer det, du kan se, flytter dem længere ind i boligen. Fælder er gode til at opdage dem og holde øje bagefter, men de er ikke en behandling.",
   },
   kakerlakker: {
     level: "svaert",
     title: "Kakerlakker kræver en vurdering på stedet",
     flag: "Sjældent alene i én bolig",
     body:
-      "Ser du en kakerlak om dagen, er der som regel mange flere om natten, og i en etageejendom sidder de sjældent kun hos dig. Gel og fælder virker, men kun som del af en plan, der også dækker naboer, faldstammer og køkkenskabe. Det er derfor, den her opgave næsten altid ender med et besøg.",
+      "Ser du én om dagen, er der mange flere om natten, og i en etageejendom sidder de sjældent kun hos dig. Gel og fælder virker, men kun som del af en plan, der også dækker naboer og faldstammer.",
   },
   mus: {
     level: "svaert",
     flag: "Fælder virker. Hullet skal stadig lukkes",
     title: "Mus kommer igen, hvis vejen ind bliver stående",
     body:
-      "En fælde tager de mus, der er inde nu. Den gør ikke noget ved hullet, de kom ind igennem, og en mus skal bruge en åbning på størrelse med en blyant. Køb fælderne, og brug dem, men få lukket vejen ind, ellers står du med det samme til foråret.",
+      "En fælde tager de mus, der er inde nu. Den gør intet ved hullet, de kom ind igennem, og en mus skal bruge en åbning på størrelse med en blyant — bliver den stående, står du med det samme til foråret.",
   },
   moel: {
     level: "svaert",
     title: "Møllene, du ser flyve, er ikke dem, der laver skaden",
     flag: "Larverne sidder et andet sted",
     body:
-      "De voksne møl flyver rundt og er nemme at ramme. Skaden laves af larverne, der sidder i uld, i skabe og i fødevarer, og de sidder sjældent der, hvor møllene flyver. Detektorer fortæller dig hvilken slags møl du har, hvilket er den halvdel af opgaven, du kan klare selv.",
+      "De voksne møl er nemme at ramme, men skaden laves af larverne i uld, skabe og fødevarer, og de sidder sjældent der, hvor møllene flyver. En detektor fortæller dig, hvilken slags du har.",
   },
   myrer: {
     level: "svaert",
     title: "Gel virker på stien, ikke på reden",
     body:
-      "Myregel virker, fordi myrerne bærer det med hjem til reden, og det tager dage, ikke minutter. Sprayer du stien væk med det samme, afbryder du det, der virkede. Ligger reden inde i en hulmur eller under et fundament, kommer de igen uanset hvad du stiller ud.",
+      "Gelen virker, fordi myrerne bærer den hjem til reden, og det tager dage, ikke minutter. Sprayer du stien væk med det samme, afbryder du det, der virkede.",
   },
   edderkopper: {
     level: "svaert",
     title: "Sprøjt hjørnerne, ikke dyrene",
     body:
-      "Edderkopper vender tilbage til de samme kroge år efter år, og at slå dem ihjel enkeltvis gør ingen forskel. En behandling af karme, hjørner og udhæng er det, der holder dem væk, og den skal ligge to gange om året for at blive ved med at virke.",
+      "De vender tilbage til de samme kroge år efter år, så at slå dem ihjel enkeltvis gør ingen forskel. Det, der holder, er en behandling af karme, hjørner og udhæng to gange om året.",
   },
   muldvarpe: {
     level: "svaert",
     title: "Skuddene fortæller dig ikke, hvor dyret er",
     body:
-      "Et muldvarpeskud er der, hvor jorden er kommet op, ikke der, hvor muldvarpen arbejder. Fælder virker kun, når de sidder i en aktiv gang, og at finde den er hele opgaven.",
+      "Skuddet er der, hvor jorden er kommet op, ikke der, hvor muldvarpen arbejder. Fælder virker kun i en aktiv gang, og at finde den er hele opgaven.",
   },
   fugle: {
     level: "svaert",
     title: "Fugle er fredede, og reder må ikke fjernes i yngletiden",
     body:
-      "Pigge og skræmmere forebygger, og det er tilladt. At fjerne en rede med æg eller unger i er det ikke. Er der allerede fugle under tagpladerne, er det en opgave, der skal times efter yngletiden.",
+      "Pigge og skræmmere forebygger, og det må du gerne. At fjerne en rede med æg eller unger må du ikke, så sidder de allerede under tagpladerne, skal opgaven times efter yngletiden.",
   },
 };
 
@@ -156,7 +156,7 @@ export const SEASON: { months: number[]; heading: string; note: string; slugs: s
   {
     months: [9, 10, 11],
     heading: "Lige nu: efterår",
-    note: "Mus og rotter søger ind, når nætterne bliver kolde, og hvepseboene er størst nu, lige inden de går til.",
+    note: "Mus og rotter søger indendørs, når nætterne bliver kolde.",
     slugs: [
       "pest-stop-automatisk-musefaelde",
       "trinol-multikill-musefaelde",
@@ -169,7 +169,7 @@ export const SEASON: { months: number[]; heading: string; note: string; slugs: s
   {
     months: [12, 1, 2],
     heading: "Lige nu: vinter",
-    note: "Gnavere er inde nu, og møl i skabet opdages typisk, når vintertøjet kommer frem.",
+    note: "Gnaverne er inde nu, og møllene opdages, når vintertøjet kommer frem.",
     slugs: [
       "trinol-multikill-musefaelde",
       "pest-stop-fingersikker",
@@ -182,7 +182,7 @@ export const SEASON: { months: number[]; heading: string; note: string; slugs: s
   {
     months: [3, 4, 5],
     heading: "Lige nu: forår",
-    note: "Myrerne kommer frem først, og edderkopper behandles bedst nu, hvis det skal holde sommeren ud.",
+    note: "Myrerne kommer først. Edderkopper skal behandles nu, hvis det skal holde sommeren ud.",
     slugs: [
       "ps-myre-gel-10g",
       "trinol-insect-freeze",
@@ -195,7 +195,7 @@ export const SEASON: { months: number[]; heading: string; note: string; slugs: s
   {
     months: [6, 7, 8],
     heading: "Lige nu: sommer",
-    note: "Hvepse, fluer og myg fylder, og haven har snegle.",
+    note: "Hvepse og fluer indenfor, snegle i haven.",
     slugs: [
       "pest-stop-hvepsespray",
       "trinol-turbo-jet",

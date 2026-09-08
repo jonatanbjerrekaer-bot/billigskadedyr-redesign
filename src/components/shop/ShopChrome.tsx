@@ -251,8 +251,8 @@ export function ShopFooter() {
           Billig<span className="text-accent-500">skadedyr</span>.dk
         </p>
         <p className="mt-3 max-w-[52ch] text-[0.9375rem] leading-relaxed m-0">
-          Professionelle midler og fælder til private og erhverv. Vi er de samme folk,
-          der rykker ud, så vi sælger kun det, vi selv bruger.
+          Vi rykker ud til skadedyr hver dag i Jylland og på Fyn. Her sælger vi det,
+          vi selv har med i bilen.
         </p>
         <div className="mt-10 grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
           <nav aria-label="Handel og hjælp">

@@ -3,7 +3,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import {
   PRODUCTS, BY_SLUG, dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product,
 } from "../../lib/shop";
-import { BESTSELLERS, DEALS_NOTE } from "../../lib/shopContent";
+import { BESTSELLERS, CONTACT_LINK, DEALS_NOTE } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
@@ -119,21 +119,32 @@ export default function ShopHome() {
           <div className="grid lg:grid-cols-2">
             <div className="hero-in flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-77.5rem)/2+2rem))]">
               <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
-                Midlerne vi selv bruger
+                Vi kommer og ordner det
               </h1>
 
               <p className="select-none max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed m-0">
-                Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
-                købe her, til de priser fagfolk betaler.
+                Mus, rotter, hvepse eller borebiller. Vi kigger efter, siger en fast
+                pris, og går først i gang, når du har sagt ja.
               </p>
 
-              <a
-                href={`${BASE}shop/produkter/`}
-                className="press w-max inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accent-400"
-              >
-                Se alle varer
-                <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-              </a>
+              {/* To veje ud af heroet, og de er ikke lige store. Den, der vil
+                  af med dyret, skal ikke lede efter knappen; den, der vil selv,
+                  skal kunne se, at butikken stadig er her. */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <a
+                  href={CONTACT_LINK}
+                  className="press w-max inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accent-400"
+                >
+                  Få en fast pris
+                  <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
+                </a>
+                <a
+                  href={`${BASE}shop/produkter/`}
+                  className="press w-max inline-flex items-center gap-2 font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
+                >
+                  Vil du selv? Se midlerne
+                </a>
+              </div>
 
               <p className="select-none flex items-center gap-2 text-sm text-ink-700 m-0">
                 <ShieldCheck size={17} strokeWidth={2.25} aria-hidden="true" className="text-ink-600" />
@@ -249,9 +260,9 @@ export default function ShopHome() {
                 Har du prøvet selv to gange?
               </h2>
               <p className="mt-5 text-lg text-ink-100/85 leading-relaxed text-pretty">
-                Så er det sjældent produktet, der er galt. Det er som regel, at dyret
-                sidder et andet sted, end der hvor du kan se det. Vi kommer forbi, kigger
-                efter, og siger en fast pris, før vi går i gang.
+                Så er det sjældent midlet, der er galt. Dyret sidder som regel et
+                andet sted, end der hvor du kan se det. Vi finder det, og du får en
+                fast pris, før vi går i gang.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
