@@ -13,6 +13,7 @@ import { ShopFooter, ShopHeader } from "./ShopChrome";
 import ProductCard from "./ProductCard";
 import ProPanel from "./ProPanel";
 import ProductTabs from "./ProductTabs";
+import SeasonRow from "./SeasonRow";
 import TrustRow from "./TrustRow";
 
 const BASE = import.meta.env.BASE_URL;
@@ -413,6 +414,16 @@ export default function ProductPage({ slug }: { slug: string }) {
             </div>
           </section>
         )}
+
+        {/* Varer, der er aktuelle lige nu, uanset hvad man kigger paa.
+            Raekken ovenover er det samme skadedyr; den her er aarstiden, og
+            den er tit grunden til, at man er paa siden overhovedet. Varen
+            selv og de fire ovenover er trukket fra. */}
+        <SeasonRow
+          antal={3}
+          undtag={[p.slug, ...related.slice(0, 4).map((x) => x.slug)]}
+          className="py-14 sm:py-20"
+        />
 
         {/* Koebsbaaren paa mobil.
 

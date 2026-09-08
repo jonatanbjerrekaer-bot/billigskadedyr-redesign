@@ -3,11 +3,12 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import {
   PRODUCTS, BY_SLUG, dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product,
 } from "../../lib/shop";
-import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
+import { BESTSELLERS, DEALS_NOTE } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import Guides from "./Guides";
+import SeasonRow from "./SeasonRow";
 import { EM_COUNT, EM_SCORE } from "../TrustSeal";
 import Reviews from "../Reviews";
 
@@ -82,13 +83,7 @@ function ProductRow({ p }: { p: Product }) {
   );
 }
 
-function seasonNow(now = new Date()) {
-  const m = now.getMonth() + 1;
-  return SEASON.find((s) => s.months.includes(m)) ?? SEASON[0]!;
-}
-
 export default function ShopHome() {
-  const season = seasonNow();
   const featured = pick(HERO_PICKS)[0];
 
   /*
@@ -103,7 +98,6 @@ export default function ShopHome() {
     const id = setInterval(() => setShot((n) => (n + 1) % SHOTS.length), SKIFT_MS);
     return () => clearInterval(id);
   }, []);
-  const seasonItems = pick(season.slugs);
   const best = pick(BESTSELLERS);
   const deals = PRODUCTS.filter(isDeal);
 
@@ -201,33 +195,7 @@ export default function ShopHome() {
           </div>
         </section>
 
-        {/* Seks varer i et gitter, alle synlige. Baymard: en statisk sektion
-            saelger lige saa godt som en karrusel, og ingen skal rulle for at
-            se den sjette. Tilbud laengere nede er karrusellen. */}
-        <section aria-labelledby="saeson" className="pt-12 pb-20 sm:pt-16 sm:pb-24">
-          <div className="max-w-[77.5rem] mx-auto px-5 sm:px-8">
-            <div className="max-w-[62ch]">
-              <h2 id="saeson" className="font-display text-2xl sm:text-[1.875rem] font-bold tracking-tight text-ink-950 m-0">
-                {season.heading}
-              </h2>
-              <p className="select-none mt-2 mb-8 text-ink-700 leading-relaxed m-0">{season.note}</p>
-            </div>
-            <ul className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 list-none p-0 m-0">
-              {seasonItems.map((p, i) => (
-                <li key={p.slug} className="flex">
-                  <ProductCard p={p} priority={i < 3} />
-                </li>
-              ))}
-            </ul>
-            <a
-              href={`${BASE}shop/produkter/`}
-              className="mt-8 inline-flex items-center gap-2 font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
-            >
-              Se alle varer
-              <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-            </a>
-          </div>
-        </section>
+        <SeasonRow antal={6} priority className="pt-12 pb-20 sm:pt-16 sm:pb-24" />
 
         {/* Billeder og rigtig tekst mellem karrusellerne. Fire kortgitre i
             traek er den samme rytme fire gange. */}

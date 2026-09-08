@@ -837,3 +837,44 @@ input[type="search"]::-webkit-search-decoration {
 @media (min-width: 48rem) {
   html[data-pest=""] { font-size: 87.5%; }
 }
+
+/* En <details>, der folder ud i stedet for at springe.
+ *
+ * Native details skifter fra lukket til aaben paa én gang, og saa hopper
+ * resten af siden ned uden at fortaelle hvorfor. ::details-content er den
+ * kasse, browseren selv viser og skjuler, og med interpolate-size kan dens
+ * auto-hoejde animeres. Det er stadig en rigtig <details>: tastatur,
+ * oplaesning og "find paa siden" virker som foer, og der er ingen
+ * JavaScript, der skal holde en tilstand.
+ *
+ * Hvor ::details-content ikke er understoettet endnu, springer den som foer.
+ * Indholdet er der; det er kun overgangen, der mangler.
+ *
+ * 260 ms paa den samme ease-out som resten: langt nok til at ses, inden for
+ * de 300 ms, en graenseflade maa bruge paa at svare.
+ */
+.udfold {
+  interpolate-size: allow-keywords;
+}
+.udfold::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 260ms var(--ease-out),
+    content-visibility 260ms var(--ease-out) allow-discrete;
+}
+.udfold[open]::details-content {
+  block-size: auto;
+}
+.udfold-pil {
+  transition: transform 260ms var(--ease-out);
+}
+.udfold[open] .udfold-pil {
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .udfold::details-content,
+  .udfold-pil {
+    transition: none;
+  }
+}

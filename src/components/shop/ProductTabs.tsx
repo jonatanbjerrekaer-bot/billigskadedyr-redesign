@@ -92,7 +92,7 @@ export default function ProductTabs({ slug }: { slug: string }) {
           <details
             key={t.title}
             open={i === 0}
-            className="group border-b border-ink-200"
+            className="udfold group border-b border-ink-200"
           >
             <summary className="press select-none cursor-pointer list-none flex items-center justify-between gap-4 py-4 font-display text-lg font-bold text-ink-950 marker:hidden [&::-webkit-details-marker]:hidden">
               {t.title}

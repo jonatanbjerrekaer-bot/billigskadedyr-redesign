@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@heroui/react";
-import { ArrowRight, Check, Info } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Info } from "lucide-react";
 import type { Product, Variant } from "../../lib/shop";
 import { dkr } from "../../lib/shop";
 import type { Dose, Rate } from "../../lib/dosage";
@@ -250,10 +250,11 @@ export default function DoseCalculator({
 
       {/* Seks linjer med blandingsforhold skal kunne slaas op, ikke laeses
           hver gang. Native details: browseren klarer tastatur og oplaesning. */}
-      <details className="mt-4">
+      <details className="udfold mt-4">
         <summary className="select-none flex items-center gap-2 cursor-pointer list-none text-[0.8125rem] font-semibold text-ink-700 hover:text-ink-950 min-h-[44px]">
           <Info size={14} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
           Sådan er tallene regnet
+          <ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" className="udfold-pil shrink-0" />
         </summary>
         <p className="select-none mt-1 text-[0.8125rem] text-ink-600 leading-relaxed">
           {dose.sourceNote} Det er et overslag. Etiketten på dunken er den, der gælder.
