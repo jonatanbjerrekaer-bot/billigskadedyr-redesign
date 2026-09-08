@@ -103,7 +103,7 @@ export function ShopHeader() {
   }, []);
 
   return (
-    <header ref={el} className="sticky top-0 z-40 bg-white text-ink-950 border-b border-ink-200">
+    <header ref={el} className="sticky top-0 z-40 bg-white text-ink-950">
       {/* Tre loefter med ikon, tal og underlinje, som paa thenap.dk. De
           stod som én lang saetning, og saa laeses ingen af dem. Paa mobil
           falder underlinjen bort, men tallet bliver staaende: det er det,
@@ -114,8 +114,8 @@ export function ShopHeader() {
           skjulUsp ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
         }`}
       >
-        <div className="min-h-0 overflow-hidden bg-ink-50">
-      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-200 border-b border-ink-200 list-none p-0 m-0">
+        <div className="min-h-0 overflow-hidden">
+      <ul className="select-none max-w-[1240px] mx-auto grid grid-cols-3 divide-x divide-ink-100 border-b border-ink-100 list-none p-0 m-0">
         {USP.map(({ Icon, stat, sub }) => (
           <li key={stat} className="flex items-center justify-center gap-2.5 px-3 py-2.5">
             <Icon size={20} strokeWidth={2} aria-hidden="true" className="shrink-0 text-accent-700" />
@@ -142,7 +142,7 @@ export function ShopHeader() {
           {open ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
         </Button>
 
-        <a href={`${BASE}shop/`} className="font-display font-bold text-lg sm:text-xl tracking-tight shrink-0">
+        <a href={`${BASE}shop/`} className="font-display font-bold text-xl sm:text-2xl tracking-tight shrink-0">
           Billig<span className="text-accent-700">skadedyr</span>.dk
         </a>
 
@@ -181,31 +181,33 @@ export function ShopHeader() {
       </div>
 
       <nav
-        className={`${open ? "block" : "hidden"} lg:block border-t border-ink-200 bg-white`}
+        className={`${open ? "block" : "hidden"} lg:block bg-ink-50`}
         aria-label="Skadedyr"
       >
-        <ul className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-center gap-0 lg:gap-0.5 py-2 lg:py-0 list-none m-0 overflow-x-auto">
+        <ul className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-1 py-2 lg:py-1.5 list-none m-0 overflow-x-auto">
           {MENU_PESTS.map((p) => (
             <li key={p}>
               <a
                 href={`${BASE}shop/produkter/?dyr=${p}`}
                 aria-current={here === p ? "page" : undefined}
-                className={`group flex items-center gap-2 whitespace-nowrap px-2.5 py-2.5 lg:py-3 text-sm font-semibold rounded-lg ${
+                className={`group flex items-center gap-2.5 whitespace-nowrap px-3 py-2.5 lg:flex-col lg:gap-1 lg:px-3.5 lg:pt-2 lg:pb-1.5 text-sm rounded-xl border transition-colors duration-150 ${
                   here === p
-                    ? "bg-ink-100 text-ink-950"
-                    : "text-ink-800 hover:text-ink-950 hover:bg-ink-50"
+                    ? "border-ink-200 bg-white text-ink-950 font-semibold"
+                    : "border-transparent text-ink-800 font-medium hover:text-ink-950 hover:bg-white"
                 }`}
               >
-                <ShopGlyph pest={p} size={22} className="text-ink-600 group-hover:text-ink-950 group-aria-[current=page]:text-ink-950" />
-                {PEST_LABEL[p]}
-                <span className="text-[13px] text-ink-500 tabular-nums">{PEST_COUNTS[p]}</span>
+                <ShopGlyph pest={p} size={24} className="text-ink-700 group-hover:text-ink-950 group-aria-[current=page]:text-ink-950" />
+                <span className="flex items-baseline gap-1">
+                  {PEST_LABEL[p]}
+                  <span className="text-[12px] text-ink-500 tabular-nums">{PEST_COUNTS[p]}</span>
+                </span>
               </a>
             </li>
           ))}
           <li className="lg:ml-auto">
             <a
               href={`${BASE}shop/produkter/`}
-              className="block whitespace-nowrap px-3 py-3 lg:py-3.5 text-sm font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
+              className="flex h-full items-center whitespace-nowrap px-3 py-3 text-sm font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
             >
               Se alle varer
             </a>
@@ -218,39 +220,33 @@ export function ShopHeader() {
 
 export function ShopFooter() {
   return (
-    <footer className="bg-ink-950 text-ink-100/70 border-t border-ink-800 mt-16">
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-        <div>
-          <p className="select-none font-display font-bold text-cream mb-3">Billigskadedyr.dk</p>
-          <p className="leading-relaxed">
-            Professionelle midler og fælder til private og erhverv. Vi er de samme folk,
-            der rykker ud, så vi sælger kun det, vi selv bruger.
-          </p>
-        </div>
-        <div>
-          <h3 className="select-none text-cream font-semibold mb-3">Handel</h3>
-          <ul className="flex flex-col gap-2 list-none p-0 m-0">
-            <li><a href="#" className="hover:text-cream">Fragt og levering</a></li>
-            <li><a href="#" className="hover:text-cream">Returret</a></li>
-            <li><a href="#" className="hover:text-cream">Handelsbetingelser</a></li>
-            <li><a href="#" className="hover:text-cream">Privatlivspolitik</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="select-none text-cream font-semibold mb-3">Skal vi klare det?</h3>
-          <ul className="flex flex-col gap-2 list-none p-0 m-0">
-            <li><a href={BASE} className="hover:text-cream">Professionel bekæmpelse</a></li>
-            <li><a href={`${BASE}service/hvepse/`} className="hover:text-cream">Hvepsebo</a></li>
-            <li><a href={`${BASE}service/vaeggelus/`} className="hover:text-cream">Væggelus</a></li>
-            <li><a href={`${BASE}#skriv`} className="hover:text-cream">Få et fast tilbud</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 className="select-none text-cream font-semibold mb-3">Kontakt</h3>
-          <p className="leading-relaxed">
-            Ring 24 24 55 83<br />
-            Hverdage 8-16<br />
-            Hele Jylland og Fyn
+    <footer className="bg-ink-950 text-ink-100/70 mt-20">
+      {/* Ordmaerket oeverst og stort, én linje links, kontakten som en saetning.
+          Fire kolonner med overskrifter er et sitemap, og butikken har ikke et
+          sitemap; den har seks links og et telefonnummer. */}
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-8 pt-14 pb-10">
+        <p className="select-none font-display font-bold text-cream text-3xl sm:text-4xl tracking-tight m-0">
+          Billig<span className="text-accent-500">skadedyr</span>.dk
+        </p>
+        <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed m-0">
+          Professionelle midler og fælder til private og erhverv. Vi er de samme folk,
+          der rykker ud, så vi sælger kun det, vi selv bruger.
+        </p>
+        <div className="mt-10 grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end">
+          <nav aria-label="Handel og hjælp">
+            <ul className="flex flex-wrap gap-x-6 gap-y-2.5 text-sm list-none p-0 m-0">
+              <li><a href="#" className="hover:text-cream">Fragt og levering</a></li>
+              <li><a href="#" className="hover:text-cream">Returret</a></li>
+              <li><a href="#" className="hover:text-cream">Handelsbetingelser</a></li>
+              <li><a href="#" className="hover:text-cream">Privatlivspolitik</a></li>
+              <li><a href={BASE} className="hover:text-cream">Professionel bekæmpelse</a></li>
+              <li><a href={`${BASE}#skriv`} className="hover:text-cream">Få et fast tilbud</a></li>
+            </ul>
+          </nav>
+          <p className="text-sm leading-relaxed m-0 sm:text-right">
+            <a href={TEL} className="font-semibold text-cream hover:underline">Ring 24 24 55 83</a>
+            <br />
+            Hverdage 8–16 · Hele Jylland og Fyn
           </p>
         </div>
       </div>

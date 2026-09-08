@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import {
-  PRODUCTS, BY_SLUG, dkr, isDeal,
+  PRODUCTS, BY_SLUG, dkr, hasPrice, hasRange, isDeal, PEST_LABEL, type Product,
 } from "../../lib/shop";
 import { BESTSELLERS, DEALS_NOTE, SEASON } from "../../lib/shopContent";
 import { ShopFooter, ShopHeader } from "./ShopChrome";
 import Carousel, { CarouselItem } from "./Carousel";
 import ProductCard from "./ProductCard";
 import Guides from "./Guides";
-import TrustRow from "./TrustRow";
 import { EM_COUNT, EM_SCORE } from "../TrustSeal";
 import Reviews from "../Reviews";
 
@@ -44,6 +43,43 @@ const HERO_PICKS = [
 
 function pick(slugs: string[]) {
   return slugs.map((s) => BY_SLUG.get(s)).filter((p) => p != null);
+}
+
+/** En vare som en raekke: billede, navn, pris. Til lister, ikke gitre. */
+function ProductRow({ p }: { p: Product }) {
+  return (
+    <a
+      href={`${BASE}shop/produkt/${p.slug}/`}
+      className="group flex items-center gap-4 py-4 no-underline"
+    >
+      <img
+        src={`${BASE}shop/${p.img}`}
+        alt=""
+        width={96}
+        height={96}
+        loading="lazy"
+        className="h-20 w-20 shrink-0 rounded-xl border border-ink-200 bg-white object-contain p-2"
+      />
+      <span className="min-w-0 flex-1">
+        <span className="select-none block text-[13px] text-ink-500">
+          {PEST_LABEL[p.pest]} · {p.form}
+        </span>
+        <span className="block font-display font-semibold text-[17px] leading-snug text-ink-950 underline-offset-4 decoration-ink-300 group-hover:underline">
+          {p.name}
+        </span>
+      </span>
+      <span className="shrink-0 font-display text-lg font-bold tabular-nums text-ink-950">
+        {hasPrice(p) ? (
+          <>
+            {hasRange(p) && <span className="select-none mr-1 text-sm font-sans font-semibold text-ink-600">Fra</span>}
+            {dkr(p.price)}
+          </>
+        ) : (
+          <span className="text-sm font-sans font-semibold text-ink-700">Pris på forespørgsel</span>
+        )}
+      </span>
+    </a>
+  );
 }
 
 function seasonNow(now = new Date()) {
@@ -88,17 +124,13 @@ export default function ShopHome() {
         <section className="border-b border-ink-200">
           <div className="grid lg:grid-cols-2">
             <div className="hero-in flex flex-col justify-center gap-5 bg-ink-50 px-5 py-10 sm:px-8 sm:py-12 lg:py-14 lg:pr-10 lg:pl-[max(2rem,calc((100vw-1240px)/2+2rem))]">
-              <span className="select-none w-max rounded-full bg-ink-950 px-3.5 py-1 text-[13px] font-semibold text-cream">
-                Samme priser som fagfolk betaler
-              </span>
-
               <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight uppercase text-balance text-ink-950">
                 Midlerne vi selv bruger
               </h1>
 
               <p className="select-none max-w-[42ch] text-lg text-pretty text-ink-700 leading-relaxed m-0">
                 Vi rykker ud til skadedyr hver dag. Det, vi har med i bilen, kan du
-                købe her.
+                købe her, til de priser fagfolk betaler.
               </p>
 
               <a
@@ -139,7 +171,7 @@ export default function ShopHome() {
               {featured && (
                 <a
                   href={`${BASE}shop/produkt/${featured.slug}/`}
-                  className="press group absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-5 sm:bottom-5 sm:w-[20rem] flex items-center gap-3 rounded-2xl bg-white/95 p-3 backdrop-blur-sm transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+                  className="press group absolute inset-x-4 bottom-4 sm:inset-x-auto sm:left-5 sm:bottom-5 sm:w-[20rem] flex items-center gap-3 rounded-2xl bg-white p-3 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
                 >
                   <img
                     src={`${BASE}shop/${featured.img}`}
@@ -169,20 +201,33 @@ export default function ShopHome() {
           </div>
         </section>
 
-        <Carousel
-          id="saeson"
-          heading={season.heading}
-          note={season.note}
-          href={`${BASE}shop/produkter/`}
-          hrefLabel="Se alle varer"
-          count={seasonItems.length}
-        >
-          {seasonItems.map((p, i) => (
-            <CarouselItem key={p.slug}>
-              <ProductCard p={p} priority={i < 3} />
-            </CarouselItem>
-          ))}
-        </Carousel>
+        {/* Seks varer i et gitter, alle synlige. Baymard: en statisk sektion
+            saelger lige saa godt som en karrusel, og ingen skal rulle for at
+            se den sjette. Tilbud laengere nede er karrusellen. */}
+        <section aria-labelledby="saeson" className="pt-12 pb-20 sm:pt-16 sm:pb-24">
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+            <div className="max-w-[62ch]">
+              <h2 id="saeson" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 m-0">
+                {season.heading}
+              </h2>
+              <p className="select-none mt-2 mb-8 text-ink-700 leading-relaxed m-0">{season.note}</p>
+            </div>
+            <ul className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 list-none p-0 m-0">
+              {seasonItems.map((p, i) => (
+                <li key={p.slug} className="flex">
+                  <ProductCard p={p} priority={i < 3} />
+                </li>
+              ))}
+            </ul>
+            <a
+              href={`${BASE}shop/produkter/`}
+              className="mt-8 inline-flex items-center gap-2 font-semibold text-ink-950 underline underline-offset-4 decoration-ink-300 hover:decoration-ink-950"
+            >
+              Se alle varer
+              <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+            </a>
+          </div>
+        </section>
 
         {/* Billeder og rigtig tekst mellem karrusellerne. Fire kortgitre i
             traek er den samme rytme fire gange. */}
@@ -259,20 +304,25 @@ export default function ShopHome() {
           </div>
         </section>
 
-        <Carousel id="mest-solgte" heading="Mest solgte" href={`${BASE}shop/produkter/`} count={best.length}>
-          {best.map((p) => (
-            <CarouselItem key={p.slug}>
-              <ProductCard p={p} />
-            </CarouselItem>
-          ))}
-        </Carousel>
-
-        <section className="bg-cream">
-          <div className="max-w-[1240px] mx-auto px-5 sm:px-8 py-12 sm:py-16 flex flex-col gap-14">
-            <TrustRow id="fragt" />
-            <Reviews />
+        {/* Raekker, ikke kort. Tredje kortgitter paa siden ville vaere den
+            samme sektion en gang til. Ingen numre: listen er hans, men jeg
+            ved ikke, om raekkefoelgen er salgstal. */}
+        <section aria-labelledby="mest-solgte" className="pt-16 pb-24 sm:pt-20 sm:pb-28">
+          <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
+            <h2 id="mest-solgte" className="font-display text-2xl sm:text-[30px] font-bold tracking-tight text-ink-950 m-0">
+              Mest solgte
+            </h2>
+            <ul className="mt-6 grid sm:grid-cols-2 gap-x-10 list-none p-0 m-0 border-t border-ink-200">
+              {best.map((p) => (
+                <li key={p.slug} className="border-b border-ink-200">
+                  <ProductRow p={p} />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
+
+        <Reviews />
       </main>
 
       <ShopFooter />

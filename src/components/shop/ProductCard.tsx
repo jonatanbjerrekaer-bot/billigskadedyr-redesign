@@ -27,7 +27,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
   return (
     <a
       href={`${BASE}shop/produkt/${p.slug}/`}
-      className="group flex h-full flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-400 hover:shadow-lg transition-[border-color,box-shadow] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+      className="group flex h-full flex-col bg-cream rounded-2xl border border-ink-200 overflow-hidden hover:border-ink-950 transition-[border-color] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
     >
       <div className="relative aspect-square bg-white">
         <img
@@ -36,7 +36,7 @@ export default function ProductCard({ p, priority }: { p: Product; priority?: bo
           width={400}
           height={400}
           loading={priority ? "eager" : "lazy"}
-          className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6 transition-transform duration-300 group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6"
         />
 
         {/* Billedskifteren. Prikker frem for pile: der er to eller tre
