@@ -10,12 +10,12 @@ const BENEFITS: { title: string; desc: string; Icon: LucideIcon }[] = [
   },
   {
     title: "Certificerede fagfolk",
-    desc: "Vores teknikere er uddannede og autoriserede til professionel bekæmpelse.",
+    desc: "Vi er uddannede og autoriserede til de midler, opgaven kræver.",
     Icon: BadgeCheck,
   },
   {
-    title: "Dokumenteret service",
-    desc: "Du får det skriftligt: hvad vi fandt, hvad vi brugte, og hvad vi gjorde. Klar til ejendomsadministrationen eller forsikringssagen.",
+    title: "Du får det på skrift",
+    desc: "Hvad vi fandt, hvad vi brugte, og hvad vi gjorde. Klar til ejendomsadministrationen eller forsikringssagen.",
     Icon: ClipboardCheck,
   },
   {

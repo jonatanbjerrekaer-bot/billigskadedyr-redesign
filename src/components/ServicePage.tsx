@@ -67,10 +67,10 @@ export default function ServicePage({ slug }: { slug: string }) {
               </span>
               <div className="min-w-0">
                 <p className="uppercase tracking-widest text-accent-500 text-sm font-bold mb-3">
-                  Professionel skadedyrsbekæmpelse
+                  Hele Jylland og Fyn · fast pris
                 </p>
                 <h1 className="font-display text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
-                  Professionel bekæmpelse af {label.toLowerCase()}
+                  Vi fjerner {label.toLowerCase()}
                 </h1>
               </div>
             </div>
@@ -108,13 +108,11 @@ export default function ServicePage({ slug }: { slug: string }) {
             <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-start">
               <div>
                 <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight uppercase">
-                  Hvorfor er professionel {label.toLowerCase()}-bekæmpelse mere effektiv?
+                  Hvorfor virkede midlet fra byggemarkedet ikke?
                 </h2>
                 <p className="mt-4 text-base sm:text-lg text-ink-900/80 leading-relaxed max-w-xl">
-                  Midler fra byggemarkedet rammer det, du kan se. Problemet sidder
-                  der, hvor du ikke kan komme til. Derfor vender det tilbage, og
-                  derfor bliver det dyrere at løse, end hvis det var gjort rigtigt
-                  første gang.
+                  Det rammer det, du kan se. Problemet sidder der, hvor du ikke kan
+                  komme til, og derfor kommer det igen.
                 </p>
                 <ul className="mt-8 flex flex-col gap-5 max-w-xl">
                   {(content.whyProfessional ?? []).map((w) => (
@@ -138,7 +136,7 @@ export default function ServicePage({ slug }: { slug: string }) {
                   {[
                     ["Fast pris, aftalt før vi går i gang", "Du siger ja til et beløb, ikke til et estimat. Det tal ændrer sig ikke undervejs."],
                     ["Certificerede teknikere", "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver."],
-                    ["Skriftlig dokumentation", "Du får behandlingen på skrift, klar til ejendomsadministrationen eller forsikringssagen."],
+                    ["Du får det på skrift", "Behandlingen på skrift, klar til ejendomsadministrationen eller forsikringssagen."],
                     ["Du ved, hvem der kommer", "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring."],
                     ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel et hvepsebo tæt på en indgang, ringer du bare."],
                   ].map(([t, d]) => (

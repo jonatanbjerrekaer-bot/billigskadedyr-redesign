@@ -1,8 +1,8 @@
 import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
 
 const TRUST_POINTS = [
-  "Fast pris, aftalt før vi går i gang",
-  "Certificerede teknikere og skriftlig dokumentation",
+  "Hos dig på 1-2 hverdage",
+  "Uddannede teknikere, og du får behandlingen på skrift",
 ];
 
 export default function Hero() {
@@ -16,11 +16,11 @@ export default function Hero() {
               Hele Jylland og Fyn · base i Risskov
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
-              Myrer, hvepse, væggelus eller borebiller?
+              Skadedyr i huset? Vi kommer og fjerner dem.
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Professionel skadedyrsbekæmpelse, når du har brug for det. Vi kommer ud i
-              hele Jylland og på Fyn.
+              Du får en fast pris, før vi går i gang. Vi kører i hele Jylland og
+              på Fyn.
             </p>
 
             <ul className="mt-7 flex flex-col gap-3">

@@ -30,14 +30,14 @@ const TIERS: Tier[] = [
     name: "Enkeltbesøg",
     from: 1800,
     fromLabel: "Ét skadedyr, ét besøg",
-    desc: "Til ét afgrænset problem, du vil have væk nu.",
+    desc: "Til ét problem, du vil have væk nu.",
   },
   {
     id: "fuld",
     name: "Fuld løsning",
     from: 2800,
     fromLabel: "Op til 2 besøg + opfølgning",
-    desc: "Det de fleste boliger ender med at få brug for.",
+    desc: "Det, de fleste huse ender med at få brug for.",
     featured: true,
   },
   {
@@ -118,11 +118,11 @@ export default function Packages() {
     <section id="packages" className="bg-ink-950 text-cream py-12 sm:py-16">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <h2 className="font-display text-3xl font-bold tracking-tight uppercase text-center mb-3">
-          Pakker
+          Hvad koster det?
         </h2>
         <p className="text-center text-ink-100/70 text-sm mb-12 max-w-xl mx-auto">
-          Vejledende priser. Din egen pris får du i prisberegneren ovenfor, og en bundet
-          pris, før vi går i gang.
+          Vejledende priser. Din egen pris regner du ud ovenfor, og den ligger
+          fast, før vi går i gang.
         </p>
 
         {/* Cards. The recommended tier is lifted and outlined rather than filled

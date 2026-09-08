@@ -2,17 +2,17 @@ const STEPS = [
   {
     n: "01",
     title: "Skriv eller ring",
-    desc: "Fortæl kort, hvad du står over for. Du får svar inden for 24 timer på hverdage.",
+    desc: "Fortæl kort, hvad du står over for. Du får svar inden for en hverdag.",
   },
   {
     n: "02",
-    title: "Besigtigelse og fast pris",
-    desc: "Vi ser på omfanget, anbefaler en metode og sætter prisen. Så ved du, hvad det ender med.",
+    title: "Vi kigger på det og siger prisen",
+    desc: "Vi ser, hvor slemt det er, og hvad der skal til. Prisen får du, før der sker noget.",
   },
   {
     n: "03",
-    title: "Behandling og opfølgning",
-    desc: "Vi behandler, sender dig dokumentationen og følger op, så det ikke kommer igen.",
+    title: "Vi gør arbejdet og følger op",
+    desc: "Du får behandlingen på skrift bagefter. Vi følger op, så det ikke kommer igen.",
   },
 ];
 

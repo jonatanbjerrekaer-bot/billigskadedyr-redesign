@@ -27,8 +27,8 @@ function useDocumentMeta(slug: string) {
     const content = slug ? serviceContentFor(slug) : undefined;
 
     document.title = pest
-      ? `Professionel bekæmpelse af ${pest.label.toLowerCase()} | Billigskadedyr.dk`
-      : "Billigskadedyr.dk | Professionel skadedyrsbekæmpelse i Jylland og på Fyn";
+      ? `Bekæmpelse af ${pest.label.toLowerCase()} til fast pris | Billigskadedyr.dk`
+      : "Skadedyrsbekæmpelse i Jylland og på Fyn | Billigskadedyr.dk";
 
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -40,7 +40,7 @@ function useDocumentMeta(slug: string) {
       "content",
       content
         ? content.intro.slice(0, 155)
-        : "Fast pris før vi går i gang. Certificerede fagfolk i hele Jylland og på Fyn.",
+        : "Vi kommer ud i hele Jylland og på Fyn, ser på det og giver en fast pris, før vi går i gang. Skriv til os, så svarer vi inden for en hverdag.",
     );
 
     // The shells carry the slug so the prerender knows which page it is

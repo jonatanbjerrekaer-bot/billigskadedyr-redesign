@@ -12,7 +12,7 @@ const ROWS: { other: string; us: string }[] = [
     us: "Prisen står på siden. Regn den ud, før du kontakter os",
   },
   {
-    other: "Kategorier efter produkttype",
+    other: "Du skal kende midlets navn, før du kan finde det",
     us: "Kategorier efter skadedyr. Du tænker “rotter”, ikke “smækfælde”",
   },
   {
