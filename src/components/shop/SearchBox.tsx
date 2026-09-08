@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { dkr, PEST_LABEL, type PestKey } from "../../lib/shop";
 import { suggest } from "../../lib/search";
+import { useLocationKey } from "../../lib/shopRouter";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -35,15 +36,36 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
   const box = useRef<HTMLDivElement>(null);
+  const felt = useRef<HTMLInputElement>(null);
   const listId = useId();
+  const stedet = useLocationKey();
 
   // Står søgningen i adressen, skal den også stå i feltet. Siden er
   // prærenderet uden ?q, så det kan først læses efter montering.
+  //
+  // Feltet skrives også direkte. Browseren gendanner selv formularfelter,
+  // når man bladrer i historikken, og den gør det efter React har tegnet
+  // feltet tomt. React sammenligner kun med sin egen sidste værdi, som
+  // stadig er "", så den opdager aldrig, at der står noget i DOM'en. Uden
+  // den her linje blev en søgning hængende i feltet, når man klikkede en
+  // vare i forslagene. autoComplete="off" hjælper ikke: den slår browserens
+  // eget autofyld fra, ikke gendannelsen af historikken.
+  // Butikken skifter side uden at hente en ny, så det her felt bliver stående
+  // monteret. Uden en afhængighed af adressen blev søgningen liggende i
+  // feltet, når man klikkede en vare i forslagene: adressen skiftede, men
+  // komponentens state gjorde ikke. useLocationKey skifter ved hver
+  // navigation, også frem og tilbage i historikken.
+  //
+  // Feltet skrives også direkte i DOM'en. Browseren gendanner selv
+  // formularfelter, og React sammenligner kun med sin egen sidste værdi, så
+  // den opdager ikke, at der er kommet noget andet til at stå der.
   useEffect(() => {
-    if (typeof location !== "undefined") {
-      setQ(new URLSearchParams(location.search).get("q") ?? "");
-    }
-  }, []);
+    const fra = new URLSearchParams(location.search).get("q") ?? "";
+    setQ(fra);
+    if (felt.current) felt.current.value = fra;
+    setOpen(false);
+    setActive(-1);
+  }, [stedet]);
 
   useEffect(() => {
     function away(e: MouseEvent) {
@@ -113,6 +135,7 @@ export default function SearchBox({ mobile }: { mobile?: boolean }) {
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-500"
           />
           <input
+            ref={felt}
             id={`søg-${listId}`}
             name="q"
             type="search"

@@ -201,32 +201,19 @@ export default function ProductPage({ slug }: { slug: string }) {
               </fieldset>
             )}
 
+            {/* Knappen og antallet er ét felt i fuld bredde. Handlingen fylder
+                venstre side, antallet sidder i højre ende bag en skillelinje.
+                Delt op som to kontroller ved siden af hinanden begyndte
+                knappen først en tredjedel inde på siden, og de to ting man
+                gør lige før købet lå hver for sig. */}
             {hasPrice(p) && (
-            <div ref={buyRef} className="mt-6 flex flex-wrap items-stretch gap-3">
-              <div className="flex items-center rounded-full border-2 border-ink-300 h-14">
-                <Button
-                  onPress={() => setQty((q) => Math.max(1, q - 1))}
-                  aria-label="Færre"
-                  className="w-12 h-full grid place-items-center rounded-l-full bg-transparent text-ink-950 hover:bg-ink-100 data-[disabled]:opacity-30"
-                  isDisabled={qty <= 1}
-                >
-                  <Minus size={18} strokeWidth={3} aria-hidden="true" />
-                </Button>
-                <span className="w-10 text-center font-display font-bold text-lg tabular-nums" aria-live="polite">
-                  {qty}
-                </span>
-                <Button
-                  onPress={() => setQty((q) => Math.min(20, q + 1))}
-                  aria-label="Flere"
-                  className="w-12 h-full grid place-items-center rounded-r-full bg-transparent text-ink-950 hover:bg-ink-100"
-                >
-                  <Plus size={18} strokeWidth={3} aria-hidden="true" />
-                </Button>
-              </div>
-
+            <div
+              ref={buyRef}
+              className="mt-6 flex items-stretch h-14 rounded-full bg-accent-500 overflow-hidden"
+            >
               <Button
                 onPress={add}
-                className="press flex-1 min-w-[12.5rem] inline-flex items-center justify-center gap-2.5 rounded-full bg-accent-500 text-ink-950 font-display font-bold text-lg h-14 px-8 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
+                className="press grow inline-flex items-center justify-center gap-2.5 bg-accent-500 text-ink-950 font-display font-bold text-lg px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
               >
                 {added ? (
                   <>
@@ -240,6 +227,34 @@ export default function ProductPage({ slug }: { slug: string }) {
                   </>
                 )}
               </Button>
+
+              <div
+                role="group"
+                aria-label="Antal"
+                className="flex items-center shrink-0 border-l-2 border-ink-950/20"
+              >
+                <Button
+                  onPress={() => setQty((q) => Math.max(1, q - 1))}
+                  aria-label="Færre"
+                  className="w-11 h-full grid place-items-center bg-transparent text-ink-950 hover:bg-accent-400 data-[disabled]:opacity-30"
+                  isDisabled={qty <= 1}
+                >
+                  <Minus size={18} strokeWidth={3} aria-hidden="true" />
+                </Button>
+                <span
+                  className="w-7 text-center font-display font-bold text-lg tabular-nums text-ink-950"
+                  aria-live="polite"
+                >
+                  {qty}
+                </span>
+                <Button
+                  onPress={() => setQty((q) => Math.min(20, q + 1))}
+                  aria-label="Flere"
+                  className="w-11 h-full grid place-items-center bg-transparent text-ink-950 hover:bg-accent-400"
+                >
+                  <Plus size={18} strokeWidth={3} aria-hidden="true" />
+                </Button>
+              </div>
             </div>
             )}
 
