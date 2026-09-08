@@ -81,14 +81,14 @@ function Group({
         aria-label={title}
         value={[...selected]}
         onChange={onChange}
-        className="flex flex-col gap-1 mt-1.5"
+        className="flex flex-col gap-2 mt-1.5"
       >
         {show.map((o) => (
           <Checkbox
             key={o.id}
             value={o.id}
             isDisabled={o.count === 0 && !selected.has(o.id)}
-            className="group w-full data-[disabled]:opacity-35"
+            className="group w-full mt-0! data-[disabled]:opacity-35"
           >
             <Checkbox.Content className={rowClass}>
               <Checkbox.Control>
@@ -185,7 +185,7 @@ export default function ShopFilters({
         <Checkbox
           isSelected={inStock}
           onChange={onInStock}
-          className="group w-full"
+          className="group w-full mt-0!"
         >
           <Checkbox.Content className={ROW}>
             <Checkbox.Control>

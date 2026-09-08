@@ -1,8 +1,8 @@
 import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
 
 const TRUST_POINTS = [
-  "Hos dig på 1-2 hverdage",
-  "Uddannede teknikere, og du får behandlingen på skrift",
+  "Uddannede teknikere med de rette autorisationer",
+  "Du får behandlingen på skrift bagefter",
 ];
 
 export default function Hero() {
@@ -19,8 +19,8 @@ export default function Hero() {
               Skadedyr i huset? Vi kommer og fjerner dem.
             </h1>
             <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Du får en fast pris, før vi går i gang. Vi kører i hele Jylland og
-              på Fyn.
+              Du får en fast pris, før vi går i gang. Vi kigger efter først, og
+              du siger ja, før vi rører noget.
             </p>
 
             <ul className="mt-7 flex flex-col gap-3">
