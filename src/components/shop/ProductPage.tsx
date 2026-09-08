@@ -213,7 +213,7 @@ export default function ProductPage({ slug }: { slug: string }) {
             >
               <Button
                 onPress={add}
-                className="press grow inline-flex items-center justify-center gap-2.5 bg-accent-500 text-ink-950 font-display font-bold text-lg px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
+                className="press grow inline-flex items-center justify-center gap-2.5 rounded-none bg-accent-500 text-ink-950 font-display font-bold text-lg px-6 hover:bg-accent-400 data-[pressed]:bg-accent-600 transition-colors"
               >
                 {added ? (
                   <>
@@ -236,7 +236,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 <Button
                   onPress={() => setQty((q) => Math.max(1, q - 1))}
                   aria-label="Færre"
-                  className="w-11 h-full grid place-items-center bg-transparent text-ink-950 hover:bg-accent-400 data-[disabled]:opacity-30"
+                  className="w-11 h-full grid place-items-center rounded-none bg-transparent text-ink-950 hover:bg-accent-400 data-[disabled]:opacity-30"
                   isDisabled={qty <= 1}
                 >
                   <Minus size={18} strokeWidth={3} aria-hidden="true" />
@@ -250,7 +250,7 @@ export default function ProductPage({ slug }: { slug: string }) {
                 <Button
                   onPress={() => setQty((q) => Math.min(20, q + 1))}
                   aria-label="Flere"
-                  className="w-11 h-full grid place-items-center bg-transparent text-ink-950 hover:bg-accent-400"
+                  className="w-11 h-full grid place-items-center rounded-none bg-transparent text-ink-950 hover:bg-accent-400"
                 >
                   <Plus size={18} strokeWidth={3} aria-hidden="true" />
                 </Button>
