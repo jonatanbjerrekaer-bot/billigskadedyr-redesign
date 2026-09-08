@@ -1,4 +1,23 @@
 /*
+ * ADVARSEL: DEMOPRISER I DENNE FIL
+ *
+ * Seks varer har en opdigtet tilbudspris, saa Tilbud-sektionen kan ses paa
+ * demosiden. Foerpriserne er de rigtige fra WooCommerce; det er kun
+ * tilbudsprisen, der er fundet paa.
+ *
+ *   victor-elektronisk-musefaelde  299,95 -> 224,95
+ *   pest-stop-hvepsespray          139,95 ->  99,95
+ *   ps-myre-gel-10g                 89,00 ->  69,00
+ *   klisterfaelde-10stk            249,00 -> 179,00
+ *   ironmax-pro                    159,95 -> 119,95
+ *   trinol-810-insektmiddel        199,00 -> 149,00
+ *
+ * De skal vaek, foer siden gaar i luften. Saet sale tilbage til null og
+ * price tilbage til regular paa de seks, saa viser Tilbud-sektionen sin
+ * egen tomme-tilstand igen.
+ */
+
+/*
  * Hans varekatalog, hentet fra billigskadedyr.dk 2026-09-07 via WooCommerce
  * Store API. Navne, priser, varenumre, lagerstatus og de korte beskrivelser
  * er hans egne, ordret. Billederne ligger i public/shop.
@@ -325,9 +344,9 @@ export const PRODUCTS: Product[] = [
     slug: "trinol-810-insektmiddel",
     name: "Trinol 810 insektmiddel",
     sku: "100500",
-    price: 199,
+    price: 149.0,
     regular: 199,
-    sale: null,
+    sale: 149.0,
     inStock: true,
     pest: "edderkopper",
     form: "Spray",
@@ -526,9 +545,9 @@ export const PRODUCTS: Product[] = [
     slug: "klisterfaelde-10stk",
     name: "Klisterfælde 10stk",
     sku: "",
-    price: 249,
+    price: 179.0,
     regular: 249,
-    sale: null,
+    sale: 179.0,
     inStock: true,
     pest: "fluer",
     form: "Fælde",
@@ -960,9 +979,9 @@ export const PRODUCTS: Product[] = [
     slug: "pest-stop-hvepsespray",
     name: "PS Hvepsespray PROFF",
     sku: "2466",
-    price: 139.95,
+    price: 99.95,
     regular: 139.95,
-    sale: null,
+    sale: 99.95,
     inStock: true,
     pest: "hvepse",
     form: "Spray",
@@ -1970,9 +1989,9 @@ export const PRODUCTS: Product[] = [
     slug: "victor-elektronisk-musefaelde",
     name: "Victor Elektronisk Musefælde",
     sku: "140425",
-    price: 299.95,
+    price: 224.95,
     regular: 299.95,
-    sale: null,
+    sale: 224.95,
     inStock: true,
     pest: "mus",
     form: "Fælde",
@@ -2154,9 +2173,9 @@ export const PRODUCTS: Product[] = [
     slug: "ps-myre-gel-10g",
     name: "PS Myre-gel 10g",
     sku: "",
-    price: 89,
+    price: 69.0,
     regular: 89,
-    sale: null,
+    sale: 69.0,
     inStock: true,
     pest: "myrer",
     form: "Gel",
@@ -2718,9 +2737,9 @@ export const PRODUCTS: Product[] = [
     slug: "ironmax-pro",
     name: "IronMax Pro",
     sku: "",
-    price: 159.95,
+    price: 119.95,
     regular: 159.95,
-    sale: null,
+    sale: 119.95,
     inStock: true,
     pest: "snegle",
     form: "Andet",
