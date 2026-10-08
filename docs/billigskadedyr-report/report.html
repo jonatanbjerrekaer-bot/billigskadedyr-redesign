@@ -1,0 +1,318 @@
+<!doctype html><html lang="da"><head><meta charset="utf-8"><title>Billigskadedyr.dk — Performance Diagnosis</title>
+<style>
+@page{size:A4;margin:16mm 15mm 14mm 15mm}
+*{box-sizing:border-box}
+body{font:10.5pt/1.5 -apple-system,"Helvetica Neue",Arial,sans-serif;color:#1a1a1a;margin:0}
+h1{font-size:22pt;line-height:1.15;margin:0 0 4px;letter-spacing:-.02em}
+.sub{color:#666;font-size:9.5pt;margin:0 0 22px}
+h2{font-size:13pt;margin:26px 0 8px;padding-bottom:5px;border-bottom:2px solid #c8342b;letter-spacing:-.01em;page-break-after:avoid}
+h3{font-size:11pt;margin:16px 0 5px;page-break-after:avoid}
+p{margin:0 0 9px}
+table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:9pt;page-break-inside:avoid}
+th{background:#f2f2f2;text-align:left;padding:5px 7px;border:1px solid #d8d8d8;font-weight:600}
+td{padding:5px 7px;border:1px solid #d8d8d8;vertical-align:top}
+code{font:9pt "SF Mono",Menlo,monospace;background:#f4f4f4;padding:1px 4px;border-radius:2px}
+pre{font:8.6pt/1.45 "SF Mono",Menlo,monospace;background:#f6f6f6;border-left:3px solid #999;padding:8px 10px;margin:8px 0;white-space:pre-wrap;page-break-inside:avoid}
+.bad{color:#c8342b;font-weight:700}
+.ok{color:#1a7a3e;font-weight:700}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+.box{border:1px solid #d8d8d8;border-left:4px solid #c8342b;background:#fdf7f6;padding:9px 12px;margin:10px 0;page-break-inside:avoid}
+.box.warn{border-left-color:#c07800;background:#fdfaf2}
+.box.good{border-left-color:#1a7a3e;background:#f4faf6}
+.box p:last-child{margin-bottom:0}
+.lede{font-size:11pt;background:#f7f7f7;padding:11px 14px;border-radius:3px;margin-bottom:16px}
+footer{margin-top:26px;padding-top:8px;border-top:1px solid #ddd;font-size:8pt;color:#777}
+.pb{page-break-before:always}
+</style></head><body>
+
+<h1>Billigskadedyr.dk — Performance Diagnosis</h1>
+<p class="sub">Prepared 8 September 2026 · All measurements taken live from Copenhagen · Read-only WooCommerce REST API + public HTTP probing · No server or admin access used</p>
+
+<p class="lede"><strong>Headline:</strong> Search is not slow because of search. Every uncached request on the site costs 1.5–3.6&nbsp;s, and search is simply the one page a cache can never serve. A request that boots WordPress and returns <em>one byte</em> — no query, no template, no rendering — takes <span class="bad">1.46&nbsp;s</span>. That figure is the bottleneck.</p>
+
+<h2>1. Measurements</h2>
+<table>
+<tr><th style="width:52%">Request</th><th style="width:18%">TTFB</th><th>What it tells us</th></tr>
+<tr><td>Home page (Varnish HIT)</td><td class="ok">0.09 s</td><td>Cache layer works</td></tr>
+<tr><td>Home page (cache-buster, MISS)</td><td class="bad">3.63 s</td><td>True cost, normally hidden</td></tr>
+<tr><td>Shop page (MISS)</td><td class="bad">1.96 s</td><td>—</td></tr>
+<tr><td><code>?s=rotte</code> — 66 results</td><td class="bad">2.50 s</td><td>—</td></tr>
+<tr><td><code>?s=zzzznomatch</code> — <strong>0 results</strong></td><td class="bad">2.16 s</td><td>Nearly as slow with nothing to find → the SQL is not the problem</td></tr>
+<tr><td><code>admin-ajax.php?action=zzz_nonexistent</code><br>→ returns 1 byte, HTTP 400</td><td class="bad">1.46 s</td><td><strong>Pure plugin bootstrap.</strong> Stable across 3 runs. Healthy WooCommerce: 0.15–0.30 s</td></tr>
+<tr><td><code>?wc-ajax=get_refreshed_fragments</code></td><td class="bad">1.81 / 3.03 s</td><td>Never cached. Fires on the first page view of a session (see §3.2)</td></tr>
+<tr><td>Static asset (jQuery)</td><td class="ok">0.17 s</td><td>Network and CDN are fine</td></tr>
+</table>
+
+<h3>Search time budget</h3>
+<pre>1.46 s  plugin bootstrap  (measured, no query, no render)
+0.70 s  search query + theme render  (derived)
+------
+2.16 s  zero-result search      <- measured
+2.50 s  66-result search        <- measured</pre>
+<p>Roughly <strong>two thirds of every search is spent before WordPress looks at a single product.</strong> The catalogue is only 205 products — the query itself is trivial.</p>
+
+<h3>Concurrency: the server saturates at ~6 users</h3>
+<table>
+<tr><th>6 simultaneous searches</th><th>TTFB</th></tr>
+<tr><td>rotte / kakerlak / mus</td><td>3.71 s / 4.00 s / 4.18 s</td></tr>
+<tr><td>myrer / muldvarp / fluer</td><td>4.59 s / 4.69 s / <span class="bad">6.09 s</span></td></tr>
+</table>
+<p>Six concurrent visitors push the slowest response to 6 s. Real traffic plus crawlers will be worse. This points at the PHP-FPM worker pool.</p>
+
+<h2>2. Environment</h2>
+<table>
+<tr><th style="width:34%">Item</th><th>Value</th></tr>
+<tr><td>WordPress / WooCommerce</td><td>7.1 / 11.0.0 (11.1.0 available)</td></tr>
+<tr><td>PHP / MariaDB / Server</td><td>8.3.33 / 10.6.27 / Apache 2.4.68 on Cloudways</td></tr>
+<tr><td>WP memory limit</td><td>1 GB (<code>WP_MEMORY_LIMIT</code>; PHP's own <code>memory_limit</code> is not exposed by the API) — not a constraint</td></tr>
+<tr><td>Object cache</td><td><span class="ok">Object Cache Pro, active and working</span></td></tr>
+<tr><td>Page cache</td><td>Breeze + Cloudways Varnish + Cloudflare</td></tr>
+<tr><td>Active plugins</td><td><span class="bad">40</span></td></tr>
+<tr><td>HPOS (High-Performance Order Storage)</td><td><span class="bad">Disabled</span> — 13,242 orders stored in <code>wp_posts</code></td></tr>
+<tr><td>Database size</td><td>912 MB data + 227 MB index</td></tr>
+</table>
+<p>The infrastructure is not the problem. The application layer is.</p>
+
+<h2 class="pb">3. Root causes, ranked</h2>
+
+<h3>1. Forty plugins → 1.46 s of boot on every dynamic request</h3>
+<p>Measured on a request that renders nothing. This is raw PHP include and hook registration, not database work — Object Cache Pro is active and healthy, so this is not cache misses.</p>
+
+<h3>2. The cart-fragments request costs 1.5&ndash;3 s and is never cached</h3>
+<p><code>?wc-ajax=get_refreshed_fragments</code> measured at 1.81 s and 3.03 s server-side. WooCommerce caches the result in the browser's <code>sessionStorage</code> and only refetches when the cart hash changes or storage is empty &mdash; so it fires on the <strong>first page view of each session</strong>, not on every navigation. On a site dominated by new visitors that still means a 2&ndash;3 s blocking request on close to every landing.</p>
+<p>The response carries exactly one fragment, <code>div.widget_shopping_cart_content</code> &mdash; the mini-cart dropdown. Two to three seconds to refresh a dropdown that few visitors open. <strong>Fix in section 5.</strong></p>
+
+<h3>3. The server saturates at low concurrency</h3>
+<p>See the table above. PHP-FPM worker count and plan size need review in the Cloudways panel.</p>
+
+<h3>4. The page cache does not cache any URL with a query string</h3>
+<p>Verified by request: three identical requests to <code>/shop/</code> all return <code>x-cache: HIT</code>, while three identical requests to <code>?s=rotte</code> — and to any <code>?param=</code> URL — all return <code>x-cache: MISS</code>. Clean paths cache; query strings never do. <strong>This, not cookies, is why search is always slow.</strong></p>
+<p>Every uncached response does set <code>woocommerce_cart_hash</code> and <code>wmc_current_currency</code>, but this happens equally on the home, shop and product pages, which cache normally — so the cookies are not blocking the cache. The cart hash is a constant empty-cart value, and no <code>wp_woocommerce_session_*</code> cookie is issued on a plain page view, so ordinary searches do <em>not</em> create session rows. <strong>Fix in section 6.</strong></p>
+
+<h3>5. HPOS is off, with 13,242 orders in wp_posts</h3>
+<p><code>HPOS_enabled: False</code>, <code>order_datastore: WC_Order_Data_Store_CPT</code>. 13,242 orders and 150 refunds share a table with your 205 products, and <code>wp_postmeta</code> is 80 MB data + 53 MB index.</p>
+<p><strong>Set expectations correctly: this is not a frontend speed fix.</strong> The zero-result search timing already proved SQL is not the bottleneck. HPOS mainly speeds up the admin order list and stops these tables growing with every sale. It is also the riskiest change on this list. Two lower-risk actions capture much of the same value — see section 7.</p>
+<p>One thing to resolve before planning a migration: the database already contains <code>wp_wc_orders</code> and the full set of HPOS tables under a <code>wp_</code> prefix. Someone has created these before. Find out whether a previous migration was attempted and abandoned.</p>
+
+<h3>6. Roughly 620 MB of dead database, in two distinct patterns</h3>
+<p>The database holds <strong>189 tables</strong>. Two clusters account for nearly all the waste.</p>
+<p><strong>Pattern 1 — 42 tables owned by plugins that are not installed (617 MB).</strong> Not a handful; Wordfence alone left 25 tables behind.</p>
+<table>
+<tr><th style="width:34%">Owner (not in active plugin list)</th><th style="width:16%">Tables</th><th>Size</th></tr>
+<tr><td>WPML</td><td>1</td><td class="bad">519.6 MB</td></tr>
+<tr><td>WP Mail SMTP</td><td>2</td><td>69.6 MB</td></tr>
+<tr><td>Wordfence</td><td>25</td><td>14.1 MB</td></tr>
+<tr><td>WP Import Export</td><td>1</td><td>4.5 MB</td></tr>
+<tr><td>WC Google Product Feed (the redundant feed plugin)</td><td>2</td><td>3.8 MB</td></tr>
+<tr><td>MonsterInsights</td><td>1</td><td>2.5 MB</td></tr>
+</table>
+<p>Yoast&rsquo;s tables also match a dead-plugin pattern but <strong>Yoast is active — leave those alone.</strong></p>
+<p><strong>Pattern 2 — an entire orphaned WordPress schema.</strong> The live prefix is <code>www0_</code>, but the database also carries <strong>51 tables prefixed <code>wp_</code></strong>: <code>wp_posts</code>, <code>wp_users</code>, <code>wp_options</code>, and every WooCommerce table including <code>wp_wc_orders</code>. A migration or staging restore that was never cleaned up. Only ~3 MB, but 51 tables of ambiguity for anyone working on this database.</p>
+<p><strong>Pattern 3 — the one that touches the bootstrap.</strong> <code>www0_options</code> is 6.47 MB. Its autoloaded slice is read on <em>every single request</em>, so it is part of the 1.46 s. Measuring it is the highest-value query of the three (section 7).</p>
+<p>Also present but legitimate: <code>usermeta</code> 88 MB + <code>users</code> 27 MB. Too large for this catalogue, but it is customer data — diagnose before touching (section 7).</p>
+
+<h2 class="pb">4. Plugin audit</h2>
+<p>Each verdict below is based on what the plugin actually emits on the live site, or on the WooCommerce REST API — not on the plugin's name or description.</p>
+
+<div class="box warn"><p><strong>Confirmed on 8 Sep 2026: qTranslate-XT cannot simply be deactivated.</strong> Doing so produced a WordPress critical error and took the site down. It has been reverted; the site is confirmed healthy again (home, shop, product and search pages all return HTTP 200 with no error page). Its content is stored with inline language markers, so removing it is a content migration rather than a deactivation.</p></div>
+
+<h3>Safe to disable — verified producing no output</h3>
+<table>
+<tr><th style="width:30%">Plugin</th><th style="width:40%">Evidence</th><th>Risk</th></tr>
+<tr><td>WebP Express</td><td>Product PNG returns <code>image/png</code>, 12,475 bytes — <em>identical</em> with and without <code>Accept: image/webp</code></td><td>None. It is delivering nothing.</td></tr>
+<tr><td>MC4WP: Mailchimp</td><td>Zero <code>mc4wp</code> references in any rendered page</td><td>None, if no newsletter form exists. Grep pages first.</td></tr>
+<tr><td>Preview E-mails for WooCommerce</td><td>Admin-only dev tool</td><td>None.</td></tr>
+<tr><td>Advanced Editor Tools + Classic Editor</td><td>Admin-only editor UI</td><td>None on frontend. Keep only if editors depend on them.</td></tr>
+<tr><td>User Role Editor</td><td>One-time config tool; roles persist in the DB</td><td>None.</td></tr>
+<tr><td>Loco Translate</td><td>Admin-only; the <code>.mo</code> files it wrote stay on disk</td><td>None. Reactivate when editing strings.</td></tr>
+<tr><td>ManageWP - Worker</td><td>Remote management agent</td><td>Low — unless it is your only backup mechanism. Confirm first.</td></tr>
+</table>
+
+<h3>Duplicated functions — pick one of each</h3>
+<p><strong>Two product feed plugins:</strong> <code>?ctxfeed=1</code> returns HTTP 200 with 171 KB of live feed — CTX Feed is working. Four plausible URLs for WooCommerce Google Product Feed all returned 404. Confirm in Merchant Center which URL Google actually fetches, remove the other, then update the survivor (CTX Feed is on 6.6.45 against a current 8.0.15).</p>
+<p><strong>Three analytics stacks:</strong> AWCA, Independent Analytics and gtag/GTM all load on the page, with two <code>independent_analytics_*</code> tables taking per-pageview writes. GTM alone covers this.</p>
+
+<h3>Do not touch — verified load-bearing</h3>
+<table>
+<tr><th style="width:34%">Plugin</th><th>Verified evidence</th></tr>
+<tr><td>qTranslate-XT</td><td>Content is stored with inline <code>[:da]</code> markers — one leaks into the rendered product page. Deactivating fatals the site.</td></tr>
+<tr><td>ePay (Apple Pay, MobilePay, card) + EAN</td><td>All four gateways report <code>enabled=true</code></td></tr>
+<tr><td>Tiered Price Table</td><td><code>tiered-pricing-dynamic-price-wrapper</code> renders 9× on a product page</td></tr>
+<tr><td>Variation Swatches</td><td>Active on product pages</td></tr>
+<tr><td>Shipmondo, Weight Based Shipping</td><td>Live DK and SE shipping zones configured</td></tr>
+<tr><td>Emærket</td><td>Trust badge widget loads from emaerket.dk</td></tr>
+<tr><td>Partner-ads</td><td>Affiliate tracking JS live — removing it breaks attribution and costs revenue</td></tr>
+<tr><td>Redirection</td><td>The <code>?lang=sv</code> → 301 may run through it</td></tr>
+<tr><td>Breeze, Object Cache Pro</td><td>These are what is currently saving you</td></tr>
+<tr><td>Both custom <code>billigskadedyr-*</code> plugins</td><td>Frontend and stock/pricing logic</td></tr>
+<tr><td>Code Snippets</td><td>Deactivating silently kills every snippet inside. Export and read them first.</td></tr>
+</table>
+
+<h3>Needs a business decision</h3>
+<p><strong>CURCY Multi Currency</strong> — renders CSS on every page and sets a cookie that helps make pages uncacheable, but only DKK prices appear anywhere and store currency is DKK. If the SEK business moved to billigskadedjur.se, this is dead weight.</p>
+<p><strong>avecdo</strong> — nothing identifiable renders from it, but a server-side integration cannot be ruled out from outside. Ask whoever owns the contract.</p>
+
+<h2 class="pb">5. Fix #1 &mdash; cart fragments</h2>
+<p>This is the first item to ship: smallest change, largest immediate effect, fully reversible.</p>
+
+<h3>The snippet</h3>
+<p>Paste the following into <strong>Code Snippets</strong>. Do <em>not</em> include a <code>&lt;?php</code> opening tag &mdash; Code Snippets adds it, and pasting one causes a parse error.</p>
+<pre>add_action( 'wp_enqueue_scripts', function () {
+	// WooCommerce off -&gt; is_cart() undefined -&gt; white screen. Guard it.
+	if ( ! function_exists( 'is_cart' ) ) {
+		return;
+	}
+	if ( is_cart() || is_checkout() || is_account_page() ) {
+		return;
+	}
+	// dequeue, never deregister - XT ATC declares this as a dependency
+	wp_dequeue_script( 'wc-cart-fragments' );
+}, 20 );</pre>
+
+<h3>Snippet settings</h3>
+<table>
+<tr><th style="width:22%">Field</th><th>Value</th></tr>
+<tr><td>Scope</td><td><strong>Front-end only</strong></td></tr>
+<tr><td>Title</td><td>Perf: dequeue wc-cart-fragments (except cart/checkout/account)</td></tr>
+<tr><td>Description</td><td>Removes the 1.5&ndash;3 s <code>?wc-ajax=get_refreshed_fragments</code> request. Delete once plugin bootstrap is fixed.</td></tr>
+</table>
+
+<h3>Why each line is there</h3>
+<ul>
+<li><strong><code>function_exists( 'is_cart' )</code></strong> &mdash; <code>is_cart()</code> is a WooCommerce function. If WooCommerce is ever inactive (failed update, plugin conflict, an audit step) the snippet would fatal on every page render, turning a recoverable state into a white screen.</li>
+<li><strong><code>is_account_page()</code></strong> &mdash; the <code>order-pay</code> and <code>add-payment-method</code> endpoints live under my-account and touch cart state.</li>
+<li><strong>Dequeue, not deregister</strong> &mdash; the XT Ajax Add To Cart bundle declares <code>wc-cart-fragments</code> as a dependency. Deregistering removes it from the dependency graph and WordPress will then silently refuse to print XT's script, breaking ajax add-to-cart with no error. Dequeue leaves the registration intact and only skips the output.</li>
+<li><strong>Priority 20</strong> &mdash; WooCommerce enqueues at the default priority 10, so this must run after it.</li>
+</ul>
+
+<div class="box warn"><p><strong>Known regression.</strong> A visitor who returns with items already in their cart will see an empty mini-cart dropdown until they load <code>/kurv/</code>. Adding to cart still works and still updates correctly, because XT Ajax Add To Cart returns its own fragments in the add-to-cart response (<code>singleRefreshFragments</code> is enabled in its config). Given that <code>woocommerce_sessions</code> is only 3 MB and largely bot traffic, few real visitors should be affected.</p></div>
+
+<p>A cookie-gated variant exists that avoids this regression by loading fragments only for visitors who already have a cart. It is roughly 25 lines, because <code>wc_cart_fragments_params</code> is localized onto the <code>wc-cart-fragments</code> handle &mdash; dequeuing the handle drops the params too, so they must be re-emitted on another handle or the lazily-loaded script throws. Not recommended unless someone actually reports the empty mini-cart.</p>
+
+<h3>Verifying it worked</h3>
+<ol>
+<li>Apply on staging first.</li>
+<li>Open a product page in a fresh browser profile with DevTools &rarr; Network.</li>
+<li>Confirm no request to <code>?wc-ajax=get_refreshed_fragments</code> appears.</li>
+<li>Add a product to the cart &mdash; confirm the mini-cart still updates.</li>
+<li>Load <code>/kurv/</code> and <code>/kasse/</code> &mdash; confirm the cart and checkout behave normally (fragments still load there by design).</li>
+</ol>
+
+<div class="box good"><p><strong>This is an interim measure, not a permanent one.</strong> The request costs 1.5&ndash;3 s because of the 1.46 s plugin bootstrap, not because the fragment work is expensive. Once bootstrap is healthy this same request drops to roughly 0.4 s &mdash; at which point delete the snippet and let fragments run normally. That is a better outcome than maintaining a cleverer workaround.</p></div>
+
+<h2 class="pb">6. Fix #2 — make search cacheable</h2>
+<p>Search cannot use the origin page cache, because that cache excludes every URL with a query string (&sect;3.4). The site is already behind Cloudflare, so the edge is the right place to fix it.</p>
+
+<h3>Cloudflare Cache Rule</h3>
+<table>
+<tr><th style="width:24%">Setting</th><th>Value</th></tr>
+<tr><td>Match</td><td><code>http.request.uri.query contains "s="</code> and <code>http.request.method eq "GET"</code></td></tr>
+<tr><td>Action</td><td>Eligible for cache</td></tr>
+<tr><td>Edge TTL</td><td>5–15 minutes, 200 responses only</td></tr>
+<tr><td>Cache key</td><td><strong>Include only the <code>s</code> query parameter</strong> — ignore all others</td></tr>
+<tr><td>Bypass when</td><td>cookie matches <code>wordpress_logged_in_*</code> or <code>woocommerce_items_in_cart</code></td></tr>
+<tr><td>Never match</td><td><code>?wc-ajax=</code>, <code>?add-to-cart=</code>, <code>?remove_item=</code>, any non-GET</td></tr>
+</table>
+
+<div class="box warn"><p><strong>The cookie bypass is a safety control, not a performance tweak.</strong> Cloudflare&rsquo;s default cache key ignores cookies entirely. If that condition is wrong, a logged-in administrator&rsquo;s rendered page can be cached and served to the public. Test it explicitly: load a search while logged in and confirm the response carries <code>cf-cache-status: BYPASS</code>.</p></div>
+
+<p>The cache-key restriction matters more than it looks. Without it, <code>?s=rotte&amp;utm_source=newsletter</code> is a separate cache entry from <code>?s=rotte</code>, and campaign traffic shreds the hit rate.</p>
+<p><strong>Expected result:</strong> repeat searches for common terms (<em>rotte</em>, <em>mus</em>, <em>myrer</em>) serve from the edge in roughly 0.1 s instead of 2.5 s. First search of each term still pays full price.</p>
+
+<h3>The better long-term answer: a static search index</h3>
+<p>The catalogue is 205 products. A JSON index of titles, SKUs and URLs is roughly 40–60 KB — small enough to ship to the browser and search client-side. Regenerate it on product save.</p>
+<ul>
+<li>Search becomes instant, with no server request at all.</li>
+<li>The caching question disappears entirely.</li>
+<li>It allows a synonym map, so a visitor searching <em>bille</em> finds the right product even when the catalogue uses the trade term. Server-side WordPress search cannot do this.</li>
+</ul>
+<p>Roughly a day of work rather than ten minutes. Do the Cache Rule this week; treat the index as the version you keep, once the plugin cleanup is done.</p>
+
+<h2 class="pb">7. Fix #3 — database cleanup</h2>
+
+<h3>Step 1: measure the autoload (do this first)</h3>
+<p>This is the only part of the database work that touches the 1.46 s bootstrap directly.</p>
+<pre>SELECT ROUND(SUM(LENGTH(option_value))/1024/1024, 2) AS autoload_mb,
+       COUNT(*) AS n
+FROM www0_options WHERE autoload = 'yes';
+
+SELECT option_name, ROUND(LENGTH(option_value)/1024, 1) AS kb
+FROM www0_options WHERE autoload = 'yes'
+ORDER BY LENGTH(option_value) DESC LIMIT 25;</pre>
+<p>Under ~800 KB is healthy. If it comes back at 3–5 MB, that is a measurable slice of every request, and the second query names the plugin responsible. Options can then be flipped to <code>autoload = 'no'</code> individually.</p>
+
+<h3>Step 2: drop the dead tables — generate, review, then run</h3>
+<p>Do not type table names by hand. Confirm the live prefix in <code>wp-config.php</code> is <code>www0_</code>, then:</p>
+<pre>SELECT CONCAT('DROP TABLE `', table_name, '`;') AS stmt,
+       ROUND((data_length + index_length)/1024/1024, 1) AS mb
+FROM information_schema.tables
+WHERE table_schema = DATABASE()
+  AND (table_name LIKE 'wp\_%'              -- orphaned prefix, 51 tables
+       OR table_name LIKE 'www0\_wf%'        -- Wordfence, 25 tables
+       OR table_name LIKE 'www0\_wpml%'
+       OR table_name LIKE 'www0\_wpmailsmtp%'
+       OR table_name LIKE 'www0\_wpie%'
+       OR table_name LIKE 'www0\_monsterinsights%'
+       OR table_name LIKE '%\_gpf\_%')
+ORDER BY mb DESC;</pre>
+<p>Read the output. Delete any line you are not certain about. Then run what remains.</p>
+<div class="box"><p><strong>Before dropping:</strong> take a full Cloudways database backup, and additionally <code>mysqldump</code> these specific tables to a file kept off-server. <code>wp_wpml_mails</code> is a 519 MB mail archive — confirm with the business that nobody treats it as an audit trail. InnoDB with <code>file_per_table</code> reclaims disk on <code>DROP</code>, so no <code>OPTIMIZE</code> pass is needed afterwards.</p></div>
+
+<h3>Step 3: orphaned postmeta — safe, no migration</h3>
+<p>This is the low-risk alternative to HPOS that captures part of the same benefit.</p>
+<pre>-- count first
+SELECT COUNT(*) FROM www0_postmeta pm
+LEFT JOIN www0_posts p ON p.ID = pm.post_id WHERE p.ID IS NULL;
+
+-- if meaningful, delete
+DELETE pm FROM www0_postmeta pm
+LEFT JOIN www0_posts p ON p.ID = pm.post_id WHERE p.ID IS NULL;</pre>
+<p>These rows have no parent post by definition, so nothing can reference them. On a site with 13k orders and years of plugin churn this routinely clears tens of MB from the 80 MB <code>postmeta</code> table.</p>
+
+<h3>Step 4: diagnose users/usermeta before deleting anything</h3>
+<pre>SELECT COUNT(*) FROM www0_users;
+
+SELECT meta_key, COUNT(*) AS n_rows,
+       ROUND(SUM(LENGTH(meta_value))/1024/1024, 1) AS mb
+FROM www0_usermeta
+GROUP BY meta_key ORDER BY mb DESC LIMIT 20;</pre>
+<p>116 MB across these two tables is far too much for a 205-product catalogue. Common causes are <code>_woocommerce_persistent_cart_*</code>, session tokens, and analytics plugins storing per-user blobs. <strong>Delete nothing until you have read that output</strong> — some of it is real customer data.</p>
+
+<h3>Step 5: a business question, not a technical one</h3>
+<p>How many of the 13,242 orders are older than the five-year retention Danish bookkeeping rules require? If a large share are, exporting and then removing them clears far more rows than an HPOS migration would, with none of the plugin-compatibility risk. That decision belongs to whoever owns the accounting — but it has the best effort-to-benefit ratio of anything in this section.</p>
+
+<h2 class="pb">8. Recommended order of work</h2>
+<table>
+<tr><th style="width:5%">#</th><th style="width:37%">Action</th><th style="width:26%">Expected effect</th><th>Risk</th></tr>
+<tr><td>1</td><td>Disable cart fragments outside cart/checkout (&sect;5)</td><td>Removes a 2–3 s request from every page view</td><td class="ok">Very low</td></tr>
+<tr><td>2</td><td>Cloudflare Cache Rule for search URLs (&sect;6)</td><td>Repeat searches ~0.1 s instead of 2.5 s</td><td class="ok">Low, with the cookie bypass</td></tr>
+<tr><td>3</td><td>Work through the "safe to disable" list, one plugin at a time</td><td>Cuts into the 1.46 s bootstrap</td><td class="ok">Low</td></tr>
+<tr><td>4</td><td>Remove the redundant feed plugin and two of three analytics plugins</td><td>Bootstrap + fewer per-view DB writes</td><td class="ok">Low, after verifying the live feed URL</td></tr>
+<tr><td>5</td><td>Database cleanup: autoload audit, 93 dead tables, orphaned postmeta (&sect;7)</td><td>Part of the bootstrap, ~620 MB reclaimed</td><td class="ok">Low — back up first</td></tr>
+<tr><td>6</td><td>Review PHP-FPM workers / plan size</td><td>Fixes the concurrency cliff</td><td class="ok">Low</td></tr>
+<tr><td>7</td><td>Enable HPOS (staging first) — <em>demoted, see &sect;3.5</em></td><td>Admin order list; not a frontend win</td><td class="bad">Medium — check ePay, Shipmondo, Sequential Order Numbers, custom plugins</td></tr>
+<tr><td>8</td><td>qTranslate removal — content migration</td><td>Removes a hook on every translatable string</td><td class="bad">High — content migration</td></tr>
+<tr><td>9</td><td>Only then revisit search itself</td><td>—</td><td>—</td></tr>
+</table>
+
+<div class="box good"><p><strong>Realistic outcome of steps 1–5:</strong> bootstrap from 1.46 s to roughly 0.8–1.0 s, putting search near 1.4 s and removing 2–3 s from every page view. This is an <em>estimate</em>. The measurement protocol below gives the real number.</p></div>
+
+<h3>How to verify each step</h3>
+<p>After every single change, on staging, run:</p>
+<pre>curl -s -o /dev/null -w '%{time_starttransfer}\n' \
+  'https://STAGING/wp-admin/admin-ajax.php?action=zzz_nonexistent'</pre>
+<p>That is the 1.46 s number. Watch it fall. Anything that does not move it is not worth the risk of removing. Install Query Monitor alongside and sort hooks by time — this report tells you what is <em>safe</em> to remove; Query Monitor tells you what is <em>expensive</em>. Remove what is both.</p>
+<p>Before any change reaches production, walk the full path: add to cart → checkout with MobilePay → order confirmation → Shipmondo label. That crosses most of the load-bearing plugins at once.</p>
+
+<h2>9. Limits of this analysis</h2>
+<ul>
+<li><strong>Per-plugin timings were not measurable</strong> from outside. Only the aggregate 1.46 s is a measurement; the split across 40 plugins requires Query Monitor on staging.</li>
+<li><strong>OPcache status unverified.</strong> The perfectly flat 1.46 s across three runs suggests it is enabled and the cost is genuinely plugin code — but confirm in the Cloudways panel.</li>
+<li><strong>PHP-FPM worker count unverified.</strong> Inferred from the concurrency curve only.</li>
+<li><strong>Database queries not executed.</strong> The API access used for this report is read-only and carries no database access. Every SQL statement in section 7 is written to be run by you — counts and audits first, destructive statements only after reading their output.</li>
+<li><strong>Admin settings not inspected.</strong> Verdicts rest on live frontend output and the REST API. Plugins with purely server-side integrations (avecdo) cannot be ruled out this way.</li>
+</ul>
+
+<footer>Billigskadedyr.dk performance diagnosis · 8 September 2026 · Measurements are point-in-time and will vary with server load.</footer>
+</body></html>
