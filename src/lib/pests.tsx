@@ -53,6 +53,8 @@ export const PESTS: PestEntry[] = [
     png: "bee",
     scale: 0.97,
   },
+  { slug: "rotter", treatment: "Kortlægning af angrebet og bekæmpelse i gangsystemet", label: "Rotter", icon: "rotter.svg" },
+  { slug: "mus", treatment: "Sikring af huset og fangst, hvor musene færdes", label: "Mus", icon: "mus.svg" },
   {
     slug: "vaeggelus", treatment: "Behandling af senge, møbler og fodpaneler",
     label: "Væggelus",
@@ -80,13 +82,20 @@ export const PESTS: PestEntry[] = [
     png: "cockroach",
     scale: 0.9,
   },
+  { slug: "lopper", treatment: "Behandling af boligen og rådgivning om kæledyr", label: "Lopper", icon: "lopper.svg" },
   { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", png: "fluer", scale: 1.02 },
+  { slug: "flaater", treatment: "Flåtsikring af grunden og rådgivning", label: "Flåter", icon: "flaater.svg" },
   { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", icon: "gaasebiller.svg" },
   { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", icon: "moel.svg" },
   { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", png: "mosquito" },
   { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", icon: "klannere.svg" },
   { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg" },
   { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg" },
+  { slug: "lus", treatment: "Tjek af hele husstanden og behandling af hjemmet", label: "Lus & fnat", icon: "lus.svg" },
+  { slug: "maar", treatment: "Kortlægning, fangst og mårsikring af huset", label: "Mår", icon: "maar.svg" },
+  { slug: "fugle", treatment: "Net, pigge og fjernelse af reder", label: "Fugle", icon: "fugle.svg" },
+  { slug: "vildedyr", treatment: "Afvisning og afskærmning af haven", label: "Vilde dyr i haven", icon: "vildedyr.svg" },
+  { slug: "haven", treatment: "Artsbestemmelse og målrettet behandling", label: "Skadedyr i haven", icon: "haven.svg" },
 ];
 
 /** The subset shown in the quick-select grid. */

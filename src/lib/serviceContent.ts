@@ -1,5 +1,14 @@
 import type { PestEntry } from "./pests";
 import { PESTS } from "./pests";
+import rotter from "./services/rotter";
+import mus from "./services/mus";
+import lopper from "./services/lopper";
+import flaater from "./services/flaater";
+import lus from "./services/lus";
+import maar from "./services/maar";
+import fugle from "./services/fugle";
+import vildedyr from "./services/vildedyr";
+import haven from "./services/haven";
 export type ServiceContent = {
   /** One or two sentences under the page title. */
   intro: string;
@@ -62,6 +71,10 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Klædemøl", text: "Går efter uld, pels og andre dyriske fibre. Larven laver de huller, du finder i en trøje, der har ligget stille i skabet." },
       { name: "Melmøl", text: "Holder til i køkkenskabet og lever af mel, gryn, müsli og tørret frugt. Du ser tit spind eller sammenklumpet mel i posen, før du ser selve møllet." },
       { name: "Pelsmøl", text: "Går efter det samme som klædemøl, men findes oftere i pels, i tæpper og under møbler, hvor der ligger hår og støv." },
+      { name: "Tofarvet frømøl", text: "Det almindeligste møl i danske køkkener. Forvingen er lysegrå, bagvingen kobberrød, og det kommer næsten altid med hjem i en pose fra butikken." },
+      { name: "Melbiller", text: "Små, mørke biller i mel, gryn og pasta. Larverne er dem, folk kalder melorme." },
+      { name: "Voksmøl", text: "Kendt fra biavlen, hvor larverne gnaver i tavlerne. I hjem er det sjældent et problem — men larverne sælges som foder under navnet voksorme." },
+      { name: "Kornsnudebille", text: "Lille brun bille med lang snude. Larven udvikler sig inde i kornkornene, så angrebet ses som meldt korn." },
     ],
     processNote:
       "Først finder vi ud af, om det er klædemøl eller melmøl, fordi de sidder to forskellige steder og skal behandles hver sin vej. Derefter behandler vi skabe, tekstiler eller fødevareskabe der, hvor larverne er. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
@@ -94,6 +107,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Stikmyg", text: "Den, der stikker. Hunnen skal bruge blod for at kunne lægge æg, og æggene lægges i vand, der står stille." },
       { name: "Dansemyg", text: "Sværmer i skyer om aftenen, tit over vand eller over en hæk. Den stikker ikke, men den bliver hyppigt forvekslet med stikmyg." },
       { name: "Kvægmyg", text: "Mindre og mere kompakt. Stikket klør kraftigt og hæver mere end et almindeligt myggestik. Den holder til ved rindende vand og er værst i forår og forsommer." },
+      { name: "Sørgemyg", text: "Små, spinkle myg, der sværmer op fra potteplanterne, når du vander. De falder ikke i eddikefælder som bananfluer, så metoden er en anden." },
     ],
     processNote:
       "Vi går rundt om huset og finder det vand, myggene yngler i, for det er der, en behandling gør en forskel. Derefter behandler vi ynglestederne og de steder, myggene hviler om dagen. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
@@ -126,6 +140,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Pelsklanner", text: "Sort eller mørkebrun bille på nogle få millimeter. Larven er behåret og lever af uld, pels, fjer og døde insekter." },
       { name: "Museumsbille", text: "Mindre og mere rundagtig, tit spættet. Den voksne bille ses hyppigt i vindueskarmen, mens larven sidder i tæppet eller under fodlisten." },
       { name: "Larven", text: "Larven er den, der laver skaden. Den er behåret, den skyr lys, og den lever i støv, hår og tekstil under møbler og bag fodlister. Den klarer sig længe på det, der ligger og flyder." },
+      { name: "Tæppebiller", text: "Små, runde, brogede biller, hvis larver æder uld, tæpper og fjer. Den kendteste i familien er museumsbillen." },
     ],
     processNote:
       "Vi finder først ud af, hvor larverne lever, for det er sjældent der, hvor du ser billerne. Derefter behandler vi tæpper, fodlister og de revner, de sidder i. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
@@ -157,7 +172,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     species: [
       { name: "Dræbersnegl", text: "Kaldes også iberisk skovsnegl. Rødbrun til mørk, uden hus, og den kan blive godt en håndsbredde lang. Den æder næsten alt i bedene og lægger mange æg." },
       { name: "Agersnegl", text: "Mindre og gråbrun. Den er der stort set hele året og går især efter salat, kål og spirende planter." },
-      { name: "Vinbjergsnegl", text: "Den store med hus. Den er fredet og skal ikke bekæmpes. Ser du den i haven, er den ikke problemet." },
+      { name: "Vinbjergsnegl", text: "Den store med hus. Den er delvist fredet, så den må ikke indsamles til salg. Ser du den i haven, er den ikke problemet." },
     ],
     processNote:
       "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen, for det er der, en behandling batter. Derefter behandler vi bede, kanter og skjulesteder. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
@@ -165,7 +180,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?", a: "Dræbersneglen er stor, den har ikke hus, og den er rødbrun til næsten sort. Rører du ved den, trækker den sig sammen til en hård klump. Sneglen med hus er som regel vinbjergsneglen, og den er fredet. Den skal have lov at være, den gør ikke noget." },
+      { q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?", a: "Dræbersneglen er stor, den har ikke hus, og den er rødbrun til næsten sort. Rører du ved den, trækker den sig sammen til en hård klump. Sneglen med hus er som regel vinbjergsneglen, og den er delvist fredet, så den må ikke indsamles til salg. Den skal have lov at være, den gør ikke noget." },
       { q: "Hvornår er sneglene værst?", a: "Efter regn, og i det hele taget når det er fugtigt. Værst er sensommeren, hvor der er kommet en ny generation. De arbejder om natten og tidligt om morgenen, så du ser skaden længe før du ser sneglene." },
       { q: "Hvorfor bliver de ved med at komme igen?", a: "Fordi æggene ligger i jorden. Tit i kompostbunken, under brædder og nede i tæt bunddække. En behandling tager de snegle, der går rundt nu. De æg, der ligger og venter, klækker senere. Derfor giver det som regel mest at behandle ad et par omgange i stedet for at satse på én." },
       { q: "Hjælper ølfælder og snegleværn?", a: "Ølfælder fanger nogle stykker, men de trækker også snegle ind i haven, og det er ikke altid en fordel. Snegleværn omkring et enkelt bed kan godt virke, hvis kanten er høj nok og bliver holdt ren. Men ingen af delene gør noget ved dem, der ligger i kompostbunken, og det er der, de er." },
@@ -189,7 +204,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     species: [
       { name: "Muldvarp", text: "Lever af regnorme og insekter under jorden. Den æder ikke planterne, men gangsystemet og skuddene ødelægger plænen og bedene alligevel." },
       { name: "Mosegris", text: "Kaldes også vandrotte. Den laver skud i haven ligesom muldvarpen, men den æder rødder, løg og rodfrugter. Visner en plante pludselig, og kan du trække den fri uden rod, er det som regel mosegris." },
-      { name: "Skuddene", text: "Muldvarpens skud er runde og fine, og hullet sidder midt under. Mosegrisens er fladere og mere rodede, og jorden er skubbet ud til siden. Det er den nemmeste måde at se, hvem der er på spil." },
+      { name: "Skuddene", text: "Mosegrisens skud er som regel mindre end muldvarpens og ligger mere rodet fordelt, og der er tit åbne huller i jorden imellem dem. Formen alene afgør det ikke, så kig også på planterne." },
     ],
     processNote:
       "Vi finder først ud af, om det er muldvarp eller mosegris, og hvilke gange der er i brug, for der er ingen grund til at bruge tid på de gange, der er forladt. Derefter sættes der ind i selve gangsystemet. Arbejdet udføres efter gældende regler. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for arbejdet.",
@@ -197,7 +212,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Er det muldvarp eller mosegris?", a: "Kig på skuddene, og kig på planterne. Muldvarpens skud er runde og pæne med hullet midt under, og planterne fejler ingenting. Mosegrisens skud er fladere og mere rodede, og planterne visner, fordi rødderne er ædt. Muldvarpen er efter regnorme. Den rører ikke dine planter." },
+      { q: "Er det muldvarp eller mosegris?", a: "Kig på skuddene, og kig på planterne. Muldvarpens skud er som regel større, og planterne fejler ingenting. Mosegrisens skud er mindre og mere rodet fordelt, tit med åbne huller imellem, og planterne visner, fordi rødderne er ædt. Muldvarpen er efter regnorme. Den rører ikke dine planter." },
       { q: "Er muldvarpen ikke bare god for haven?", a: "Den lufter jorden og æder larver, det er rigtigt nok, og det skal den have. Men et gangsystem under en plæne gør den ujævn og blød at gå på, og skuddene bliver ved med at komme. Har du en have, du skal kunne slå og bruge, er det sjældent noget, man lever med ret længe." },
       { q: "Hvorfor kommer skuddene igen, selvom jeg har fjernet dem?", a: "Fordi det kun er jorden, du har fjernet. Gangene ligger der stadig, og dyret gør det også. Så længe der er regnorme nok dernede, bliver den, og så kommer der nye skud i næste uge." },
       { q: "Hvor mange muldvarpe er der i min have?", a: "Som regel færre, end det ser ud til. Et enkelt dyr kan lave rigtig mange skud hen over en sæson, fordi gangsystemet er stort. Folk ringer og siger, at haven er fuld af dem, og så viser det sig at være ét dyr." },
@@ -225,7 +240,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Råd om, hvordan du forebygger, at myrerne kommer tilbage",
     ],
     species: [
-      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den er fredet og skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
+      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
       { name: "Sort havemyre", text: "Den almindeligste i haver og på terrasser. Den går typisk ind efter mad og kan lave gange under fliserne." },
       { name: "Pharaomyre", text: "Lille, gulagtig og stærkest indendørs, for eksempel i køkkener. Den lever i smalle sprækker og kan sprede sig mellem lejligheder." },
       { name: "Gul engmyre (ænsmyren)", text: "Laver de små jordhøje i plænen. Ufarlig, men ofte den, der forveksles med myrer, der faktisk skal behandles." },
@@ -256,9 +271,11 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Tysk hveps", text: "Den mest almindelige i Danmark. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
+      { name: "Tysk hveps", text: "Ligner almindelig hveps til forveksling. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
       { name: "Almindelig hveps", text: "Den klassiske gæst i sensommeren. Bygger typisk bo i jordhuller og i hulrum." },
       { name: "Jordhveps", text: "Ligner den almindelige hveps, men graver ofte boet i græsplænen eller under terrassen." },
+      { name: "Hornisse", text: "Danmarks største gedehamse, rødbrun og tydeligt større end almindelig hveps. Til trods for størrelsen er den mindre tilbøjelig til at stikke, men et fuldvoksent bo kan rumme flere hundrede individer." },
+      { name: "Honningbi og bisværme", text: "Bier stikker kun én gang og bør ikke bekæmpes. En bisværm samles gratis ind af en biavler, mens et fast etableret bibo i en mur eller skorsten skal have professionel hjælp." },
     ],
     processNote:
       "Boet bliver fjernet, og stedet bliver efterbehandlet, så hvepsene ikke bygger det op igen. Vi fortæller " +
@@ -304,8 +321,8 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   },
   soelvfisk: {
     intro:
-      "Skægkræ og sølvfisk holder sig, hvor det er fugtigt og mørkt: i kælderen, i bryggerset, under vasken " +
-      "og bag løse fodlister. Ofte er fugtproblemet den egentlige årsag, og det bliver ofte overset.",
+      "Sølvfisk holder sig, hvor det er fugtigt og mørkt: i kælderen, i bryggerset, under vasken " +
+      "og bag løse fodlister, mens skægkræ også trives i tørre rum. Ofte er fugtproblemet den egentlige årsag, og det bliver ofte overset.",
     whyProfessional: [
       "Vi finder årsagen i fugt og utætheder, ikke kun de dyr, du kan se",
       "Midler med varig effekt i fugtzoner, revner og bag fodlister",
@@ -313,7 +330,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Skægkræ", text: "Langbenet og hurtig. Holder til i fugtige rum som bryggers, kælder og vaskeskabe." },
+      { name: "Skægkræ", text: "Langbenet og hurtig. Holder til mørkt og tørt, og modsat sølvfisk kan den findes i hele boligen." },
       { name: "Sølvfisk", text: "Slank, sølvblank og sky. Holder af stivelseholdigt papir, tapet og fugtige hjørner." },
     ],
     processNote:
@@ -413,6 +430,10 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Husflue", text: "Den velkendte, grå flue. Holder af affald, madvarer og mørknet materiale." },
       { name: "Kloakflue", text: "Lille og mørk med dunede vinger. Kommer ofte fra afløb, der er tørret ud eller snavsede, og kan være en plage på badeværelset." },
       { name: "Bananflue", text: "Lille og gulbrun. Holder af moden frugt, gærende væske og affald." },
+      { name: "Hestebremse og klæg", text: "Store sommerfluer, der bider — klægen med skærende munddele, hestebremsen kan slet ikke bide. Værst i hesteomgivelser og om sommeren." },
+      { name: "Stikflue", text: "Ligner en almindelig husflue, men bider om ben og ankler — også på terrassen." },
+      { name: "Hjortelusflue", text: "Skovens flue, der lander i håret og smider vingerne. Aktiv sensommer og efterår." },
+      { name: "Kødflue og spidsflue", text: "Metallisk grønne eller blålige fluer. Kommer de pludseligt i flok inde i huset, sidder der som regel et dødt dyr et sted i konstruktionen." },
     ],
     processNote:
       "Vi fastlægger, hvor fluerne kommer fra, og behandler kilden. Derefter får du konkrete råd til " +
@@ -457,6 +478,15 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { q: "Hvor mange edderkopper er der i min bolig?", a: "Det er svært at sige præcist, men det siges at der som hovedregel er et sted mellem 100 og 150 edderkopper pr m2. Du kan derfor nemt have flere tusinde i din bolig." },
     ],
   },
+  rotter, // ours: written for this site
+  mus, // ours: written for this site
+  lopper, // ours: written for this site
+  flaater, // ours: written for this site
+  lus, // ours: written for this site
+  maar, // ours: written for this site
+  fugle, // ours: written for this site
+  vildedyr, // ours: written for this site
+  haven, // ours: written for this site
 };
 
 /** The copy for a given pest, or undefined when no page exists for it. */

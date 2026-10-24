@@ -122,4 +122,56 @@ export const PEST_SEARCH: Record<string, PestSearch> = {
       "huller i plænen", "ujævn plæne", "plæne", "græsplæne", "gnavet rødder",
       "planter visner", "løg ædt", "gulerødder ædt", "dyr under jorden", "gravende dyr"],
   },
+  rotter: {
+    tell: "Huller på 2 cm i jorden, gnavspor og sorte ekskrementer nær kloakken",
+    words: ["rotte", "rotter", "rats", "rat", "kloakrotte", "brun rotte", "gnavehuller",
+      "rottehuller", "rottegnav", "rotteeksrementer", "kloaklugt", "noget der gnaver",
+      "støj i kloakken", "rotte i haven", "rotte i kælderen", "rotte på loftet"],
+  },
+  mus: {
+    tell: "Knirken og gnavelyde i væggen eller på loftet om natten, og små ekskrementer",
+    words: ["mus", "muse", "musen", "mouse", "husmus", "markmus", "skovmus", "halsbåndmus",
+      "museunger", "musehuller", "museeksrementer", "noget der løber på loftet",
+      "knirken i væggen", "gnavelyde om natten"],
+  },
+  lopper: {
+    tell: "Kløende røde bid om anklerne, og små sorte prikker i kæledyrets pels",
+    words: ["loppe", "lopper", "fleas", "flea", "katteloppe", "hundeloppe", "fugleloppe",
+      "loppebid", "loppeangreb", "sorte prikker i pelsen", "kløende bid om anklerne",
+      "hopper", "dyrlæge", "kattebid"],
+  },
+  flaater: {
+    tell: "Et lille gråbrunt insekt med otte ben, der sidder fast i huden efter en tur i naturen",
+    words: ["flåt", "flåter", "flaat", "taeger", "tæge", "tæger", "tick", "ticks", "skovflåt",
+      "skovflaat", "engflåt", "flåttang", "flåtbid", "tægetang", "hvordan fjerner man en flåt",
+      "borrelia", "tbe", "flåter i haven"],
+  },
+  lus: {
+    tell: "Kløe i hovedbunden og små hvide æg, der sidder fast på hårstråene",
+    words: ["lus", "hovedlus", "luseæg", "fnat", "lus i håret", "klør i hovedbunden",
+      "lusekam", "fladlus", "kønslus", "mider", "skab", "børnelus", "lusemiddel"],
+  },
+  maar: {
+    tell: "Tunge trampelyde på loftet efter midnat, og en muggen lugt på badeværelset",
+    words: ["mår", "maar", "mår på loftet", "husmår", "stenmår", "skovmår", "marten",
+      "trampelyde på loftet", "mår i huset", "mårlugt", "måreskader", "jagttid"],
+  },
+  fugle: {
+    tell: "Duer eller måger, der sidder på taget, og tilsvinede facader og tagrender",
+    words: ["due", "duer", "bydue", "klippedue", "duer på taget", "duemøg", "duepigge",
+      "fuglenet", "fugle på bygningen", "måge", "måger", "alliker", "stær", "sølvmåge",
+      "hættemåge", "larmende fugle", "tilsvinede facader"],
+  },
+  vildedyr: {
+    tell: "Gravehuller i plænen om morgenen, eller gnav på unge træer og grøntsager",
+    words: ["ræv", "raev", "ræve", "grævling", "graevling", "hare", "harer", "byræv",
+      "ræv i haven", "rævegrave", "grævling i haven", "grævlingehul", "hare i haven",
+      "vildt", "vilddyr"],
+  },
+  haven: {
+    tell: "Planter, der er ædt af i køkkenhaven, og gul-orange biller på kartoffeltoppene",
+    words: ["kartoffelbille", "coloradobille", "coloradobiller", "jordbiller",
+      "smølderlarver", "smoelderlarver", "tråduldslarver", "kartoffelpest", "have",
+      "køkkenhave", "planter ædt i haven", "larver i haven"],
+  },
 };

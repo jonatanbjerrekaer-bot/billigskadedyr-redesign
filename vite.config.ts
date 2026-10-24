@@ -1,6 +1,33 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { existsSync, readdirSync } from 'node:fs'
+
+// One shell per species page, written by scripts/species-shells.mjs. Read from
+// disk rather than listed by hand: there are dozens, and a page added to the
+// content but missing here would build without its own URL and nobody would
+// notice until a search result 404'd.
+// One input per service page, discovered the same way as the species shells:
+// the hardcoded list below this comment used to be the only source, and the
+// nine wiki additions (rotter, mus, lopper, flaater, lus, maar, fugle,
+// vildedyr, haven) built without their own URL — every /service/<slug>/
+// request fell through to a directory listing.
+const serviceInputs = Object.fromEntries(
+  readdirSync('service', { withFileTypes: true })
+    .filter((d) => d.isDirectory() && existsSync(`service/${d.name}/index.html`))
+    .map((f) => [`service/${f.name}/index.html`, `service/${f.name}/index.html`]),
+)
+
+const speciesInputs = Object.fromEntries(
+  readdirSync('service', { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .flatMap((svc) =>
+      readdirSync(`service/${svc.name}`, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && existsSync(`service/${svc.name}/${d.name}/index.html`))
+        .map((d) => `service/${svc.name}/${d.name}/index.html`),
+    )
+    .map((f) => [f, f]),
+)
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,6 +37,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
     index: 'index.html',
+    'privatlivspolitik/index.html': 'privatlivspolitik/index.html',
+    'cookiepolitik/index.html': 'cookiepolitik/index.html',
     'shop/index.html': 'shop/index.html',
     'shop/produkter/index.html': 'shop/produkter/index.html',
     'shop/produkt/generation-pasta/index.html': 'shop/produkt/generation-pasta/index.html',
@@ -134,7 +163,8 @@ export default defineConfig({
     'shop/produkt/protox-insekt/index.html': 'shop/produkt/protox-insekt/index.html',
     'shop/produkt/a-tox-25ltr/index.html': 'shop/produkt/a-tox-25ltr/index.html',
     'shop/produkt/alfa-korn-mod-mus/index.html': 'shop/produkt/alfa-korn-mod-mus/index.html',
-    'service/muldvarpe/index.html': 'service/muldvarpe/index.html',    'service/snegle/index.html': 'service/snegle/index.html',    'service/klannere/index.html': 'service/klannere/index.html',    'service/myg/index.html': 'service/myg/index.html',    'service/moel/index.html': 'service/moel/index.html',    'service/gaasebiller/index.html': 'service/gaasebiller/index.html',    'service/myrer/index.html': 'service/myrer/index.html',    'service/hvepse/index.html': 'service/hvepse/index.html',    'service/vaeggelus/index.html': 'service/vaeggelus/index.html',    'service/soelvfisk/index.html': 'service/soelvfisk/index.html',    'service/borebiller/index.html': 'service/borebiller/index.html',    'service/kakerlakker/index.html': 'service/kakerlakker/index.html',    'service/fluer/index.html': 'service/fluer/index.html',    'service/edderkopper/index.html': 'service/edderkopper/index.html'
+    ...serviceInputs,
+    ...speciesInputs,
       },
     },
   },
