@@ -68,9 +68,9 @@ export default function ServicePage({ slug }: { slug: string }) {
               Alle skadedyr
             </a>
             <div className="svc-hero__title">
-              {/* Named for the view transition, so this glyph is the same
-                  object as the row on the front page rather than a new one. */}
-              <span className="svc-hero__glyph" style={{ viewTransitionName: `pest-${slug}` }}>
+              {/* The router names this glyph for the flight from the row on
+                  the front page, so it arrives as the same object. */}
+              <span className="svc-hero__glyph" data-vt-pest={slug}>
                 <PestGlyph pest={pest} size={64} />
               </span>
               <h1>Vi fjerner {label.toLowerCase()}</h1>

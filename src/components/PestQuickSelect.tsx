@@ -62,9 +62,9 @@ export function PestChips({ exclude, list }: { exclude?: string; list?: PestEntr
       {pests.map((p) => (
         <li key={p.slug}>
           <a href={`${import.meta.env.BASE_URL}service/${p.slug}/`}>
-            {/* Shares its view-transition-name with the glyph in the service
-                page hero, so the icon travels between the two pages. */}
-            <span style={{ viewTransitionName: `pest-${p.slug}` }}>
+            {/* Marked so the router can name it for the flight to the
+                service page hero; see flyPest in lib/router. */}
+            <span data-vt-pest={p.slug}>
               <PestGlyph pest={p} size={24} />
             </span>
             {p.label}
@@ -124,7 +124,7 @@ export default function PestQuickSelect() {
                   {/* Each row leads to that pest's own service page, where the
                       treatment is explained in detail. */}
                   <a href={`${import.meta.env.BASE_URL}service/${p.slug}/`}>
-                    <span className="index__glyph" style={{ viewTransitionName: `pest-${p.slug}` }}>
+                    <span className="index__glyph" data-vt-pest={p.slug}>
                       <PestGlyph pest={p} size={24} />
                     </span>
                     <span className="index__name">{p.label}</span>

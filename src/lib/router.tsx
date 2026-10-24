@@ -79,7 +79,27 @@ function applyScroll() {
   scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 }
 
+/**
+ * Names the one glyph for the pest a navigation is about, and only that one.
+ * Every pest icon used to carry its name permanently, so every in-site
+ * navigation flew all of them at once, from wherever they sat on the old page,
+ * across the screen to the new one. Only the icon you clicked has somewhere
+ * to go; the rest belong to the cross-fade. "" clears them all.
+ */
+function flyPest(slug: string) {
+  let named = false;
+  document.querySelectorAll<HTMLElement>("[data-vt-pest]").forEach((el) => {
+    // a name may appear once per page, so the first match is the one that flies
+    const fly = !named && !!slug && el.dataset.vtPest === slug;
+    el.style.viewTransitionName = fly ? `pest-${slug}` : "";
+    if (fly) named = true;
+  });
+}
+
 function go(url: string, replace = false) {
+  // The pest the move is about: the page you are going to, or the one you are
+  // leaving when you go back to the list.
+  const slug = slugOf(new URL(url, location.href).pathname) || slugOf(location.pathname);
   const run = () => {
     history[replace ? "replaceState" : "pushState"]({}, "", url);
     // startViewTransition captures the new state the moment this returns.
@@ -91,12 +111,14 @@ function go(url: string, replace = false) {
     // while the hero tile is at the top, so moving after the capture would
     // measure the flight against a viewport about to change.
     applyScroll();
+    flyPest(slug);
   };
   if (reduced() || !document.startViewTransition) {
     run();
     return;
   }
-  document.startViewTransition(run);
+  flyPest(slug);
+  document.startViewTransition(run).finished.finally(() => flyPest(""));
 }
 
 export function navigate(url: string) {

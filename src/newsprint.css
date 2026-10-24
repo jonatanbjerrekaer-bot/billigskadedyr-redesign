@@ -56,6 +56,8 @@ html:has(.np) { background: var(--color-paper); }
 .np .section--s { padding-block: var(--section-gap-s); }
 .np .section--l { padding-block: var(--section-gap-l); }
 .np .section + .section:not(.band):not(.estimator):not(.close) { padding-top: 0; }
+/* ...except after a tinted band: the next section starts on a new ground and needs its own top padding. Same weight as the rule above, later, so it wins. */
+.np :is(.band, .estimator, .close) + .section:not(.band):not(.estimator):not(.close) { padding-top: var(--section-gap); }
 .np .rule-double {
   box-sizing: content-box; height: 2px; margin: 0; border: 0;
   border-block: var(--rule-hair) solid var(--color-rule-2);
