@@ -1,4 +1,5 @@
 import TrustSeal from "./TrustSeal";
+import { CookieSettingsButton } from "./CookieBanner";
 
 export default function Footer() {
   return (
@@ -33,6 +34,7 @@ export default function Footer() {
             <ul>
               <li><a href="https://billigskadedyrprof.dk/privatlivspolitik/" target="_blank" rel="noreferrer">Privatlivspolitik</a></li>
               <li><a href="https://billigskadedyrprof.dk/cookie-politik/" target="_blank" rel="noreferrer">Cookiepolitik</a></li>
+              <li><CookieSettingsButton className="foot__link-btn" /></li>
             </ul>
           </div>
           <div>

@@ -274,7 +274,9 @@ html:has(.np) { background: var(--color-paper); }
 .np .hours td { text-align: left; font-variant-numeric: tabular-nums; font-weight: 600; }
 @media (max-width: 75rem) {
   .np .close__facts, .np .close__form { grid-column: 1 / -1; }
-  .np .close__form { margin-top: var(--space-2xl); }
+  /* Stacked, the form comes first: it is what someone scrolling here came to do. */
+  .np .close__form { order: -1; }
+  .np .close__facts { margin-top: var(--space-2xl); }
   .np .close__dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-xl); }
 }
 @media (max-width: 40rem) { .np .close__dl { grid-template-columns: minmax(0, 1fr); } }
@@ -324,3 +326,10 @@ html:has(.np) { background: var(--color-paper); }
 .np .species__art img { position: absolute; inset: var(--space-md); width: calc(100% - 2 * var(--space-md)); height: calc(100% - 2 * var(--space-md)); object-fit: contain; }
 @media (max-width: 40rem) { .np .species__art { aspect-ratio: 16 / 9; } }
 .np .species__credit { margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+
+/* Cookie notice: Accepter and Afvis are the same button (Datatilsynet: refusing as easy as accepting). */
+.np .notice__actions .btn { min-width: 9rem; }
+.np .notice .notice__actions .btn--primary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
+/* "Cookieindstillinger" in the footer reads as a link, because it sits in a list of links. */
+.np .foot__link-btn { padding: 0; border: 0; background: none; font: inherit; color: var(--color-paper); cursor: pointer; text-align: left; }
+.np .foot__link-btn:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
