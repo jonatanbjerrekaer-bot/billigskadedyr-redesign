@@ -25,4 +25,10 @@ export const SPECIES_ART: Record<string, string> = {
   Husedderkop: "husedderkop",
   Vinduesedderkop: "vinduesedderkop",
   Korsedderkop: "korsedderkop",
+  "Tysk kakerlak": "tysk-kakerlak",
+  "Orientalisk kakerlak": "orientalsk-kakerlak",
+  "Amerikansk kakerlak": "amerikansk-kakerlak",
+  Dræbersnegl: "draebersnegl",
+  Agersnegl: "agersnegl",
+  Vinbjergsnegl: "vinbjergsnegl",
 };
