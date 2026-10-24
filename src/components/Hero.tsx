@@ -1,102 +1,119 @@
-import { Calculator, Check, Mail, MapPin, Phone } from "lucide-react";
+import PestQuickSelect, { priceOf } from "./PestQuickSelect";
+import { GRID_PESTS, PRICED_PESTS, PestGlyph } from "../lib/pests";
+import { useChosenPest } from "../lib/estimatorSelection";
+import Select from "./ui/Select";
+import { OWNER_PRICES } from "../lib/pricing";
 
-const TRUST_POINTS = [
-  "Uddannede teknikere med de rette autorisationer",
-  "Du får behandlingen på skrift bagefter",
-];
+/**
+ * The first screen borrows what the big US pest firms and the best product
+ * sites do well: a solid green band (Terminix, Aptive, Sunday), the pests
+ * themselves as one-tap ways in (Terminix's service chips), the rating in the
+ * hero (Hawx), and the product shown rather than described (Stripe, Linear).
+ * Here the product is the price, so the card answers "what does it cost?"
+ * before anyone scrolls. The full price list follows as its own band.
+ */
+const MORE = "__alle";
 
 export default function Hero() {
-  return (
-    <section id="top" className="bg-ink-900 text-cream">
-      <div className="max-w-6xl mx-auto">
-        {/* Split hero: type panel left, full-bleed photo right. */}
-        <div className="flex flex-col md:flex-row">
-          <div className="basis-0 grow px-5 sm:px-8 py-14 md:py-20" style={{ flexBasis: "52%" }}>
-            <p className="uppercase tracking-widest text-accent-500 text-sm font-bold mb-4">
-              Hele Jylland og Fyn · base i Risskov
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight">
-              Skadedyr i huset? Vi kommer og fjerner dem.
-            </h1>
-            <p className="mt-5 text-ink-100/85 text-lg max-w-md">
-              Du får en fast pris, før vi går i gang. Vi kigger efter først, og
-              du siger ja, før vi rører noget.
-            </p>
+  // Same list, same store as the calculator below: change one, both follow.
+  const [slug, setSlug] = useChosenPest(PRICED_PESTS[0].slug);
+  // The dropdown and chips show the common pests; the rest live in the full list below.
+  const toList = () => document.getElementById("pest")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
+  const price = priceOf(pest);
+  const row = pest.priceKey ? OWNER_PRICES[pest.priceKey] : undefined;
+  // The owner's own reason where he gives one; otherwise the honest general one.
+  const why =
+    row?.kind === "quote"
+      ? row.why
+      : `${pest.label} har ingen fast pris, fordi arbejdet afhænger af, hvor de sidder, og hvor mange der er. Skriv kort, hvad du har set, eller send et billede, så får du en fast pris, før vi kommer.`;
 
-            <ul className="mt-7 flex flex-col gap-3">
-              {TRUST_POINTS.map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <Check
-                    size={18}
-                    strokeWidth={3}
-                    aria-hidden="true"
-                    className="text-accent-500 shrink-0 mt-0.5"
-                  />
-                  <span className="text-sm text-ink-100/90">{t}</span>
+  return (
+    <>
+      <section id="top" className="hero">
+        <div className="container grid12">
+          <div className="hero__text">
+            <p className="hero__kicker">Skadedyrsbekæmpelse i Jylland og Fyn</p>
+            <h1>
+              <span className="keep">Skadedyr i huset?</span>
+              <br /> Vi kommer og <span className="tail">fjerner dem.</span>
+            </h1>
+            <p className="lead">
+              Du får en fast pris, før vi går i gang. Vi kigger efter først, og du siger ja,
+              før vi rører noget.
+            </p>
+            <ul className="hero__chips" aria-label="Skadedyr vi fjerner">
+              {GRID_PESTS.slice(0, 6).map((p) => (
+                <li key={p.slug}>
+                  <a href={`${import.meta.env.BASE_URL}service/${p.slug}/`}>
+                    <span className="hero__chip-glyph">
+                      <PestGlyph pest={p} size={22} />
+                    </span>
+                    {p.label}
+                  </a>
                 </li>
               ))}
+              <li>
+                <a href="#pest" className="hero__chip-more">
+                  + {GRID_PESTS.length - 6} andre skadedyr
+                </a>
+              </li>
             </ul>
-
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              {/* Primary action is the calculator: it is the thing that answers
-                  the question every caller actually has. */}
-              <a
-                href="#estimator"
-                className="press bg-accent-500 hover:bg-accent-400 text-ink-950 font-bold rounded-lg px-6 py-4 text-center min-h-[48px] inline-flex items-center justify-center gap-2 transition-colors"
-              >
-                <Calculator size={18} strokeWidth={2.5} aria-hidden="true" />
-                Beregn min pris
-              </a>
-              <a
-                href="#pest"
-                className="press border-2 border-ink-100/30 text-cream hover:border-accent-500 font-semibold rounded-lg px-6 py-4 text-center min-h-[48px] flex items-center justify-center transition-colors"
-              >
-                Find mit skadedyr
-              </a>
-            </div>
+            <p className="hero__rating">
+              <strong>4,6 af 5</strong> på e-mærket ·{" "}
+              <a href="#reviews">Læs hvad kunderne skriver</a>
+            </p>
           </div>
 
-          <div className="basis-0 grow overflow-hidden" style={{ flexBasis: "48%" }}>
-            {/*
-              Demo image only. Source: snowballpestcontrol.com
-              https://snowballpestcontrol.com/wp-content/uploads/2025/12/Why-Regular-Pest-Control-is-Essential-for-a-Healthy-Home-7374193.webp
-              Used as a placeholder in this unofficial concept. NOT licensed for
-              production — replace with a licensed or own photo before any real use.
-            */}
-            <img
-              src={`${import.meta.env.BASE_URL}hero.webp`}
-              alt="Skadedyrstekniker i arbejdstøj under en behandling"
-              className="h-full w-full object-cover min-h-[320px] md:min-h-[520px]"
-              loading="eager"
+          <form className="hero__check" onSubmit={(e) => e.preventDefault()}>
+            <h2>Hvad koster det?</h2>
+            <span className="field-label">Vælg dit skadedyr</span>
+            <Select
+              value={slug}
+              onValueChange={(v) => (v === MORE ? toList() : setSlug(v))}
+              ariaLabel="Skadedyr"
+              triggerId="hero-pest"
+              paper
+              options={[
+                ...PRICED_PESTS.map((p) => ({
+                  value: p.slug,
+                  label: p.label,
+                  icon: <PestGlyph pest={p} size={22} />,
+                })),
+                { value: MORE, label: `Se alle ${GRID_PESTS.length} skadedyr …` },
+              ]}
             />
-          </div>
+            <a href="#pest" className="hero__check-more">
+              Ikke på listen? Se alle {GRID_PESTS.length} skadedyr
+            </a>
+            <p className="hero__check-price" data-words={price.ask || undefined} aria-live="polite">
+              {price.text}
+            </p>
+            <p className="hero__check-note">
+              {row?.kind === "fixed"
+                ? `Pris for én behandling af ${pest.label.toLowerCase()}. Den ligger fast, før vi går i gang.`
+                : price.note
+                  ? `Det koster ${price.text} at få os ud og se på det. ${why}`
+                  : why}
+            </p>
+            {row?.kind === "fixed" ? (
+              <a href="#estimator" className="btn btn--primary">
+                Beregn min præcise pris
+              </a>
+            ) : (
+              <a href="#skriv" className="btn btn--primary">
+                Skriv til os om {pest.label.toLowerCase()}
+              </a>
+            )}
+          </form>
         </div>
+      </section>
 
-        {/* Contact strip: the practical details a caller wants, one row. */}
-        <div className="flex flex-col sm:flex-row border-t border-ink-700">
-          <a
-            href="mailto:info@billigskadedyr.dk"
-            className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors"
-          >
-            <Mail size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
-            <span className="select-text text-sm">info@billigskadedyr.dk</span>
-          </a>
-          <a
-            href="tel:+4524245583"
-            className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-ink-800 hover:bg-ink-700 transition-colors border-t sm:border-t-0 sm:border-l border-ink-700"
-          >
-            <Phone size={18} aria-hidden="true" className="text-accent-500 shrink-0" />
-            <span className="flex flex-col">
-              <span className="select-text text-sm font-semibold">24 24 55 83</span>
-              <span className="text-xs text-ink-100/70">Akut og igangværende sager</span>
-            </span>
-          </a>
-          <div className="press basis-0 grow flex items-center gap-3 px-6 py-5 bg-accent-500 text-ink-950">
-            <MapPin size={18} aria-hidden="true" className="shrink-0" />
-            <span className="select-text text-sm font-semibold">Viengevej 6A, 8240 Risskov</span>
-          </div>
+      <section className="index-band">
+        <div className="container">
+          <PestQuickSelect />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

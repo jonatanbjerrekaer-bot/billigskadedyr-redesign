@@ -1,6 +1,4 @@
-import { Button, Link } from "@heroui/react";
-
-import { Mail, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { CONTACT_HREF, homeHref } from "./ui/Cta";
 
 const NAV_LINKS = [
@@ -10,6 +8,11 @@ const NAV_LINKS = [
   { label: "FAQ", href: "#faq" },
 ];
 
+/**
+ * The masthead: the client's own mark and name, the four destinations, and
+ * the one action. Sticky, so "Skriv til os" stays one click away all the way
+ * down the page; on a phone the bottom bar does that job instead.
+ */
 export default function Header({
   mobileNavOpen,
   onNavToggle,
@@ -18,95 +21,53 @@ export default function Header({
   onNavToggle: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-40 bg-ink-950 text-cream shadow-md">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between gap-4">
-        {/*
-          "SkadedyrPro" was a name this concept invented for a business that
-          already has one. The mark is the client's own, lifted from their
-          logo with the wordmark cropped off, so the header carries their
-          identity rather than a redesign's idea of it. The name still reaches
-          screen readers through the visually-hidden span.
-        */}
-        <a href={homeHref("#top")} className="inline-flex items-center min-h-[44px]">
-          <img
-            src={`${import.meta.env.BASE_URL}logo-mark.svg`}
-            alt=""
-            width={69}
-            height={67}
-            className="h-9 w-auto"
-          />
-          <span className="sr-only">Billigskadedyr.dk, til forsiden</span>
+    <header className="mast-bar">
+      <div className="container mast-bar__row">
+        <a href={homeHref("#top")} className="wordmark" aria-label="Billigskadedyr.dk, til forsiden">
+          <img src={`${import.meta.env.BASE_URL}logo-mark-dark.svg`} alt="" width={69} height={67} />
+          <span aria-hidden="true">Billigskadedyr.dk</span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="mast-nav" aria-label="Hovedmenu">
           {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={homeHref(l.href)}
-              className="text-cream hover:text-accent-400 transition-colors"
-            >
+            <a key={l.href} href={homeHref(l.href)}>
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          {/* Mail leads. The phone number stays one tap away in the hero strip
-              and the footer for the people who want it. */}
-          <Link
-            href={homeHref(CONTACT_HREF)}
-            className="hidden sm:inline-flex gap-2 bg-accent-500 hover:bg-accent-400 text-ink-950 font-semibold rounded-lg px-4 py-2.5 text-sm min-h-[44px] items-center transition-colors"
-          >
-            <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
-            Skriv til os
-          </Link>
-          <Button
-            onPress={onNavToggle}
-            aria-expanded={mobileNavOpen}
-            aria-controls="mobile-nav"
-            aria-label={mobileNavOpen ? "Luk menu" : "Åbn menu"}
-            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-ink-500 bg-ink-800 text-cream hover:bg-ink-700 hover:border-accent-500 transition-colors"
-          >
-            {mobileNavOpen ? (
-              <X size={20} aria-hidden="true" />
-            ) : (
-              <Menu size={20} aria-hidden="true" />
-            )}
-          </Button>
-        </div>
+        <a href={homeHref(CONTACT_HREF)} className="btn btn--primary">
+          Skriv til os
+        </a>
+        <button
+          type="button"
+          onClick={onNavToggle}
+          aria-expanded={mobileNavOpen}
+          aria-controls="mobile-nav"
+          aria-label={mobileNavOpen ? "Luk menu" : "Åbn menu"}
+          className="mast-menu"
+        >
+          {mobileNavOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+        </button>
       </div>
 
       {/* Kept mounted and collapsed with the shared row-collapse class so both
           opening and closing animate; visibility on the collapsed state keeps
           the hidden links out of the tab order. */}
-      <nav
-        id="mobile-nav"
-        aria-label="Mobilnavigation"
-        aria-hidden={!mobileNavOpen}
-        className="md:hidden bg-ink-900 border-t border-ink-800 data-[collapsed=true]:border-transparent"
-      >
-        <div className="row-collapse" data-collapsed={!mobileNavOpen}>
-          <div>
-            <div className="px-5 py-3 flex flex-col gap-1">
+      <nav id="mobile-nav" aria-label="Mobilnavigation" aria-hidden={!mobileNavOpen} className="mast-mobile" hidden={!mobileNavOpen}>
+        <div className="container">
+          <ul>
             {NAV_LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={homeHref(l.href)}
-                onClick={onNavToggle}
-                className="px-3 min-h-[48px] flex items-center rounded-lg text-cream hover:bg-ink-800 text-base"
-              >
-                {l.label}
-              </a>
+              <li key={l.href}>
+                <a href={homeHref(l.href)} onClick={onNavToggle}>
+                  {l.label}
+                </a>
+              </li>
             ))}
-            <Link
-              href={homeHref(CONTACT_HREF)}
-              className="mt-2 w-full bg-accent-500 text-ink-950 text-center font-semibold rounded-lg py-3 min-h-[48px] flex items-center justify-center gap-2"
-            >
-              <Mail size={16} strokeWidth={2.5} aria-hidden="true" />
-              Skriv til os
-            </Link>
-            </div>
-          </div>
+          </ul>
+          <a href={homeHref(CONTACT_HREF)} onClick={onNavToggle} className="btn btn--primary btn--block">
+            Skriv til os
+          </a>
         </div>
       </nav>
     </header>

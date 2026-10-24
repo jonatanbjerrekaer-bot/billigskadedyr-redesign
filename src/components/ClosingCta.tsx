@@ -1,4 +1,3 @@
-import { Mail, Phone } from "lucide-react";
 import Cta, { CONTACT_HREF, TEL } from "./ui/Cta";
 import TrustSeal from "./TrustSeal";
 
@@ -23,15 +22,13 @@ export default function ClosingCta() {
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center [&>a]:w-full sm:[&>a]:w-auto">
           <Cta
             href={CONTACT_HREF}
-            variant="onAccent"
-            icon={<Mail size={18} strokeWidth={2.5} aria-hidden="true" />}
+            variant="primary"
           >
             Skriv til os
           </Cta>
           <Cta
             href={TEL}
-            variant="onAccentGhost"
-            icon={<Phone size={18} strokeWidth={2.5} aria-hidden="true" />}
+            variant="secondary"
           >
             Ring 24 24 55 83
           </Cta>
@@ -47,7 +44,7 @@ export default function ClosingCta() {
         </div>
 
         <p className="mt-6 text-sm opacity-80">
-          Åbningstider: Man - Fre: 08:00 - 21:00 · Lør - Søn: 12:00 - 16:00 · Helligdage: 12:00 -
+          Åbningstider: Man - Fre: 08:00 - 21:00. Lør - Søn: 12:00 - 16:00. Helligdage: 12:00 -
           16:00.
         </p>
       </div>

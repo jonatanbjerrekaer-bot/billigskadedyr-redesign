@@ -1,0 +1,106 @@
+/* Hallmark · theme variant: Hedgerow (hedgerow: hedge) · same shape, sections and wiring as the Newsprint build;
+ * only the material changes: deep leaf-green ground, cream ink, Prata over Manrope, one chartreuse, photographs in true colour */
+@font-face { font-family: "Prata"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/prata-400.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("/fonts/manrope-wght.woff2") format("woff2"); }
+
+:root {
+  --color-paper: oklch(24% 0.052 158); --color-paper-2: oklch(19.5% 0.045 158); --color-paper-3: oklch(29.5% 0.05 158);
+  --color-ink: oklch(93% 0.022 88); --color-ink-2: oklch(81% 0.035 150); --color-muted: oklch(69% 0.045 150);
+  --color-rule: oklch(35% 0.05 158); --color-rule-2: oklch(69% 0.045 150);
+  --color-accent: oklch(87% 0.19 118); --color-accent-2: oklch(92% 0.13 118); --color-accent-deep: oklch(46% 0.12 128);
+  --color-accent-ink: oklch(22% 0.05 158); --color-focus: oklch(92% 0.13 118);
+  /* the cream band: hedge-green type and moss rules on cream */
+  --color-on-ink-muted: oklch(38% 0.05 158); --color-on-ink-rule: oklch(78% 0.03 120);
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.005em; --display-weight: 400;
+  --radius-pill: 999px;
+  color-scheme: dark;
+}
+.np { --font-display: "Prata", Georgia, serif; font-size: 1.0625rem; line-height: 1.6; }
+html:has(.np) { background: var(--color-paper); }
+
+.np h1, .np h2, .np h3 { font-weight: 400; line-height: 1.08; }
+.np .trigger-title, .np .index__name, .np .promise dt, .np .species dt, .np .others a,
+.np .wordmark, .np .foot__mark, .np .score__figure, .np .tier__price strong,
+.np .estimator__price, .np .quote-panel__price { font-weight: 400; }
+.np .index__name { font-size: 1.1875rem; }
+.np .lead, .np p { color: inherit; }
+.np .agate { font-weight: 500; }
+
+/* rules: 1px in the hedge, a 1.5px chartreuse rule over the list that matters most */
+.np .index__list { border-top: 1.5px solid var(--color-accent); }
+.np .estimator, .np .foot, .np .score { box-shadow: none; }
+.np .score { margin-block: 0; border-block-color: var(--color-muted); }
+.np .mast-bar { box-shadow: none; border-bottom-color: var(--color-rule); }
+.np .mast-dateline { background: var(--color-paper-2); border-bottom-color: var(--color-paper-2); }
+.np .mast-dateline strong, .np .mast-dateline a { color: var(--color-ink); }
+
+/* controls: chartreuse pills */
+.np .btn { border: 1.5px solid var(--color-accent); border-radius: var(--radius-pill); font: 700 var(--text-sm)/1 var(--font-body); padding: 0 var(--space-lg); transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out); }
+.np .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.np .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
+.np .btn--secondary { background: transparent; color: var(--color-accent); }
+.np .btn--secondary:hover { background: var(--color-paper-3); }
+.np .mast-menu { border: 1.5px solid var(--color-accent); border-radius: var(--radius-pill); color: var(--color-accent); }
+.np .link { color: var(--color-ink); text-decoration-color: var(--color-accent); }
+.np .field, .np .select-trigger, .np .area-field { background: var(--color-paper-2); border-color: var(--color-muted); color: var(--color-ink); }
+.np .toggle-button-group { border-color: var(--color-accent); border-radius: var(--radius-pill); }
+.np .toggle-button-group .toggle-button {
+  --toggle-button-bg-selected: var(--color-accent); --toggle-button-fg-selected: var(--color-accent-ink);
+  --toggle-button-bg-selected-hover: var(--color-accent-2); --toggle-button-bg-hover: var(--color-paper-3);
+}
+.np .toggle-button-group .toggle-button + .toggle-button { border-left-color: var(--color-accent); }
+.np .slider__fill, .np .slider__thumb { background: var(--color-accent); }
+.np .slider__thumb { border-color: var(--color-paper); box-shadow: 0 0 0 1px var(--color-accent); }
+/* The popover renders outside .np; the colour tokens sit on :root, so it can reach them. */
+.np-popover { background: var(--color-paper); border-color: var(--color-muted); color: var(--color-ink); }
+.np-popover .list-box-item, .np-popover [role="option"] { color: var(--color-ink) !important; }
+.np-popover [role="option"][data-focused], .np-popover [role="option"]:hover { background-color: var(--color-paper-3) !important; color: var(--color-ink) !important; }
+
+/* the cream band: the packages, the densest section, hedge-green controls on it */
+.np .band--ink .btn { border-color: var(--color-paper); }
+.np .band--ink .btn--primary { background: var(--color-paper); color: var(--color-ink); }
+.np .band--ink .btn--primary:hover { background: var(--color-paper-3); }
+.np .band--ink .btn--secondary { color: var(--color-paper); }
+.np .band--ink .tier__price strong, .np .band--ink .matrix .ok { color: var(--color-accent-deep); }
+.np .band--ink .matrix thead th { border-bottom-color: var(--color-accent-deep); }
+.np .band--ink :focus-visible { outline-color: var(--color-accent-deep); }
+
+/* wells a step lighter in the hedge */
+.np .estimator__result, .np .why__well, .np .index__empty { background: var(--color-paper-3); border-color: var(--color-paper-3); }
+.np .close { background: var(--color-paper-2); }
+
+/* photographs in true colour, a faint cream ring */
+[data-slot][data-alt] > img { filter: saturate(0.9) contrast(1.08) brightness(0.8); }
+[data-slot][data-alt] { background: var(--color-paper-3); }
+.np .process__figure [data-slot] { outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); }
+.np .stages li::before { color: var(--color-accent); }
+
+/* Controls inside the calculator, in the theme's own shapes:
+   segmented choices as separate pills (a square fill inside a pill outline read as a mismatch),
+   a round slider thumb like every other control, and square fields like every other input. */
+.np .toggle-button-group { border: 0; border-radius: 0; overflow: visible; gap: var(--space-xs); flex-wrap: wrap; }
+.np .toggle-button-group .toggle-button,
+.np .toggle-button-group .toggle-button + .toggle-button {
+  border: 1.5px solid var(--color-accent); border-radius: var(--radius-pill);
+  min-height: 44px; padding: 0 var(--space-lg); font: 500 var(--text-sm)/1 var(--font-body);
+  --toggle-button-fg: var(--color-accent);
+}
+.np .toggle-button-group .toggle-button[data-selected] { font-weight: 700; }
+.np .slider__thumb { border-radius: 50%; }
+.np .slider__track { background: var(--color-paper-3); }
+.np .area-field, .np .number-field__group, .np .select-trigger { border-radius: 0; }
+
+/* audit pass: chartreuse marks the one action per view. The nav and the cookie
+   strip step back to outlines; item titles in Prata never under 22px. */
+.np .mast-bar__row > .btn--primary, .np .notice .btn--primary { background: transparent; color: var(--color-accent); }
+.np .mast-bar__row > .btn--primary:hover, .np .notice .btn--primary:hover { background: var(--color-paper-3); }
+.np .btn:active, .np .mast-menu:active, .np .toggle-button:active { transform: scale(0.97); }
+.np .others a { font-size: 1.375rem; }
+.np .stages h3 { font-size: var(--text-title); }
+.np .slider__track, .np .slider__fill { border-radius: var(--radius-pill); }
+.np .band--ink .tier__price strong.words { font-size: var(--text-2xl); }
+/* one accent: the seal and the payment marks go neutral on the green */
+.np .seal svg { color: var(--color-ink-2); }
+.np .foot__pay img { filter: grayscale(1) brightness(1.6); opacity: 0.7; }

@@ -1,5 +1,5 @@
 import { Disclosure } from "@heroui/react";
-import { ArrowRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { homeHref } from "./ui/Cta";
 
 /**
@@ -61,50 +61,35 @@ export default function Faq({
 }: { items?: FaqItem[]; title?: string; intro?: string } = {}) {
   const list = items?.length ? items : ITEMS;
   return (
-    <section id="faq" className="bg-cream py-12 sm:py-16">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <h2 className="font-display text-3xl font-bold tracking-tight text-ink-900 uppercase mb-2">
-          {title ?? "Ofte stillede spørgsmål"}
-        </h2>
-        <p className="text-ink-900/70 mb-8 max-w-2xl">
-          {intro ?? "Om priser, sikkerhed og hvornår det kan betale sig at få professionel hjælp."}
-        </p>
+    <section id="faq" className="section">
+      <div className="container grid12">
+        <div className="faq__head">
+          <h2>{title ?? "Ofte stillede spørgsmål"}</h2>
+          <p>{intro ?? "Om priser, sikkerhed og hvornår det kan betale sig at få professionel hjælp."}</p>
+        </div>
 
-        <div className="flex flex-col gap-3 max-w-3xl">
+        <div className="faq__list">
           {list.map((item) => (
-            <Disclosure.Root
-              key={item.q}
-              className="bg-white rounded-xl border border-ink-100 overflow-hidden"
-            >
+            <Disclosure.Root key={item.q} className="faq__item">
               <Disclosure.Heading>
-                <Disclosure.Trigger className="group w-full text-left cursor-pointer flex items-center justify-between gap-3 px-5 py-4 min-h-[44px] font-medium text-ink-900 outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-inset">
-                  <span>{item.q}</span>
-                  <Plus
-                    size={20}
-                    strokeWidth={2.5}
-                    aria-hidden="true"
-                    className="text-accent-700 shrink-0 transition-transform duration-200 group-aria-expanded:rotate-45"
-                  />
+                <Disclosure.Trigger className="disclosure-trigger">
+                  <span className="trigger-title">{item.q}</span>
+                  <Plus size={22} strokeWidth={2} aria-hidden="true" className="plus" />
                 </Disclosure.Trigger>
               </Disclosure.Heading>
               <Disclosure.Content>
-                <Disclosure.Body className="px-5 pb-4 text-sm text-ink-900/80 leading-relaxed">
+                <Disclosure.Body className="faq__body">
                   <p>{item.a}</p>
                   {/*
                     An answer that ends in a full stop makes the reader go and
                     find the relevant section themselves. Where there is an
-                    obvious next step, it belongs in the answer, at the moment
-                    the question is resolved. The safety questions get no CTA:
-                    someone asking whether the poison is safe around their
-                    child is not looking for a button.
+                    obvious next step, it belongs in the answer. The safety
+                    questions get no link: someone asking whether the poison is
+                    safe around their child is not looking for a button.
                   */}
                   {item.cta && (
-                    <a
-                      href={homeHref(item.cta.href)}
-                      className="mt-3 inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold text-ink-900 underline underline-offset-4 hover:text-accent-700"
-                    >
+                    <a href={homeHref(item.cta.href)} className="link">
                       {item.cta.label}
-                      <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
                     </a>
                   )}
                 </Disclosure.Body>
@@ -112,7 +97,6 @@ export default function Faq({
             </Disclosure.Root>
           ))}
         </div>
-
       </div>
     </section>
   );

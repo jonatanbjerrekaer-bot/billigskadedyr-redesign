@@ -1,5 +1,4 @@
-import { Check, Mail, MapPin, Phone } from "lucide-react";
-import { CONTACT_HREF, TEL } from "./ui/Cta";
+import { ContactCtas } from "./ui/Cta";
 import { ESTIMATED_FROM, dkr } from "../lib/pricing";
 
 /**
@@ -7,16 +6,13 @@ import { ESTIMATED_FROM, dkr } from "../lib/pricing";
  *
  * Seven of the fourteen service pages had no price content whatsoever: the
  * estimator only renders for pests the calculator can price, and nothing
- * stood in for it. The word "koster" did not appear once on gåsebiller. So
- * "Priser" in the nav had nothing to scroll to, and more importantly a
+ * stood in for it. So "Priser" in the nav had nothing to scroll to, and a
  * visitor who came to find out what it costs left without an answer.
  *
  * Every claim here is already made elsewhere on the site, word for word:
  * "Fast pris efter en kort snak" and the sentence about not guessing come
  * from the estimator's own quote panel, and the response times come from the
- * badges beside it. Nothing new is asserted, and no figure is invented, which
- * is the whole point: the honest answer to "what does it cost" for these
- * pests is that it is set after a look, not that it is unknown.
+ * badges beside it. Nothing new is asserted, and no figure is invented.
  */
 export default function QuotePanel({
   slug,
@@ -37,82 +33,55 @@ export default function QuotePanel({
   const est = ESTIMATED_FROM[slug];
 
   return (
-    <section id="estimator" className="bg-ink-950 text-cream py-12 sm:py-16">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <h2 className="font-display text-3xl font-bold tracking-tight uppercase mb-3">
-          Hvad koster det?
-        </h2>
-        <p className="select-none text-ink-100/70 mb-8 max-w-2xl">
-          {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med,
-          inden vi går i gang.
-        </p>
+    <section id="estimator" className="section section--s estimator">
+      <div className="container grid12">
+        <div className="estimator__controls">
+          <h2>Hvad koster det?</h2>
+          <p className="lead select-none">
+            {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med, inden
+            vi går i gang.
+          </p>
+        </div>
 
-        <div className="rounded-2xl border border-ink-800 bg-ink-900/60 p-5 sm:p-7 grid gap-7 lg:grid-cols-2">
-          <div className="flex flex-col gap-3">
+        <div className="estimator__result">
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
             {est ? (
               <>
-                <p className="font-display text-3xl font-bold text-accent-400">
+                <p className="quote-panel__price">
                   Fra {dkr(est.from)}
-                  <span className="select-none ml-2 align-middle text-[11px] font-sans font-semibold uppercase tracking-widest text-ink-100/60">
-                    vejledende
-                  </span>
+                  <small className="select-none">vejledende</small>
                 </p>
-                <p className="text-sm text-ink-100/70 leading-relaxed">
-                  {est.note} Du får den faste pris, før vi går i gang, og den ændrer sig
-                  ikke undervejs.
+                <p className="small">
+                  {est.note} Du får den faste pris, før vi går i gang, og den ændrer sig ikke
+                  undervejs.
                 </p>
               </>
             ) : (
               <>
-                <p className="font-display text-2xl font-bold text-accent-400">
-                  Fast pris efter en kort snak
-                </p>
-                <p className="text-sm text-ink-100/70 leading-relaxed">
-                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den
-                  ændrer sig ikke undervejs.
+                <p className="estimator__price estimator__price--words">Fast pris efter en kort snak</p>
+                <p className="small muted">
+                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den ændrer sig
+                  ikke undervejs.
                 </p>
               </>
             )}
-            <div className="select-none flex flex-wrap gap-2 text-xs text-ink-100/80">
-              <span className="rounded-full bg-ink-900 px-2.5 py-1">Svar på 1 hverdag</span>
-              <span className="rounded-full bg-ink-900 px-2.5 py-1">Hos dig på 1-2 hverdage</span>
-            </div>
-            <p className="select-none flex items-start gap-2 text-sm text-ink-100/80 mt-1">
-              <MapPin size={16} strokeWidth={2.5} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
-              Hele Jylland og Fyn
+            <p className="select-none estimator__facts">
+              <span>Svar på 1 hverdag</span>
+              <span>Hos dig på 1-2 hverdage</span>
+              <span>Hele Jylland og Fyn</span>
             </p>
           </div>
 
           <div>
-            <p className="select-none mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
-              Prisen dækker
-            </p>
-            <ul className="text-sm text-ink-100/90 flex flex-col gap-2 list-none p-0 m-0">
+            <p className="select-none estimator__sub">Prisen dækker</p>
+            <ul className="estimator__list">
               {covers.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <Check size={16} strokeWidth={3} aria-hidden="true" className="text-accent-500 shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
 
-          <div className="lg:col-span-2 flex flex-col sm:flex-row gap-3">
-            <a
-              href={CONTACT_HREF}
-              className="press inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 text-ink-950 font-display font-bold min-h-[48px] px-6 hover:bg-accent-400 transition-colors"
-            >
-              <Mail size={17} strokeWidth={2.5} aria-hidden="true" />
-              Skriv til os
-            </a>
-            <a
-              href={TEL}
-              className="press inline-flex items-center justify-center gap-2 rounded-full border border-ink-700 min-h-[48px] px-6 font-display font-bold hover:border-accent-500 transition-colors"
-            >
-              <Phone size={17} strokeWidth={2.5} aria-hidden="true" />
-              Ring 24 24 55 83
-            </a>
-          </div>
+          <ContactCtas />
         </div>
       </div>
     </section>

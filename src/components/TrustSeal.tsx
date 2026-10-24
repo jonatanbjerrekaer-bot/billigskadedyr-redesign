@@ -18,11 +18,11 @@
  * the name contained in the visible label (WCAG 2.5.3).
  */
 type Props = {
-  variant?: "dark" | "light" | "bar";
+  variant?: "dark" | "light" | "bar" | "paper";
   className?: string;
 };
 
-const CERTIFICATE_URL = "https://certifikat.emaerket.dk/billigskadedyr.dk";
+export const CERTIFICATE_URL = "https://certifikat.emaerket.dk/billigskadedyr.dk";
 export const EM_SCORE = 4.6;
 export const EM_COUNT = 111;
 
@@ -53,6 +53,26 @@ function Stars() {
 }
 
 export default function TrustSeal({ variant = "dark", className = "" }: Props) {
+  // The redesigned pages: no card, the mark in e-mærket's own teal beside the
+  // score and the link to the certificate, set in the paper's own type.
+  if (variant === "paper") {
+    return (
+      <a href={CERTIFICATE_URL} target="_blank" rel="noopener noreferrer" className={`seal ${className}`}>
+        <svg width="26" height="30" viewBox="0 0 30 34" aria-hidden="true" className="text-emaerket">
+          <path d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" fill="currentColor" />
+          <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="var(--color-paper)" strokeWidth="1.7" />
+          <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="var(--color-paper)" strokeWidth="1.7" strokeLinecap="round" />
+        </svg>
+        <span>
+          <span className="seal__score">
+            e-mærket {String(EM_SCORE).replace(".", ",")} af 5, {EM_COUNT} bedømmelser
+          </span>
+          <span className="seal__link">Se certifikatet</span>
+        </span>
+      </a>
+    );
+  }
+
   const dark = variant !== "light";
 
   // Bar variant: one line, no card, sized to sit in the USP strip without

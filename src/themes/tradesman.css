@@ -1,0 +1,308 @@
+/* Hallmark · theme variant: Tradesman (custom, chosen by the owner 2026-10-23) · same sections and wiring;
+ * the material: white stock, a deep forest-green ink for heads and the dark bands, a mid green for
+ * the one action per view (lime on the green hero), Manrope 800 heads over Manrope 400 body, 8px controls and 12px panels, no shadows,
+ * no gradients, no pills. A good Danish håndværker site: safe, clear, prices up front. */
+@font-face { font-family: "Manrope"; font-style: normal; font-weight: 200 800; font-display: swap; src: url("/fonts/manrope-wght.woff2") format("woff2"); }
+/* Archivo for headings: sturdier and more upright than Manrope, closer to trade signage (owner's pick 2026-10-23). */
+@font-face { font-family: "Archivo"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/archivo-wght.woff2") format("woff2"); }
+
+:root {
+  --color-paper: oklch(99.3% 0.004 140); --color-paper-2: oklch(96.6% 0.012 140); --color-paper-3: oklch(93.4% 0.018 140);
+  --color-ink: oklch(25% 0.045 160); --color-ink-2: oklch(34% 0.035 160); --color-muted: oklch(47% 0.03 160);
+  --color-rule: oklch(89.5% 0.015 145); --color-rule-2: oklch(82% 0.022 150);
+  --color-accent: oklch(50% 0.135 150); --color-accent-2: oklch(44% 0.12 152); --color-accent-ink: oklch(99.3% 0.004 140);
+  --color-accent-deep: oklch(50% 0.135 150); --color-focus: oklch(55% 0.17 255);
+  --color-navy: oklch(30% 0.065 158); --color-navy-2: oklch(35% 0.07 158);
+  --color-lime: oklch(90% 0.17 125); --color-lime-2: oklch(85% 0.18 125);
+  --color-on-ink-muted: oklch(86% 0.03 150); --color-ok-on-ink: oklch(88% 0.15 130); --color-on-ink-rule: oklch(42% 0.06 158);
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --tracking-display: -0.015em; --display-weight: 800;
+  --radius-control: 8px; --radius-panel: 12px;
+  color-scheme: light;
+}
+.np { --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-2); }
+html:has(.np) { background: var(--color-paper); }
+
+/* ------------------------------------------------ type: navy 800 heads, sentence case, one family */
+.np h1, .np h2, .np h3 { font-family: var(--font-display); color: var(--color-ink); font-weight: 800; letter-spacing: var(--tracking-display); line-height: 1.1; text-transform: none; }
+.np h1 { line-height: 1.04; }
+.np .hero__text h1 { font-size: clamp(2.5rem, 2.6vw + 1.25rem, 4rem); letter-spacing: -0.025em; }
+.np .hero__text h1 .keep { white-space: normal; }
+.np .trigger-title, .np .index__name, .np .promise dt, .np .species dt, .np .others a, .np .stages h3, .np .tier h3,
+.np .versus h3, .np .why__well dt, .np .wordmark, .np .foot__mark {
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; text-transform: none; color: var(--color-ink);
+}
+.np .index__name { font-size: 1.0625rem; }
+.np .promise dt { font-size: 1.25rem; }
+.np .stages h3 { font-size: 1.1875rem; }
+.np .faq__item .trigger-title { font-size: 1.125rem; }
+.np .lead { color: var(--color-ink-2); }
+.np p { color: inherit; }
+.np .muted, .np figcaption, .np .estimator__sub { color: var(--color-muted); }
+.np .agate { font-weight: 700; color: var(--color-ink); }
+.np .estimator__price, .np .tier__price strong, .np .score__figure, .np .quote-panel__price {
+  font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: var(--color-ink);
+}
+.np .stages li::before { font: 800 1.125rem/1 var(--font-display); color: var(--color-accent-ink); background: var(--color-navy); width: 2.25rem; height: 2.25rem; border-radius: 50%; display: grid; place-items: center; }
+
+/* ------------------------------------------------ masthead: a navy strip of facts, a white bar */
+.np .mast-dateline { background: var(--color-navy); color: var(--color-on-ink-muted); border: 0; }
+.np .mast-dateline strong, .np .mast-dateline a { color: var(--color-paper); font-weight: 600; }
+.np .mast-bar { background: var(--color-paper); border-bottom: 1px solid var(--color-rule); box-shadow: none; }
+.np .wordmark { font-weight: 800; font-size: 1.375rem; letter-spacing: -0.03em; }
+.np .mast-nav a { font-weight: 600; color: var(--color-ink); background-image: linear-gradient(var(--color-accent), var(--color-accent)); background-size: 0 2px; }
+.np .mast-nav a:hover { background-size: 100% 2px; }
+.np .mast-menu { border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
+.np .mast-mobile a:not(.btn) { font: 700 1.25rem/1 var(--font-body); color: var(--color-ink); border-bottom: 1px solid var(--color-rule); }
+
+/* ------------------------------------------------ controls: red for the action, navy outline for the rest */
+.np .btn {
+  min-height: 52px; padding: 0 var(--space-lg); border: 2px solid transparent; border-radius: var(--radius-control);
+  font: 700 1rem/1 var(--font-body); letter-spacing: -0.005em; text-transform: none;
+  transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out);
+}
+.np .btn:active { transform: scale(0.97); }
+.np .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.np .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
+.np .btn--secondary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); }
+.np .btn--secondary:hover { background: var(--color-paper-2); }
+/* the nav button is the same action as the hero's, quieter */
+.np .mast-bar__row > .btn--primary { min-height: 44px; }
+.np .link { color: var(--color-ink); font-weight: 600; text-decoration: underline 1.5px var(--color-accent); text-underline-offset: 0.2em; }
+.np .link:hover { color: var(--color-accent-2); }
+
+.np .field, .np .select-trigger, .np .area-field {
+  background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); color: var(--color-ink); box-shadow: none;
+}
+.np .field:hover, .np .select-trigger:hover { border-color: var(--color-muted); }
+.np .field:focus-visible, .np .field:focus { outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent); outline-offset: 0; border-color: var(--color-focus); }
+.np .field-label { font-weight: 600; color: var(--color-ink); }
+.np .area-field input { border-radius: var(--radius-control); }
+
+.np .toggle-button-group { border: 1.5px solid var(--color-rule-2); border-radius: var(--radius-control); overflow: hidden; gap: 0; padding: 0; }
+.np .toggle-button-group .toggle-button,
+.np .toggle-button-group .toggle-button + .toggle-button {
+  border: 0; border-radius: 0; min-height: 46px; padding: 0 var(--space-lg); font: 600 0.9375rem/1 var(--font-body);
+  --toggle-button-bg: var(--color-paper); --toggle-button-fg: var(--color-ink);
+  --toggle-button-bg-hover: var(--color-paper-2);
+  --toggle-button-bg-selected: var(--color-navy); --toggle-button-fg-selected: var(--color-paper);
+  --toggle-button-bg-selected-hover: var(--color-navy-2);
+}
+.np .toggle-button-group .toggle-button + .toggle-button { border-left: 1.5px solid var(--color-rule-2); }
+.np .slider__track { height: 6px; background: var(--color-paper-3); border-radius: 3px; }
+.np .slider__fill { background: var(--color-navy); border-radius: 3px; }
+.np .slider__thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--color-paper); border: 3px solid var(--color-navy); box-shadow: none; }
+
+/* ------------------------------------------------ hero: promise left, the technician right */
+.np .hero { min-height: 0; padding-block: var(--space-3xl) var(--section-gap-s); }
+.np .hero__text { grid-column: 1 / span 7; align-self: center; }
+/* "fjerner dem." stays together so the head never strands one word */
+.np .hero__text h1 .tail { white-space: nowrap; }
+.np .hero__text .lead { margin-top: var(--space-lg); font-size: 1.25rem; max-width: 44ch; }
+.np .hero__photo { grid-column: 8 / span 5; margin: 0; align-self: center; }
+.np .hero__photo [data-slot] { aspect-ratio: 4 / 3.4; border-radius: var(--radius-panel); overflow: hidden; }
+[data-slot][data-alt] > img { filter: none; }
+[data-slot][data-alt] { background: var(--color-paper-3); }
+
+/* the price list: its own light band straight under the hero */
+.np .index-band { background: var(--color-paper-2); padding-block: var(--section-gap-s); border-block: 1px solid var(--color-rule); }
+.np .index-band .index__head { font-size: var(--text-section); }
+.np .index-band .index__search { max-width: 40rem; }
+.np .index__list { columns: 3 16rem; column-gap: var(--space-lg); column-rule: 0; border: 0; padding: 0; margin-top: var(--space-xl); }
+.np .index__list[data-searching] { columns: 1; }
+.np .index__row { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-control); margin-bottom: var(--space-xs); }
+.np .index__row a { padding-inline: var(--space-md); border-radius: var(--radius-control); transition: background-color 150ms var(--ease-out); }
+.np .index__row a:hover { background: var(--color-paper-3); }
+.np .index__row a:hover .index__name { text-decoration: none; }
+.np .index__glyph { color: var(--color-ink); }
+.np .index__price { font-weight: 800; color: var(--color-ink); }
+.np .index__price--ask { font-weight: 500; color: var(--color-muted); }
+.np .index__empty { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); }
+
+/* ------------------------------------------------ promises: four panels, then the comparison */
+.np .promises__rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.np .promise { display: block; grid-column: auto; padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); background: var(--color-paper); }
+.np .promise:first-child { border-top-color: var(--color-rule); }
+.np .promise dd { margin-top: var(--space-xs); color: var(--color-ink-2); }
+.np .versus table { border: 1px solid var(--color-rule); border-radius: var(--radius-panel); border-collapse: separate; border-spacing: 0; overflow: hidden; }
+.np .versus th { padding: var(--space-sm) var(--space-md); background: var(--color-paper-2); border-bottom: 1px solid var(--color-rule); font-weight: 700; color: var(--color-muted); }
+.np .versus th + th { background: var(--color-navy); color: var(--color-paper); padding-left: var(--space-md); }
+.np .versus td { padding: var(--space-md); border-bottom: 1px solid var(--color-rule); color: var(--color-muted); }
+.np .versus tr:last-child td { border-bottom: 0; }
+.np .versus td + td { color: var(--color-ink); font-weight: 600; padding-left: var(--space-md); border-left: 1px solid var(--color-rule); }
+
+/* ------------------------------------------------ process: the photo moved to the hero, three numbered steps across */
+.np #process .process__figure { display: none; }
+.np #process .process__text { grid-column: 1 / -1; }
+.np #process .stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
+.np .stages li { border-top: 0; padding: 0; grid-template-columns: 2.25rem minmax(0, 1fr); column-gap: var(--space-md); }
+.np .stages p { font-size: 1rem; }
+
+/* ------------------------------------------------ calculator: a white panel on the page, the price large */
+.np .estimator { box-shadow: none; border-top: 0; background: var(--color-paper-2); padding-block: var(--section-gap-s); }
+.np .estimator__result { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
+.np .estimator__price { font-size: clamp(3rem, 4.5vw, 4.25rem); line-height: 1; }
+.np .estimator__pick { border: 1.5px solid var(--color-rule-2); border-radius: var(--radius-control); background: var(--color-paper); }
+.np .estimator__pick:hover { background: var(--color-paper-2); }
+.np .estimator__list li { border-top: 1px solid var(--color-rule); font-weight: 600; color: var(--color-ink); }
+.np .estimator__caveat { border-top: 1px solid var(--color-rule-2); }
+.np .estimator__disclosure { border-top: 1px solid var(--color-rule-2); }
+.np .estimator__reset { color: var(--color-ink); font-weight: 600; text-decoration-color: var(--color-accent); }
+.np .disclosure-trigger .small, .np .disclosure-trigger span:not(.trigger-title) { font-weight: 400; }
+
+/* ------------------------------------------------ packages: navy band, white tier panels, the recommended one outlined red */
+.np .band--ink { background: var(--color-navy); color: var(--color-paper); }
+.np .band--ink h2, .np .band--ink h3, .np .band--ink .matrix th { color: var(--color-paper); }
+.np .band--ink .muted, .np .band--ink .head-split > p { color: var(--color-on-ink-muted); }
+.np .tiers { border: 0; gap: var(--space-md); }
+.np .tier, .np .tier:first-child, .np .tier:last-child { padding: var(--space-xl); background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); }
+.np .tier + .tier { border-left: 0; }
+.np .tier h3 { color: var(--color-ink); }
+.np .tier[data-featured] { outline: 3px solid var(--color-accent); outline-offset: -3px; }
+.np .band--ink .tier__note, .np .band--ink .tier__desc, .np .band--ink .tier .muted { color: var(--color-muted); }
+.np .tier[data-featured] > .tier__note:first-of-type { color: var(--color-accent); font-weight: 700; }
+.np .tier__price strong { font-size: clamp(2.75rem, 4vw, 3.75rem); line-height: 1; }
+.np .tier__price strong.words { font-size: var(--text-2xl); }
+.np .band--ink .tier .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.np .band--ink .tier .btn--secondary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); }
+.np .band--ink .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
+.np .band--ink .matrix td, .np .band--ink .matrix th { border-color: var(--color-on-ink-rule); }
+.np .band--ink .matrix .ok { color: var(--color-ok-on-ink); }
+.np .band--ink :focus-visible { outline-color: var(--color-paper); }
+
+/* ------------------------------------------------ reviews */
+.np .score { border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; margin-block: 0; overflow: hidden; }
+.np .score > div, .np .score > div + div { padding-inline: var(--space-xl); }
+.np .score > div + div { border-left: 1px solid var(--color-rule); }
+.np .score__link { padding-inline: var(--space-xl); }
+.np .quotes { gap: var(--space-md); }
+.np .quotes blockquote, .np .quotes blockquote:first-child, .np .quotes blockquote:last-child,
+.np .quotes blockquote + blockquote { padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); background: var(--color-paper-2); }
+.np .quotes p { text-indent: 0; font-size: 1.0625rem; color: var(--color-ink); }
+
+/* ------------------------------------------------ faq, contact, footer */
+.np .faq__list { border-top: 1px solid var(--color-rule-2); }
+.np .faq__item { border-bottom: 1px solid var(--color-rule); }
+.np .faq__item .plus { color: var(--color-accent); }
+.np .close { background: var(--color-paper-2); border-top: 1px solid var(--color-rule); }
+.np .close__form { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); padding: var(--space-xl); }
+.np .close__dl > div { border-top: 1px solid var(--color-rule); }
+.np .close .form__file { background: var(--color-paper); border: 1.5px dashed var(--color-rule-2); border-radius: var(--radius-control); }
+.np .foot { background: var(--color-navy); color: var(--color-on-ink-muted); box-shadow: none; border-top: 0; }
+.np .foot .foot__mark { color: var(--color-paper); }
+.np .foot__line, .np .foot .muted, .np .foot__cols h3, .np .foot__legal { color: var(--color-on-ink-muted); }
+.np .foot__cols { border-top: 1px solid var(--color-on-ink-rule); }
+.np .foot a { color: var(--color-paper); }
+.np .foot .link { color: var(--color-paper); }
+.np .foot__pay img { filter: none; }
+.np .seal svg { color: currentColor; }
+
+/* ------------------------------------------------ service page */
+.np .why__well { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
+.np .why__list li, .np .why__list li:first-child { border-top: 1px solid var(--color-rule); }
+.np .others { column-rule: 0; }
+.np .others li { border-bottom: 1px solid var(--color-rule); }
+.np .others a:hover { color: var(--color-accent-2); text-decoration: none; }
+.np .svc-hero { background: var(--color-paper-2); border-bottom: 1px solid var(--color-rule); }
+
+/* ------------------------------------------------ chrome */
+.np .notice { background: var(--color-navy); color: var(--color-paper); border-top: 0; }
+.np .notice .btn--primary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
+.np .notice .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-on-ink-muted); }
+.np .phonebar { border-top: 1px solid var(--color-rule); }
+.np-popover { background: var(--color-paper); border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
+.np-popover .list-box-item, .np-popover [role="option"] { color: var(--color-ink) !important; }
+.np-popover [role="option"][data-focused], .np-popover [role="option"]:hover { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
+
+@media (max-width: 60rem) {
+  .np .hero__photo, .np .hero__check { margin-top: var(--space-2xl); grid-column: 1 / -1; }
+  .np .promises__rows { grid-template-columns: minmax(0, 1fr); }
+  .np #process .stages { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+  .np .score > div + div { border-left: 0; border-top: 1px solid var(--color-rule); }
+  .np .tiers { gap: var(--space-md); }
+  .np .tier + .tier { border-top: 0; }
+  .np .close__form { padding: var(--space-lg); }
+}
+@media (max-width: 40rem) {
+  .np .index__list { columns: 1; }
+  .np .versus td + td { border-left: 0; }
+}
+.np .seal__link { color: var(--color-accent-2); }
+.np .foot .seal__link { color: var(--color-paper); }
+
+/* ------------------------------------------------ hero, after Sunday/Aptive/Terminix: a solid green band, the
+   pests as tappable chips, the product (the price) shown in the hero like Stripe and Linear show theirs */
+.np .hero { background: var(--color-navy); color: var(--color-on-ink-muted); padding-block: var(--space-3xl); }
+.np .hero h1 { color: var(--color-paper); }
+.np .hero .lead { color: var(--color-on-ink-muted); }
+.np .hero__kicker { color: var(--color-lime); font-weight: 800; font-size: 1.125rem; margin-bottom: var(--space-sm); }
+.np .hero__chips { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.np .hero__chips a { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 0.5rem 0.875rem 0.5rem 0.5rem; border-radius: var(--radius-control); background: var(--color-paper); color: var(--color-ink); font-weight: 700; text-decoration: none; }
+.np .hero__chips a:hover { background: var(--color-lime); }
+.np .hero__chips a:active { transform: scale(.97); }
+.np .hero__chips .hero__chip-glyph { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px; background: var(--color-paper-3); color: var(--color-accent-2); }
+.np .hero__rating { margin-top: var(--space-lg); color: var(--color-paper); font-weight: 600; }
+.np .hero__rating strong { color: var(--color-lime); }
+.np .hero__rating a { color: inherit; }
+.np .hero__check { grid-column: 8 / span 5; align-self: center; background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); padding: var(--space-xl); }
+.np .hero__check h2 { font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
+.np .hero__check .field-label { display: block; font-weight: 700; color: var(--color-ink); margin-bottom: var(--space-xs); }
+.np .hero__check select { width: 100%; min-height: 52px; padding: 0 var(--space-md); font: 600 1.0625rem var(--font-body); color: var(--color-ink); background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); }
+.np .hero__check-price { margin: var(--space-lg) 0 var(--space-xs); font: 800 clamp(2.75rem, 3.5vw, 3.5rem)/1 var(--font-body); color: var(--color-ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.np .hero__check-note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
+.np .hero__check .btn { width: 100%; justify-content: center; }
+.np .hero .btn--primary { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
+.np .hero .btn--primary:hover { background: var(--color-lime-2); }
+.np .hero__check .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.np .hero__check .btn--primary:hover { background: var(--color-accent-2); }
+.np .hero .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
+.np .hero :focus-visible { outline-color: var(--color-lime); }
+.np .hero__check :focus-visible { outline-color: var(--color-focus); }
+@media (max-width: 40rem) { .np .hero__check { padding: var(--space-lg); } }
+
+/* the contact form gets the wider column, so the two fields keep their labels on one line */
+.np .close__facts { grid-column: 1 / span 5; }
+.np .close__form { grid-column: 6 / span 7; }
+/* contact facts: label above value, so a long e-mail address or the opening-hours table never runs out of its column */
+.np .close__dl > div { grid-template-columns: minmax(0, 1fr); align-content: start; row-gap: 2px; padding-block: var(--space-md); }
+.np .close__dl dt { font: 600 0.875rem/1.4 var(--font-body); color: var(--color-muted); }
+.np .close__dl dd { font-size: 1.0625rem; overflow-wrap: anywhere; }
+.np .close__dl dd .muted, .np .close__dl dd small { display: block; font-size: 0.9375rem; }
+.np .hours { width: auto; }
+.np .hours th { padding-right: var(--space-lg); }
+.np .hours td { text-align: left; font-variant-numeric: tabular-nums; font-weight: 600; }
+@media (max-width: 75rem) {
+  .np .close__facts, .np .close__form { grid-column: 1 / -1; }
+  .np .close__form { margin-top: var(--space-2xl); }
+  .np .close__dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-xl); }
+}
+@media (max-width: 40rem) { .np .close__dl { grid-template-columns: minmax(0, 1fr); } }
+.np .hero__check-price[data-words] { font-size: clamp(2rem, 2.6vw, 2.5rem); }
+
+/* dropdown rows: the dark-ink/lime hover from the old shop theme (index.css) outranked the popover rule above,
+   so every row state is restated here at a higher specificity, in this theme's own paper and green */
+.np-popover [role="option"]:not(.suggest-row):is(:hover, [data-hovered], [data-highlighted], [data-focused]),
+.np-popover .list-box-item:is(:hover, [data-hovered], [data-highlighted], [data-focused]) {
+  background-color: var(--color-paper-3) !important; color: var(--color-ink) !important; outline: none !important; box-shadow: none !important;
+}
+.np-popover [role="option"]:not(.suggest-row)[data-focus-visible] { outline: 2px solid var(--color-focus) !important; outline-offset: -2px; }
+.np-popover [role="option"]:not(.suggest-row)[aria-selected="true"],
+.np-popover .list-box-item[data-selected] { color: var(--color-accent-2) !important; font-weight: 700; text-decoration: none; }
+.np-popover [role="option"] { border-radius: 6px; }
+.np-popover .list-box, .np-popover [role="listbox"] { padding: 4px; }
+
+/* the way to the full list, from the hero's chips and its dropdown */
+.np .hero__chips .hero__chip-more { background: transparent; color: var(--color-paper); border: 1.5px solid var(--color-on-ink-muted); padding-left: 0.875rem; }
+.np .hero__chips .hero__chip-more:hover { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
+.np .hero__check-more { display: inline-block; margin-top: var(--space-xs); font-size: 0.9375rem; font-weight: 600; color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; }
+
+/* packages band when the chosen pest is quoted after a conversation: one panel instead of three empty prices */
+.np .quoted { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-2xl); align-items: start; background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); padding: var(--space-2xl); }
+.np .band--ink .quoted h3 { color: var(--color-ink); font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
+.np .quoted__why { font-size: 1.1875rem; max-width: 46ch; margin: 0; }
+.np .quoted__price { font: 800 clamp(2.5rem, 3.5vw, 3.25rem)/1 var(--font-display); color: var(--color-ink); margin: 0 0 var(--space-xs); }
+.np .band--ink .quoted__note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
+.np .band--ink .quoted .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.np .quoted__other { display: inline-block; margin-top: var(--space-sm); color: var(--color-accent-2); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 60rem) { .np .quoted { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); padding: var(--space-lg); } }

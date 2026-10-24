@@ -1,4 +1,5 @@
 import InquiryForm from "./InquiryForm";
+import TrustSeal from "./TrustSeal";
 import { useEstimatorSelection } from "../lib/estimatorSelection";
 import type { PropertyType, Severity } from "../lib/pricing";
 
@@ -13,13 +14,23 @@ const SEVERITY_ADVERB: Record<Severity, string> = {
   kraftig: "kraftigt",
 };
 
+const HOURS = [
+  ["Man - Fre", "08:00 - 21:00"],
+  ["Lør - Søn", "12:00 - 16:00"],
+  ["Helligdage", "12:00 - 16:00"],
+];
+
 /**
- * The page's one contact form, and the anchor target of every "Skriv til os"
- * button on the page. The copy states what we know instead of asking: the
- * estimator reports whether the visitor actually used it, and only then is
- * the message prefilled with a draft. Defaults alone never prefill; a draft
- * that describes a situation the visitor never told us would read as a trick
- * on a form whose whole job is trust.
+ * The close, and the anchor target of every "Skriv til os" button: what it
+ * takes to reach the business (mail, phone, address, hours) beside the page's
+ * one contact form. The old closing band and the form section said the same
+ * thing twice in a row; they are one section now.
+ *
+ * The copy states what we know instead of asking: the estimator reports
+ * whether the visitor actually used it, and only then is the message
+ * prefilled with a draft. Defaults alone never prefill; a draft that
+ * describes a situation the visitor never told us would read as a trick on a
+ * form whose whole job is trust.
  */
 export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
   const selection = useEstimatorSelection();
@@ -29,34 +40,74 @@ export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
   // defaults must never describe a home nobody described.
   const draft = touched && selection
     ? // A quoted pest has no number yet, so the sentence stops at the facts
-      // he can actually give: which pest, what kind of home, how big. Those
-      // are what let a price be set quickly. Naming a price the calculator
-      // never produced would put "omkring 0 kr." in a field he is about to
-      // send.
+      // he can actually give: which pest, what kind of home, how big.
       selection.price
       ? `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Angrebet er ${SEVERITY_ADVERB[selection.severity]}, og prisberegneren siger omkring ${selection.price.replace(/\.$/, "")}. Jeg vil gerne have et fast tilbud.`
       : `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Jeg vil gerne have et fast tilbud.`
     : pestLabel
       // Opening this page is the visitor naming the pest, so the draft
-      // names it back and stops there. Everything else still waits for
-      // the estimator to be used.
+      // names it back and stops there.
       ? `Hej! Jeg har brug for hjælp til ${pestLabel.toLowerCase()}. Jeg vil gerne have et fast tilbud.`
       : "";
 
   return (
-    <section id="skriv" className="bg-ink-950 text-cream py-12 sm:py-16 scroll-mt-16">
-      <div className="max-w-2xl mx-auto px-5 sm:px-8">
-        <h2 className="font-display text-3xl font-bold tracking-tight uppercase text-center">
-          Skriv til os
-        </h2>
-        <p className="select-none mt-3 text-center text-sm text-ink-100/80">
-          {touched
-            ? "Beskedfeltet er udfyldt ud fra det, du har regnet på i prisberegneren. Læs det gerne igennem, og ret det, hvis der står noget galt. Vi svarer inden for en hverdag, og prisen ligger fast, før vi går i gang."
-            : pestLabel
-              ? "Beskeden er skrevet ud fra den side, du står på. Skriv gerne til, hvad du har set, og hvor i boligen det er. Vi svarer inden for en hverdag, og prisen ligger fast, før vi går i gang."
-              : "Skriv en besked nedenfor, så vender vi tilbage inden for en hverdag. Prisen ligger fast, før vi går i gang."}
-        </p>
-        <div className="mt-8 bg-ink-800 rounded-2xl p-5 sm:p-6">
+    <section id="skriv" className="section close">
+      <div className="container grid12">
+        <div className="close__facts">
+          <h2>Klar til at få det løst?</h2>
+          <p>
+            Skriv et par linjer om, hvad du står over for. Vi svarer inden for en hverdag.
+          </p>
+          <dl className="close__dl">
+            <div>
+              <dt>E-mail</dt>
+              <dd><a href="mailto:info@billigskadedyr.dk" className="select-text">info@billigskadedyr.dk</a></dd>
+            </div>
+            <div>
+              <dt>Telefon</dt>
+              <dd>
+                <a href="tel:+4524245583" className="select-text">24 24 55 83</a>
+                <br />
+                <span className="small muted">Akut og igangværende sager</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Adresse</dt>
+              <dd className="select-text">Viengevej 6A, 8240 Risskov</dd>
+            </div>
+            <div>
+              <dt>Åbningstider</dt>
+              <dd>
+                <table className="hours">
+                  <tbody>
+                    {HOURS.map(([d, t]) => (
+                      <tr key={d}>
+                        <th scope="row">{d}</th>
+                        <td className="agate">{t}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </dd>
+            </div>
+          </dl>
+          {/* The seal sits at the point of decision: someone about to write
+              to a stranger about their home wants to see, in the same glance
+              as the form, that the business is certified. */}
+          <div className="close__seal">
+            <TrustSeal variant="paper" />
+          </div>
+        </div>
+
+        <div className="close__form">
+          <h3>Skriv til os</h3>
+          <p className="select-none">
+            {touched
+              ? "Beskedfeltet er udfyldt ud fra det, du har regnet på i prisberegneren. Læs det gerne igennem, og ret det, hvis der står noget galt."
+              : pestLabel
+                ? "Beskeden er skrevet ud fra den side, du står på. Skriv gerne til, hvad du har set, og hvor i boligen det er."
+                : "Skriv en besked nedenfor, så vender vi tilbage inden for en hverdag."}
+          </p>
           <InquiryForm draft={draft} />
         </div>
       </div>

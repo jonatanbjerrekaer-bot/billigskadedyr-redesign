@@ -17,6 +17,10 @@ export type EstimatorSelection = {
       after a visit rather than calculated, so nothing downstream can
       print a number the calculator never produced. */
   price: string | null;
+  /** The same price as a number, for the packages band. null when quoted. */
+  amount: number | null;
+  /** The owner's published spring-and-autumn package for this pest, if any. */
+  packageAmount: number | null;
   /** True once the visitor has touched any calculator input themselves. */
   touched: boolean;
 };
@@ -39,6 +43,8 @@ export function publishEstimatorSelection(next: EstimatorSelection) {
     current.property === next.property &&
     current.severity === next.severity &&
     current.price === next.price &&
+    current.amount === next.amount &&
+    current.packageAmount === next.packageAmount &&
     current.touched === next.touched
   ) {
     return;
@@ -49,4 +55,31 @@ export function publishEstimatorSelection(next: EstimatorSelection) {
 
 export function useEstimatorSelection() {
   return useSyncExternalStore(subscribe, () => current);
+}
+
+/**
+ * The chosen pest, shared by the hero's price card and the calculator so the
+ * two dropdowns always show the same pest. null until someone picks one, and
+ * then each caller falls back to its own default.
+ */
+let chosenPest: string | null = null;
+const pestListeners = new Set<() => void>();
+
+export function setChosenPest(slug: string) {
+  if (slug === chosenPest) return;
+  chosenPest = slug;
+  pestListeners.forEach((l) => l());
+}
+
+export function useChosenPest(fallback: string): [string, (slug: string) => void] {
+  const slug = useSyncExternalStore(
+    (fn) => {
+      pestListeners.add(fn);
+      return () => {
+        pestListeners.delete(fn);
+      };
+    },
+    () => chosenPest,
+  );
+  return [slug ?? fallback, setChosenPest];
 }

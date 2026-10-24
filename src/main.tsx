@@ -6,6 +6,10 @@ import { serviceContentFor, servicePest } from "./lib/serviceContent.ts";
 import { slugOf, usePathname, useLinkRouting } from "./lib/router.tsx";
 import "./index.css";
 
+// Hidden-until-revealed states are scoped under .js, so nothing is invisible
+// for a visitor whose script never runs.
+document.documentElement.classList.add("js");
+
 /**
  * One entry for the whole site.
  *

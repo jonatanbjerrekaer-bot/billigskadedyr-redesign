@@ -1,5 +1,7 @@
 @import "@heroui/react/styles";
 @import "tailwindcss";
+@import "./newsprint.css";
+@import "./theme-variant.css";
 
 /* Navigating to a service page and back is a real document navigation, so the
    browser's own cross-document transition does the animation. No library, no
@@ -420,16 +422,9 @@ img {
 }
 
 /* Only while a preset is being applied, so dragging stays 1:1 with the pointer. */
-@media (prefers-reduced-motion: no-preference) {
-  #estimator .area-anim .slider__fill {
-    transition: width 280ms var(--ease-drawer);
-  }
-  #estimator .area-anim .slider__thumb {
-    transition:
-      left 280ms var(--ease-drawer),
-      transform 150ms ease;
-  }
-}
+/* The preset glide used to animate the fill's width and the thumb's left.
+   Layout properties are not animated any more; a preset now lands at once,
+   the same way a typed number does. */
 
 /* Rows hidden by "Vis kun forskelle" collapse instead of vanishing, and come
    back the same way, so the reader keeps their bearings in both directions.
@@ -463,7 +458,9 @@ img {
 /* One-time card-grid entrances: rise 8px and fade in on first scroll into
    view, staggered ~50ms per sibling by an inline transition-delay. Fires
    once (the observer disconnects) and never blocks interaction. */
-.reveal {
+/* Hidden only once the script has started (main.tsx adds .js), so the
+   content is there with scripting off. */
+.js .reveal:not(.is-revealed) {
   opacity: 0;
   transform: translateY(8px);
 }
@@ -507,6 +504,8 @@ img {
    the prefix is absent. Under reduced motion only the opacity remains. */
 .price-prefix {
   display: inline-block;
+}
+.js .price-prefix {
   max-width: 0;
   opacity: 0;
   transform: translateX(-0.25em) scale(0.96);

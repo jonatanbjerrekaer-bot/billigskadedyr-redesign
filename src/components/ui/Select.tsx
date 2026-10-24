@@ -17,6 +17,7 @@ export default function Select({
   options,
   ariaLabel,
   triggerId,
+  paper,
 }: {
   value: string;
   onValueChange: (v: string) => void;
@@ -24,6 +25,9 @@ export default function Select({
   ariaLabel?: string;
   /** Lets another control focus and open this select. */
   triggerId?: string;
+  /** The redesigned pages' ruled field and sheet. The shop keeps its own look
+      until it is redesigned. */
+  paper?: boolean;
 }) {
   return (
     <HeroSelect.Root
@@ -32,27 +36,27 @@ export default function Select({
       onSelectionChange={(key) => onValueChange(String(key))}
       fullWidth
     >
-      <HeroSelect.Trigger id={triggerId} className="w-full rounded-lg border border-ink-700 bg-ink-800 px-3 py-2.5 text-left text-cream min-h-[52px] hover:border-ink-600 data-[pressed]:border-accent-500">
+      <HeroSelect.Trigger id={triggerId} className={paper ? "select-trigger" : "w-full rounded-lg border border-ink-700 bg-ink-800 px-3 py-2.5 text-left text-cream min-h-[52px] hover:border-ink-600 data-[pressed]:border-accent-500"}>
         {/* The trigger mirrors the row so the icon does not appear only on open. */}
         {/* Value renders the selected option's own children, icon included.
             The accent colour is set here so the glyph inherits it. */}
-        <span className="flex items-center gap-3 grow min-w-0 text-accent-500">
-          <HeroSelect.Value className="flex items-center gap-3 truncate text-cream" />
+        <span className={`flex items-center gap-3 grow min-w-0 ${paper ? "" : "text-accent-500"}`}>
+          <HeroSelect.Value className={`flex items-center gap-3 truncate ${paper ? "" : "text-cream"}`} />
         </span>
         <HeroSelect.Indicator className="text-ink-100/70" />
       </HeroSelect.Trigger>
 
-      <HeroSelect.Popover className="rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl">
+      <HeroSelect.Popover className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
         <ListBox>
           {options.map((o) => (
             <ListBoxItem
               key={o.value}
               id={o.value}
               textValue={o.label}
-              className="cursor-pointer rounded-md px-3 py-2 text-sm text-ink-100 outline-none flex items-center gap-3 data-[focused]:bg-ink-700 data-[focused]:text-cream data-[selected]:font-semibold data-[selected]:text-accent-500"
+              className={paper ? "cursor-pointer px-3 py-2 outline-none flex items-center gap-3" : "cursor-pointer rounded-md px-3 py-2 text-sm text-ink-100 outline-none flex items-center gap-3 data-[focused]:bg-ink-700 data-[focused]:text-cream data-[selected]:font-semibold data-[selected]:text-accent-500"}
             >
               {o.icon && (
-                <span className="text-accent-500 shrink-0 flex w-7 items-center justify-center">
+                <span className={`shrink-0 flex w-7 items-center justify-center ${paper ? "" : "text-accent-500"}`}>
                   {o.icon}
                 </span>
               )}

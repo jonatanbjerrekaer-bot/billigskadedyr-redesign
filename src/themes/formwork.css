@@ -1,0 +1,72 @@
+/* Hallmark · theme variant: Formwork (formwork: cast) · same shape, sections and wiring as the Newsprint build;
+ * only the material changes: concrete paper, Oswald capitals over Archivo, 3px ink bars, a cast plate, one safety orange */
+@font-face { font-family: "Oswald"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/oswald-700.woff2") format("woff2"); }
+@font-face { font-family: "Archivo Narrow"; font-style: normal; font-weight: 500; font-display: swap; src: url("/fonts/archivo-narrow-500.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/archivo-latin-wght-normal.woff2") format("woff2"); }
+
+:root {
+  --color-paper: oklch(74% 0.008 80); --color-paper-2: oklch(69% 0.009 80); --color-paper-3: oklch(64% 0.01 80);
+  --color-plate: oklch(82% 0.007 80);
+  --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(28% 0.006 80); --color-muted: oklch(31.5% 0.008 80);
+  --color-rule: oklch(64% 0.01 80); --color-rule-2: oklch(18% 0.005 270);
+  --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
+  --color-accent-deep: oklch(48% 0.17 38);
+  --color-on-ink-muted: oklch(80% 0.007 80); --color-on-ink-rule: oklch(42% 0.006 80);
+  --font-body: "Archivo", ui-sans-serif, sans-serif;
+  --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
+  --tracking-display: -0.005em;
+  --rule-bar: 3px;
+  --shadow-card: 6px 6px 0 var(--color-ink);
+}
+.np { --font-display: "Oswald", ui-sans-serif, sans-serif; font-size: 1rem; }
+html:has(.np) { background: var(--color-paper); }
+
+/* type: Oswald capitals for every head and item title */
+.np h1, .np h2, .np h3, .np .trigger-title, .np .index__name, .np .promise dt, .np .species dt,
+.np .others a, .np .wordmark, .np .foot__mark, .np .score__figure, .np .tier__price strong,
+.np .estimator__price, .np .quote-panel__price { text-transform: uppercase; line-height: 1.02; }
+.np .foot__cols h3 { text-transform: none; }
+.np .lead, .np p { color: inherit; }
+.np .muted, .np figcaption { color: var(--color-muted); }
+
+/* rules: a 3px ink bar heads every list and table */
+.np .index__list, .np .promise:first-child, .np .versus table, .np .faq__list, .np .why__list li:first-child,
+.np .stages li:first-child, .np .tiers { border-top: var(--rule-bar) solid var(--color-ink); }
+.np .band--ink .tiers { border-top-color: var(--color-paper); }
+.np .score { border-block: var(--rule-bar) solid var(--color-ink); box-shadow: none; margin-block: 0; }
+.np .rule-double, .np .estimator { box-shadow: none; }
+.np .estimator { border-top: var(--rule-bar) solid var(--color-ink); }
+.np .foot { box-shadow: none; border-top: var(--rule-bar) solid var(--color-ink); }
+
+/* the masthead is an ink bar; the dateline a darker pour above it */
+.np .mast-dateline { background: var(--color-paper-2); border-bottom: 0; color: var(--color-ink-2); }
+.np .mast-bar { background: var(--color-ink); color: var(--color-paper); border-bottom: 0; box-shadow: none; }
+.np .mast-bar .wordmark { color: var(--color-plate); }
+.np .mast-bar :focus-visible { outline-color: var(--color-accent); }
+.np .mast-menu { color: var(--color-paper); border-color: var(--color-paper); }
+
+/* controls: an orange primary raised on a hard edge that presses down, a pressed-in secondary */
+.np .btn { font: 700 var(--text-sm)/1.6 var(--font-display); text-transform: uppercase; padding: 0 var(--space-xl); }
+.np .btn--primary, .np .band--ink .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
+.np .btn--primary:hover, .np .band--ink .btn--primary:hover { background: var(--color-accent); }
+.np .btn--primary:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
+.np .btn--secondary { background: var(--color-paper-2); color: var(--color-ink); border: 2px solid var(--color-ink); box-shadow: inset 0 2px 3px color-mix(in oklab, var(--color-ink) 30%, transparent); }
+.np .btn--secondary:hover { background: var(--color-paper-3); }
+.np .band--ink .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); box-shadow: none; }
+.np .mast-bar .btn--primary { box-shadow: 0 3px 0 var(--color-accent-deep); }
+.np .link { color: var(--color-ink); text-decoration-color: var(--color-ink); }
+.np .link:hover { color: var(--color-accent-deep); }
+.np .field, .np .select-trigger, .np .area-field { background: var(--color-paper-2); border: 2px solid var(--color-ink); box-shadow: inset 0 2px 3px color-mix(in oklab, var(--color-ink) 25%, transparent); }
+.np .toggle-button-group { border-width: 2px; }
+
+/* the cast plate: the price result and the service promises */
+.np .estimator__result, .np .why__well { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
+.np .index__empty { background: var(--color-plate); border: 2px solid var(--color-ink); }
+.np .close { background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-ink); }
+
+/* photographs: hard black and white in a 2px ink frame */
+[data-slot][data-alt] > img { filter: grayscale(1) contrast(1.45) brightness(1.05); }
+.np .process__figure [data-slot] { outline: 2px solid var(--color-ink); outline-offset: -2px; }
+
+/* the price list's orange: one figure, the owner's lowest published price */
+.np .stages li::before { color: var(--color-accent-deep); }

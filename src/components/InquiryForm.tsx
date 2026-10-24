@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Input, Label, TextArea, TextField, toast } from "@heroui/react";
-import { ClipboardPaste, Eraser, ImagePlus, Loader2, Send, X } from "lucide-react";
+import { ClipboardPaste, Eraser, ImagePlus, Loader2, X } from "lucide-react";
 import { LIMITS, prepare, type Prepared } from "../lib/imageUpload";
 
-const FIELD =
-  "w-full rounded-lg border border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-cream placeholder:text-ink-100/40 outline-none transition-colors focus-visible:border-accent-500 focus-visible:ring-2 focus-visible:ring-accent-500/50";
-const ERROR = "text-xs text-[#f87171]";
+const FIELD = "field";
+const ERROR = "field-error";
 const PLACEHOLDER = "Skriv kort, hvad du har set, og hvor i boligen det er.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -109,13 +108,13 @@ export default function InquiryForm({ draft }: { draft: string }) {
   };
 
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-3">
+    <form onSubmit={submit} noValidate className="form">
       {/* Email is the answer we need, phone is the fast lane to it. Side by
           side from sm up, stacked on a phone, where two half-width fields
           would shrink the keyboards too far. */}
-      <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-        <TextField.Root className="flex flex-col gap-1.5">
-          <Label htmlFor="inquiry-email" className="text-xs font-medium text-ink-100/70">
+      <div className="form__pair">
+        <TextField.Root>
+          <Label htmlFor="inquiry-email" className="field-label">
             Din e-mail
           </Label>
           <Input
@@ -139,9 +138,9 @@ export default function InquiryForm({ draft }: { draft: string }) {
           )}
         </TextField.Root>
 
-        <TextField.Root className="flex flex-col gap-1.5">
-          <Label htmlFor="inquiry-phone" className="text-xs font-medium text-ink-100/70">
-            Dit telefonnummer (valgfrit)
+        <TextField.Root>
+          <Label htmlFor="inquiry-phone" className="field-label">
+            Telefon (valgfrit)
           </Label>
           <Input
             id="inquiry-phone"
@@ -166,8 +165,8 @@ export default function InquiryForm({ draft }: { draft: string }) {
         </TextField.Root>
       </div>
 
-      <TextField.Root className="flex flex-col gap-1.5">
-        <Label htmlFor="inquiry-message" className="text-xs font-medium text-ink-100/70">
+      <TextField.Root>
+        <Label htmlFor="inquiry-message" className="field-label">
           Din besked
         </Label>
         <TextArea
@@ -185,7 +184,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
             if (errors.message) setErrors((p) => ({ ...p, message: undefined }));
           }}
           placeholder={PLACEHOLDER}
-          className={`${FIELD} resize-y min-h-[104px]`}
+          className={FIELD}
           aria-invalid={errors.message ? true : undefined}
         />
         {errors.message && (
@@ -204,7 +203,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
               appliedDraft.current = draft;
               cleared.current = false;
             }}
-            className="self-start inline-flex items-center gap-1.5 -mt-1 text-xs text-accent-400 underline underline-offset-4 hover:text-accent-300 transition-colors"
+            className="form__textlink"
           >
             <ClipboardPaste size={13} strokeWidth={2.25} aria-hidden="true" />
             Brug udkastet fra beregneren
@@ -218,7 +217,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
             appliedDraft.current = "";
             cleared.current = true;
           }}
-          className="self-start inline-flex items-center gap-1.5 -mt-1 text-xs text-ink-100/60 underline underline-offset-4 hover:text-cream transition-colors"
+          className="form__textlink"
         >
           <Eraser size={13} strokeWidth={2.25} aria-hidden="true" />
           Ryd beskedfeltet
@@ -229,11 +228,11 @@ export default function InquiryForm({ draft }: { draft: string }) {
           until now the form had nowhere to put one. Optional, because most
           people describe it fine in words, and the ones who cannot are
           exactly the ones a photo helps most. */}
-      <div className="flex flex-col gap-1.5">
-        <span className="select-none text-xs font-medium text-ink-100/70">Billede (valgfrit)</span>
+      <div>
+        <span className="select-none field-label">Billede (valgfrit)</span>
         <label
           htmlFor="inquiry-photos"
-          className="press flex items-center gap-2.5 rounded-lg border border-dashed border-ink-700 bg-ink-900 px-3.5 py-3 text-sm text-ink-100/70 cursor-pointer transition-colors hover:border-accent-500 hover:text-cream focus-within:border-accent-500"
+          className="form__file"
         >
           <ImagePlus size={17} strokeWidth={2} aria-hidden="true" className="shrink-0" />
           {preparing
@@ -268,21 +267,21 @@ export default function InquiryForm({ draft }: { draft: string }) {
           }}
         />
         {photos.length > 0 && (
-          <ul className="flex flex-wrap gap-1.5 list-none p-0 m-0">
+          <ul className="form__chips" style={{ marginTop: "var(--space-xs)" }}>
             {photos.map((photo) => (
               <li
                 key={photo.name}
-                className="enter-soft inline-flex items-center gap-1.5 rounded-full bg-ink-800 px-2.5 py-1 text-xs text-ink-100/80"
+                className="enter-soft"
               >
                 <span className="max-w-[16ch] truncate">{photo.name}</span>
-                <span className="text-ink-100/45">
+                <span className="muted">
                   {(photo.bytes / 1024 / 1024).toFixed(1)} MB
                 </span>
                 <button
                   type="button"
                   aria-label={`Fjern ${photo.name}`}
                   onClick={() => setPhotos((p) => p.filter((x) => x.name !== photo.name))}
-                  className="press text-ink-100/50 hover:text-cream transition-colors"
+                  
                 >
                   <X size={13} strokeWidth={2.5} aria-hidden="true" />
                 </button>
@@ -295,7 +294,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
             {errors.photos}
           </p>
         ) : (
-          <p className="text-xs text-ink-100/50">
+          <p className="small muted" style={{ marginTop: "var(--space-xs)" }}>
             Højst {LIMITS.maxFiles} billeder. Vi formindsker billedet og fjerner automatisk
             placering og andre metadata, før det sendes.
           </p>
@@ -305,7 +304,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
       <button
         type="submit"
         disabled={sending}
-        className="press rounded-lg bg-accent-500 text-ink-950 font-bold min-h-[48px] px-6 inline-flex items-center justify-center gap-2 hover:bg-accent-400 transition-[color,background-color,transform] disabled:opacity-70"
+        className="btn btn--primary btn--block"
       >
         {sending ? (
           <>
@@ -313,10 +312,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
             Sender…
           </>
         ) : (
-          <>
-            <Send size={17} strokeWidth={2.5} aria-hidden="true" />
-            Send besked
-          </>
+          "Send besked"
         )}
       </button>
 
@@ -324,13 +320,13 @@ export default function InquiryForm({ draft }: { draft: string }) {
         The consent line the reference business runs under its own forms. Both
         links intentionally land on the same page, exactly as they do there.
       */}
-      <p className="text-xs text-ink-100/60 -mt-1">
+      <p className="small muted">
         Når du sender formularen, accepterer du vores{" "}
         <a
           href="https://billigskadedyrprof.dk/privatlivspolitik/"
           target="_blank"
           rel="noreferrer"
-          className="underline underline-offset-4 hover:text-cream transition-colors"
+          className="link"
         >
           vilkår
         </a>{" "}
@@ -339,7 +335,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
           href="https://billigskadedyrprof.dk/privatlivspolitik/"
           target="_blank"
           rel="noreferrer"
-          className="underline underline-offset-4 hover:text-cream transition-colors"
+          className="link"
         >
           privatlivspolitik
         </a>

@@ -8,11 +8,11 @@ import { BedBug } from "../components/icons/PestIcons";
  * which is how the two lists ended up disagreeing).
  */
 
-// ponytail: optical, not literal. The Flaticon PNGs are flat outlines that read
-// lighter than lucide's 2px stroke at the same box size, so the SVGs are drawn
-// thinner and the PNGs a touch larger until the two weights match by eye.
-// Tune here, not per component.
-const SVG_STROKE = 1.75;
+// Every glyph renders a 1.5px line at 24px (1/16 of its box), measured, not
+// eyeballed: the masks and SVG files in public/pests were thickened or thinned
+// to that weight (originals in ~/backups/pests-orig-2026-10-23 on the GX10),
+// and this is the bed bug's share of it (1.75 drew 2.24px). Tune here.
+const SVG_STROKE = 1.2;
 
 export type PestEntry = {
   slug: string;

@@ -7,20 +7,17 @@ import {
   ToggleButtonGroup,
 } from "@heroui/react";
 import {
-  Check,
   ChevronDown,
-  Info,
-  MailCheck,
-  MapPin,
   RotateCcw,
 } from "lucide-react";
 import Select from "./ui/Select";
 import { ContactCtas } from "./ui/Cta";
 import {
   publishEstimatorSelection,
+  useChosenPest,
 } from "../lib/estimatorSelection";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
-import { estimate, dkr } from "../lib/pricing";
+import { estimate, dkr, OWNER_PRICES } from "../lib/pricing";
 import type { PropertyType, Severity } from "../lib/pricing";
 
 /**
@@ -65,7 +62,7 @@ const SEVERITIES: { id: Severity; label: string; hint: string }[] = [
 
 // Colours live in index.css (see the segmented-control block); these are only
 // the bits that are this page's layout choice rather than the control's theme.
-const TOGGLE = "px-4 py-3 text-sm font-medium data-[selected]:font-semibold";
+const TOGGLE = "";
 const GROUP = "inline-flex";
 const PEST_TRIGGER = "pest-select-trigger";
 
@@ -74,7 +71,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // on it. This is not counted as the visitor having used the calculator:
   // selTouched stays false until they change something themselves, so the
   // contact form still refuses to prefill a situation nobody described.
-  const [slug, setSlug] = useState(
+  const [slug, setSlug] = useChosenPest(
     PRICED_PESTS.some((p) => p.slug === initialPest) ? initialPest! : PRICED_PESTS[0].slug,
   );
   const [m2, setM2] = useState(DEFAULTS.m2);
@@ -85,7 +82,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // the draft must describe the visitor's own situation, not a made-up one.
   const [selTouched, setSelTouched] = useState(false);
   const [display, setDisplay] = useState(0);
-  const [advOpen, setAdvOpen] = useState(false);
+  const [advOpen, setAdvOpen] = useState(() => typeof window !== "undefined" && window.matchMedia("(min-width: 60rem)").matches);
   const rafRef = useRef<number | null>(null);
   const advRef = useRef<HTMLDivElement | null>(null);
   const advTouched = useRef(false);
@@ -190,21 +187,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // could move this number are named before the visitor commits, not after.
   // Derived from the same answers, so it stays specific rather than becoming
   // a generic disclaimer nobody reads.
-  // The three things a homeowner weighs once the number is on screen. As three
-  // separate paragraphs they read as a wall; as label-and-line rows with an
-  // icon each they can be scanned in the order the eye wants them.
-  const facts = [
-    {
-      icon: MapPin,
-      label: "Hele Jylland og Fyn",
-      line: "Er du i tvivl om din adresse, så spørg os.",
-    },
-    {
-      icon: MailCheck,
-      label: "Bundet tilbud, ingen binding",
-      line: "Du får en fast pris og et tidspunkt. Uden opkald bagefter.",
-    },
-  ];
 
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
@@ -227,6 +209,11 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     // null, not 0: a quote has no number yet, and dkr(0) would hand the
     // contact form "omkring 0 kr." to send.
     price: quote.kind === "fixed" ? dkr(price) : null,
+    amount: quote.kind === "fixed" ? price : null,
+    packageAmount: (() => {
+      const row = OWNER_PRICES[pest.priceKey!];
+      return row?.kind === "fixed" ? row.packagePrice ?? null : null;
+    })(),
     touched: selTouched,
   });
 
@@ -269,30 +256,25 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   }, [price]);
 
   return (
-    <section id="estimator" className="bg-ink-900 text-cream py-12 sm:py-16">
+    <section id="estimator" className="section section--s estimator">
       {/*
-        flex-col-reverse on mobile puts the price above the controls, so the
-        number stays on screen while you adjust them. DOM order is unchanged
-        (controls first, then result), which is the order that reads correctly
-        to a screen reader.
+        Under 60rem the grid becomes a reversed column, so the price sits above
+        the controls and stays on screen while you adjust them. DOM order is
+        unchanged (controls first, then result), which is the order that reads
+        correctly to a screen reader.
       */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col-reverse md:flex-row md:flex-wrap gap-8 md:gap-10">
-        <div
-          className="flex flex-col gap-6"
-          style={{ flexBasis: "320px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
-        >
-          <div className="hidden md:block">
-            <h2 className="font-display text-3xl font-bold tracking-tight uppercase">
-              Prisberegner
-            </h2>
-            <p className="mt-2 text-sm text-ink-100/80">
-              Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige
-              pris aftaler vi, når vi kender opgaven, og så ligger den fast.
+      <div className="container grid12">
+        <div className="estimator__controls">
+          <div>
+            <h2>Prisberegner</h2>
+            <p className="lead" style={{ marginTop: "var(--space-md)" }}>
+              Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige pris
+              aftaler vi, når vi kender opgaven, og så ligger den fast.
             </p>
           </div>
 
-          <div className="flex flex-col gap-1.5 text-sm font-medium">
-            <span>Hvilket skadedyr?</span>
+          <div>
+            <span className="field-label">Hvilket skadedyr?</span>
             <Select
               value={slug}
               onValueChange={(v) => {
@@ -301,6 +283,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               }}
               ariaLabel="Skadedyr"
               triggerId={PEST_TRIGGER}
+              paper
               options={PRICED_PESTS.map((p) => ({
                 value: p.slug,
                 label: p.label,
@@ -321,28 +304,23 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               advTouched.current = true;
               setAdvOpen(v);
             }}
-            className="border-t border-ink-800 pt-4"
+            className="estimator__disclosure"
           >
             <Disclosure.Heading>
-              <Disclosure.Trigger className="group flex w-full items-center justify-between gap-3 min-h-[44px] text-left text-sm font-medium cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent-500 rounded-lg">
+              <Disclosure.Trigger className="disclosure-trigger">
                 <span>
-                  Tilpas beregningen
-                  <span className="block text-xs font-normal text-ink-100/60">
+                  <span className="trigger-title">Tilpas beregningen</span>
+                  <span className="small muted" style={{ display: "block" }}>
                     Areal, boligtype og hvor slemt det er. Ellers regner vi på et
                     gennemsnitligt hus.
                   </span>
                 </span>
-                <ChevronDown
-                  size={20}
-                  strokeWidth={2.5}
-                  aria-hidden="true"
-                  className="shrink-0 text-accent-500 transition-transform duration-200 group-aria-expanded:rotate-180"
-                />
+                <ChevronDown size={20} aria-hidden="true" className="chev" />
               </Disclosure.Trigger>
             </Disclosure.Heading>
 
             <Disclosure.Content>
-              <Disclosure.Body className="flex flex-col gap-6 pt-5 motion-safe:animate-[disclosureIn_.25s_ease-out]">
+              <Disclosure.Body style={{ display: "flex", flexDirection: "column", gap: "var(--space-lg)", paddingTop: "var(--space-md)" }}>
                 <Slider.Root
                   value={m2}
                   onChange={(v) => {
@@ -358,12 +336,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   maxValue={400}
                   step={5}
                   aria-label="Størrelse af område i kvadratmeter"
-                  className={`flex flex-col gap-2${areaAnim ? " area-anim" : ""}`}
+                  className={`slider-block${areaAnim ? " area-anim" : ""}`}
+                  style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}
                 >
-                  <div className="flex items-center justify-between gap-3 text-sm font-medium">
+                  <div className="area-row">
                     <span>
-                      Størrelse af område
-                      <span className="block text-xs font-normal text-ink-100/60">
+                      <span className="field-label" style={{ marginBottom: 0 }}>Størrelse af område</span>
+                      <span className="small muted">
                         Arealet vi skal behandle. Er du i tvivl, så tag hele boligen.
                       </span>
                     </span>
@@ -383,26 +362,24 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                       maxValue={400}
                       aria-label="Størrelse af område i kvadratmeter"
                     >
-                      <NumberField.Group className="w-28 shrink-0 rounded-lg border border-ink-700 bg-ink-800 flex items-center min-h-[44px]">
-                        <NumberField.Input className="w-full min-h-[44px] bg-transparent px-3 py-2 text-sm text-accent-400 font-bold tabular-nums outline-none" />
-                        <span aria-hidden="true" className="pr-3 text-xs text-ink-100/60">
-                          m²
-                        </span>
+                      <NumberField.Group className="area-field">
+                        <NumberField.Input />
+                        <span aria-hidden="true">m²</span>
                       </NumberField.Group>
                     </NumberField.Root>
                   </div>
-                  <Slider.Track className="relative h-3 w-full rounded-full">
-                    <Slider.Fill className="absolute left-0 top-0 h-full rounded-full" />
-                    <Slider.Thumb className="h-7 w-7 sm:h-6 sm:w-6 rounded-full shadow-lg data-[dragging]:scale-110 transition-transform" />
+                  <Slider.Track className="relative w-full">
+                    <Slider.Fill className="absolute left-0 top-0 h-full" />
+                    <Slider.Thumb />
                   </Slider.Track>
-                  <div className="flex justify-between text-xs text-ink-100/50 tabular-nums">
+                  <div className="scale">
                     <span>20 m²</span>
                     <span>400 m²</span>
                   </div>
                 </Slider.Root>
 
                 <div>
-                  <span className="block text-sm font-medium mb-2">Ejendomstype</span>
+                  <span className="field-label">Ejendomstype</span>
                   <ToggleButtonGroup.Root
                     selectionMode="single"
                     disallowEmptySelection
@@ -430,7 +407,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </div>
 
                 <div>
-                  <span className="block text-sm font-medium mb-2">Grad af angreb</span>
+                  <span className="field-label">Grad af angreb</span>
                   <ToggleButtonGroup.Root
                     selectionMode="single"
                     disallowEmptySelection
@@ -451,17 +428,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                       </ToggleButton>
                     ))}
                   </ToggleButtonGroup.Root>
-                  <p className="mt-2 text-xs text-ink-100/60" aria-live="polite">
+                  <p className="small muted" style={{ marginTop: "var(--space-xs)" }} aria-live="polite">
                     {severityHint}
                   </p>
                 </div>
 
                 {touched && (
-                  <button
-                    type="button"
-                    onClick={reset}
-                    className="self-start inline-flex items-center gap-2 min-h-[44px] px-3 -ml-3 rounded-lg text-sm text-ink-100/60 underline underline-offset-4 hover:text-cream transition-colors"
-                  >
+                  <button type="button" onClick={reset} className="estimator__reset">
                     <RotateCcw size={15} strokeWidth={2} aria-hidden="true" />
                     Nulstil til standard
                   </button>
@@ -472,21 +445,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           )}
         </div>
 
-        <div
-          className="flex flex-col gap-4 bg-ink-800 rounded-2xl p-5 sm:p-6 md:min-h-[320px]"
-          style={{ flexBasis: "320px", flexGrow: 1, flexShrink: 1, maxWidth: "100%" }}
-          aria-live="polite"
-        >
-          <h2 className="font-display text-2xl font-bold tracking-tight uppercase md:hidden">
-            Prisberegner
-          </h2>
-
+        <div className="estimator__result" aria-live="polite">
           {/*
             The pest name is what people reach for when they want a different
             pest, so it opens the picker rather than just reporting state.
             ponytail: driven by focus+click on the trigger — react-aria exposes
-            no imperative "open" on Select, and a second piece of open-state
-            plumbing to avoid one DOM call is not worth it.
+            no imperative "open" on Select.
           */}
           <button
             type="button"
@@ -498,50 +462,31 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               el.focus();
               el.click();
             }}
-            className="group flex items-center gap-3 -m-2 p-2 rounded-xl text-left transition-colors hover:bg-ink-700/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+            className="estimator__pick"
           >
-            <span className="w-11 h-11 rounded-xl bg-ink-900 text-accent-500 flex items-center justify-center shrink-0 transition-colors group-hover:bg-ink-950">
-              <PestGlyph pest={pest} size={24} />
+            <PestGlyph pest={pest} size={28} />
+            <span>
+              <span className="select-none small muted" style={{ display: "block" }}>Vejledende pris</span>
+              <span className="trigger-title">{pest.label}</span>
             </span>
-            <span className="min-w-0">
-              <span className="select-none block text-xs uppercase tracking-widest text-ink-100/70">
-                Vejledende pris
-              </span>
-              <span className="flex items-center gap-1.5 text-sm text-ink-100/80">
-                {pest.label}
-                <ChevronDown
-                  size={14}
-                  strokeWidth={2.5}
-                  aria-hidden="true"
-                  className="text-accent-500 opacity-60 transition-opacity group-hover:opacity-100"
-                />
-              </span>
-            </span>
+            <ChevronDown size={16} aria-hidden="true" />
           </button>
 
-          {/*
-            The price and the two questions that follow it immediately. As a
-            sentence underneath the list these were prose competing with the
-            list; as a pair of chips against the number they are read in one
-            glance and stop taking the checklist's attention.
-          */}
-          <div className="flex flex-col gap-3">
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
             {quote.kind === "fixed" ? (
               <>
-                <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
+                <p className="estimator__price">
                   {/* Always mounted, so crossing the area threshold is a
-                      transition and not a mount. The slider can be dragged
-                      back and forth across 250 m2 quickly, and a transition
-                      retargets from wherever it is; keyframes would restart. */}
+                      transition and not a mount. */}
                   <span className="price-prefix" data-show={quote.overArea || undefined}>
                     Fra{" "}
                   </span>
                   {dkr(display)}
-                </div>
+                </p>
                 {/* The price never appears without saying what it covers. */}
-                <p className="text-xs text-ink-100/70 leading-relaxed">{quote.caption}</p>
+                <p className="small">{quote.caption}</p>
                 {quote.notes.map((n) => (
-                  <p key={n} className="enter-soft text-xs text-ink-100/70 leading-relaxed">
+                  <p key={n} className="enter-soft small muted">
                     {n}
                   </p>
                 ))}
@@ -549,108 +494,52 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             ) : (
               <>
                 {quote.inspection ? (
-                  <div className="font-display text-4xl font-bold text-accent-400 tabular-nums">
-                    {dkr(quote.inspection.price)}
-                  </div>
+                  <p className="estimator__price">{dkr(quote.inspection.price)}</p>
                 ) : (
-                  <div className="font-display text-2xl font-bold text-accent-400">
-                    Fast pris efter en kort snak
-                  </div>
+                  <p className="estimator__price estimator__price--words">Fast pris efter en kort snak</p>
                 )}
-                {quote.inspection && (
-                  <p className="text-xs text-ink-100/70 leading-relaxed">
-                    {quote.inspection.text}
-                  </p>
-                )}
-                <p className="text-xs text-ink-100/70 leading-relaxed">{quote.why}</p>
-                <p className="text-xs text-ink-100/70 leading-relaxed">
+                {quote.inspection && <p className="small">{quote.inspection.text}</p>}
+                <p className="small muted">{quote.why}</p>
+                <p className="small muted">
                   {quote.inspection
                     ? "Selve behandlingen får du en fast pris på i tilbuddet, og den ændrer sig ikke undervejs."
                     : "Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den ændrer sig ikke undervejs."}
                 </p>
               </>
             )}
-            <div className="select-none flex flex-wrap gap-2 text-xs text-ink-100/80">
-              <span className="rounded-full bg-ink-900 px-2.5 py-1">
-                Svar på 1 hverdag
-              </span>
-              <span className="rounded-full bg-ink-900 px-2.5 py-1">
-                Hos dig på 1-2 hverdage
-              </span>
-            </div>
+            <p className="select-none estimator__facts">
+              <span>Svar på 1 hverdag</span>
+              <span>Hos dig på 1-2 hverdage</span>
+            </p>
           </div>
 
           <div>
-            <p className="select-none mb-2.5 text-[11px] uppercase tracking-widest text-ink-100/60">
-              Prisen dækker
-            </p>
-            <ul className="text-sm text-ink-100/90 flex flex-col gap-2">
+            <p className="select-none estimator__sub">Prisen dækker</p>
+            <ul className="estimator__list">
               {included.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <Check
-                    size={16}
-                    strokeWidth={3}
-                    aria-hidden="true"
-                    className="text-accent-500 shrink-0 mt-0.5"
-                  />
-                  <span>{item}</span>
-                </li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
 
-          {/*
-            The caveats are the only content here that qualifies the price
-            rather than supporting it, so they get their own surface. A panel
-            says "different kind of thing" in a way a fifth hairline cannot,
-            and it lets the promises above stay uninterrupted.
-          */}
-          <div
-            className="rounded-xl border border-ink-800 bg-ink-900/70 p-4"
-            hidden={quote.kind !== "fixed"}
-          >
-            <p className="flex items-center gap-2 text-xs font-semibold text-ink-100/90">
-              <Info size={14} strokeWidth={2.5} aria-hidden="true" className="text-ink-100/60" />
-              Det kan ændre prisen
-            </p>
-            <ul className="mt-2.5 flex flex-col gap-1.5 text-xs leading-relaxed text-ink-100/70">
+          {/* The caveats qualify the price rather than support it, so they sit
+              under their own double rule instead of joining the list. */}
+          <div className="estimator__caveat" hidden={quote.kind !== "fixed"}>
+            <p className="estimator__sub">Det kan ændre prisen</p>
+            <ul>
               {couldChange.map((item) => (
-                <li key={item} className="enter-soft flex gap-2">
-                  <span aria-hidden="true" className="text-ink-100/40">·</span>
-                  <span>{item}</span>
+                <li key={item} className="enter-soft">
+                  {item}
                 </li>
               ))}
             </ul>
-            <p className="mt-3 border-t border-ink-800 pt-2.5 text-xs text-ink-100/70">
+            <p className="small" style={{ marginTop: "var(--space-sm)" }}>
               Vi siger det, før vi går i gang. Prisen ændrer sig ikke undervejs.
             </p>
           </div>
 
-          {/*
-            Coverage and what writing actually commits you to. Two labelled
-            rows, so the eye can take one and leave the rest.
-          */}
-          <ul className="flex flex-col gap-3 border-t border-ink-700 pt-4">
-            {facts.map((f) => {
-              const Icon = f.icon;
-              return (
-                <li key={f.label} className="flex gap-2.5">
-                  <Icon
-                    size={15}
-                    strokeWidth={2.25}
-                    aria-hidden="true"
-                    className="text-accent-500 shrink-0 mt-0.5"
-                  />
-                  <span className="min-w-0">
-                    <span className="block text-xs font-medium text-ink-100/90">{f.label}</span>
-                    <span className="block text-xs text-ink-100/70">{f.line}</span>
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
 
-          <ContactCtas className="mt-auto" />
+          <ContactCtas />
         </div>
       </div>
     </section>
