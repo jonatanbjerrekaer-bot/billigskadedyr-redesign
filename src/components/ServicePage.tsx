@@ -13,6 +13,7 @@ import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import QuotePanel from "./QuotePanel";
 import { PestChips } from "./PestQuickSelect";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
+import { SPECIES_ART } from "../lib/speciesArt";
 
 // The page carries its own estimator, contact form, process and FAQ, so
 // every in-page target below is a plain local hash. Only links that leave for
@@ -50,6 +51,8 @@ export default function ServicePage({ slug }: { slug: string }) {
   // Fluer has no price key, so the calculator has nothing to quote for it.
   // Showing a calculator that cannot answer is worse than not showing one.
   const priced = PRICED_PESTS.some((p) => p.slug === slug);
+  // All the species drawn, or none: a drawing next to an icon reads as two sets.
+  const drawn = !!content.species?.every((sp) => SPECIES_ART[sp.name]);
 
   return (
     <div className="np">
@@ -106,23 +109,29 @@ export default function ServicePage({ slug }: { slug: string }) {
               </ul>
             </div>
 
-            {/* The answers to "who is coming into my house, and what does it
-                cost me". Facts already stated elsewhere on the site. */}
-            <aside className="why__well">
-              <h3>Det får du, uanset hvad</h3>
-              <dl>
-                {PROMISES.map(([t, d]) => (
-                  <div key={t}>
-                    <dt>{t}</dt>
-                    <dd>{d}</dd>
-                  </div>
-                ))}
-              </dl>
-              <a href="#estimator" className="btn btn--primary btn--block">
+          </div>
+        </section>
+
+        {/* The answers to "who is coming into my house, and what does it
+            cost me", under the argument rather than beside it: two text
+            columns side by side left the eye with nowhere to start. */}
+        <section className="section">
+          <div className="container">
+            <h2>Det får du, uanset hvad</h2>
+            <dl className="svc-promises">
+              {PROMISES.map(([t, d]) => (
+                <div key={t}>
+                  <dt>{t}</dt>
+                  <dd>{d}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="actions svc-promises__cta">
+              <a href="#estimator" className="btn btn--primary">
                 {priced ? "Se prisen for din bolig" : "Få et fast tilbud"}
               </a>
               <p>Uforpligtende. Vi svarer inden for en hverdag.</p>
-            </aside>
+            </div>
           </div>
         </section>
 
@@ -133,11 +142,21 @@ export default function ServicePage({ slug }: { slug: string }) {
               <dl className="species">
                 {content.species!.map((sp) => (
                   <div key={sp.name}>
+                    {drawn && (
+                      <div className="species__art">
+                        <img src={`${B}species/${SPECIES_ART[sp.name]}.webp`} alt={sp.name} loading="lazy" />
+                      </div>
+                    )}
                     <dt>{sp.name}</dt>
                     <dd>{sp.text}</dd>
                   </div>
                 ))}
               </dl>
+              {drawn && (
+                <p className="species__credit">
+                  Tegningerne er fra gamle naturhistoriske værker og frit tilgængelige via Wikimedia Commons.
+                </p>
+              )}
             </div>
           </section>
         )}
