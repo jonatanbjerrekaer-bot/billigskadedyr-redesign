@@ -154,7 +154,7 @@ export default function ServicePage({ slug }: { slug: string }) {
               </dl>
               {drawn && (
                 <p className="species__credit">
-                  Tegningerne er fra gamle naturhistoriske værker og frit tilgængelige via Wikimedia Commons.
+                  Tegningerne er fra gamle naturhistoriske værker eller tegnet efter frie fotos, alle via Wikimedia Commons.
                 </p>
               )}
             </div>

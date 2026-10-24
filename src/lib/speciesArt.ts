@@ -31,4 +31,15 @@ export const SPECIES_ART: Record<string, string> = {
   Dræbersnegl: "draebersnegl",
   Agersnegl: "agersnegl",
   Vinbjergsnegl: "vinbjergsnegl",
+  // Pelsklanner, Tysk hveps and Borebille had no usable drawing, so these three
+  // are public-domain photos redrawn as ink (photo2ink, see SOURCES.md).
+  Pelsklanner: "pelsklanner",
+  Museumsbille: "museumsbille",
+  Larven: "klannerlarve",
+  "Tysk hveps": "tysk-hveps",
+  "Almindelig hveps": "almindelig-hveps",
+  Jordhveps: "jordhveps",
+  Husbuk: "husbuk",
+  Løvtræborebille: "loevtraeborebille",
+  "Borebille i møbler og gulve": "borebille",
 };
