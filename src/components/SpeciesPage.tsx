@@ -52,7 +52,7 @@ export default function SpeciesPage({ service, article }: { service: string; art
             <nav aria-label="Brødkrumme" className="crumbs" style={{ gridColumn: "1 / -1" }}>
               <ol>
                 <li>
-                  <a href={`${B}#pest`}>Alle skadedyr</a>
+                  <a href={`${B}service/`}>Alle skadedyr</a>
                   <ChevronRight size={14} aria-hidden="true" />
                 </li>
                 <li>

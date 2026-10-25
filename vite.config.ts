@@ -37,6 +37,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
     index: 'index.html',
+    'service/index.html': 'service/index.html',
     'privatlivspolitik/index.html': 'privatlivspolitik/index.html',
     'cookiepolitik/index.html': 'cookiepolitik/index.html',
     'shop/index.html': 'shop/index.html',

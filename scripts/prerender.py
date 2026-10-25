@@ -100,7 +100,11 @@ def faq_schema(tab):
 
 def main():
     pages = (
-        sorted(DIST.glob("service/*/index.html"))
+        # the overview one level up from every service page; the globs below
+        # only match directories below service/, so this file was never in the
+        # list and /service/ served an unprerendered shell
+        [DIST / "service" / "index.html"]
+        + sorted(DIST.glob("service/*/index.html"))
         # the species pages under each service, the long tail the cards lead to
         + sorted(DIST.glob("service/*/*/index.html"))
         + [DIST / "shop" / "index.html", DIST / "shop" / "produkter" / "index.html"]

@@ -61,7 +61,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           <div className="container grid12">
             {/* Above the title rather than floated over it: on a page reached
                 from the index, getting back is the second thing people want. */}
-            <a href={`${B}#pest`} className="svc-hero__back" style={{ gridColumn: "1 / -1" }}>
+            <a href={`${B}service/`} className="svc-hero__back" style={{ gridColumn: "1 / -1" }}>
               <ArrowLeft size={16} aria-hidden="true" />
               Alle skadedyr
             </a>
@@ -162,7 +162,7 @@ export default function ServicePage({ slug }: { slug: string }) {
               <PestChips exclude={slug} />
             </nav>
             <p style={{ marginTop: "var(--space-lg)" }}>
-              <a href={`${B}#pest`} className="link">
+              <a href={`${B}service/`} className="link">
                 Se alle skadedyr
               </a>
             </p>

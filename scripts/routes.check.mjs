@@ -32,6 +32,17 @@ for (const svc of services) {
   }
 }
 
+// 1b. the overview at /service/ itself is a real page, not a directory listing
+if (!existsSync(join(ROOT, "service", "index.html"))) {
+  fail("service/index.html mangler — /service/ bliver en directory listing");
+} else if (!viteConfig.includes("'service/index.html'")) {
+  fail("service/index.html er ikke en vite input — /service/ bygger uden sin egen URL");
+}
+if (!sitemapIncludesServiceRoot()) fail("sitemap.xml mangler /service/");
+function sitemapIncludesServiceRoot() {
+  return readFileSync(join(ROOT, "public/sitemap.xml"), "utf8").includes("/billigskadedyr-redesign/service/</loc>");
+}
+
 // 2. every article in src/lib/species/<service>.ts has a shell and a sitemap line
 const sitemap = readFileSync(join(ROOT, "public/sitemap.xml"), "utf8");
 const dir = join(ROOT, "src/lib/species");
