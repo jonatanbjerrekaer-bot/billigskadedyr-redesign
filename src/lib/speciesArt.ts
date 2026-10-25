@@ -60,6 +60,7 @@ export const SPECIES_ART: Record<string, string> = {
   Halsbåndmus: "halsbaandsmus",
   Katteloppe: "katteloppe",
   Hundeloppe: "hundeloppe",
+  Fugleloppe: "fugleloppe",
   Hovedlus: "hovedlus",
   Fladlus: "fladlus",
   Fnat: "fnat",
