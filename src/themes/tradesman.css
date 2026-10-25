@@ -160,7 +160,19 @@ html:has(.np) { background: var(--color-paper); }
   --toggle-button-fg: var(--color-ink-2); --toggle-button-fg-selected: var(--color-paper);
   transition: color 200ms var(--ease-out), transform 120ms var(--ease-out);
 }
-@media (hover: hover) and (pointer: fine) { .np .toggle-button-group .toggle-button:hover:not([data-selected]) { color: var(--color-ink); } }
+@media (hover: hover) and (pointer: fine) {
+  /* Hover skal kunne ses: foer var den eneste tilbagemelding en mørkning af
+     teksten fra --color-ink-2 til --color-ink, og forskellen er for lille til
+     at registrere, mens markøren står stille. Vasken er --color-paper-3, samme
+     som aktive raekker bruger andre steder på siden, så den læses som "denne
+     kan vælges" uden at ligne det mørke navy-tommelæg, der markerer valget.
+     Udeladtes derfor ikke kun, fordi knapperne ligger oven på tommelægget:
+     vasken maler kun den svævede knap, og tommelægget sidder under den valgte. */
+  .np .toggle-button-group .toggle-button:hover:not([data-selected]) {
+    color: var(--color-ink);
+    --toggle-button-bg-hover: var(--color-paper-3);
+  }
+}
 .np .toggle-button-group .toggle-button[data-focus-visible] { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 /* Before the first measurement (and with no script), the chosen button paints itself. */
 .np .seg:not([data-ready]) .toggle-button[data-selected] { --toggle-button-bg-selected: var(--color-navy); }
