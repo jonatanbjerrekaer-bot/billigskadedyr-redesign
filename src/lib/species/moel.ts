@@ -20,54 +20,54 @@ const articles: SpeciesArticle[] = [
         heading: "Kendetegn",
         paragraphs: [
           "Klædemøllet er et lille, blankt gulligt møl på 5-7 mm med en rødlig hårtot på hovedet.",
-          "Møllarver er typisk 5-15 mm lange med en lys, hvidlig eller cremefarvet krop og et mørkere hoved. Klædemøllarver opholder sig oftest skjult mellem tekstiler, hvor de lever af naturfibre.",
+          "Møllarver er typisk 5-15 mm lange med en lys, hvidlig eller cremefarvet krop og et mørkere hoved. Klædemøllarver holder sig skjult mellem tekstilerne, hvor de lever af naturfibre.",
         ],
         provenance: ["new", `owner ${PRO}`],
       },
       {
         heading: "Hvad lever det af?",
         paragraphs: [
-          "Klædemøl lever ikke af bomuld eller syntetiske materialer, men foretrækker naturmaterialer som uld, kashmir, silke, fjer, pels, tæpper og plaider. Det er larverne, der gnaver små huller i tekstilerne. Angreb opdages ofte først flere måneder senere.",
-          "De voksne møl gør ingen skade. De lever primært for at formere sig og lægge æg. Derfor er det vigtigt at bekæmpe hele livscyklussen og ikke kun de møl, der flyver rundt.",
+          "Klædemøl spiser naturmaterialer: uld, kashmir, silke, fjer, pels, tæpper og plaider. Bomuld og syntetiske materialer rører de ikke. Det er larverne, der gnaver de små huller. Ofte opdager du angrebet først flere måneder senere.",
+          "De voksne møl gør ingen skade. De er der for at lægge æg. Så gå ikke kun efter de møl, der flyver rundt — bekæmp æg og larver også.",
         ],
         provenance: [`owner ${PRO}`, `owner ${PRO}`],
       },
       {
         heading: "Hvor du finder det",
         paragraphs: [
-          "Klædemøl trives især, hvor tøj ligger ubrugt længe, i mørke skabe, på lofter, i kældre, i sommerhuse og blandt uldtæpper og plaider. De foretrækker steder, hvor der er ro, mørke og adgang til naturfibre.",
-          "Ved klædemøl er det typisk hullerne i yndlingstrøjen, uldtæppet eller jakkesættet, der afslører problemet. Vi oplever ofte, at kunder siger: Vi troede bare, der var kommet et par små sommerfugle ind ad vinduet. I virkeligheden kan der allerede være flere generationer af larver gemt i skabe, paneler, revner eller blandt opbevarede tekstiler.",
+          "Klædemøl trives, hvor tøj ligger ubrugt længe: i mørke skabe, på lofter, i kældre og sommerhuse, blandt uldtæpper og plaider. De vil have ro, mørke og adgang til naturfibre.",
+          "Ofte er det hullerne i yndlingstrøjen, uldtæppet eller jakkesættet, der afslører det. Mange kunder siger til os: Vi troede bare, der var kommet et par små sommerfugle ind ad vinduet. På det tidspunkt kan der allerede ligge flere generationer af larver gemt i skabe, paneler, revner eller blandt opbevarede tekstiler.",
         ],
         provenance: [`owner ${PRO}`, `owner ${PRO}`],
       },
       {
         heading: "Tegn på klædemøl",
         paragraphs: [
-          "Små huller i uldtøj, skader på tæpper, larvehylstre i skabe, små lyse larver, møl der flyver omkring garderoben og skader på opbevarede tekstiler. Jo tidligere problemet opdages, desto mindre bliver skaderne som regel.",
+          "Små huller i uldtøj, skader på tæpper, larvehylstre i skabe, små lyse larver, møl omkring garderoben og skader på opbevarede tekstiler. Jo før du opdager det, jo mindre bliver skaden som regel.",
         ],
         provenance: [`owner ${PRO}`],
       },
       {
         heading: "Sådan kommer du af med det",
         paragraphs: [
-          "Begynd med de genstande, hvor skaden er synlig, og undersøg derefter materialer tæt på. Se i folder, lommer og sømme samt langs kanterne på tæpper. Kig efter larver, spind og rester omkring skaden.",
-          "Læg berørte genstande i lukkede poser, før du flytter dem gennem boligen. Vælg vask eller rens efter tekstilets vaskeanvisning, og fortæl renseriet om mistanken. En kort tur i en almindelig fryser er ikke en dokumenteret universalbehandling.",
-          "Tøm det berørte område, og støvsug sprækker, hylder og kanter grundigt. Sprøjt ikke vilkårligt på tøj eller sengetøj. Et insektmiddel må kun bruges på de materialer og steder, som etiketten tillader.",
-          "En feromonfælde til klædemøl kan hjælpe med at følge aktiviteten, men den fanger primært de voksne hanner og fjerner ikke æg eller larver. Bliver møllet ved med at komme igen, eller sidder det i tæpper og værdifulde tekstiler, er faglig hjælp et godt næste skridt.",
+          "Start med de genstande, hvor skaden er synlig, og undersøg så det, der ligger tæt på. Se i folder, lommer og sømme og langs kanterne på tæpper. Kig efter larver, spind og rester omkring skaden.",
+          "Læg berørte genstande i lukkede poser, før du flytter dem gennem boligen. Vask eller rens efter tekstilets vaskeanvisning, og sig til renseriet, at du har mistanke om møl. En kort tur i en almindelig fryser er ikke en dokumenteret metode.",
+          "Tøm det berørte område, og støvsug sprækker, hylder og kanter grundigt. Sprøjt ikke vilkårligt på tøj eller sengetøj. Insektmiddel må kun bruges på de materialer og steder, som etiketten tillader.",
+          "En feromonfælde til klædemøl kan vise, om der stadig kommer møl, men den fanger mest de voksne hanner og fjerner hverken æg eller larver. Kommer møllene igen og igen, eller sidder de i tæpper og værdifulde tekstiler, så skriv til os.",
         ],
         provenance: [`owner ${TOEJ}`, `owner ${TOEJ}`, `owner ${TOEJ}`, `owner ${PRO} + ${TOEJ}`],
       },
       {
         heading: "Forebyg klædemøl",
         paragraphs: [
-          "Luft og gennemgå garderoben med jævne mellemrum. Opbevar rent uldtøj i tætsluttende poser eller kasser. Støvsug skabe, gulvlister og tæpper regelmæssigt. Vask eller rens tøj, inden det lægges væk for sæsonen, og reager hurtigt, hvis du opdager små huller i naturmaterialer.",
+          "Luft og gennemgå garderoben med jævne mellemrum. Opbevar rent uldtøj i tætsluttende poser eller kasser. Støvsug skabe, gulvlister og tæpper regelmæssigt. Vask eller rens tøjet, inden det lægges væk for sæsonen, og reager hurtigt, hvis du ser små huller i naturmaterialer.",
         ],
         provenance: [`owner ${PRO}`],
       },
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Huller alene afgør ikke arten. Larver af visse biller kan også skade tekstiler. Finder du hårede larver eller larvehuder, kan det være pelsklanner eller museumsbille. Pelsmøllet laver samme slags skade, men dets larve bærer et lille rør med sig.",
+          "Huller alene afgør ikke arten. Larver af visse biller kan også ødelægge tekstiler. Hårede larver eller larvehuder kan være pelsklanner eller museumsbille. Pelsmøllet laver samme slags skade, men dets larve slæber et lille rør med sig.",
         ],
         provenance: [`owner+new ${TOEJ}`],
       },
@@ -88,40 +88,40 @@ const articles: SpeciesArticle[] = [
         heading: "Kendetegn",
         paragraphs: [
           "Det rigtige melmøl har blågrå forvinger med mørke zigzag-linjer. Larven er lys med mørkt hoved.",
-          "Ved melmøl opdager mange først problemet, når de ser små larver eller spind i mel, gryn eller andre tørvarer. På det tidspunkt har møllene ofte allerede spredt sig til flere skabe.",
+          "Mange opdager først problemet, når de ser små larver eller spind i mel, gryn eller andre tørvarer. På det tidspunkt har møllene ofte spredt sig til flere skabe.",
         ],
         provenance: ["new", `owner ${PRO}`],
       },
       {
         heading: "Hvad lever det af?",
         paragraphs: [
-          "Melmøl angriber tørre fødevarer som mel, havregryn, müsli, pasta, ris, nødder, frø, krydderier, dyrefoder og fuglefoder. De voksne møl lægger æg direkte i eller tæt ved fødevarerne, hvor larverne udvikler sig og forurener indholdet med spind, ekskrementer og hudskifter.",
-          "Fødevaremøl er en praktisk fællesbetegnelse, ikke navnet på én bestemt art. Tofarvet frømøl er en af de arter, der kan optræde i køkkenets tørvarer. Det voksne dyr har en lysere indre del og en mørkere, kobberbrun ydre del på forvingerne. Det ægte melmøl ses især i bagerier og virksomheder, der opbevarer mel.",
+          "Melmøl angriber tørre fødevarer som mel, havregryn, müsli, pasta, ris, nødder, frø, krydderier, dyrefoder og fuglefoder. De voksne møl lægger æg direkte i eller tæt ved fødevarerne, og larverne forurener indholdet med spind, ekskrementer og hudskifter.",
+          "Fødevaremøl er en fællesbetegnelse, ikke navnet på én bestemt art. Tofarvet frømøl er en af arterne, der kan optræde i køkkenets tørvarer. Det voksne dyr har en lysere indre del og en mørkere, kobberbrun ydre del på forvingerne. Det ægte melmøl ses især i bagerier og virksomheder, der opbevarer mel.",
         ],
         provenance: [`owner ${PRO}`, `owner+new ${TOERVARER}`],
       },
       {
         heading: "Hvorfor får man melmøl?",
         paragraphs: [
-          "Mange bliver overraskede over at få møl, selv om hjemmet er rent. Melmøl kommer ofte med fødevarer, der allerede indeholder æg eller larver, når produkterne købes. Problemet opdages ofte først flere uger senere, når de voksne møl begynder at flyve rundt i køkkenet.",
-          "Vi ser ofte, at problemet starter i en pose fuglefoder eller hundefoder, som har stået længe i bryggerset eller garagen. Et enkelt angrebet produkt kan være nok til, at bestanden spreder sig til hele køkkenet.",
+          "Selv et rent hjem kan få møl. De kommer ofte med hjem i varer, der allerede indeholder æg eller larver, da du køber dem. Ofte opdager du det først flere uger senere, når de voksne møl begynder at flyve rundt i køkkenet.",
+          "Vi ser ofte, at det starter i en pose fuglefoder eller hundefoder, der har stået længe i bryggerset eller garagen. Ét angrebet produkt kan være nok til, at bestanden spreder sig til hele køkkenet.",
         ],
         provenance: [`owner ${PRO}`, `owner ${PRO}`],
       },
       {
         heading: "Hvorfor ser jeg larver på væggene?",
         paragraphs: [
-          "Når larverne er færdigudviklede, forlader de ofte fødevarerne og kravler op ad vægge eller lofter for at finde et beskyttet sted, hvor de kan forpuppe sig. Mange tror derfor fejlagtigt, at problemet stammer fra loftet eller væggene.",
+          "Når larverne er færdigudviklede, forlader de fødevarerne og kravler op ad vægge og lofter for at finde et beskyttet sted at forpuppe sig. Derfor tror mange fejlagtigt, at problemet kommer fra loftet eller væggene.",
         ],
         provenance: [`owner ${PRO}`],
       },
       {
         heading: "Sådan kommer du af med det",
         paragraphs: [
-          "Start ved det skab, hvor du har fundet flest tegn. Kassér varer med tydelige larver, spind eller anden forurening, luk dem inde, og fjern dem fra boligen. Du behøver ikke automatisk kassere alt i alle skabe, fordi én pose er angrebet. Undersøg de øvrige varer grundigt, og husk også uåbnede pakker.",
-          "Når skabet er tømt, er det lettere at komme til samlinger, hyldekanter og sprækker. Støvsug, rengør, og lad skabet tørre, før varerne sættes tilbage. Brug ikke vilkårlig insektspray på mad, emballage eller fødevarekontaktflader.",
-          "En feromonfælde til fødevaremøl kan vise, at der stadig flyver voksne dyr, og hjælpe dig med at følge udviklingen. Den fjerner ikke æg, larver og pupper. En tom fælde én dag er ikke tilstrækkelig dokumentation.",
-          "Ved gentagne fund efter oprydning kan en professionel undersøgelse hjælpe med at finde oversete varer eller skjulte ophobninger af føde.",
+          "Start ved det skab, hvor du har fundet flest tegn. Kassér varer med tydelige larver, spind eller anden forurening, luk dem inde, og fjern dem fra boligen. Du behøver ikke kassere alt i alle skabene, fordi én pose er angrebet. Undersøg de øvrige varer grundigt, og husk også de uåbnede pakker.",
+          "Når skabet er tømt, kan du komme til samlinger, hyldekanter og sprækker. Støvsug, rengør, og lad skabet tørre, før varerne sættes tilbage. Brug ikke insektspray på mad, emballage eller flader, hvor maden ligger.",
+          "En feromonfælde til fødevaremøl kan vise, at der stadig flyver voksne dyr, og hjælpe dig med at følge udviklingen. Den fjerner ikke æg, larver og pupper. At fælden står tom en enkelt dag, er ikke nok at gå efter.",
+          "Kommer der møl igen, efter du har ryddet op, kan en professionel hjælpe med at finde oversete varer eller skjulte steder, hvor der ligger føde.",
         ],
         provenance: [`owner ${TOERVARER}`, `owner ${TOERVARER}`, `owner ${TOERVARER} + ${FAELDER}`, `owner ${TOERVARER}`],
       },
@@ -135,7 +135,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Små biller i mel kræver en anden identifikation end flyvende møl over samme hylde. Og en fælde til klædemøl er ikke automatisk en fælde til møl i køkkenet. Finder du møl i køkkenet eller larver i tørvarer, er det næsten altid melmøl eller et andet fødevaremøl. Ser du huller i uldtøj, er det ofte klædemøl.",
+          "Små biller i mel skal identificeres anderledes end flyvende møl på samme hylde. Og en fælde til klædemøl fanger ikke nødvendigvis møl i køkkenet. Møl i køkkenet eller larver i tørvarer er næsten altid melmøl eller et andet fødevaremøl. Huller i uldtøj er ofte klædemøl.",
         ],
         provenance: [`owner ${TOERVARER} + ${PRO}`],
       },
@@ -157,14 +157,14 @@ const articles: SpeciesArticle[] = [
         heading: "Kendetegn",
         paragraphs: [
           "Pelsmøllet er sølvgråt til lysebrunt med et par mørke pletter på forvingerne. Det er på størrelse med klædemøllet.",
-          "Det, der skiller det ud, er larven. Den bygger et lille rør af spind, fibre og hår og bærer det med sig, når den flytter sig.",
+          "Kendemærket er larven. Den bygger et lille rør af spind, fibre og hår og bærer det med sig, når den flytter sig.",
         ],
         provenance: ["new", "new"],
       },
       {
         heading: "Levevis",
         paragraphs: [
-          "Pelsmøllet lever også ude i naturen, for eksempel i fuglereder. Ligesom hos klædemøllet er det larverne, der gør skaden. De voksne møl lever primært for at formere sig og lægge æg.",
+          "Pelsmøllet lever også ude i naturen, fx i fuglereder. Ligesom hos klædemøllet er det larverne, der laver skaden. De voksne møl lægger bare æg.",
           "Når larven er udvokset, forlader den tit det, den har levet i, og vandrer op ad væggen for at forpuppe sig i revner mellem væg og loft og under lister.",
         ],
         provenance: [`owner+new ${PRO}`, "new"],
@@ -172,23 +172,23 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvor du finder det",
         paragraphs: [
-          "Larven går i pels, uldtøj, tæpper og møbelbetræk. Den trives, hvor der er ro, mørke og adgang til naturfibre, og den kan findes i gamle fuglereder på loftet.",
+          "Larven går i pels, uldtøj, tæpper og møbelbetræk. Den trives, hvor der er ro, mørke og adgang til naturfibre, og den kan sidde i gamle fuglereder på loftet.",
         ],
         provenance: [`owner+new ${PRO}`],
       },
       {
         heading: "Sådan kommer du af med det",
         paragraphs: [
-          "Gør som ved klædemøl. Se i folder, lommer og sømme samt langs kanterne på tæpper. Læg berørte genstande i lukkede poser, før du flytter dem gennem boligen, og vælg vask eller rens efter tekstilets vaskeanvisning.",
-          "Med pelsmøl skal du huske, at larverne kan have gemt sig i sprækker i skabet og skufferne, ved loftet og i æsker og poser, der har stået sammen med det angrebne. Tøm det berørte område, og støvsug sprækker, hylder og kanter grundigt.",
-          "Sidder møllet i store tæpper, møbler eller flere rum, er faglig hjælp et godt næste skridt.",
+          "Gør som ved klædemøl. Se i folder, lommer og sømme og langs kanterne på tæpper. Læg berørte genstande i lukkede poser, før du flytter dem gennem boligen, og vask eller rens efter tekstilets vaskeanvisning.",
+          "Med pelsmøl skal du huske, at larverne kan have gemt sig i sprækker i skab og skuffer, ved loftet og i æsker og poser, der har stået sammen med det angrebne. Tøm det berørte område, og støvsug sprækker, hylder og kanter grundigt.",
+          "Sidder det i store tæpper, møbler eller flere rum, så skriv til os.",
         ],
         provenance: [`owner ${TOEJ}`, `owner+new ${TOEJ}`, `owner ${TOEJ}`],
       },
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Klædemøllets larve har intet rør, men et spind, der sidder fast på stoffet. Pelsklannerens larve er brun og lodden. Huller alene afgør ikke arten.",
+          "Klædemøllets larve har intet rør, kun et spind, der sidder fast på stoffet. Pelsklannerens larve er brun og lodden. Huller alene afgør ikke arten.",
         ],
         provenance: [`owner+new ${TOEJ}`],
       },
@@ -215,14 +215,14 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvad lever det af?",
         paragraphs: [
-          "Det lever af tørret frugt, nødder, mandler, mel, gryn, müsli, pasta og fuglefrø. Det bringes næsten altid med hjem i en pose fra supermarkedet, ofte uden at du opdager det, fordi æggene allerede sidder i varen.",
+          "Det lever af tørret frugt, nødder, mandler, mel, gryn, müsli, pasta og fuglefrø. Det kommer næsten altid med hjem i en pose fra supermarkedet. Du opdager det ofte ikke med det samme, fordi æggene allerede sidder i varen.",
         ],
         provenance: ["new"],
       },
       {
         heading: "Tegn på angreb",
         paragraphs: [
-          "Du ser møl svæve i køkkenet, klistret spind i gryn og mel, klumpede gråbrune madvarer og pupper i silkekokoner langs loftslister og øverst i skabene. Møllene er ikke farlige at spise, men madvarerne bør kasseres.",
+          "Du ser møl svæve i køkkenet, klistret spind i gryn og mel, klumpede gråbrune madvarer og pupper i silkekokoner langs loftslister og øverst i skabene. Møllene er ikke farlige at spise, men madvarerne skal kasseres.",
         ],
         provenance: ["new"],
       },
@@ -279,14 +279,14 @@ const articles: SpeciesArticle[] = [
         heading: "Sådan kommer du af med dem",
         paragraphs: [
           "Kassér alle mistænkte tørvarer i tætlukkede poser. Rengør skabene med varmt vand og sæbe, støvsug grundigt i sprækkerne, og smid støvsugerposen straks ud eller frys den i 48 timer.",
-          "Opbevar mel, gryn og pasta i tætsluttende beholdere fremover. Ved store eller gentagne angreb, fx i foderlagre, kræves professionel behandling.",
+          "Opbevar mel, gryn og pasta i tætsluttende beholdere fremover. Ved store eller gentagne angreb, fx i foderlagre, kræver det professionel behandling.",
         ],
         provenance: ["new", "new"],
       },
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Kornsnudebillen har en tydelig snude og huler kornkorn ud indefra. Tofarvet frømøl flyver, hvor billerne kravler.",
+          "Kornsnudebillen har en tydelig snude og huler kornkornene ud indefra. Tofarvet frømøl flyver, hvor billerne kravler.",
         ],
         provenance: ["new"],
       },
@@ -321,7 +321,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "I hjemmet",
         paragraphs: [
-          "I almindelige hjem er voksmøl ikke et praktisk problem. Finder du møl i køkkenets tørvarer, er det næsten altid tofarvet frømøl eller melbiller — ikke voksmøl.",
+          "I et almindeligt hjem er voksmøl sjældent et praktisk problem. Finder du møl i køkkenets tørvarer, er det næsten altid tofarvet frømøl eller melbiller. Voksmøl er det sjældent.",
         ],
         provenance: ["new"],
       },
@@ -335,7 +335,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Melbille-larverne i mel og gryn kaldes også melorme, men de er et skadedyr i madvarerne, hvor voksormen ikke er. Voksormen er hvidlig og lever i voks, ikke i mel.",
+          "Melbille-larverne i mel og gryn kaldes også melorme, men de er et skadedyr i madvarerne, og det er voksormen ikke. Voksormen er hvidlig og lever i voks, ikke i mel.",
         ],
         provenance: ["new"],
       },

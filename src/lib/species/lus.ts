@@ -12,7 +12,7 @@ const articles: SpeciesArticle[] = [
         heading: "Kendetegn",
         paragraphs: [
           "Hovedlusen er 2-3 mm lang, gråbrun og flad. Den kan hverken hoppe eller flyve — den kravler, og den gør det hurtigt, så den er svær at fange.",
-          "Det, du ser efter, er ikke kun lusen, men især æggene (luseæggene, også kaldet krinoliner): små, aflange, gråhvide prikker, der sidder klemt fast på hårstrået tæt ved hovedbunden. De kan ikke fjernes med fingerspidserne, kun med kam.",
+          "Det, du skal lede efter, er mest æggene (luseæggene, også kaldet krinoliner): små, aflange, gråhvide prikker, der sidder klemt fast på hårstrået tæt ved hovedbunden. De kan ikke fjernes med fingerspidserne, kun med kam.",
         ],
         provenance: ["new", "new"],
       },
@@ -43,7 +43,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Sådan kommer du af med den",
         paragraphs: [
-          "Kæm vådt, balsameret hår med tættekam hver anden dag i 14 dage. Balsamen lammer lusene en stund, så kammeren kan fange dem. Det er metoden, de fleste starter med, og den virker, hvis du er grundig.",
+          "Kæm vådt, balsameret hår med tættekam hver anden dag i 14 dage. Balsamen lammer lusene en stund, så kammeren kan fange dem. De fleste starter med den, og den virker, hvis du er grundig.",
           "Er kamningen for langsom eller angrebet stort, kan du supplere med lægemiddelgodkendt lusemiddel fra apoteket. Permethrin-shampoo gentages efter 8 dage, og der findes udbredt resistens — derfor er kamning ofte første valg.",
           "Huer, kamme og sengetøj fra de smittede vaskes, fryses eller lægges væk i 48 timer. Boligen behøver du ikke at behandle.",
           "Det her kan du klare selv, og det gør de fleste. Har du brug for hjælp til at finde smittekilden eller tjekke husstanden, så skriv til os.",
@@ -140,7 +140,7 @@ const articles: SpeciesArticle[] = [
         heading: "Hvor du finder den",
         paragraphs: [
           "I huden på mennesker — det er det eneste sted, fnatmiden kan leve i længere tid. Den overlever op til 36 timer på tøj, sengetøj og håndklæder, men ikke længere væk fra kroppen.",
-          "Den er med her blandt lus, fordi folk søger på de to ting sammen: kløe, smitte og behandling hører sammen i folkelig forstand.",
+          "Den er med her blandt lus, fordi folk søger på de to ting sammen. Det, du leder efter, er det samme: kløe, smitte og behandling.",
         ],
         provenance: ["new", "new"],
       },

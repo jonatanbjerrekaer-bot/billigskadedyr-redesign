@@ -27,15 +27,15 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvorfor er den alvorlig",
         paragraphs: [
-          "Et enkelt angreb kan afbladskelere kartoffelplanter på få dage. Planterne står tilbage med bare stilke og kan ikke sætte kartofler, så hele høsten i bedet kan gå tabt på en uge.",
+          "Et enkelt angreb kan afbladskælle kartoffelplanterne på få dage. Tilbage står bare stilke, og planterne kan ikke sætte kartofler, så hele høsten i bedet kan ryge på en uge.",
         ],
         provenance: ["new"],
       },
       {
         heading: "Sådan kommer du af med den",
         paragraphs: [
-          "Gå efter den dagligt i starten af sæsonen: fjern biller og larver med hånden og kom dem i en spand med vand. Det er det vigtigste greb, og det virker, så længe du er ude hver dag.",
-          "Riv jorden op omkring kartoflerne, fordi larverne pupperer i jorden under planten, og dæk rækkerne med fiberdug, så billerne ikke kan nå ind at lægge æg. Vælg tidlige sorter, der når at sætte kartofler, før angrebet topper.",
+          "Gå efter den hver dag i starten af sæsonen: fjern biller og larver med hånden, og kom dem i en spand med vand. Det er det vigtigste, du kan gøre, og det virker, så længe du er ude hver dag.",
+          "Riv jorden op omkring kartoflerne, fordi larverne forpupper sig i jorden under planten, og dæk rækkerne med fiberdug, så billerne ikke kan nå ind at lægge æg. Vælg tidlige sorter, der når at sætte kartofler, før angrebet topper.",
           "Opdager du en større forekomst, så kontakt kommunen eller Plantetilsynet. Kartoffelbiller skal meldes, fordi myndighederne overvåger arten — og jo før et fund bliver meldt, jo mindre er risikoen for, at den når at sprede sig til naboens kartofler.",
         ],
         provenance: ["new", "new", "new"],
@@ -63,7 +63,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "Smølderlarver er gulhvide, trådformede, hårde larver på et par centimeters længde. De kaldes også jordbiller, trådlarver eller tråduldslarver, selvom de altså er larver og ikke biller.",
+          "Smølderlarver er gulhvide, trådformede, hårde larver på et par centimeters længde. De kaldes også jordbiller, trådlarver eller tråduldslarver, selvom de er larver og ikke biller.",
           "De voksne biller, smølderbillerne, er smalle, matbrune og ligner klikbiller. Du ser dem om foråret på græs og buske, hvor de spiser af unge blade.",
         ],
         provenance: ["new", "new"],
@@ -78,7 +78,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Tegn på skade",
         paragraphs: [
-          "Kig på høsten: kartofler og gulerødder med bore huller og gnavede riller er det klassiske tegn. Planter, der visner uden nogen synlig grund, har ofte fået gnavet rødderne af. I plænen viser angrebet sig som røde, visne pletter — et rødt tæppe af dødt græs, fordi larverne har spist græsrødderne.",
+          "Kig på høsten: kartofler og gulerødder med borehuller og gnavede riller er det klassiske tegn. Planter, der visner uden nogen synlig grund, har ofte fået gnavet rødderne af. I plænen viser angrebet sig som røde, visne pletter — et rødt tæppe af dødt græs, fordi larverne har spist græsrødderne.",
         ],
         provenance: ["new"],
       },

@@ -90,14 +90,14 @@ const articles: SpeciesArticle[] = [
         heading: "Hvor du finder den",
         paragraphs: [
           "Engflåten findes i Europa og Vestasien og har spredt sig hastigt de seneste år. Den foretrækker græs langs vandløb og mere åbne områder, og det er derfor, den har fået sit danske navn.",
-          "Den blev konstateret første gang i Danmark i 2017 på en skudt guldsjakal, og der forventes flere tilfælde i årene, der kommer. Hvor den slår sig ned, ændrer det risikobilledet, fordi den trives i områder, skovflåten ikke bruger.",
+          "Den blev konstateret første gang i Danmark i 2017, på en skudt guldsjakal, og der kommer formentlig flere tilfælde. Den trives i åbne områder, skovflåten ikke bruger, så den ændrer, hvor der er risiko.",
         ],
         provenance: ["new", "new"],
       },
       {
         heading: "Er den farlig?",
         paragraphs: [
-          "Engflåten er ikke farlig i sig selv, men den kan overføre sygdomme. Den kan bære bakterien Rickettsia raoultii, der kan give et sår ved bidstedet, og parasitten Babesia canis, der giver hundemalaria hos hunde — en sygdom, der kan være dødelig for hunde.",
+          "Bidet er ikke farligt i sig selv. Problemet er sygdommene, den kan bære: bakterien Rickettsia raoultii, der kan give et sår ved bidstedet, og parasitten Babesia canis, der giver hundemalaria hos hunde — en sygdom, der kan være dødelig for hunde.",
         ],
         provenance: ["new"],
       },
@@ -132,7 +132,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "En tæge er et insekt med 6 ben. En flåt er en mide med 8 ben — en slags edderkop. Det er hele kernen i forvirringen, for i folkemunde kaldes skovflåten fejlagtigt for tæge, og det er også derfor, man taler om en tægetang.",
+          "En tæge er et insekt med 6 ben. En flåt er en mide med 8 ben, en slags edderkop. Alligevel kaldes skovflåten i folkemunde fejlagtigt for tæge, og det er derfor, man taler om en tægetang.",
         ],
         provenance: ["new"],
       },

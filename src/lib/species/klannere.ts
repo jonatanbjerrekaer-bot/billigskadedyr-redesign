@@ -114,7 +114,7 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Det bedste du kan gøre er at fjerne føden. Støvsug døde insekter væk i vindueskarme, på loftet og i lamper, og find kilden, hvis der er en rede eller et dødt dyr.",
           "Angrebet tøj kan du ryste ude og vaske. Varme virker godt: tøjet skal være gennemvarmt til omkring 60 grader, for eksempel i en tørretumbler. Sarte eller værdifulde ting bør vurderes, før du bruger varme eller kulde.",
-          "En enkelt bille i vindueskarmen er ikke et problem. Bliver du ved med at finde larver eller biller, og kan du ikke finde kilden, er det en opgave for en fagmand.",
+          "En enkelt bille i vindueskarmen er ikke et problem. Bliver du ved med at finde larver eller biller, og kan du ikke finde kilden, så få en fagmand til at kigge på det.",
         ],
         provenance: ["new", "owner+new https://billigskadedyr.dk/moel-i-toej/", "new"],
       },
@@ -216,7 +216,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Er de skadelige?",
         paragraphs: [
-          "Tæppebillen bider ikke mennesker, og der er ingen sundhedsrisiko. Til gengæld kan larverne give anseelige materielle skader på uldtæpper, tøj, pels og fjer.",
+          "Tæppebillen bider ikke mennesker, og der er ingen sundhedsrisiko. Til gengæld kan larverne lave store skader på uldtæpper, tøj, pels og fjer.",
         ],
         provenance: ["new"],
       },

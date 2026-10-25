@@ -2,7 +2,7 @@ import type { ServiceContent } from "../serviceContent";
 
 const content: ServiceContent = {
   intro:
-    "Lopper kommer næsten altid med et kæledyr, og de få, du ser, er topen af isbjerget. Ca. 95 % af en loppebestand findes som æg, larver og pupper i tæpper, gulvsprækker og møbler — derfor skal behandlingen ramme omgivelserne, ikke kun dyret.",
+    "Lopper kommer næsten altid med et kæledyr, og dem, du ser på dyret, er en lille brøkdel. Ca. 95 % af en loppebestand sidder som æg, larver og pupper i tæpper, gulvsprækker og møbler — derfor skal behandlingen ramme omgivelserne, ikke kun dyret.",
   whyProfessional: [
     "Vi behandler der, hvor de 95 % af bestanden sidder, og ikke kun de voksne lopper",
     "Loppepupper kan ligge i dvale i månedsvis og klække på vibrationer, så ét støvsug og ét middel er sjældent nok",
@@ -22,7 +22,7 @@ const content: ServiceContent = {
     { q: "Kan jeg ikke bare købe en loppepille til katten?", a: "Dyret skal behandles, og det gør du hos dyrlægen eller med et godkendt middel fra dyrehandlen. Men dyret er sjældent hele problemet. Æggene falder af dyret og havner i tæpper og gulvsprækker, så omgivelserne skal behandles samtidig, ellers kommer lopperne igen." },
     { q: "Er det farligt at behandle min kat selv?", a: "Det kan det være. Katte tåler ikke permethrin, som findes i en række loppemidler til hunde, og forgiftning kan være livsfarlig. Brug kun midler, der er godkendt til kat, og følg doseringen. Er du i tvivl, så spørg dyrlægen først." },
     { q: "Hvorfor skal jeg støvsuge hver dag?", a: "Fordi støvsugeren fjerner æg, larver og den krummer, larverne lever af, og fordi vibrationerne får nogle pupper til at klække, så de kan nås af behandlingen. Støvsug dagligt de første 7-10 dage, og smid posen ud eller tøm beholderen hver gang, så du ikke bare flytter lopperne." },
-    { q: "Er loppebid farlige?", a: "Selve bidene er kløende, røde knopper, ofte om anklerne og der, hvor tøjet sidder tæt. De er som regel ikke farlige, men lopper kan overføre båndorm, og kraftig kløe kan give infektioner, hvis man klør sig. Gnider du sorte prikker fra pelsen på fugtigt hvidt papir og de bliver rødbrune, er det loppeekskrementer." },
+    { q: "Er loppebid farlige?", a: "Selve bidene er røde, kløende knopper, ofte om anklerne og der, hvor tøjet sidder tæt. De er som regel ikke farlige, men lopper kan overføre båndorm, og kraftig kløe kan give infektioner, hvis man klør sig. Gnider du sorte prikker fra pelsen på fugtigt hvidt papir og de bliver rødbrune, er det loppeekskrementer." },
     { q: "Hvorfor skal der behandles to gange?", a: "Insektmidler rammer voksne lopper og larver, men pupperne er beskyttede i deres kokoner, og de klækker med forskellige mellemrum. Derfor kan der gå 10-14 dage, før sidste hold er klækket. Den anden behandling fanger netop dem." },
     { q: "Skal hele husstanden behandles, hvis én kat har lopper?", a: "Alle kæledyr i huset skal behandles samtidig, ellers vandrer lopperne bare fra det ene dyr til det andet. Boligen behandles, hvor dyrene færdes — gulve, tæpper, sofesteder og soveværelser. Vask dyner, tæpper og dyrets tekstiler ved mindst 60 °C." },
   ],

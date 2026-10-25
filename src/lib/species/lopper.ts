@@ -12,7 +12,7 @@ const articles: SpeciesArticle[] = [
         heading: "Kendetegn",
         paragraphs: [
           "Katteloppen er en vingeløs, brunlig loppe på 1,5-4 mm. Den kan hoppe op til 30 cm og bevæger sig hurtigt gennem pelsen, så den er svær at fange.",
-          "Det sikreste tegn er ikke selve loppen, men loppeekskrementerne: sorte prikker i pelsen, der ligner kaffegrums. Kommer de på fugtigt, hvidt papir, opløses de og bliver rødbrune, fordi de består af tørret blod.",
+          "Loppeekskrementerne er det sikreste tegn: sorte prikker i pelsen, der ligner kaffegrums. Kommer de på fugtigt, hvidt papir, opløses de og bliver rødbrune, fordi de består af tørret blod.",
         ],
         provenance: ["new", "new"],
       },
@@ -36,7 +36,7 @@ const articles: SpeciesArticle[] = [
         heading: "Er den farlig?",
         paragraphs: [
           "Loppebidene er kløende, røde knopper, ofte samlet om anklerne og der, hvor tøjet sidder tæt. Bidene er sjældent farlige i sig selv, men kraftig kløe kan give sår og infektioner, hvis man klør sig op.",
-          "Lopper kan overføre båndorm, og de fungerer som mellemværter for andre parasitter. Derfor skal angrebet tages alvorligt, selvom det sjældent er farligt.",
+          "Lopper kan overføre båndorm og fungerer som mellemværter for andre parasitter, så tag angrebet alvorligt, selvom det sjældent er farligt.",
         ],
         provenance: ["new", "new"],
       },

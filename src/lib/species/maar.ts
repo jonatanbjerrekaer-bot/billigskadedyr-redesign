@@ -28,7 +28,7 @@ const articles: SpeciesArticle[] = [
         heading: "Tegn på et mår på loftet",
         paragraphs: [
           "Tunge løbe- og trampelyde på loftet, især efter midnat, er det klassiske tegn. Kig også efter ekskrementer: de er 8-10 cm lange, snoede og ligger ofte samlet i ét hjørne, fordi måren har udvalgt et bestemt sted at besørge. De indeholder hår og knoglerester fra byttet.",
-          "Muggen lugt kommer af mårens egen urin og ekskrementer og af døde dyr, den slæber med ind for at spise i ro og mag. Fladtrykt isolering og huller i dampspærren kan ses, uden at du kan nå dem — en termografering af taget om vinteren afslører gangene i isoleringen.",
+          "Muggen lugt kommer af mårens egen urin og ekskrementer og af døde dyr, den slæber med ind for at spise i ro og mag. Fladtrykt isolering og huller i dampspærren kan du som regel se fra loftet. En termografering af taget om vinteren afslører gangene i isoleringen.",
         ],
         provenance: ["new", "new"],
       },
@@ -45,7 +45,7 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Start med at finde indgangen — ofte ved vindskede, skotrende, tagryg, kvist eller et løst tagplade. Luk alle huller på størrelse med et hønseæg, men først når du har sikret dig, at måren er ude.",
           "I jagtsæsonen fra 1. november til 31. januar må du fange husmåren med en godkendt levendefælde mod jagttegn. Du skal tjekke fælden to gange dagligt, og dyret skal straks aflives eller sættes fri. Uden for jagtsæsonen gælder envejssystemer og udslusning hele året: dyret kan komme ud, men ikke ind igen.",
-          "Det er forbudt at lægge gift for husmår. Lys, støj og lugte som hjortetaksolie kan skræmme den, men flyt remedierne rundt og kombinér dem, ellers vænner den sig til dem. Det, der virker med varig effekt, er udslusning efterfulgt af tætning af alle adgangsveje.",
+          "Det er forbudt at lægge gift for husmår. Lys, støj og lugte som hjortetaksolie kan skræmme den, men flyt remedierne rundt og kombinér dem, ellers vænner den sig til dem. Det, der virker, er udslusning og derefter tætning af alle adgangsveje.",
           "Kommer den igen år efter år, behandler vi med fælder eller envejssystemer og tætter bygningen bagefter, så du ikke står med det samme problem igen. Skriv til os, så ser vi på det.",
         ],
         provenance: ["new", "new", "new", "new"],

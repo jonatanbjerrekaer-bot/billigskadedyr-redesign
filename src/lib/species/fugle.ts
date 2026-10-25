@@ -11,8 +11,8 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "Byduen, også kaldet klippedue eller den forvildede tamdue, er den grå due med mørke vingebånd og to sorte bjælker på halen, du ser overalt i byerne. Farven kan variere en del, fordi mange byduer stammer fra brevduer og andre tamduer.",
-          "Den er i udpræget grad stationær: finder et par først en god redeplads, bliver den. Et enkelt par kan under gode forhold få op til ni kuld af to unger om året, så en flok uden regulering vokser hurtigt.",
+          "Byduen — også kaldt klippedue eller forvildet tamdue — er den grå due med mørke vingebånd og to sorte bjælker på halen, du ser overalt i byerne. Farven varierer en del, fordi mange byduer stammer fra brevduer og andre tamduer.",
+          "Den flytter ikke, når den har fundet en redeplads: finder et par først en god plads, bliver den. Et par kan under gode forhold få op til ni kuld af to unger om året, så en flok uden regulering vokser hurtigt.",
         ],
         provenance: ["new", "new"],
       },
@@ -28,7 +28,7 @@ const articles: SpeciesArticle[] = [
         heading: "Hvorfor er den et problem",
         paragraphs: [
           "Det største problem er ekskrementerne. De misfarver bygninger, og den høje koncentration af urinsyre nedbryder over tid kalkfuger og kalkpuds på facader. På biler kan dueklatterne give lakskader, og i tagrender og nedløb samler ekskrementerne sig sammen med blade og snavs, så vandet ikke kan løbe bort.",
-          "Sundhedsmæssigt kan ekskrementerne bære salmonella og campylobacter, og tørt dueekskrement som støv kan irritere luftvejene. Der ses ca. 25 tilfælde om året i Danmark af papegøjesyge, som duer kan sprede — typisk hos fugleholdere. Gamle reder huser desuden lopper og mider, der senere kan finde vej indenfor.",
+          "Ekskrementerne kan bære salmonella og campylobacter, og tørt dueekskrement som støv kan irritere luftvejene. Der ses ca. 25 tilfælde om året i Danmark af papegøjesyge, som duer kan sprede — typisk hos fugleholdere. Gamle reder huser desuden lopper og mider, der senere kan finde vej indenfor.",
         ],
         provenance: ["new", "new"],
       },
@@ -37,7 +37,7 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Fjern reder hurtigt og gerne gentagne gange — giver du duerne ro på en plads, bliver de. Desinficér stedet bagefter, så lopper og mider ikke bliver hængende.",
           "Gør siddepladserne ubrugelige: monter duepigge (også kaldet fakirer) eller wire på gesimser og tagrygge, smør fuglepasta på gesimser, tagrender og tagrygge, og spænd et grovmasket net for altanen i vinterhalvåret. Et par stramme snore eller ståltråde et par centimeter over tagryggen gør den også uattraktiv.",
-          "Lad være med at bruge foliestrimler, skræmmemekanismer og ultralyd — duerne vænner sig til dem. En rovfuglsilhouette i ruden virker til gengæld mod rudeskader. Byduen er undtaget fra jagtloven og må jages året rundt, men gift må aldrig bruges mod duer. Skriv til os, hvis afværgen skal sidde helt rigtigt første gang.",
+          "Lad være med at bruge foliestrimler, skræmmemekanismer og ultralyd — duerne vænner sig til dem. En rovfuglsilhouette i ruden virker til gengæld mod rudeskader. Byduen er undtaget fra jagtloven og må jages året rundt, men gift må aldrig bruges mod duer. Skriv til os, hvis du vil have hjælp til afværgen.",
         ],
         provenance: ["new", "new", "new"],
       },
@@ -64,7 +64,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "Sølvmågen er en stor, kraftig måge med grå ryg, hvidt hoved og gult næb. Sammen med stormmågen er den de to arter, der giver anledning til mågeproblemer i danske byer.",
+          "Sølvmågen er en stor, kraftig måge med grå ryg, hvidt hoved og gult næb. Sammen med stormmågen er de de to arter, der laver mågeproblemer i danske byer.",
         ],
         provenance: ["new"],
       },
@@ -142,7 +142,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Forveksles med",
         paragraphs: [
-          "Stæren er mindre med spættet, mørkt fjerdragt og kortere næb. Kragen er langt større og helt sort med et sort næb. Tilsviningen er den samme, og afværgen er den samme: net, pigge og wire.",
+          "Stæren er mindre med spættet, mørkt fjerdragt og kortere næb. Kragen er langt større og helt sort med et sort næb. Tilsviningen er den samme som duernes, og du bruger de samme løsninger: net, pigge og wire.",
         ],
         provenance: ["new"],
       },

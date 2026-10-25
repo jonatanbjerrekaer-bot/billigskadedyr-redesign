@@ -26,7 +26,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvorfor den bliver i haven",
         paragraphs: [
-          "Ræven bliver, hvor der er føde og ro. Kompost, affald, faldet frugt og en åben hundeskål er en invitation, og et stille hjørne under et skur er et godt sted at bo.",
+          "Ræven bliver, hvor der er føde og ro. Kompost, affald, faldet frugt og en åben hundeskål holder den i nærheden, og et stille hjørne under et skur er et fint sted at bo.",
         ],
         provenance: ["new"],
       },
@@ -42,7 +42,7 @@ const articles: SpeciesArticle[] = [
         heading: "Hvad gør du selv?",
         paragraphs: [
           "Fod aldrig ræven — hverken med vilje eller ved at lade foderrester ligge. Fjern faldet frugt, sikr komposten, og luk skuret af med kraftigt trædækkende net, der går mindst 30 cm ned i jorden.",
-          "Tæl rævegraven ved at vande den i stykker eller fylde den med sten og brokker. Gør det især i juni, når ungerne er ude af hulen. I yngletiden bør man ikke lukke en hule, fordi ungerne kan være tilbage i den.",
+          "Nedlæg rævegraven: vand den i stykker, eller fyld den med sten og brokker. Gør det især i juni, når ungerne er ude af hulen. I yngletiden skal du ikke lukke en hule, fordi ungerne kan være tilbage i den.",
         ],
         provenance: ["new", "new"],
       },
@@ -85,7 +85,7 @@ const articles: SpeciesArticle[] = [
         heading: "Levevis",
         paragraphs: [
           "Grævlingen er altædende: regnorme, insekter, biller, mus, rotter, hareunger, frøer, bær og korn. Den lever i fastsiddende sæt — et gangsystem — i skovbrynge, men også gerne i en have med løs undergrund.",
-          "Et sæt bruges i generationer og kan rumme flere kamre med tørt græs som redemateriale. Det er også derfor, et sæt under en bygning kan give problemer: gangene svækker fundamentet, og dørene går ind og ud under huset.",
+          "Et sæt bruges i generationer og kan rumme flere kamre med tørt græs som redemateriale. Sidder sættet under en bygning, giver det problemer: gangene svækker fundamentet, og dørene binder.",
         ],
         provenance: ["new", "new"],
       },
@@ -114,8 +114,8 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvad gør du selv?",
         paragraphs: [
-          "Forebyg, før der sidder et dyr: Sæt hegn med underjordisk afskærmning — net eller gravplade 50-80 cm ned og 30-50 cm op ad stolperne — og hold låg på kompost og affaldscontainere.",
-          "Er skaderne i plænen til at overse, kan du trykke græstøverne tilbage og vande. Skaderne kommer igen, så længe grævlingen bor der — og den må du altså ikke fjerne selv.",
+          "Forebyg, før der sidder et dyr: sæt hegn med underjordisk afskærmning — net eller gravplade 50-80 cm ned og 30-50 cm op ad stolperne — og hold låg på kompost og affaldscontainere.",
+          "Er skaderne i plænen til at overse, kan du trykke græstøverne tilbage og vande. Skaderne kommer igen, så længe grævlingen bor der — og den må du ikke fjerne selv.",
         ],
         provenance: ["new", "new"],
       },
@@ -163,7 +163,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Er den farlig?",
         paragraphs: [
-          "Nej. Haren er sky og holder sig på afstand. Den er jagtbar i jagtsæsonen og er ikke fredet som skadedyr — men levende fangst og udsætning af harer kræver tilladelse, så den er ikke noget, man selv flytter.",
+          "Nej. Haren er sky og holder sig på afstand. Den er jagtbar i jagtsæsonen og er ikke fredet som skadedyr — men levende fangst og udsætning af harer kræver tilladelse, så du flytter den ikke selv.",
         ],
         provenance: ["new"],
       },

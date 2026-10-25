@@ -24,7 +24,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Levevis og livscyklus",
         paragraphs: [
-          "Et hvepsebo starter ofte som en lille koloni i foråret, hvor dronningen bygger de første celler. I løbet af sommeren kan boet vokse eksplosivt og rumme flere tusinde hvepse. Jo større kolonien bliver, desto mere aggressivt vil hvepsene forsvare deres bo.",
+          "Et hvepsebo starter i foråret med én dronning, der bygger de første celler. I løbet af sommeren kan boet vokse til flere tusinde hvepse. Jo større kolonien er, desto hårdere forsvares boet.",
           "Når vinteren kommer, dør arbejderne og den gamle dronning. Kun nye befrugtede dronninger overlever vinteren og søger ly et andet sted. Det gamle bo genbruges normalt ikke året efter.",
         ],
         provenance: [`owner ${PRO}`, `owner ${PRO}`],
@@ -32,7 +32,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Hvor du finder den",
         paragraphs: [
-          "Tysk hveps ligner almindelig hveps til forveksling. Begge er sociale hvepse, og begge bygger gerne bo ved huset. Tysk hveps bygger det meste af sit bo under jorden, men også gerne inde i bygninger.",
+          "Tysk hveps ligner almindelig hveps til forveksling. Begge er sociale og bygger gerne bo ved huset. Tysk hveps bygger det meste af boet under jorden, men også gerne inde i bygninger.",
           "Vi ser ofte hvepsebo i tagudhæng, loftsrum, skure, garager, carporte, hulmure, ventilationskanaler, hække og buske og i jorden omkring terrasser og bede. Hvis du observerer en fast flyverute med hvepse, er der stor sandsynlighed for, at et bo befinder sig i nærheden.",
         ],
         provenance: ["new", `owner ${PRO}`],
@@ -169,7 +169,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "Hornisse hedder på dansk også stor gedehams, og det er Danmarks suverænt største hveps. Arbejderne er op til 24 mm lange, dronningen op til 35-38 mm. Hoved og forkrop er rødbrune, og bagkroppen er sort med orangegule tegninger.",
+          "Hornisse hedder på dansk også stor gedehams, og det er Danmarks klart største hveps. Arbejderne er op til 24 mm lange, dronningen op til 35-38 mm. Hoved og forkrop er rødbrune, og bagkroppen er sort med orangegule tegninger.",
           "Til trods for størrelsen er hornissen mindre aggressiv end de almindelige gedehamse. Den lokkes heller ikke af søde sager på samme måde, for den er primært rovdyr og jager andre insekter.",
         ],
         provenance: ["new", "new"],
@@ -220,7 +220,7 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Kendetegn",
         paragraphs: [
-          "En bi er loddent og buttet med afrundet bagkrop og svage gulbrune striber. En hveps er glat og slank med spids bagkrop og skarpe sort-gule striber. Sidder insektet på en blomst og ser lodden ud, er det en bi.",
+          "En bi er lodden og buttet med afrundet bagkrop og svage gulbrune striber. En hveps er glat og slank med spids bagkrop og skarpe sort-gule striber. Sidder insektet på en blomst og ser lodden ud, er det en bi.",
           "Bier stikker kun én gang, fordi brodden sidder fast, og bien dør bagefter. Hvepse kan stikke igen og igen. Bier er normalt fredelige og stikker kun, hvis de føler sig truet.",
         ],
         provenance: ["new", "new"],
