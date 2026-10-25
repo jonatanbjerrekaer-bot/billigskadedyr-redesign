@@ -538,8 +538,22 @@ html:has(.np) { background: var(--color-paper); }
 .np .estimator__locate:disabled { cursor: progress; opacity: 0.7; }
 
 /* "+7 andre skadedyr" closes the priced list; the pests it unfolds read as a
-   second, quieter group that leads to a page rather than a price. */
-.np-popover .select-more { border-top: 1px solid var(--color-rule-2); border-radius: 0 0 6px 6px !important; margin-top: 4px; font-weight: 600; color: var(--color-accent-2) !important; }
+   second, quieter group that leads to a page rather than a price.
+   The divider is a ::before line rather than a border so it can leave: on
+   hover the wash runs to the top of the row, and a hard line through it
+   would cut the hovered surface in two. Opacity and blur fade together,
+   the same pair the row arrives with (selectMoreIn). */
+.np-popover .select-more { border-radius: 0 0 6px 6px !important; margin-top: 4px; font-weight: 600; color: var(--color-accent-2) !important; position: relative; }
+.np-popover .select-more::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--color-rule-2);
+  transition: opacity 180ms var(--ease-out), filter 180ms var(--ease-out);
+}
+@media (hover: hover) {
+  .np-popover .select-more:hover::before,
+  .np-popover .select-more[data-hovered]::before { opacity: 0; filter: blur(2px); }
+}
+@media (prefers-reduced-motion: reduce) { .np-popover .select-more::before { transition: none; } }
 .np-popover .select-more-item { animation: selectMoreIn 220ms var(--ease-out) both; }
 @keyframes selectMoreIn { from { opacity: 0; transform: translateY(-4px); filter: blur(2px); } }
 @media (prefers-reduced-motion: reduce) { .np-popover .select-more-item { animation: none; } }
