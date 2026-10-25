@@ -9,7 +9,7 @@ const B = import.meta.env.BASE_URL;
 const SINGULAR: Record<string, string> = {
   myre: "myrer", edderkop: "edderkopper", hveps: "hvepse", kakerlak: "kakerlakker", flue: "fluer",
   "møl": "moel", snegl: "snegle", klanner: "klannere", borebille: "borebiller", "væggelus": "vaeggelus",
-  rotte: "rotter", mus: "mus", loppe: "lopper", lus: "lus", "flåt": "flaater", "tæge": "flaater",
+  rotte: "mus-og-rotter", mus: "mus-og-rotter", loppe: "lopper", lus: "lus", "flåt": "flaater", "tæge": "flaater",
   "mår": "maar", due: "fugle", fugl: "fugle", "ræv": "vildedyr", "grævling": "vildedyr", hare: "vildedyr",
 };
 

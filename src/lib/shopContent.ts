@@ -36,10 +36,13 @@ export const SERVICE_LINK: Partial<Record<PestKey, string>> = {
   muldvarpe: `${BASE}service/muldvarpe/`,
   snegle: `${BASE}service/snegle/`,
   biller: `${BASE}service/borebiller/`,
+  mus: `${BASE}service/mus-og-rotter/`,
+  rotter: `${BASE}service/mus-og-rotter/`,
 };
 
-/** Der er ingen serviceside for mus, rotter, fugle og lopper. Så går det
-    til kontaktformularen, som stadig er den rigtige handling. */
+/** Mus og rotter deler serviceside (mus-og-rotter). Fugle og lopper har
+    ingen serviceside, så de går til kontaktformularen, som stadig er den
+    rigtige handling. */
 export const CONTACT_LINK = `${BASE}#skriv`;
 
 export function proLinkFor(pest: PestKey): string {

@@ -12,8 +12,7 @@ import borebiller from "./species/borebiller";
 import kakerlakker from "./species/kakerlakker";
 import fluer from "./species/fluer";
 import edderkopper from "./species/edderkopper";
-import rotter from "./species/rotter";
-import mus from "./species/mus";
+import musOgRotter from "./species/mus-og-rotter";
 import lopper from "./species/lopper";
 import flaater from "./species/flaater";
 import lus from "./species/lus";
@@ -76,8 +75,7 @@ const BY_SERVICE: Record<string, SpeciesArticle[]> = {
   kakerlakker,
   fluer,
   edderkopper,
-  rotter,
-  mus,
+  "mus-og-rotter": musOgRotter,
   lopper,
   flaater,
   lus,

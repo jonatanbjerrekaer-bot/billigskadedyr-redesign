@@ -1,7 +1,6 @@
 import type { PestEntry } from "./pests";
 import { PESTS } from "./pests";
-import rotter from "./services/rotter";
-import mus from "./services/mus";
+import musOgRotter from "./services/mus-og-rotter";
 import lopper from "./services/lopper";
 import flaater from "./services/flaater";
 import lus from "./services/lus";
@@ -478,8 +477,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { q: "Hvor mange edderkopper er der i min bolig?", a: "Det er svært at sige præcist, men det siges at der som hovedregel er et sted mellem 100 og 150 edderkopper pr m2. Du kan derfor nemt have flere tusinde i din bolig." },
     ],
   },
-  rotter, // ours: written for this site
-  mus, // ours: written for this site
+  "mus-og-rotter": musOgRotter, // ours: written for this site
   lopper, // ours: written for this site
   flaater, // ours: written for this site
   lus, // ours: written for this site

@@ -122,17 +122,15 @@ export const PEST_SEARCH: Record<string, PestSearch> = {
       "huller i plænen", "ujævn plæne", "plæne", "græsplæne", "gnavet rødder",
       "planter visner", "løg ædt", "gulerødder ædt", "dyr under jorden", "gravende dyr"],
   },
-  rotter: {
-    tell: "Huller på 2 cm i jorden, gnavspor og sorte ekskrementer nær kloakken",
-    words: ["rotte", "rotter", "rats", "rat", "kloakrotte", "brun rotte", "gnavehuller",
-      "rottehuller", "rottegnav", "rotteeksrementer", "kloaklugt", "noget der gnaver",
-      "støj i kloakken", "rotte i haven", "rotte i kælderen", "rotte på loftet"],
-  },
-  mus: {
-    tell: "Knirken og gnavelyde i væggen eller på loftet om natten, og små ekskrementer",
+  "mus-og-rotter": {
+    tell: "Huller på 2 cm i jorden, gnavspor og sorte ekskrementer nær kloakken — eller knirken og gnavelyde i væggen om natten",
     words: ["mus", "muse", "musen", "mouse", "husmus", "markmus", "skovmus", "halsbåndmus",
       "museunger", "musehuller", "museeksrementer", "noget der løber på loftet",
-      "knirken i væggen", "gnavelyde om natten"],
+      "knirken i væggen", "gnavelyde om natten",
+      "rotte", "rotter", "rats", "rat", "kloakrotte", "brun rotte", "gnavehuller",
+      "rottehuller", "rottegnav", "rotteeksrementer", "kloaklugt", "noget der gnaver",
+      "støj i kloakken", "rotte i haven", "rotte i kælderen", "rotte på loftet",
+      "gnaver", "gnavere"],
   },
   lopper: {
     tell: "Kløende røde bid om anklerne, og små sorte prikker i kæledyrets pels",

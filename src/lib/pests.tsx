@@ -53,8 +53,7 @@ export const PESTS: PestEntry[] = [
     png: "bee",
     scale: 0.97,
   },
-  { slug: "rotter", treatment: "Kortlægning af angrebet og bekæmpelse i gangsystemet", label: "Rotter", icon: "rotter.svg" },
-  { slug: "mus", treatment: "Sikring af huset og fangst, hvor musene færdes", label: "Mus", icon: "mus.svg" },
+  { slug: "mus-og-rotter", treatment: "Sikring af huset, fangst og bekæmpelse af gangsystemer", label: "Mus & rotter", icon: "mus.svg" },
   {
     slug: "vaeggelus", treatment: "Behandling af senge, møbler og fodpaneler",
     label: "Væggelus",

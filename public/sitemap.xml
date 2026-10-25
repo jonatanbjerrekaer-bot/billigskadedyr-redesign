@@ -11,8 +11,7 @@
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/edderkopper/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/privatlivspolitik/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/cookiepolitik/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/rotter/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus/</loc></url>
+  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus-og-rotter/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/lopper/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/flaater/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/lus/</loc></url>
@@ -74,8 +73,10 @@
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/muldvarpe/muldvarp/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/muldvarpe/mosegris/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/muldvarpe/muldvarpeskud/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus/husmus/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus/halsbaandsmus/</loc></url>
+  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus-og-rotter/brun-rotte/</loc></url>
+  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus-og-rotter/sort-rotte/</loc></url>
+  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus-og-rotter/husmus/</loc></url>
+  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/mus-og-rotter/halsbaandsmus/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myg/stikmyg/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myg/dansemyg/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myg/kvaegmyg/</loc></url>
@@ -84,8 +85,6 @@
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myrer/sort-havemyre/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myrer/pharaomyre/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/myrer/gul-engmyre/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/rotter/brun-rotte/</loc></url>
-  <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/rotter/sort-rotte/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/snegle/draebersnegl/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/snegle/agersnegl/</loc></url>
   <url><loc>https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/service/snegle/vinbjergsnegl/</loc></url>
