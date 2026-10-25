@@ -13,7 +13,13 @@ export type EstimatorSelection = {
   m2: number;
   property: PropertyType;
   severity: Severity;
-  /** Formatted price, e.g. "2.200 kr.". null when this pest is quoted
+  /** The matched postnummer and its town, e.g. "8800" / "Viborg". null until
+      four digits we know have been typed. */
+  postcode: string | null;
+  town: string | null;
+  /** How many houses go together (1, 2, 5 or 10). Only above 1 once chosen. */
+  houses: number;
+  /** Formatted price per house, e.g. "2.200 kr.". null when this pest is quoted
       after a visit rather than calculated, so nothing downstream can
       print a number the calculator never produced. */
   price: string | null;
@@ -41,6 +47,9 @@ export function publishEstimatorSelection(next: EstimatorSelection) {
     current.pestLabel === next.pestLabel &&
     current.m2 === next.m2 &&
     current.property === next.property &&
+    current.postcode === next.postcode &&
+    current.town === next.town &&
+    current.houses === next.houses &&
     current.severity === next.severity &&
     current.price === next.price &&
     current.amount === next.amount &&

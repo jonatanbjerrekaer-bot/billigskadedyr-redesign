@@ -29,6 +29,25 @@ export function slugOf(pathname: string): string {
   return m ? m[1]! : "";
 }
 
+/**
+ * "/base/service/edderkopper/husedderkop/" -> ["edderkopper", "husedderkop"].
+ * Anything that is not a species page gives undefined. Kept apart from slugOf
+ * on purpose: slugOf answering "" here is what keeps the service page from
+ * rendering under a species URL.
+ */
+export function speciesRouteOf(pathname: string): [string, string] | undefined {
+  const rest = pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname.replace(/^\//, "");
+  const m = rest.match(/^service\/([^/]+)\/([^/]+)\/?$/);
+  return m ? [m[1]!, m[2]!] : undefined;
+}
+
+/** "/base/privatlivspolitik/" -> "privatlivspolitik". Anything else gives "". */
+export function legalOf(pathname: string): "privatlivspolitik" | "cookiepolitik" | "" {
+  const rest = pathname.startsWith(BASE) ? pathname.slice(BASE.length) : pathname.replace(/^\//, "");
+  const m = rest.match(/^(privatlivspolitik|cookiepolitik)\/?$/);
+  return m ? (m[1] as "privatlivspolitik" | "cookiepolitik") : "";
+}
+
 const listeners = new Set<() => void>();
 let current = typeof location === "undefined" ? "" : location.pathname;
 

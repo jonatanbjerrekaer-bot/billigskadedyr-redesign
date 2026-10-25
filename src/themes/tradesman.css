@@ -24,6 +24,59 @@
 .np { --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-2); }
 html:has(.np) { background: var(--color-paper); }
 
+/* ------------------------------------------------ input modes
+   A mouse can rest over a control without choosing it, so hover is a preview.
+   A finger cannot, and a phone leaves the last tapped thing in :hover until
+   the next tap: a wiki link stayed washed and a button stayed dark after the
+   page had moved on. So every hover rule in this theme and in newsprint.css
+   sits inside @media (hover: hover) and (pointer: fine), where it is, and a
+   finger gets its feedback while it is down, from :active, instead.
+   Tailwind's hover: utilities already compile inside @media (hover: hover). */
+.np :is(a[href], button, [role="button"], summary, label:has(> input), .toggle-button),
+.np-popover [role="option"] {
+  /* our pressed state below replaces the grey flash */
+  -webkit-tap-highlight-color: transparent;
+  /* no double-tap-to-zoom wait before a tap lands */
+  touch-action: manipulation;
+}
+/* Controls, not words. A long press on a button, a toggle, a card or an icon
+   should not open the copy/look-up callout or start a selection. Links in
+   running text and the drawings are left alone, so a long press there still
+   offers "open in new tab", "copy link" and "save image". */
+.np :is(.btn, button, [role="button"], .toggle-button, .species__card, .index__row a, .hero__chips a, .others a, .seal, .mast-mobile a),
+.np-popover [role="option"] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Pressed. Surfaces give a little under the finger; rows and fields take a
+   tint; text links show the same wash they get on hover (see "Wiki links"
+   below). Quick on the way in, on the site's ease-out. A mouse click gets
+   this too, which is the same feedback a desktop button already gave. */
+.np :is(.btn, .toggle-button-group .toggle-button, .hero__chips a, .mast-menu, .index__clear, .form__chips button, .estimator__pick, .seal, .wordmark):is(:active, [data-pressed]),
+.np .species__card:has(.species__link:active) {
+  transform: scale(0.97);
+  transition-duration: 120ms;
+}
+.np .species__card { transition: transform 160ms var(--ease-out); }
+.np .species__card:has(.species__link:active) .species__art { border-color: var(--color-accent); }
+.np :is(.index__row a, .others a, .disclosure-trigger, .select-trigger, .form__file, .mast-mobile a:not(.btn), .form__textlink):active,
+.np-popover [role="option"][data-pressed] {
+  background-color: var(--color-paper-3);
+}
+.np :is(.link:not(.wiki-link), .foot__cols a, .foot__link-btn, .crumbs a, .svc-hero__back, .hero__check-more, .quoted__other, .estimator__reset, .legal__inline-btn, .close__dl a, .mast-dateline a, .hero__rating a, .mast-nav a):active {
+  border-radius: 0.3em;
+  background-color: color-mix(in oklab, currentColor 12%, transparent);
+  box-shadow: 0 0 0 0.25em color-mix(in oklab, currentColor 12%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* the colour still says "pressed"; nothing moves */
+  .np :is(.btn, .toggle-button-group .toggle-button, .hero__chips a, .mast-menu, .index__clear, .form__chips button, .estimator__pick, .seal, .wordmark):is(:active, [data-pressed]),
+  .np .species__card:has(.species__link:active) { transform: none; }
+}
+/* Tap-target sizes for touch are at the end of this file ("input modes, continued"), so they
+   come after the component rules they adjust. */
+
 /* ------------------------------------------------ type: navy 800 heads, sentence case, one family */
 .np h1, .np h2, .np h3 { font-family: var(--font-display); color: var(--color-ink); font-weight: 800; letter-spacing: var(--tracking-display); line-height: 1.1; text-transform: none; }
 .np h1 { line-height: 1.04; }
@@ -51,8 +104,10 @@ html:has(.np) { background: var(--color-paper); }
 .np .mast-dateline strong, .np .mast-dateline a { color: var(--color-paper); font-weight: 600; }
 .np .mast-bar { background: var(--color-paper); border-bottom: 1px solid var(--color-rule); box-shadow: none; }
 .np .wordmark { font-weight: 800; font-size: 1.375rem; letter-spacing: -0.03em; }
+/* "Prof" in the orange of the pro site's own logo (billigskadedyrprof.dk logo1.png). */
+.np .wordmark__prof { color: #FF5F00; }
 .np .mast-nav a { font-weight: 600; color: var(--color-ink); background-image: linear-gradient(var(--color-accent), var(--color-accent)); background-size: 0 2px; }
-.np .mast-nav a:hover { background-size: 100% 2px; }
+@media (hover: hover) and (pointer: fine) { .np .mast-nav a:hover { background-size: 100% 2px; } }
 .np .mast-menu { border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
 .np .mast-mobile a:not(.btn) { font: 700 1.25rem/1 var(--font-body); color: var(--color-ink); border-bottom: 1px solid var(--color-rule); }
 
@@ -62,34 +117,56 @@ html:has(.np) { background: var(--color-paper); }
   font: 700 1rem/1 var(--font-body); letter-spacing: -0.005em; text-transform: none;
   transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out);
 }
-.np .btn:active { transform: scale(0.97); }
 .np .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.np .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
 .np .btn--secondary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); }
-.np .btn--secondary:hover { background: var(--color-paper-2); }
+@media (hover: hover) and (pointer: fine) {
+  .np .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
+  .np .btn--secondary:hover { background: var(--color-paper-2); }
+}
 /* the nav button is the same action as the hero's, quieter */
 .np .mast-bar__row > .btn--primary { min-height: 44px; }
 .np .link { color: var(--color-ink); font-weight: 600; text-decoration: underline 1.5px var(--color-accent); text-underline-offset: 0.2em; }
-.np .link:hover { color: var(--color-accent-2); }
+@media (hover: hover) and (pointer: fine) { .np .link:hover { color: var(--color-accent-2); } }
 
 .np .field, .np .select-trigger, .np .area-field {
   background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); color: var(--color-ink); box-shadow: none;
 }
-.np .field:hover, .np .select-trigger:hover { border-color: var(--color-muted); }
-.np .field:focus-visible, .np .field:focus { outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent); outline-offset: 0; border-color: var(--color-focus); }
+@media (hover: hover) and (pointer: fine) { .np .field:hover, .np .select-trigger:hover { border-color: var(--color-muted); } }
+/* :focus-visible alone: a text field matches it on a tap as well, so nothing is lost by dropping :focus */
+.np .field:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent); outline-offset: 0; border-color: var(--color-focus); }
 .np .field-label { font-weight: 600; color: var(--color-ink); }
 .np .area-field input { border-radius: var(--radius-control); }
 
-.np .toggle-button-group { border: 1.5px solid var(--color-rule-2); border-radius: var(--radius-control); overflow: hidden; gap: 0; padding: 0; }
+.np .toggle-button-group {
+  position: relative; isolation: isolate; gap: 4px; padding: 4px; overflow: visible;
+  border: 0; border-radius: var(--radius-control);
+  background: var(--color-paper-2); box-shadow: inset 0 0 0 1px var(--color-rule-2);
+}
+/* The selection thumb, placed by SegmentTrack. It slides under the labels on
+   the strong ease-out: a short, quick move the eye can follow, not a jump. */
+.np .toggle-button-group::before {
+  content: ""; position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 0;
+  width: var(--seg-w, 0); transform: translateX(var(--seg-x, 0));
+  border-radius: calc(var(--radius-control) - 3px);
+  background: var(--color-navy); box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+}
+.np .seg[data-ready] .toggle-button-group::before { transition: transform 260ms var(--ease-out), width 260ms var(--ease-out); }
 .np .toggle-button-group .toggle-button,
 .np .toggle-button-group .toggle-button + .toggle-button {
-  border: 0; border-radius: 0; min-height: 46px; padding: 0 var(--space-lg); font: 600 0.9375rem/1 var(--font-body);
-  --toggle-button-bg: var(--color-paper); --toggle-button-fg: var(--color-ink);
-  --toggle-button-bg-hover: var(--color-paper-2);
-  --toggle-button-bg-selected: var(--color-navy); --toggle-button-fg-selected: var(--color-paper);
-  --toggle-button-bg-selected-hover: var(--color-navy-2);
+  border: 0; border-radius: calc(var(--radius-control) - 3px); min-height: 40px; padding: 0 var(--space-lg);
+  font: 600 0.9375rem/1 var(--font-body);
+  --toggle-button-bg: transparent; --toggle-button-bg-hover: transparent; --toggle-button-bg-pressed: transparent;
+  --toggle-button-bg-selected: transparent; --toggle-button-bg-selected-hover: transparent; --toggle-button-bg-selected-pressed: transparent;
+  --toggle-button-fg: var(--color-ink-2); --toggle-button-fg-selected: var(--color-paper);
+  transition: color 200ms var(--ease-out), transform 120ms var(--ease-out);
 }
-.np .toggle-button-group .toggle-button + .toggle-button { border-left: 1.5px solid var(--color-rule-2); }
+@media (hover: hover) and (pointer: fine) { .np .toggle-button-group .toggle-button:hover:not([data-selected]) { color: var(--color-ink); } }
+.np .toggle-button-group .toggle-button[data-focus-visible] { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+/* Before the first measurement (and with no script), the chosen button paints itself. */
+.np .seg:not([data-ready]) .toggle-button[data-selected] { --toggle-button-bg-selected: var(--color-navy); }
+@media (prefers-reduced-motion: reduce) {
+  .np .seg[data-ready] .toggle-button-group::before { transition: none; }
+}
 .np .slider__track { height: 6px; background: var(--color-paper-3); border-radius: 3px; }
 .np .slider__fill { background: var(--color-navy); border-radius: 3px; }
 .np .slider__thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--color-paper); border: 3px solid var(--color-navy); box-shadow: none; }
@@ -108,13 +185,19 @@ html:has(.np) { background: var(--color-paper); }
 /* the price list: its own light band straight under the hero */
 .np .index-band { background: var(--color-paper-2); padding-block: var(--section-gap-s); border-block: 1px solid var(--color-rule); }
 .np .index-band .index__head { font-size: var(--text-section); }
-.np .index-band .index__search { max-width: 40rem; }
+/* The field ends where the list's second column ends: full width while the
+   list has one or two columns, two columns and a gap once it has three
+   (columns: 3 16rem with a 24px gap gives three from 816px). */
+.np #pest { container-type: inline-size; }
+@container (min-width: 816px) { .np .index-band .index__search { max-width: calc((200% - var(--space-lg)) / 3); } }
 .np .index__list { columns: 3 16rem; column-gap: var(--space-lg); column-rule: 0; border: 0; padding: 0; margin-top: var(--space-xl); }
 .np .index__list[data-searching] { columns: 1; }
 .np .index__row { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-control); margin-bottom: var(--space-xs); }
 .np .index__row a { padding-inline: var(--space-md); border-radius: var(--radius-control); transition: background-color 150ms var(--ease-out); }
-.np .index__row a:hover { background: var(--color-paper-3); }
-.np .index__row a:hover .index__name { text-decoration: none; }
+@media (hover: hover) and (pointer: fine) {
+  .np .index__row a:hover { background: var(--color-paper-3); }
+  .np .index__row a:hover .index__name { text-decoration: none; }
+}
 .np .index__glyph { color: var(--color-ink); }
 .np .index__price { font-weight: 800; color: var(--color-ink); }
 .np .index__price--ask { font-weight: 500; color: var(--color-muted); }
@@ -144,7 +227,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .estimator__result { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
 .np .estimator__price { font-size: clamp(3rem, 4.5vw, 4.25rem); line-height: 1; }
 .np .estimator__pick { border: 1.5px solid var(--color-rule-2); border-radius: var(--radius-control); background: var(--color-paper); }
-.np .estimator__pick:hover { background: var(--color-paper-2); }
+@media (hover: hover) and (pointer: fine) { .np .estimator__pick:hover { background: var(--color-paper-2); } }
 .np .estimator__list li { border-top: 1px solid var(--color-rule); font-weight: 600; color: var(--color-ink); }
 .np .estimator__caveat { border-top: 1px solid var(--color-rule-2); }
 .np .estimator__disclosure { border-top: 1px solid var(--color-rule-2); }
@@ -203,7 +286,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .why__list li, .np .why__list li:first-child { border-top: 1px solid var(--color-rule); }
 .np .others { column-rule: 0; }
 .np .others li { border-bottom: 1px solid var(--color-rule); }
-.np .others a:hover { color: var(--color-accent-2); text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .np .others a:hover { color: var(--color-accent-2); text-decoration: none; } }
 .np .svc-hero { background: var(--color-paper-2); border-bottom: 1px solid var(--color-rule); }
 
 /* ------------------------------------------------ chrome */
@@ -213,7 +296,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .phonebar { border-top: 1px solid var(--color-rule); }
 .np-popover { background: var(--color-paper); border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
 .np-popover .list-box-item, .np-popover [role="option"] { color: var(--color-ink) !important; }
-.np-popover [role="option"][data-focused], .np-popover [role="option"]:hover { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
+.np-popover [role="option"][data-focused] { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
 
 @media (max-width: 60rem) {
   .np .hero__photo, .np .hero__check { margin-top: var(--space-2xl); grid-column: 1 / -1; }
@@ -239,8 +322,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .hero__kicker { color: var(--color-lime); font-weight: 800; font-size: 1.125rem; margin-bottom: var(--space-sm); }
 .np .hero__chips { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
 .np .hero__chips a { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 0.5rem 0.875rem 0.5rem 0.5rem; border-radius: var(--radius-control); background: var(--color-paper); color: var(--color-ink); font-weight: 700; text-decoration: none; }
-.np .hero__chips a:hover { background: var(--color-lime); }
-.np .hero__chips a:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .np .hero__chips a:hover { background: var(--color-lime); } }
 .np .hero__chips .hero__chip-glyph { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px; background: var(--color-paper-3); color: var(--color-accent-2); }
 .np .hero__rating { margin-top: var(--space-lg); color: var(--color-paper); font-weight: 600; }
 .np .hero__rating strong { color: var(--color-lime); }
@@ -253,9 +335,11 @@ html:has(.np) { background: var(--color-paper); }
 .np .hero__check-note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
 .np .hero__check .btn { width: 100%; justify-content: center; }
 .np .hero .btn--primary { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
-.np .hero .btn--primary:hover { background: var(--color-lime-2); }
 .np .hero__check .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.np .hero__check .btn--primary:hover { background: var(--color-accent-2); }
+@media (hover: hover) and (pointer: fine) {
+  .np .hero .btn--primary:hover { background: var(--color-lime-2); }
+  .np .hero__check .btn--primary:hover { background: var(--color-accent-2); }
+}
 .np .hero .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
 .np .hero :focus-visible { outline-color: var(--color-lime); }
 .np .hero__check :focus-visible { outline-color: var(--color-focus); }
@@ -283,9 +367,10 @@ html:has(.np) { background: var(--color-paper); }
 .np .hero__check-price[data-words] { font-size: clamp(2rem, 2.6vw, 2.5rem); }
 
 /* dropdown rows: the dark-ink/lime hover from the old shop theme (index.css) outranked the popover rule above,
-   so every row state is restated here at a higher specificity, in this theme's own paper and green */
-.np-popover [role="option"]:not(.suggest-row):is(:hover, [data-hovered], [data-highlighted], [data-focused]),
-.np-popover .list-box-item:is(:hover, [data-hovered], [data-highlighted], [data-focused]) {
+   so every row state is restated here at a higher specificity, in this theme's own paper and green.
+   react-aria sets data-hovered for a mouse only, never for a finger, so it stands in for :hover here. */
+.np-popover [role="option"]:not(.suggest-row):is([data-hovered], [data-highlighted], [data-focused]),
+.np-popover .list-box-item:is([data-hovered], [data-highlighted], [data-focused]) {
   background-color: var(--color-paper-3) !important; color: var(--color-ink) !important; outline: none !important; box-shadow: none !important;
 }
 .np-popover [role="option"]:not(.suggest-row)[data-focus-visible] { outline: 2px solid var(--color-focus) !important; outline-offset: -2px; }
@@ -296,7 +381,7 @@ html:has(.np) { background: var(--color-paper); }
 
 /* the way to the full list, from the hero's chips and its dropdown */
 .np .hero__chips .hero__chip-more { background: transparent; color: var(--color-paper); border: 1.5px solid var(--color-on-ink-muted); padding-left: 0.875rem; }
-.np .hero__chips .hero__chip-more:hover { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
+@media (hover: hover) and (pointer: fine) { .np .hero__chips .hero__chip-more:hover { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); } }
 .np .hero__check-more { display: inline-block; margin-top: var(--space-xs); font-size: 0.9375rem; font-weight: 600; color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; }
 
 /* packages band when the chosen pest is quoted after a conversation: one panel instead of three empty prices */
@@ -327,9 +412,147 @@ html:has(.np) { background: var(--color-paper); }
 @media (max-width: 40rem) { .np .species__art { aspect-ratio: 16 / 9; } }
 .np .species__credit { margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
 
-/* Cookie notice: Accepter and Afvis are the same button (Datatilsynet: refusing as easy as accepting). */
-.np .notice__actions .btn { min-width: 9rem; }
-.np .notice .notice__actions .btn--primary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
 /* "Cookieindstillinger" in the footer reads as a link, because it sits in a list of links. */
 .np .foot__link-btn { padding: 0; border: 0; background: none; font: inherit; color: var(--color-paper); cursor: pointer; text-align: left; }
-.np .foot__link-btn:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
+@media (hover: hover) and (pointer: fine) { .np .foot__link-btn:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
+
+/* Privacy and cookie pages: one readable column. */
+.np .legal .container { max-width: 46rem; }
+.np .legal h1 { margin-bottom: var(--space-md); }
+.np .legal h2 { font-size: var(--text-title); margin: var(--space-xl) 0 var(--space-xs); }
+.np .legal p, .np .legal li { color: var(--color-ink-2); line-height: 1.6; text-wrap: pretty; }
+.np .legal p + p { margin-top: var(--space-sm); }
+.np .legal ul { margin: var(--space-sm) 0 0; padding-left: 1.25rem; }
+.np .legal li + li { margin-top: var(--space-xs); }
+.np .legal__updated { font-size: var(--text-sm); color: var(--color-muted); }
+.np .legal__inline-btn { padding: 0; border: 0; background: none; font: inherit; color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.np .legal__table { overflow-x: auto; margin-top: var(--space-md); }
+.np .legal table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.np .legal th, .np .legal td { text-align: left; padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; border-bottom: 1px solid var(--color-rule); vertical-align: top; }
+.np .legal th { font-weight: 700; color: var(--color-ink); }
+
+/* Cookie box: a card in the bottom-left corner. Both answers are the same button.
+   It mounts outside the page, so it carries .np itself for the theme, and undoes
+   the page-root rules (full height, the phone bar's bottom padding). */
+.np.cookiebox {
+  position: fixed; left: var(--space-lg); bottom: var(--space-lg); z-index: var(--z-toast);
+  width: min(26rem, calc(100vw - 2 * var(--space-md)));
+  padding: var(--space-lg); background: var(--color-paper); color: var(--color-ink);
+  border: 1px solid var(--color-rule); border-radius: var(--radius-panel);
+  box-shadow: 0 1px 2px oklch(20% 0.03 160 / 0.08), 0 12px 32px -8px oklch(20% 0.03 160 / 0.22);
+  min-height: 0;
+  animation: cookiebox-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.np.cookiebox .cookiebox__head { display: flex; align-items: center; gap: var(--space-sm); }
+.np.cookiebox .cookiebox__icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex-shrink: 0; border-radius: 999px; background: var(--color-lime); color: var(--color-navy); }
+.np.cookiebox h2 { margin: 0; font-size: 1.375rem; line-height: 1.2; }
+.np.cookiebox p { margin: var(--space-sm) 0 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); }
+.np.cookiebox .cookiebox__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-top: var(--space-md); }
+.np.cookiebox .cookiebox__actions .btn { width: 100%; }
+@keyframes cookiebox-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .np.cookiebox { animation: none; } }
+@media (max-width: 40rem) { .np.cookiebox { left: var(--space-md); right: var(--space-md); bottom: var(--space-md); width: auto; } }
+
+/* Calculator: driving and neighbours start as two quiet text links under the
+   pest picker and open in place, so the controls stay one short column. The
+   "+ kørsel" beside the big price is the same opener, sitting where the
+   question comes up. */
+.np .estimator__where { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+.np .estimator__where > * { width: 100%; }
+.np .estimator__open {
+  width: auto; padding: 0; background: none; border: 0; cursor: pointer; text-align: left;
+  font: 600 0.9375rem/1.4 var(--font-body); color: var(--color-ink);
+  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) { .np .estimator__open:hover { text-decoration-color: currentColor; } }
+.np .estimator__where-note { margin-top: var(--space-xs); }
+.np .estimator__drive-link {
+  margin-left: 0.5em; padding: 0; background: none; border: 0; cursor: pointer; vertical-align: middle;
+  font: 600 1rem/1 var(--font-body); letter-spacing: 0; color: var(--color-ink-2);
+  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) { .np .estimator__drive-link:hover { color: var(--color-ink); } }
+.np #pest-select-trigger { scroll-margin-top: 7rem; }
+
+/* Wiki links in article text, and the calculator's text buttons that read
+   like them: on hover a pale wash grows out from the centre behind the
+   words, and they lift a hair above the line (a mouse only: see "input modes"). */
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link) {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  transition: transform 160ms var(--ease-out);
+}
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link)::before {
+  content: "";
+  position: absolute;
+  inset: -0.1em -0.3em;
+  z-index: -1;
+  border-radius: 0.3em;
+  background: color-mix(in oklab, var(--color-accent) 14%, transparent);
+  transform: scaleX(0);
+  opacity: 0;
+  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link):hover { z-index: 1; transform: scale(1.01); }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link):hover::before { transform: scaleX(1); opacity: 1; }
+}
+/* On a touch screen the wash is the pressed state instead: it shows while the
+   finger is down and fades when it lifts, so nothing stays lit after a tap. */
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link):active::before { transform: scaleX(1); opacity: 1; transition-duration: 120ms; }
+@media (prefers-reduced-motion: reduce) {
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link), .np :is(.wiki-link, .estimator__open, .estimator__drive-link)::before { transition-duration: 0ms; }
+}
+
+/* Opening "Beregn kørsel" or "Har din nabo": the block grows open from its
+   own height and fades up a few pixels with a little blur, so it reads as
+   unfolding from the line that was there, not as content popping in.
+   interpolate-size lets height animate to auto where supported; elsewhere the
+   fade and lift still run. */
+.np .estimator__reveal {
+  interpolate-size: allow-keywords;
+  overflow: clip; overflow-clip-margin: 8px;
+  min-height: 0; /* a flex item's auto min-height would hold it at full size */
+  transition: height 280ms var(--ease-out), opacity 220ms var(--ease-out), transform 280ms var(--ease-out), filter 220ms var(--ease-out);
+}
+@starting-style {
+  .np .estimator__reveal { height: 0; opacity: 0; transform: translateY(-4px); filter: blur(2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np .estimator__reveal { transition: opacity 160ms linear; }
+}
+.np .estimator__locate { display: inline-flex; align-items: center; gap: 0.4em; width: auto; margin-top: var(--space-xs); }
+.np .estimator__locate:disabled { cursor: progress; opacity: 0.7; }
+
+/* "+7 andre skadedyr" closes the priced list; the pests it unfolds read as a
+   second, quieter group that leads to a page rather than a price. */
+.np-popover .select-more { border-top: 1px solid var(--color-rule-2); border-radius: 0 0 6px 6px !important; margin-top: 4px; font-weight: 600; color: var(--color-accent-2) !important; }
+.np-popover .select-more-item { animation: selectMoreIn 220ms var(--ease-out) both; }
+@keyframes selectMoreIn { from { opacity: 0; transform: translateY(-4px); filter: blur(2px); } }
+@media (prefers-reduced-motion: reduce) { .np-popover .select-more-item { animation: none; } }
+
+/* ------------------------------------------------ input modes, continued: tap targets
+   Fingers need about 44px. Where a link sits in a list, the row grows to
+   that on a touch screen only; where it sits in a line of text, the hit area
+   grows instead, by padding cancelled with an equal negative margin, so the
+   text around it does not move. A mouse keeps the layout as drawn. */
+@media (pointer: coarse) {
+  .np :is(.foot__cols a, .foot__link-btn) { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+  .np .foot__cols li { padding-block: 0; }
+  .np .crumbs a { min-width: 44px; justify-content: center; }
+  /* the segmented controls: 40px buttons in a 4px-padded track grow to 44px */
+  .np .toggle-button-group .toggle-button,
+  .np .toggle-button-group .toggle-button + .toggle-button { min-height: 44px; }
+  .np :is(.close__dl a, .foot__legal a, .score__link a) { display: inline-block; padding-block: 11px; margin-block: -11px; }
+  .np .hero__check-more { padding-block: 10px; margin-block: calc(var(--space-xs) - 10px) -10px; }
+  .np .estimator__open { padding-block: 12px; margin-block: -12px; }
+  .np .estimator__drive-link { padding-block: 14px; margin-block: -14px; }
+  /* the service page link row, the source list and the form text buttons */
+  .np :is(.form__textlink, p > .link:only-child, .species-page__sources a) { display: inline-block; padding-block: 11px; margin-block: -11px; }
+  /* inline wiki links are exempt from 44px; they get some height, not a row */
+  .np .wiki-link { padding-block: 0.3em; margin-block: -0.3em; }
+  .np .estimator__open::before { inset: calc(12px - 0.1em) -0.3em; }
+  .np .estimator__drive-link::before { inset: calc(14px - 0.1em) -0.3em; }
+  .np .wiki-link::before { inset: 0.2em -0.3em; }
+}

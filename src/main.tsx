@@ -1,10 +1,18 @@
-import { StrictMode, useEffect } from "react";
+import { StrictMode, useEffect, useMemo } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import ServicePage from "./components/ServicePage.tsx";
+import LegalPage from "./components/LegalPage.tsx";
+import SpeciesPage from "./components/SpeciesPage.tsx";
+import CookieBanner from "./components/CookieBanner.tsx";
 import { serviceContentFor, servicePest } from "./lib/serviceContent.ts";
-import { slugOf, usePathname, useLinkRouting } from "./lib/router.tsx";
+import { speciesBySlug, type SpeciesArticle } from "./lib/speciesContent.ts";
+import { slugOf, legalOf, speciesRouteOf, usePathname, useLinkRouting } from "./lib/router.tsx";
 import "./index.css";
+
+// iOS Safari only applies :active (our pressed state on touch) when a touch
+// listener exists on the page; this empty passive one guarantees it.
+document.addEventListener("touchstart", () => {}, { passive: true });
 
 // Hidden-until-revealed states are scoped under .js, so nothing is invisible
 // for a visitor whose script never runs.
@@ -25,14 +33,18 @@ document.documentElement.classList.add("js");
  */
 
 /** The tab title and description for whichever page is showing. */
-function useDocumentMeta(slug: string) {
+function useDocumentMeta(slug: string, legal: string, species?: [string, SpeciesArticle]) {
   useEffect(() => {
     const pest = slug ? servicePest(slug) : undefined;
     const content = slug ? serviceContentFor(slug) : undefined;
 
-    document.title = pest
-      ? `Bekæmpelse af ${pest.label.toLowerCase()} til fast pris | Billigskadedyr.dk`
-      : "Skadedyrsbekæmpelse i Jylland og på Fyn | Billigskadedyr.dk";
+    document.title = species
+      ? speciesTitle(species[1])
+      : legal
+      ? `${legal === "privatlivspolitik" ? "Privatlivspolitik" : "Cookiepolitik"} | Billigskadedyr.dk`
+      : pest
+        ? `Bekæmpelse af ${pest.label.toLowerCase()} til fast pris | Billigskadedyr.dk`
+        : "Skadedyrsbekæmpelse i Jylland og på Fyn | Billigskadedyr.dk";
 
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -42,7 +54,13 @@ function useDocumentMeta(slug: string) {
     }
     meta.setAttribute(
       "content",
-      content
+      species
+        ? species[1].description
+        : legal
+        ? legal === "privatlivspolitik"
+          ? "Hvilke oplysninger Billigskadedyr får om dig, hvad vi bruger dem til, og hvordan du får dem slettet."
+          : "Hvilke cookies Billigskadedyr.dk bruger, og hvordan du siger ja eller nej til dem."
+        : content
         ? content.intro.slice(0, 155)
         : "Vi kommer ud i hele Jylland og på Fyn, ser på det og giver en fast pris, før vi går i gang. Skriv til os, så svarer vi inden for en hverdag.",
     );
@@ -50,20 +68,45 @@ function useDocumentMeta(slug: string) {
     // The shells carry the slug so the prerender knows which page it is
     // rendering. Keeping it in step means a prerendered file always matches
     // the URL it sits at.
-    document.documentElement.setAttribute("data-pest", slug);
-  }, [slug]);
+    document.documentElement.setAttribute("data-pest", species ? species[0] : slug);
+  }, [slug, legal, species]);
+}
+
+/**
+ * Species pages are named for the species rather than the service, because the
+ * species is what someone searching "husedderkop" typed. scripts/species_shells.py
+ * writes the same title into each shell, so the two must change together.
+ */
+function speciesTitle(a: SpeciesArticle): string {
+  return `${a.title ?? a.name}: kendetegn og bekæmpelse | Billigskadedyr.dk`;
 }
 
 function Site() {
   const pathname = usePathname();
   const slug = slugOf(pathname);
+  const legal = legalOf(pathname);
+  const route = speciesRouteOf(pathname);
+  const article = route && servicePest(route[0]) ? speciesBySlug(route[0], route[1]) : undefined;
+  // One tuple per article rather than per render, so the meta effect does not
+  // rerun on every render of the page.
+  const species = useMemo(() => (route && article ? ([route[0], article] as [string, SpeciesArticle]) : undefined), [route?.[0], article]);
   useLinkRouting();
-  useDocumentMeta(slug);
+  useDocumentMeta(slug, legal, species);
 
   // A slug the registry does not know means the URL is wrong, and the front
-  // page is a better answer than an empty frame.
-  if (slug && servicePest(slug)) return <ServicePage slug={slug} />;
-  return <App />;
+  // page is a better answer than an empty frame. The cookie box sits outside
+  // the page so it shows wherever a visitor lands, not only on the front page.
+  const page = legal ? (
+    <LegalPage kind={legal} />
+  ) : species ? (
+    <SpeciesPage service={species[0]} article={species[1]} />
+  ) : slug && servicePest(slug) ? <ServicePage slug={slug} /> : <App />;
+  return (
+    <>
+      {page}
+      <CookieBanner />
+    </>
+  );
 }
 
 createRoot(document.getElementById("root")!).render(

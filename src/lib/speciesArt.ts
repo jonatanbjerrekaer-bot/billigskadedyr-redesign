@@ -28,6 +28,10 @@ export const SPECIES_ART: Record<string, string> = {
   "Tysk kakerlak": "tysk-kakerlak",
   "Orientalisk kakerlak": "orientalsk-kakerlak",
   "Amerikansk kakerlak": "amerikansk-kakerlak",
+  "Rød skovmyre": "roed-skovmyre",
+  "Sort havemyre": "sort-havemyre",
+  Pharaomyre: "pharaomyre",
+  "Gul engmyre (ænsmyren)": "gul-engmyre",
   Dræbersnegl: "draebersnegl",
   Agersnegl: "agersnegl",
   Vinbjergsnegl: "vinbjergsnegl",
@@ -42,4 +46,10 @@ export const SPECIES_ART: Record<string, string> = {
   Husbuk: "husbuk",
   Løvtræborebille: "loevtraeborebille",
   "Borebille i møbler og gulve": "borebille",
+  Stankelbenslarve: "stankelbenslarve",
+  Gåsebille: "gaasebille",
+  Oldenborre: "oldenborre",
+  "Almindelig væggelus": "almindelig-vaeggelus",
+  // Hand-traced from a CC0 Naturalis slide specimen (see SOURCES.md); the only verified image of the species.
+  Vingetæge: "vingetaege",
 };

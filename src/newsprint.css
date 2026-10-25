@@ -45,7 +45,7 @@ html:has(.np) { background: var(--color-paper); }
   text-underline-offset: 0.16em;
   transition: text-decoration-thickness var(--dur-micro) var(--ease-out);
 }
-.np .link:hover { text-decoration-thickness: 2px; }
+@media (hover: hover) and (pointer: fine) { .np .link:hover { text-decoration-thickness: 2px; } }
 
 .np .grid12 {
   display: grid;
@@ -85,9 +85,9 @@ html:has(.np) { background: var(--color-paper); }
   transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
 }
 .np .btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.np .btn--primary:hover { background: var(--color-ink-2); }
+@media (hover: hover) and (pointer: fine) { .np .btn--primary:hover { background: var(--color-ink-2); } }
 .np .btn--secondary { border-block: var(--rule-hair) solid var(--color-ink); color: var(--color-ink); }
-.np .btn--secondary:hover { background: var(--color-paper-2); }
+@media (hover: hover) and (pointer: fine) { .np .btn--secondary:hover { background: var(--color-paper-2); } }
 .np .btn--block { width: 100%; }
 .np .btn[disabled] { opacity: 0.55; cursor: not-allowed; }
 .np .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
@@ -131,7 +131,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .wordmark img { width: 38px; height: auto; flex-shrink: 0; }
 .np .mast-nav { display: flex; gap: var(--space-lg); margin-left: auto; }
 .np .mast-nav a { font-weight: 500; text-decoration: none; padding-block: var(--space-sm); background: linear-gradient(var(--color-accent), var(--color-accent)) no-repeat 0 100% / 0 1px; transition: background-size var(--dur-short) var(--ease-out); }
-.np .mast-nav a:hover { background-size: 100% 1px; }
+@media (hover: hover) and (pointer: fine) { .np .mast-nav a:hover { background-size: 100% 1px; } }
 .np .mast-menu { display: none; width: 48px; height: 48px; align-items: center; justify-content: center; border: 0; border-block: var(--rule-hair) solid var(--color-ink); background: none; color: var(--color-ink); border-radius: 0; }
 .np .mast-mobile { border-top: var(--rule-hair) solid var(--color-rule); }
 .np .mast-mobile ul { list-style: none; margin: 0; padding: var(--space-xs) 0 var(--space-md); }
@@ -150,9 +150,10 @@ html:has(.np) { background: var(--color-paper); }
 .np .index__head { font-size: var(--text-title); }
 .np .index__intro { margin-top: var(--space-2xs); }
 .np .index__search { position: relative; margin-top: var(--space-md); }
-.np .index__search .field { padding-right: 52px; }
+.np .index__search .field { padding-left: 48px; padding-right: 52px; }
+.np .index__search-icon { position: absolute; left: 16px; top: 50%; translate: 0 -50%; color: var(--color-muted); pointer-events: none; }
 .np .index__clear { position: absolute; right: 2px; top: 50%; translate: 0 -50%; width: 48px; height: 48px; display: grid; place-items: center; border: 0; background: none; color: var(--color-muted); }
-.np .index__clear:hover { color: var(--color-ink); }
+@media (hover: hover) and (pointer: fine) { .np .index__clear:hover { color: var(--color-ink); } }
 
 .np .index__list {
   margin: var(--space-lg) 0 0; padding: 0; list-style: none;
@@ -167,7 +168,7 @@ html:has(.np) { background: var(--color-paper); }
 }
 .np .index__glyph { color: var(--color-ink); display: grid; place-items: center; }
 .np .index__name { font: 700 1.0625rem/1.15 var(--font-display); letter-spacing: var(--tracking-display); min-width: 0; overflow-wrap: break-word; }
-.np .index__row a:hover .index__name { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
+@media (hover: hover) and (pointer: fine) { .np .index__row a:hover .index__name { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
 .np .index__price { font-size: 0.9375rem; text-align: right; white-space: nowrap; }
 .np .index__price small { display: block; font: 500 var(--text-xs)/1.2 var(--font-body); color: var(--color-muted); }
 .np .index__price--ask { font-family: var(--font-body); font-weight: 500; font-size: var(--text-sm); color: var(--color-muted); }
@@ -222,7 +223,7 @@ html:has(.np) { background: var(--color-paper); }
 }
 .np .estimator__pick { min-height: 48px; display: flex; align-items: center; gap: var(--space-sm); margin: calc(-1 * var(--space-xs)); padding: var(--space-xs); border: 0; background: none; text-align: left; color: var(--color-ink); }
 .np .estimator__pick .trigger-title { font-size: 1rem; }
-.np .estimator__pick:hover { background: var(--color-paper-3); }
+@media (hover: hover) and (pointer: fine) { .np .estimator__pick:hover { background: var(--color-paper-3); } }
 .np .estimator__price { font: 700 var(--text-display-s)/1 var(--font-display); letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; }
 .np .estimator__price--words { font-size: var(--text-section); }
 .np .estimator__facts { display: flex; flex-wrap: wrap; column-gap: var(--space-xl); row-gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink-2); }
@@ -278,7 +279,7 @@ html:has(.np) { background: var(--color-paper); }
 .np-popover .list-box-item[data-focused],
 .np-popover .list-box-item[data-hovered],
 .np-popover [role="option"][data-focused],
-.np-popover [role="option"]:hover { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
+.np-popover [role="option"][data-hovered] { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
 .np-popover [role="option"][aria-selected="true"] { color: var(--color-ink) !important; font-weight: 500; text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
 
 /* ------------------------------------------------------------- packages: the ink band */
@@ -288,9 +289,9 @@ html:has(.np) { background: var(--color-paper); }
 .np .band--ink .muted { color: var(--color-on-ink-muted); }
 .np .band--ink .head-split > p { color: var(--color-on-ink-muted); }
 .np .band--ink .btn--primary { background: var(--color-paper); color: var(--color-ink); }
-.np .band--ink .btn--primary:hover { background: var(--color-paper-3); }
+@media (hover: hover) and (pointer: fine) { .np .band--ink .btn--primary:hover { background: var(--color-paper-3); } }
 .np .band--ink .btn--secondary { border-color: var(--color-paper); color: var(--color-paper); }
-.np .band--ink .btn--secondary:hover { background: var(--color-ink-2); }
+@media (hover: hover) and (pointer: fine) { .np .band--ink .btn--secondary:hover { background: var(--color-ink-2); } }
 .np .tiers { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: var(--rule-hair) solid var(--color-on-ink-rule); }
 .np .tier { display: flex; flex-direction: column; padding: var(--space-xl) var(--gap-columns) 0; }
 .np .tier:first-child { padding-left: 0; }
@@ -366,7 +367,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .form { display: flex; flex-direction: column; gap: var(--space-md); margin-top: var(--space-xl); }
 .np .form__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
 .np .form__file { display: flex; align-items: center; gap: var(--space-sm); min-height: 52px; padding: 0 var(--space-md); border: var(--rule-hair) dashed var(--color-rule-2); background: var(--color-paper); cursor: pointer; }
-.np .form__file:hover { background: var(--color-paper-3); }
+@media (hover: hover) and (pointer: fine) { .np .form__file:hover { background: var(--color-paper-3); } }
 .np .form__file:focus-within { outline: 2px solid var(--color-focus); outline-offset: -2px; }
 .np .form__chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
 .np .form__chips li { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-2xs) var(--space-xs); border: var(--rule-hair) solid var(--color-rule); font-size: var(--text-sm); }
@@ -383,7 +384,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .foot__cols ul { list-style: none; margin: 0; padding: 0; }
 .np .foot__cols li { padding-block: var(--space-2xs); }
 .np .foot__cols a { text-decoration: none; }
-.np .foot__cols a:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
+@media (hover: hover) and (pointer: fine) { .np .foot__cols a:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
 .np .foot__pay { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); }
 .np .foot__legal { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
 
@@ -402,7 +403,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .svc-hero { padding-block: var(--space-xl) var(--space-2xl); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
 .np .svc-hero + .section { padding-top: var(--space-3xl); }
 .np .svc-hero__back { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; font-size: var(--text-sm); text-decoration: none; color: var(--color-ink-2); }
-.np .svc-hero__back:hover { color: var(--color-ink); text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
+@media (hover: hover) and (pointer: fine) { .np .svc-hero__back:hover { color: var(--color-ink); text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
 .np .svc-hero__title { grid-column: 1 / span 8; display: flex; align-items: center; gap: var(--space-lg); margin-top: var(--space-xl); }
 .np .svc-hero__title h1 { font-size: var(--text-display); }
 .np .svc-hero__glyph { color: var(--color-ink); flex-shrink: 0; display: inline-flex; }
@@ -428,7 +429,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .others { list-style: none; margin: var(--space-xl) 0 0; padding: 0; columns: 3 14rem; column-gap: var(--gap-columns); column-rule: var(--rule-hair) solid var(--color-rule); }
 .np .others li { break-inside: avoid; border-bottom: var(--rule-hair) solid var(--color-rule); }
 .np .others a { display: flex; align-items: center; gap: var(--space-sm); min-height: 48px; text-decoration: none; font: 700 1.125rem/1.15 var(--font-display); letter-spacing: var(--tracking-display); }
-.np .others a:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; }
+@media (hover: hover) and (pointer: fine) { .np .others a:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
 .np .quote-panel__price { font: 700 var(--text-display-s)/1 var(--font-display); letter-spacing: var(--tracking-display); }
 .np .quote-panel__price small { font: 500 var(--text-sm)/1 var(--font-body); color: var(--color-muted); margin-left: var(--space-xs); letter-spacing: 0; }
 
@@ -526,3 +527,51 @@ html:has(.np) { background: var(--color-paper); }
 }
 /* three facts spread across the line instead of five fixed cells */
 @media (min-width: 60.0625rem) { .np .mast-dateline ul { display: flex; justify-content: space-between; } }
+
+/* ------------------------------------------------ species cards as links, and the species pages
+   The card's one link is stretched over the card with ::after, so the whole card takes the click
+   while the markup keeps a single link with the species name as its text. */
+.np .species__card { position: relative; }
+.np .species__link { display: inline-flex; align-items: center; gap: var(--space-2xs); color: inherit; text-decoration: none; }
+.np .species__link svg { flex-shrink: 0; color: var(--color-accent); transition: transform var(--dur-short) var(--ease-out); }
+.np .species__link::after { content: ""; position: absolute; inset: calc(-1 * var(--space-xs)); border-radius: var(--radius-panel); }
+@media (hover: hover) and (pointer: fine) {
+  .np .species__card:hover .species__link { text-decoration: underline 2px var(--color-accent); text-underline-offset: 0.18em; }
+  .np .species__card:hover .species__link svg { transform: translateX(3px); }
+  .np .species__card:hover .species__art { border-color: var(--color-accent); }
+}
+.np .species__link:focus-visible { outline: none; }
+.np .species__link:focus-visible::after { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .np .species__link svg { transition: none; } }
+
+.np .crumbs ol { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: var(--text-sm); color: var(--color-muted); }
+.np .crumbs li { display: inline-flex; align-items: center; gap: var(--space-2xs); margin-right: var(--space-2xs); }
+.np .crumbs a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink-2); text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .np .crumbs a:hover { color: var(--color-ink); text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
+.np .crumbs [aria-current] { color: var(--color-ink); font-weight: 600; }
+.np .species-page__latin { margin-top: var(--space-xs); font-style: italic; color: var(--color-muted); }
+
+/* Drawing beside the article on a wide screen, held in view while the text scrolls past it;
+   above it on a narrow one. Without a drawing the article keeps one readable column. */
+.np .species-page { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl); align-items: start; }
+.np .species-page--plain { grid-template-columns: minmax(0, 46rem); }
+.np .species-page__art { position: sticky; top: calc(72px + var(--space-xl)); margin: 0; }
+.np .species-page__art .species__art { aspect-ratio: 1; margin-bottom: var(--space-sm); }
+.np .species-page__art figcaption { font-size: var(--text-sm); color: var(--color-muted); }
+.np .species-page__body { max-width: 46rem; }
+.np .species-page__body h2 { font-size: var(--text-title); margin: var(--space-xl) 0 var(--space-xs); }
+.np .species-page__body > section:first-child h2 { margin-top: 0; }
+.np .species-page__body p { line-height: 1.65; text-wrap: pretty; }
+.np .species-page__body p + p { margin-top: var(--space-sm); }
+.np .species-page__cta { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 2px solid var(--color-ink); }
+.np .species-page__cta h2 { margin-top: 0; }
+.np .species-page__cta .actions { margin-top: var(--space-md); }
+.np .species-page__sources { margin-top: var(--space-2xl); font-size: var(--text-sm); }
+.np .species-page__sources h2 { font-size: var(--text-md); }
+.np .species-page__sources ul { margin: 0; padding-left: 1.25rem; }
+.np .species-page__sources li + li { margin-top: var(--space-2xs); }
+@media (max-width: 60rem) {
+  .np .species-page { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .np .species-page__art { position: static; max-width: 28rem; }
+  .np .species-page__art .species__art { aspect-ratio: 4 / 3; }
+}

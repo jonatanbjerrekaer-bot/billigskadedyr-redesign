@@ -6,8 +6,8 @@ export default function Footer() {
     <footer className="foot">
       <div className="container">
         <p className="foot__mark">
-          <img src={`${import.meta.env.BASE_URL}logo-mark.svg`} alt="" width={69} height={67} />
-          Billigskadedyr.dk
+          <img src={`${import.meta.env.BASE_URL}logo-prof-light.svg`} alt="" width={184} height={185} />
+          <span>Billigskadedyr<span className="wordmark__prof">Prof</span></span>
         </p>
         <p className="foot__line">
           Professionel skadedyrsbekæmpelse i hele Jylland og på Fyn, med base i Risskov.
@@ -26,14 +26,14 @@ export default function Footer() {
           {/*
             The legal furniture. A Danish buyer looks for these before booking a
             service visit, and their absence reads as an unregistered trader even
-            when the trader is fine. These are the prof site's own policy pages,
-            the ones that govern a service booking.
+            when the trader is fine. The site's own pages, written from what
+            this site does (components/LegalPage).
           */}
           <div>
             <h3>Handel og vilkår</h3>
             <ul>
-              <li><a href="https://billigskadedyrprof.dk/privatlivspolitik/" target="_blank" rel="noreferrer">Privatlivspolitik</a></li>
-              <li><a href="https://billigskadedyrprof.dk/cookie-politik/" target="_blank" rel="noreferrer">Cookiepolitik</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}privatlivspolitik/`}>Privatlivspolitik</a></li>
+              <li><a href={`${import.meta.env.BASE_URL}cookiepolitik/`}>Cookiepolitik</a></li>
               <li><CookieSettingsButton className="foot__link-btn" /></li>
             </ul>
           </div>

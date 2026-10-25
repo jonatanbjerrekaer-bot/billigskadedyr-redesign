@@ -1,5 +1,5 @@
 /**
- * Microsoft Clarity and Google Analytics 4, loaded only after "Accepter".
+ * Microsoft Clarity and Google Analytics 4, loaded only after "Ja tak".
  * Ported from the Viborg Motionscenter site, onto this site's own consent
  * store (lib/consent).
  *
@@ -13,8 +13,15 @@ export const analytics = {
   gaId: "", // GA4 measurement ID, e.g. "G-XXXXXXXXXX"
 };
 
-/** "Google Analytics og Microsoft Clarity", or just the one that is set. */
-export const analyticsToolNames = [analytics.gaId && "Google Analytics", analytics.clarityId && "Microsoft Clarity"]
+/**
+ * Which tools the site uses, and so which ones the cookie box asks about and
+ * the privacy and cookie pages describe. Separate from the IDs: the box asks
+ * now, and a tool only actually loads once its ID is filled in above.
+ */
+export const tools = { ga: true, clarity: true };
+
+/** "Google Analytics og Microsoft Clarity", or just the one in use. */
+export const analyticsToolNames = [tools.ga && "Google Analytics", tools.clarity && "Microsoft Clarity"]
   .filter(Boolean)
   .join(" og ");
 
@@ -42,13 +49,13 @@ function addScript(src: string) {
 /** Loads the tools the visitor agreed to. Safe to call twice. */
 export function loadAnalytics() {
   if (!COUNTED_HOSTS.includes(location.hostname)) return;
-  if (analytics.clarityId) {
+  if (tools.clarity && analytics.clarityId) {
     // Microsoft's snippet: a queue the real script drains once it has loaded.
     window.clarity ??= Object.assign((...args: unknown[]) => void (window.clarity!.q ??= []).push(args), {});
     window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
     addScript(`https://www.clarity.ms/tag/${analytics.clarityId}`);
   }
-  if (analytics.gaId && !window.gtag) {
+  if (tools.ga && analytics.gaId && !window.gtag) {
     window.dataLayer ??= [];
     // gtag must push the `arguments` object itself, not an array copy.
     window.gtag = function gtag() {

@@ -101,8 +101,11 @@ def faq_schema(tab):
 def main():
     pages = (
         sorted(DIST.glob("service/*/index.html"))
+        # the species pages under each service, the long tail the cards lead to
+        + sorted(DIST.glob("service/*/*/index.html"))
         + [DIST / "shop" / "index.html", DIST / "shop" / "produkter" / "index.html"]
         + sorted(DIST.glob("shop/produkt/*/index.html"))
+        + [DIST / "privatlivspolitik" / "index.html", DIST / "cookiepolitik" / "index.html"]
         + [DIST / "index.html"]
     )
     pages = [f for f in pages if f.exists()]

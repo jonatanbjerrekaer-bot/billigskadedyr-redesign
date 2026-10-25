@@ -1,0 +1,68 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Catalogue",
+  "theme": "hedgerow",
+  "axes": "dark/serif/green",
+  "hero": "Index",
+  "nav": "masthead",
+  "footer": "mast",
+  "imagery": "photographs, project 1, natural",
+  "photos": [],
+  "entry": "none",
+  "fingerprint": "612e1a",
+  "sections": [
+   "index",
+   "rows+table",
+   "split",
+   "form",
+   "cream band",
+   "box score",
+   "faq rows",
+   "close"
+  ],
+  "signature": "price list as agate",
+  "waived": [
+   "8",
+   "81",
+   "39b"
+  ],
+  "prompt": "pest control, Jutland and Funen; Hedgerow chosen by the owner over Newsprint and Formwork",
+  "date": "2026-10-23"
+ },
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Catalogue",
+  "theme": "newsprint",
+  "axes": "light/slab-serif/warm",
+  "hero": "Index",
+  "nav": "masthead",
+  "footer": "mast",
+  "imagery": "photographs, project 1, mono",
+  "photos": [],
+  "entry": "none",
+  "fingerprint": "612e1a",
+  "sections": [
+   "index",
+   "rows+table",
+   "split",
+   "form",
+   "ink band",
+   "box score",
+   "faq rows",
+   "close"
+  ],
+  "signature": "price list as agate",
+  "waived": [
+   "8",
+   "81",
+   "39b"
+  ],
+  "prompt": "pest control, Jutland and Funen, fixed prices and a DIY shop",
+  "date": "2026-10-23"
+ }
+]

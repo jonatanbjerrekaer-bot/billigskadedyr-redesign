@@ -1,24 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Disclosure,
+  Input,
+  Label,
   NumberField,
   Slider,
   ToggleButton,
+  TextField,
   ToggleButtonGroup,
 } from "@heroui/react";
 import {
   ChevronDown,
+  LocateFixed,
   RotateCcw,
 } from "lucide-react";
 import Select from "./ui/Select";
+import SegmentTrack from "./ui/SegmentTrack";
 import { ContactCtas } from "./ui/Cta";
 import {
   publishEstimatorSelection,
   useChosenPest,
 } from "../lib/estimatorSelection";
-import { PestGlyph, PRICED_PESTS } from "../lib/pests";
-import { estimate, dkr, OWNER_PRICES } from "../lib/pricing";
-import type { PropertyType, Severity } from "../lib/pricing";
+import { PestGlyph, PESTS, PRICED_PESTS } from "../lib/pests";
+import { estimate, dkr, houseTier, nearestPostcode, OWNER_PRICES } from "../lib/pricing";
+import type { Houses, PropertyType, Severity } from "../lib/pricing";
 
 /**
  * Progressive disclosure (Norman: visibility; Shneiderman 8: reduce short-term
@@ -60,6 +65,14 @@ const SEVERITIES: { id: Severity; label: string; hint: string }[] = [
   { id: "kraftig", label: "Kraftig", hint: "Du ser dem dagligt eller flere steder i boligen." },
 ];
 
+// "10+" because ten is the top tier: eleven houses still get the ten-house price.
+const NEIGHBOURS: { id: Houses; label: string }[] = [
+  { id: 1, label: "1" },
+  { id: 2, label: "2" },
+  { id: 5, label: "5" },
+  { id: 10, label: "10+" },
+];
+
 // Colours live in index.css (see the segmented-control block); these are only
 // the bits that are this page's layout choice rather than the control's theme.
 const TOGGLE = "";
@@ -74,9 +87,57 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const [slug, setSlug] = useChosenPest(
     PRICED_PESTS.some((p) => p.slug === initialPest) ? initialPest! : PRICED_PESTS[0].slug,
   );
+  // The chosen pest outlives a page change, so a pest picked on one page would
+  // otherwise follow the visitor onto another pest's service page. Arriving on
+  // a service page always means that page's pest.
+  useEffect(() => {
+    if (initialPest && PRICED_PESTS.some((p) => p.slug === initialPest)) setSlug(initialPest);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialPest]);
   const [m2, setM2] = useState(DEFAULTS.m2);
   const [property, setProperty] = useState<PropertyType>(DEFAULTS.property);
   const [severity, setSeverity] = useState<Severity>(DEFAULTS.severity);
+  // Where the job is and how many neighbours join in. Both change the price,
+  // so they sit with the pest at the top and not behind "Tilpas beregningen".
+  const [postcode, setPostcode] = useState("");
+  const [houses, setHouses] = useState<Houses>(1);
+  const [driveOpen, setDriveOpen] = useState(false);
+  const [neighboursOpen, setNeighboursOpen] = useState(false);
+  // Opens the postnummer field and puts the cursor in it. The field only
+  // exists after the render that opens it, hence the frame's wait.
+  // "Brug min placering": the browser asks for permission on the click, and
+  // the position only picks the nearest postnummer locally (lib/pricing).
+  const [locating, setLocating] = useState(false);
+  const [locError, setLocError] = useState("");
+  const locate = () => {
+    if (!navigator.geolocation) return setLocError("Din browser kan ikke dele placering. Skriv postnummeret i stedet.");
+    setLocating(true);
+    setLocError("");
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        setLocating(false);
+        const nr = nearestPostcode(coords.latitude, coords.longitude);
+        if (!nr) return setLocError("Vi kunne ikke finde et postnummer. Skriv det i stedet.");
+        setPostcode(nr);
+        setSelTouched(true);
+      },
+      () => {
+        setLocating(false);
+        setLocError("Vi fik ikke din placering. Skriv postnummeret i stedet.");
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
+    );
+  };
+  const openDrive = () => {
+    setDriveOpen(true);
+    requestAnimationFrame(() => {
+      const el = document.getElementById("estimator-postcode");
+      if (!el) return;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+      el.focus({ preventScroll: true });
+    });
+  };
   // True once the visitor changes any input themselves. The contact form
   // uses it to prefill the message with a draft; defaults alone never do,
   // the draft must describe the visitor's own situation, not a made-up one.
@@ -158,13 +219,18 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
   // estimate(), which is why no control here asks about it.
-  const quote = estimate(pest.priceKey!, m2, property, severity);
+  const quote = estimate(pest.priceKey!, m2, property, severity, new Date(), { postcode, houses });
+  // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
 
   // Shneiderman 6: easy reversal. Anyone who has fiddled the inputs can get
   // back to the starting point without reloading the page.
   const touched =
-    m2 !== DEFAULTS.m2 || property !== DEFAULTS.property || severity !== DEFAULTS.severity;
+    m2 !== DEFAULTS.m2 ||
+    property !== DEFAULTS.property ||
+    severity !== DEFAULTS.severity ||
+    postcode !== "" ||
+    houses !== 1;
   const severityHint = SEVERITIES.find((x) => x.id === severity)?.hint;
 
   // What is included changes with the answers, so the list says what this job
@@ -206,6 +272,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     m2,
     property,
     severity,
+    postcode: quote.kind === "fixed" ? quote.place?.nr ?? null : null,
+    town: quote.kind === "fixed" ? quote.place?.by ?? null : null,
+    houses: quote.kind === "fixed" ? quote.houses : 1,
     // null, not 0: a quote has no number yet, and dkr(0) would hand the
     // contact form "omkring 0 kr." to send.
     price: quote.kind === "fixed" ? dkr(price) : null,
@@ -222,6 +291,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     glideArea(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
     setSeverity(DEFAULTS.severity);
+    setPostcode("");
+    setHouses(1);
     setSelTouched(false);
   };
 
@@ -289,8 +360,110 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 label: p.label,
                 icon: <PestGlyph pest={p} size={22} />,
               }))}
+              // The pests without a fixed price are still ours: listed after a
+              // "+N" row, and picking one goes to its page for a fixed quote.
+              more={{
+                label: (n) => `${n} andre skadedyr`,
+                hint: "Fast tilbud",
+                options: PESTS.filter((p) => !p.priceKey).map((p) => ({
+                  value: p.slug,
+                  label: p.label,
+                  icon: <PestGlyph pest={p} size={22} />,
+                })),
+                onPick: (v) => window.location.assign(`${import.meta.env.BASE_URL}service/${v}/`),
+              }}
             />
           </div>
+
+          {/* Driving and neighbours only move a fixed price. A pest that is
+              quoted after a visit has no number for them to change.
+
+              Both start as one line of text rather than as fields. The big
+              firms (Orkin, Terminix, Rentokil) ask for a postcode before they
+              say anything; here the price comes first, and the two things that
+              can move it are offered, not demanded. Each opens in place. */}
+          {quote.kind === "fixed" && (
+            <div className="estimator__where">
+              {driveOpen ? (
+                <TextField.Root className="estimator__postcode estimator__reveal">
+                  <Label htmlFor="estimator-postcode" className="field-label">
+                    Postnummer
+                  </Label>
+                  <Input
+                    id="estimator-postcode"
+                    name="postcode"
+                    inputMode="numeric"
+                    autoComplete="postal-code"
+                    maxLength={4}
+                    value={postcode}
+                    onChange={(e) => {
+                      // Digits only, so a pasted "8800 Viborg" still finds the code.
+                      setPostcode(e.target.value.replace(/\D/g, "").slice(0, 4));
+                      setSelTouched(true);
+                    }}
+                    placeholder="fx 8800"
+                    className="field"
+                    aria-describedby="estimator-driving"
+                    aria-invalid={quote.postcodeState === "unknown" ? true : undefined}
+                  />
+                  {/* The town confirms the postnummer was read right; the
+                      driving line already names it when there is a charge. */}
+                  <p id="estimator-driving" className="small muted estimator__where-note" aria-live="polite">
+                    {quote.place && !quote.driving.includes(quote.place.by) ? `${quote.place.nr} ${quote.place.by}. ` : ""}
+                    {quote.driving}
+                  </p>
+                  <button type="button" className="estimator__open estimator__locate" onClick={locate} disabled={locating}>
+                    <LocateFixed size={16} aria-hidden="true" />
+                    {locating ? "Finder din placering…" : "Brug min placering"}
+                  </button>
+                  {locError && (
+                    <p className="small muted estimator__where-note" role="status">
+                      {locError}
+                    </p>
+                  )}
+                </TextField.Root>
+              ) : (
+                <button type="button" className="estimator__open" onClick={openDrive}>
+                  Bor du uden for Aarhus? Beregn kørsel
+                </button>
+              )}
+
+              {neighboursOpen ? (
+                <div className="estimator__reveal">
+                  <span className="field-label">Antal huse, der går sammen</span>
+                  <SegmentTrack value={houses}>
+                    <ToggleButtonGroup.Root
+                      selectionMode="single"
+                      disallowEmptySelection
+                      selectedKeys={[houses]}
+                      onSelectionChange={(keys) => {
+                        const next = [...keys][0];
+                        if (next === undefined) return;
+                        setHouses(houseTier(Number(next)));
+                        setSelTouched(true);
+                      }}
+                      className={GROUP}
+                      aria-label="Antal huse, der går sammen"
+                    >
+                      {NEIGHBOURS.map((o) => (
+                        <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
+                          {o.label}
+                        </ToggleButton>
+                      ))}
+                    </ToggleButtonGroup.Root>
+                  </SegmentTrack>
+                  <p className="small muted estimator__where-note">
+                    I deler kørslen, fra 5 huse er den med, og fra 10 huse{" "}
+                    {quote.isPackage ? `koster det ${dkr(quote.tenPrice)} pr. hus.` : "får hver 20 % rabat."}
+                  </p>
+                </div>
+              ) : (
+                <button type="button" className="estimator__open" onClick={() => setNeighboursOpen(true)}>
+                  Har din nabo også et problem? Så bliver det billigere
+                </button>
+              )}
+            </div>
+          )}
 
           {/* Area, property type and severity feed the fixed-price
               calculation. For a pest that is quoted after a visit they
@@ -380,65 +553,78 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
                 <div>
                   <span className="field-label">Ejendomstype</span>
-                  <ToggleButtonGroup.Root
-                    selectionMode="single"
-                    disallowEmptySelection
-                    selectedKeys={[property]}
-                    onSelectionChange={(keys) => {
-                      const next = [...keys][0];
-                      if (!next) return;
-                      const p = next as PropertyType;
-                      setProperty(p);
-                      setSelTouched(true);
-                      // Sæt arealet til et realistisk gennemsnit for den valgte
-                      // boligtype, men aldrig oven i et tal brugeren selv har sat.
-                      const preset = AREA_PRESETS[p];
-                      if (!m2Touched.current && preset) glideArea(preset);
-                    }}
-                    className={GROUP}
-                    aria-label="Ejendomstype"
-                  >
-                    {PROPERTIES.map((o) => (
-                      <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
-                        {o.label}
-                      </ToggleButton>
-                    ))}
-                  </ToggleButtonGroup.Root>
+                  <SegmentTrack value={property}>
+                    <ToggleButtonGroup.Root
+                      selectionMode="single"
+                      disallowEmptySelection
+                      selectedKeys={[property]}
+                      onSelectionChange={(keys) => {
+                        const next = [...keys][0];
+                        if (!next) return;
+                        const p = next as PropertyType;
+                        setProperty(p);
+                        setSelTouched(true);
+                        // Sæt arealet til et realistisk gennemsnit for den valgte
+                        // boligtype, men aldrig oven i et tal brugeren selv har sat.
+                        const preset = AREA_PRESETS[p];
+                        if (!m2Touched.current && preset) glideArea(preset);
+                      }}
+                      className={GROUP}
+                      aria-label="Ejendomstype"
+                    >
+                      {PROPERTIES.map((o) => (
+                        <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
+                          {o.label}
+                        </ToggleButton>
+                      ))}
+                    </ToggleButtonGroup.Root>
+                  </SegmentTrack>
                 </div>
 
                 <div>
                   <span className="field-label">Grad af angreb</span>
-                  <ToggleButtonGroup.Root
-                    selectionMode="single"
-                    disallowEmptySelection
-                    selectedKeys={[severity]}
-                    onSelectionChange={(keys) => {
-                      const next = [...keys][0];
-                      if (next) {
-                        setSeverity(next as Severity);
-                        setSelTouched(true);
-                      }
-                    }}
-                    className={GROUP}
-                    aria-label="Grad af angreb"
-                  >
-                    {SEVERITIES.map((o) => (
-                      <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
-                        {o.label}
-                      </ToggleButton>
-                    ))}
-                  </ToggleButtonGroup.Root>
+                  <SegmentTrack value={severity}>
+                    <ToggleButtonGroup.Root
+                      selectionMode="single"
+                      disallowEmptySelection
+                      selectedKeys={[severity]}
+                      onSelectionChange={(keys) => {
+                        const next = [...keys][0];
+                        if (next) {
+                          setSeverity(next as Severity);
+                          setSelTouched(true);
+                        }
+                      }}
+                      className={GROUP}
+                      aria-label="Grad af angreb"
+                    >
+                      {SEVERITIES.map((o) => (
+                        <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
+                          {o.label}
+                        </ToggleButton>
+                      ))}
+                    </ToggleButtonGroup.Root>
+                  </SegmentTrack>
                   <p className="small muted" style={{ marginTop: "var(--space-xs)" }} aria-live="polite">
                     {severityHint}
                   </p>
                 </div>
 
-                {touched && (
-                  <button type="button" onClick={reset} className="estimator__reset">
-                    <RotateCcw size={15} strokeWidth={2} aria-hidden="true" />
-                    Nulstil til standard
-                  </button>
-                )}
+                {/* Always in the layout, only visible once there is something to
+                    reset: appearing on the first change made the whole
+                    calculator 47px taller and everything below it jump. */}
+                <button
+                  type="button"
+                  onClick={reset}
+                  className="estimator__reset"
+                  disabled={!touched}
+                  aria-hidden={!touched || undefined}
+                  tabIndex={touched ? undefined : -1}
+                  style={touched ? undefined : { visibility: "hidden" }}
+                >
+                  <RotateCcw size={15} strokeWidth={2} aria-hidden="true" />
+                  Nulstil til standard
+                </button>
               </Disclosure.Body>
             </Disclosure.Content>
           </Disclosure.Root>
@@ -457,10 +643,37 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             onClick={() => {
               const el = document.getElementById(PEST_TRIGGER);
               if (!el) return;
+              // The list is placed under the trigger when it opens and does not
+              // follow it afterwards, so it may only open once the page has
+              // stopped moving. Already in view: open at once. Otherwise scroll
+              // there first and open when the scroll has settled.
+              const open = () => {
+                el.focus({ preventScroll: true });
+                el.click();
+              };
+              const r = el.getBoundingClientRect();
+              if (r.top >= 0 && r.bottom <= window.innerHeight) return open();
               const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-              el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
-              el.focus();
-              el.click();
+              if (reduced) {
+                el.scrollIntoView({ block: "start" });
+                return open();
+              }
+              // Wait until the page has held still for a few frames: scrollend
+              // is missing in older Safari, and a fixed timeout fires mid-scroll
+              // on a long way down. Capped, so the list always opens.
+              const started = performance.now();
+              let lastY = -1;
+              let still = 0;
+              const settle = () => {
+                still = window.scrollY === lastY ? still + 1 : 0;
+                lastY = window.scrollY;
+                if (still >= 4 || performance.now() - started > 1500) return open();
+                requestAnimationFrame(settle);
+              };
+              requestAnimationFrame(settle);
+              // Near the top (scroll-margin clears the sticky header), so the
+              // list has room to open downwards instead of flipping up over it.
+              el.scrollIntoView({ block: "start", behavior: "smooth" });
             }}
             className="estimator__pick"
           >
@@ -482,7 +695,27 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     Fra{" "}
                   </span>
                   {dkr(display)}
+                  {/* Without a postnummer the number is the Aarhus price, so it
+                      says driving may come on top, and the note itself takes the
+                      visitor to the field that works it out. */}
+                  {quote.postcodeState !== "ok" && (
+                    <button
+                      type="button"
+                      className="estimator__drive-link"
+                      onClick={openDrive}
+                    >
+                      + kørsel
+                    </button>
+                  )}
                 </p>
+                {quote.houses > 1 && (
+                  <p className="small" data-testid="group-total">
+                    pr. hus, {dkr(quote.total)} i alt for {quote.houses} huse
+                    {quote.soloPrice > quote.price && (
+                      <> · Hver sparer {dkr(quote.soloPrice - quote.price)}</>
+                    )}
+                  </p>
+                )}
                 {/* The price never appears without saying what it covers. */}
                 <p className="small">{quote.caption}</p>
                 {quote.notes.map((n) => (

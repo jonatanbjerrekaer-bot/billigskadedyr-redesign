@@ -32,6 +32,14 @@ const HOURS = [
  * describes a situation the visitor never told us would read as a trick on a
  * form whose whole job is trust.
  */
+// "Vi er 5 huse i 8800 Viborg" only says what the visitor actually entered:
+// a town when a postnummer matched, a group when more than one house.
+function placeOf(sel: { houses: number; postcode: string | null; town: string | null }): string {
+  const where = sel.postcode ? ` i ${sel.postcode} ${sel.town}` : "";
+  if (sel.houses > 1) return `. Vi er ${sel.houses} huse${where}`;
+  return where ? `. Boligen ligger i ${sel.postcode} ${sel.town}` : "";
+}
+
 export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
   const selection = useEstimatorSelection();
   const touched = selection?.touched ?? false;
@@ -41,9 +49,11 @@ export default function Contact({ pestLabel }: { pestLabel?: string } = {}) {
   const draft = touched && selection
     ? // A quoted pest has no number yet, so the sentence stops at the facts
       // he can actually give: which pest, what kind of home, how big.
-      selection.price
-      ? `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Angrebet er ${SEVERITY_ADVERB[selection.severity]}, og prisberegneren siger omkring ${selection.price.replace(/\.$/, "")}. Jeg vil gerne have et fast tilbud.`
-      : `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m². Jeg vil gerne have et fast tilbud.`
+      `Hej! Jeg har brug for hjælp til ${selection.pestLabel.toLowerCase()} i ${PROPERTY_NOUN[selection.property]} på ca. ${selection.m2} m²${placeOf(selection)}. ${
+        selection.price
+          ? `Angrebet er ${SEVERITY_ADVERB[selection.severity]}, og prisberegneren siger omkring ${selection.price.replace(/\.$/, "")}${selection.houses > 1 ? " pr. hus" : ""}. `
+          : ""
+      }Jeg vil gerne have et fast tilbud.`
     : pestLabel
       // Opening this page is the visitor naming the pest, so the draft
       // names it back and stops there.

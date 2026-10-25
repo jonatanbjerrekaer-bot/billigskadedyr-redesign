@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Search, X } from "lucide-react";
 import { GRID_PESTS, PestGlyph, type PestEntry } from "../lib/pests";
 import { PEST_SEARCH } from "../lib/pestSearch";
 import { OWNER_PRICES, dkr } from "../lib/pricing";
@@ -11,6 +11,44 @@ import { homeHref } from "./ui/Cta";
  * pest. The words people search by, and the line describing what they would
  * see at home, live in lib/pestSearch.
  */
+
+/** What people actually see at home, typed out one by one in the empty field. Each must find a pest in lib/pestSearch. */
+const EXAMPLES = [
+  "huller i tøjet",
+  "myrer i køkkenet",
+  "larver i plænen",
+  "stik i sengen",
+  "hvepsebo",
+  "orm i træ",
+  "skud i plænen",
+  "sølvfisk i badeværelset",
+];
+const STATIC_HINT = "Bille, huller i tøjet, larver i plænen";
+
+/**
+ * Types each example into the placeholder, holds it, deletes it, moves on.
+ * Pauses while the field has focus or text, and stays on one static hint
+ * under reduced motion, so it never competes with what someone is typing.
+ */
+function useTypedPlaceholder(paused: boolean) {
+  const [text, setText] = useState(STATIC_HINT);
+  useEffect(() => {
+    if (paused || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let i = 0, n = 0, deleting = false, t = 0;
+    const tick = () => {
+      const word = EXAMPLES[i];
+      n += deleting ? -1 : 1;
+      setText(word.slice(0, n));
+      let wait = deleting ? 35 : 70;
+      if (!deleting && n === word.length) { deleting = true; wait = 1600; }
+      else if (deleting && n === 0) { deleting = false; i = (i + 1) % EXAMPLES.length; wait = 300; }
+      t = window.setTimeout(tick, wait);
+    };
+    t = window.setTimeout(tick, 600);
+    return () => { clearTimeout(t); setText(STATIC_HINT); };
+  }, [paused]);
+  return text;
+}
 
 /**
  * Folds the Danish letters so every spelling of a word lands on one string:
@@ -83,6 +121,9 @@ export default function PestQuickSelect() {
   // name.
   const hits = useMemo(() => (searching ? GRID_PESTS.filter((p) => matches(p, q)) : GRID_PESTS), [q, searching]);
 
+  const [focused, setFocused] = useState(false);
+  const placeholder = useTypedPlaceholder(focused || q !== "");
+
   return (
     <div id="pest">
       <h2 className="index__head">Hvilket skadedyr har du?</h2>
@@ -95,6 +136,7 @@ export default function PestQuickSelect() {
           words in lib/pestSearch, so the list answers the question people
           can actually ask. */}
       <div className="index__search">
+        <Search size={20} aria-hidden="true" className="index__search-icon" />
         <label htmlFor="pest-search" className="visually-hidden">
           Søg efter skadedyr
         </label>
@@ -103,7 +145,9 @@ export default function PestQuickSelect() {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Fx bille, huller i tøjet, larver i plænen"
+          placeholder={placeholder}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           className="field"
           autoComplete="off"
         />

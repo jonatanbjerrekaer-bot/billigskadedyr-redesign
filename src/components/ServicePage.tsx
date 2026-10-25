@@ -13,7 +13,7 @@ import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import QuotePanel from "./QuotePanel";
 import { PestChips } from "./PestQuickSelect";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
-import { SPECIES_ART } from "../lib/speciesArt";
+import SpeciesCards from "./SpeciesCards";
 
 // The page carries its own estimator, contact form, process and FAQ, so
 // every in-page target below is a plain local hash. Only links that leave for
@@ -51,8 +51,6 @@ export default function ServicePage({ slug }: { slug: string }) {
   // Fluer has no price key, so the calculator has nothing to quote for it.
   // Showing a calculator that cannot answer is worse than not showing one.
   const priced = PRICED_PESTS.some((p) => p.slug === slug);
-  // All the species drawn, or none: a drawing next to an icon reads as two sets.
-  const drawn = !!content.species?.every((sp) => SPECIES_ART[sp.name]);
 
   return (
     <div className="np">
@@ -139,24 +137,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           <section className="section">
             <div className="container">
               <h2>Hvad er {label.toLowerCase()}?</h2>
-              <dl className="species">
-                {content.species!.map((sp) => (
-                  <div key={sp.name}>
-                    {drawn && (
-                      <div className="species__art">
-                        <img src={`${B}species/${SPECIES_ART[sp.name]}.webp`} alt={sp.name} loading="lazy" />
-                      </div>
-                    )}
-                    <dt>{sp.name}</dt>
-                    <dd>{sp.text}</dd>
-                  </div>
-                ))}
-              </dl>
-              {drawn && (
-                <p className="species__credit">
-                  Tegningerne er fra gamle naturhistoriske værker eller tegnet efter frie fotos, alle via Wikimedia Commons.
-                </p>
-              )}
+              <SpeciesCards service={slug} species={content.species!} />
             </div>
           </section>
         )}

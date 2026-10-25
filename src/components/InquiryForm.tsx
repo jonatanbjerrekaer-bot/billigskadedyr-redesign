@@ -317,27 +317,14 @@ export default function InquiryForm({ draft }: { draft: string }) {
       </button>
 
       {/*
-        The consent line the reference business runs under its own forms. Both
-        links intentionally land on the same page, exactly as they do there.
+        What happens to what they send, said plainly, with the page that says
+        the rest. Not "you accept our terms": there are no terms, and accepting
+        a policy is not what makes answering an enquiry lawful.
       */}
       <p className="small muted">
-        Når du sender formularen, accepterer du vores{" "}
-        <a
-          href="https://billigskadedyrprof.dk/privatlivspolitik/"
-          target="_blank"
-          rel="noreferrer"
-          className="link"
-        >
-          vilkår
-        </a>{" "}
-        og{" "}
-        <a
-          href="https://billigskadedyrprof.dk/privatlivspolitik/"
-          target="_blank"
-          rel="noreferrer"
-          className="link"
-        >
-          privatlivspolitik
+        Vi bruger kun dine oplysninger til at svare dig.{" "}
+        <a href={`${import.meta.env.BASE_URL}privatlivspolitik/`} className="link">
+          Læs vores privatlivspolitik
         </a>
         .
       </p>

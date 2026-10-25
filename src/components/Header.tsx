@@ -23,9 +23,9 @@ export default function Header({
   return (
     <header className="mast-bar">
       <div className="container mast-bar__row">
-        <a href={homeHref("#top")} className="wordmark" aria-label="Billigskadedyr.dk, til forsiden">
-          <img src={`${import.meta.env.BASE_URL}logo-mark-dark.svg`} alt="" width={69} height={67} />
-          <span aria-hidden="true">Billigskadedyr.dk</span>
+        <a href={homeHref("#top")} className="wordmark" aria-label="Billigskadedyr Prof, til forsiden">
+          <img src={`${import.meta.env.BASE_URL}logo-prof.svg`} alt="" width={184} height={185} />
+          <span aria-hidden="true">Billigskadedyr<span className="wordmark__prof">Prof</span></span>
         </a>
 
         <nav className="mast-nav" aria-label="Hovedmenu">

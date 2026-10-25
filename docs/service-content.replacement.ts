@@ -44,7 +44,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Råd om, hvordan du forebygger, at myrerne kommer tilbage",
     ],
     species: [
-      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den er fredet og skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
+      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
       { name: "Sort havemyre", text: "Den almindeligste i haver og på terrasser. Den går typisk ind efter mad og kan lave gange under fliserne." },
       { name: "Pharaomyre", text: "Lille, gulagtig og stærkest indendørs, for eksempel i køkkener. Den lever i smalle sprækker og kan sprede sig mellem lejligheder." },
       { name: "Gul engmyre (ænsmyren)", text: "Laver de små jordhøje i plænen. Ufarlig, men ofte den, der forveksles med myrer, der faktisk skal behandles." },
@@ -65,7 +65,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Skriftlig dokumentation for behandlingen",
     ],
     species: [
-      { name: "Tysk hveps", text: "Den mest almindelige i Danmark. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
+      { name: "Tysk hveps", text: "Ligner almindelig hveps til forveksling. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
       { name: "Almindelig hveps", text: "Den klassiske gæst i sensommeren. Bygger typisk bo i jordhuller og i hulrum." },
       { name: "Jordhveps", text: "Ligner den almindelige hveps, men graver ofte boet i græsplænen eller under terrassen." },
     ],

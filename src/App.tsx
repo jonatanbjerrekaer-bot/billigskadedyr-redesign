@@ -1,5 +1,4 @@
 import { useState } from "react";
-import CookieBanner from "./components/CookieBanner";
 import MobileCtaBar from "./components/MobileCtaBar";
 import { ToastProvider } from "@heroui/react";
 import Header from "./components/Header";
@@ -40,7 +39,6 @@ export default function App() {
       </main>
       <Footer />
       <MobileCtaBar />
-      <CookieBanner />
       <ToastProvider />
     </div>
   );
