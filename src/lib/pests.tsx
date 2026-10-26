@@ -40,7 +40,7 @@ export type PestEntry = {
 export const PESTS: PestEntry[] = [
   { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
   {
-    slug: "edderkopper", treatment: "Behandling af kroge, hjørner og vindueskarme",
+    slug: "edderkopper", treatment: "Behandling af træer, buske og havemøbler omkring huset",
     label: "Edderkopper",
     priceKey: "Edderkopper",
     png: "spider",

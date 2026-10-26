@@ -41,7 +41,7 @@ export default function Footer() {
             <h3>Din sikkerhed</h3>
             <ul>
               <li>Miljøgodkendte midler, brugt efter de danske regler</li>
-              <li>Skriftlig dokumentation af behandlingen</li>
+              <li>Faktura og kvittering på behandlingen</li>
               <li>Autoriseret til de behandlinger, hvor det kræves</li>
             </ul>
           </div>

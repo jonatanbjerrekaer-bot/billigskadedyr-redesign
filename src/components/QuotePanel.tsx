@@ -26,9 +26,8 @@ export default function QuotePanel({
   treatment?: string;
 }) {
   const covers = [
-    "Besigtigelse på adressen",
     treatment ?? "Behandling tilpasset opgaven",
-    "Skriftlig dokumentation af behandlingen",
+    "Faktura og kvittering",
   ];
   const est = ESTIMATED_FROM[slug];
 

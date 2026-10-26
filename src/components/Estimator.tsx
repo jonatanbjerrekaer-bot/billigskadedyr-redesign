@@ -258,7 +258,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // covers rather than repeating four generic promises regardless of input.
   // Shneiderman 3 again: the list is feedback that the inputs did something.
   const included = [
-    "Besigtigelse på adressen",
     pest.treatment ?? "Behandling af det angrebne område",
     ...(withBonus && bonusPrice !== null
       ? [`Én ekstra behandling i løbet af sæsonen (${dkr(bonusPrice)})`]
@@ -272,7 +271,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
         : "Op til to besøg med opfølgning",
     property === "erhverv"
       ? "Dokumentation til egenkontrol og audit"
-      : "Skriftlig dokumentation af behandlingen",
+      : "Faktura og kvittering",
   ];
   // The honest inverse of the list above. Unexpected cost at the end is the
   // single most-cited reason people abandon a purchase, so the variables that

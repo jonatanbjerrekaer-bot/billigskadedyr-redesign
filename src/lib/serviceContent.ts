@@ -267,7 +267,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Boet bliver fjernet, også når det sidder et besværligt sted",
       "Vi vurderer, om det er hvepse eller bier, og hvordan det skal håndteres",
       "Efterbehandling af hulrummet, så de ikke bygger bo samme sted igen",
-      "Skriftlig dokumentation for behandlingen",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Tysk hveps", text: "Ligner almindelig hveps til forveksling. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
@@ -326,7 +326,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi finder årsagen i fugt og utætheder, ikke kun de dyr, du kan se",
       "Midler med varig effekt i fugtzoner, revner og bag fodlister",
       "Mindre risiko for, at de vender tilbage",
-      "Skriftlig dokumentation for behandlingen",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Skægkræ", text: "Langbenet og hurtig. Holder til mørkt og tørt, og modsat sølvfisk kan den findes i hele boligen." },
@@ -423,7 +423,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi finder kilden, du ikke selv kan opdrive",
       "Midler mod både voksne fluer og larver, så bestanden ikke bare vokser igen",
       "Råd om affald, afløb og opbevaring",
-      "Skriftlig dokumentation for behandlingen",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Husflue", text: "Den velkendte, grå flue. Holder af affald, madvarer og mørknet materiale." },
@@ -453,10 +453,10 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Edderkopper i hjørner, lofter og udestuer er som regel harmløse, men spindet kan være generende, og " +
       "nogle arter kan bide. En fagmand fjerner dem og rådgiver, så de ikke etablerer sig igen.",
     whyProfessional: [
-      "Vi når lofter, hjørner og vindueskarme, hvor spindet sidder",
+      "Vi behandler træer, buske og havemøbler omkring huset, hvor edderkopperne holder til",
       "Midler med varig effekt, så du slipper for at gøre rent igen og igen",
       "Råd om forebyggelse, så de ikke etablerer sig på ny",
-      "Skriftlig dokumentation for behandlingen",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Husedderkop", text: "Harmløs, men bygger store spind i kælder, udskure og udestuer. Den holder bestanden af andre insekter nede." },
