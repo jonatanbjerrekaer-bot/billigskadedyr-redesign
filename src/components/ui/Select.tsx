@@ -1,5 +1,7 @@
 import { ListBox, ListBoxItem, Select as HeroSelect } from "@heroui/react";
-import { useRef, useState, type ReactNode } from "react";
+import { usePreventScroll } from "react-aria";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * Thin wrapper over HeroUI's Select so the call site stays a plain
@@ -35,13 +37,41 @@ export default function Select({
 }) {
   const [open, setOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  /* The phone sheet is NON-modal: RAC's default (modal) moves focus into the
+     popover on open, and on WebKit — deep in a scrolled page — that focus is
+     lost to the body a beat later, the blur closes the sheet (adobe/react-
+     spectrum#7579, #4533). Non-modal leaves focus on the trigger; nothing can
+     blur it shut. We give back what modal gave us, by hand: a scrim portal
+     (tap to close) and a document scroll lock. */
+  const [sheet, setSheet] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 40rem)");
+    const update = () => setSheet(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  // Modal popovers scroll-lock via react-aria; the non-modal sheet must lock
+  // the page itself or drags on the scrim strip scroll the document behind.
+  // This is the same hook RAC calls for its own modal overlays.
+  usePreventScroll({ isDisabled: !(open && paper && sheet) });
+  const closeSheet = () => {
+    setOpen(false);
+    setShowMore(false);
+  };
   // The list closes on any pick, the "+N" row included; this keeps that one
   // close from folding the extra rows away again before it reopens.
   const unfolding = useRef(false);
   const MORE = "__more";
   const extra = more && showMore ? more.options : [];
   return (
-    <HeroSelect.Root
+    <>
+      {open && paper && sheet &&
+        createPortal(
+          <div className="np-sheet-scrim" onPointerDown={closeSheet} />,
+          document.body,
+        )}
+      <HeroSelect.Root
       aria-label={ariaLabel}
       selectedKey={value}
       isOpen={open}
@@ -74,7 +104,7 @@ export default function Select({
         <HeroSelect.Indicator className="text-ink-100/70" />
       </HeroSelect.Trigger>
 
-      <HeroSelect.Popover className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
+      <HeroSelect.Popover isNonModal={paper && sheet} className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
         <ListBox>
           {options.map((o) => (
             <ListBoxItem
@@ -112,5 +142,6 @@ export default function Select({
         </ListBox>
       </HeroSelect.Popover>
     </HeroSelect.Root>
+    </>
   );
 }

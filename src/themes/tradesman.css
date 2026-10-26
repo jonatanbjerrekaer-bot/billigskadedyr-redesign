@@ -643,8 +643,23 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
     max-height: calc(85dvh - 1rem);
     overflow-y: auto;
     overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch; /* WebKit momentum, older iOS included */
     padding-top: 1.25rem; /* clear the grabber */
   }
+}
+/* The non-modal sheet's own backdrop: the popover can't render one (react-aria
+   only underlays modal overlays), so the Select portals this scrim beside it.
+   Tap-through closes via the Select's controlled open state. */
+.np-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 390; /* above page content, below the 399 sheet and 400 bar */
+  background: rgb(20 24 20 / 0.45);
+  animation: np-scrim-in 200ms var(--ease-out) both;
+}
+@keyframes np-scrim-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .np-sheet-scrim { animation: none; }
 }
 @keyframes np-sheet-in { from { transform: translateY(100%); } }
 @keyframes np-sheet-out { to { transform: translateY(100%); } }
