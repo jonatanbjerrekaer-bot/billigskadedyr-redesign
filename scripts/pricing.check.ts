@@ -27,13 +27,24 @@ assert(bigAnts.kind === "fixed" && bigAnts.overArea, "300 m2 is over his 250");
 const spring = estimate("Edderkopper", 200, "hus", "normal", d("2026-04-10"));
 assert(spring.kind === "fixed" && spring.price === 1600, "spring quotes the package");
 
+// Spiders are never sold as one treatment (owner, 2026-10-26): every season
+// quotes forår og efterår together, and the estimator asks about the bonus
+// treatment instead of the calendar surfacing it.
 const autumn = estimate("Edderkopper", 200, "hus", "normal", d("2026-10-10"));
-assert(autumn.kind === "fixed" && autumn.price === 1000, "autumn quotes one treatment");
+assert(autumn.kind === "fixed" && autumn.price === 1600, "autumn also quotes the package now");
+assert(autumn.kind === "fixed" && autumn.caption.startsWith("2 behandlinger"), "spiders: never a single treatment");
 
 const summer = estimate("Edderkopper", 200, "hus", "normal", d("2026-07-10"));
 assert(
-  summer.kind === "fixed" && summer.notes.some((n) => n.includes("500")),
-  "summer surfaces the 500 kr extra on its own, with no checkbox",
+  summer.kind === "fixed" && !summer.notes.some((n) => n.includes("500")),
+  "the bonus treatment is asked about in the calculator, not announced by the season",
+);
+
+const withBonus = estimate("Edderkopper", 140, "hus", "normal", d("2026-10-10"), { bonus: true });
+assert(withBonus.kind === "fixed" && withBonus.price === 2100, "bonus treatment adds 500 kr.");
+assert(
+  withBonus.kind === "fixed" && withBonus.caption.includes("bonusbehandling"),
+  "the caption names the bonus treatment",
 );
 
 const beetle = estimate("Borebiller", 140, "hus", "normal", d("2026-09-07"));
@@ -78,7 +89,7 @@ assert(viborg.price === 1200, "Viborg ants, one house: never above 1200");
 assert(at("Myrer", AUTUMN, "7400", 1).price <= 1200, "Herning ants are under the cap");
 assert(at("Myrer", AUTUMN, "7500", 1).price <= 1200, "Holstebro ants are under the cap");
 assert(at("Myrer", AUTUMN, "8800", 1).price <= 1200, "Viborg ants are under the cap");
-assert(at("Edderkopper", AUTUMN, "8800", 1).price === 1900, "the cap is ants-only: spiders still pay Viborg's named 900");
+assert(at("Edderkopper", AUTUMN, "8800", 1).price === 3000, "the ant cap is ants-only: spiders answer to the floor instead");
 assert(viborg.price === 600 + viborg.tripCharge, "one house: standard + full surcharge");
 assert(at("Myrer", AUTUMN, "8800", 2).price === 600 + Math.ceil(viborg.tripCharge / 2 / 100) * 100, "two houses: half the surcharge, ceil to 100");
 assert(at("Myrer", AUTUMN, "8800", 3).price === at("Myrer", AUTUMN, "8800", 2).price, "three houses get the two-house price");
@@ -91,17 +102,25 @@ assert(at("Skægkræ/sølvfisk", AUTUMN, "8800", 5).price === 1000, "skægkræ a
 assert(at("Skægkræ/sølvfisk", AUTUMN, "8800", 10).price === 800, "skægkræ at ten houses: 800");
 
 // Spiders: the package holds two treatments but the driving is charged once.
+// In Viborg and Holstebro a house booking alone never starts under 3.000 kr.
+// (owner, 2026-10-26); the floor is tier-1 only, the tiers keep their prices.
 const pkg1 = at("Edderkopper", SPRING, "8800", 1);
-assert(pkg1.price === 1600 + pkg1.tripCharge, "spider package: surcharge counted once, not per treatment");
+assert(pkg1.tripCharge === 900, "Viborg spider package: the named 900 kr. surcharge");
+assert(pkg1.price === 3000, "Viborg spider package, one house: floored at 3000");
+assert(at("Edderkopper", AUTUMN, "8800", 1).price === 3000, "the floor holds in every season");
+assert(at("Edderkopper", SPRING, "7500", 1).price === 3000, "Holstebro spider package, one house: floored at 3000");
+assert(at("Edderkopper", SPRING, "8000", 1).price === 1600, "Aarhus spiders: 1600, no surcharge, no floor");
 assert(at("Edderkopper", SPRING, "8800", 5).price === 1600, "spider package at five houses: 1600");
 assert(at("Edderkopper", SPRING, "8800", 10).price === 1000, "spider package at ten houses: the owner's 1000, not the formula's 1300");
-assert(at("Edderkopper", AUTUMN, "8800", 5).price === 1000, "single spider treatment at five houses: 1000");
-assert(at("Edderkopper", AUTUMN, "8800", 10).price === 800, "single spider treatment at ten houses follows the formula: 800");
-assert(at("Edderkopper", AUTUMN, "8800", 10).soloPrice === 1000 + pkg1.tripCharge, "soloPrice is the one-house price at that postcode");
+assert(at("Edderkopper", AUTUMN, "8800", 5).price === 1600, "autumn spiders at five houses: the package is the only spider price");
+assert(at("Edderkopper", AUTUMN, "8800", 10).price === 1000, "autumn spiders at ten houses: the owner's 1000");
+assert(at("Edderkopper", AUTUMN, "8800", 10).soloPrice === 3000, "soloPrice is the floored one-house price at that postcode");
+assert(at("Edderkopper", AUTUMN, "8800", 1).total === 3000, "total is price x houses");
+const viborgBonusQ = estimate("Edderkopper", 140, "hus", "normal", AUTUMN, { postcode: "8800", houses: 1, bonus: true });
+assert(viborgBonusQ.kind === "fixed" && viborgBonusQ.price === 3500, "Viborg spiders with the bonus treatment: 3000 + 500");
 
 // The owner named these two towns' surcharges himself; they beat the per-km rate.
 assert(at("Myrer", AUTUMN, "7500", 1).price === 1000, "Holstebro ants, one house: the owner's 1000");
 assert(at("Myrer", AUTUMN, "7500", 2).price === 800, "Holstebro ants, two houses: the owner's 800");
-assert(at("Edderkopper", SPRING, "8800", 1).price === 2500, "Viborg spider package, one house: the owner's 2500");
 
 console.log("OK pricing");

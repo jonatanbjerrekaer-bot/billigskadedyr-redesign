@@ -103,6 +103,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const [houses, setHouses] = useState<Houses>(1);
   const [driveOpen, setDriveOpen] = useState(false);
   const [neighboursOpen, setNeighboursOpen] = useState(false);
+  // The bonus treatment the owner wants asked about (spiders: an extra
+  // treatment in the season for 500 kr.). Offered, never assumed.
+  const [bonus, setBonus] = useState(false);
   // Opens the postnummer field and puts the cursor in it. The field only
   // exists after the render that opens it, hence the frame's wait.
   // "Brug min placering": the browser asks for permission on the click, and
@@ -223,11 +226,20 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const multi = houses !== 1;
   const effM2 = multi ? DEFAULTS.m2 : m2;
   const effSeverity = multi ? DEFAULTS.severity : severity;
+  // Some fixed prices have an optional extra treatment on top (spiders). It
+  // is asked about, not assumed: unticked, it never moved the number.
+  const priceRow = pest.priceKey ? OWNER_PRICES[pest.priceKey] : undefined;
+  const bonusPrice = priceRow?.kind === "fixed" ? (priceRow.summerExtra ?? null) : null;
+  const withBonus = bonus && bonusPrice !== null;
   // His published price, or an honest "we set it after a short chat". The old
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
   // estimate(), which is why no control here asks about it.
-  const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), { postcode, houses });
+  const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), {
+    postcode,
+    houses,
+    bonus: withBonus,
+  });
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
 
@@ -238,7 +250,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     property !== DEFAULTS.property ||
     severity !== DEFAULTS.severity ||
     postcode !== "" ||
-    houses !== 1;
+    houses !== 1 ||
+    bonus;
   const severityHint = SEVERITIES.find((x) => x.id === severity)?.hint;
 
   // What is included changes with the answers, so the list says what this job
@@ -247,6 +260,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const included = [
     "Besigtigelse på adressen",
     pest.treatment ?? "Behandling af det angrebne område",
+    ...(withBonus && bonusPrice !== null
+      ? [`Én ekstra behandling i løbet af sæsonen (${dkr(bonusPrice)})`]
+      : []),
     multi
       ? "Op til to besøg pr. hus med opfølgning"
       : severity === "let"
@@ -303,6 +319,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     setSeverity(DEFAULTS.severity);
     setPostcode("");
     setHouses(1);
+    setBonus(false);
     setSelTouched(false);
   };
 
@@ -430,6 +447,32 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               }}
             />
           </div>
+
+          {/* The bonus treatment is the owner's upsell (spiders: one more
+              visit in the season for 500 kr.). It sits under the pest pick
+              because it belongs to the pest, not to the driving or the
+              house. Unticked, it has never touched the price. */}
+          {quote.kind === "fixed" && bonusPrice !== null && (
+            <label className="estimator__bonus">
+              <input
+                type="checkbox"
+                checked={withBonus}
+                onChange={(e) => {
+                  setBonus(e.target.checked);
+                  setSelTouched(true);
+                }}
+              />
+              <span>
+                <span className="field-label" style={{ display: "block" }}>
+                  En bonusbehandling oveni?
+                </span>
+                <span className="small muted">
+                  For kun {dkr(bonusPrice)} ekstra kommer vi forbi én gang til i
+                  løbet af sæsonen, hvis der er brug for det.
+                </span>
+              </span>
+            </label>
+          )}
 
           {/* Driving and neighbours only move a fixed price. A pest that is
               quoted after a visit has no number for them to change.

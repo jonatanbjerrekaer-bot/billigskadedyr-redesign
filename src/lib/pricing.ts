@@ -40,6 +40,19 @@ type Owner =
       /** The same, for the two-treatment package. */
       packageGroup?: { 5?: number; 10?: number };
       /**
+       * The package is the only way this pest is sold; never quote the single
+       * treatment (owner, 2026-10-26: spiders). Season no longer picks between
+       * them — every season quotes two treatments.
+       */
+      alwaysPackage?: boolean;
+      /**
+       * Towns where a job has a minimum per-house total regardless of the
+       * formula (owner, 2026-10-26): the spider package in Viborg or Holstebro
+       * never starts under 3.000 kr. Applies to a house booking alone; the
+       * neighbour tiers have their own owner-named prices.
+       */
+      floor?: { minTotal: number; postcodes: string[] };
+      /**
        * Towns he visits so often that the total for one house is capped there
        * (owner, 2026-10-26). The driving charge shrinks to fit the cap, also
        * where a named TOWN_SURCHARGE would otherwise push the total past it.
@@ -72,6 +85,12 @@ export const OWNER_PRICES: Record<string, Owner> = {
     maxM2: 250,
     includes: "inkl. moms",
     packagePrice: 1600,
+    // Spiders are never sold as one treatment (owner, 2026-10-26): what we
+    // quote is always forår og efterår together. In Viborg and Holstebro the
+    // package never starts under 3.000 kr., and an extra treatment in the
+    // season can be added for 500 kr. — the estimator asks about it.
+    alwaysPackage: true,
+    floor: { minTotal: 3000, postcodes: ["7500", "8800"] },
     summerExtra: 500,
     // The owner's own figure for ten houses on the package. The formula would
     // say 1.300 kr.; he wants 1.000 kr., the same as one treatment at five.
@@ -268,7 +287,7 @@ export function estimate(
   _property: PropertyType,
   _severity: Severity,
   now: Date = new Date(),
-  opts: { postcode?: string; houses?: number } = {},
+  opts: { postcode?: string; houses?: number; bonus?: boolean } = {},
 ): Quote {
   const row = OWNER_PRICES[pest];
   if (!row) return { kind: "quote", why: "Den pris sætter vi efter en kort snak." };
@@ -293,20 +312,31 @@ export function estimate(
   let caption = `1 behandling af bolig op til ${row.maxM2} m², ${row.includes}`;
 
   // In spring the two-treatment package is the one that pays off, so it is what
-  // we quote. Outside spring we quote the single treatment and say what the
-  // package would cost, without pretending the visitor asked for it.
-  if (row.packagePrice && season === "forår") {
+  // we quote. Some pests are never sold as a single treatment at all
+  // (alwaysPackage); for the rest we quote the single treatment outside spring
+  // and say what the package would cost, without pretending the visitor asked
+  // for it.
+  if (row.packagePrice && (season === "forår" || row.alwaysPackage)) {
     base = row.packagePrice;
     override = row.packageGroup;
     caption = `2 behandlinger, forår og efterår, op til ${row.maxM2} m², ${row.includes}`;
-    notes.push("Du rammer foråret, hvor forår og efterår samlet står bedst.");
+    if (!row.alwaysPackage) {
+      notes.push("Du rammer foråret, hvor forår og efterår samlet står bedst.");
+    }
   } else if (row.packagePrice) {
     notes.push(
       `Forår og efterår samlet koster ${row.packagePrice.toLocaleString("da-DK")} kr.`,
     );
   }
 
-  if (row.summerExtra && season === "sommer") {
+  // The optional extra treatment the estimator asks about. Charged per house,
+  // on top of whatever tier price came out, and never halved or discounted.
+  const bonusExtra = opts.bonus && row.summerExtra ? row.summerExtra : 0;
+  if (bonusExtra) {
+    caption += " + 1 bonusbehandling i løbet af sæsonen";
+  }
+
+  if (row.summerExtra && season === "sommer" && !row.alwaysPackage) {
     notes.push(
       `Har du allerede fået behandlet i foråret, koster en ekstra behandling nu ${row.summerExtra} kr.`,
     );
@@ -335,8 +365,16 @@ export function estimate(
     tripCharge = Math.max(0, row.cap.maxTotal - base);
   }
 
-  const price = perHouse(base, override, tier, tripCharge);
-  const soloPrice = perHouse(base, override, 1, tripCharge);
+  // A house booking alone in a floored town never sees less than the floor;
+  // neighbour tiers have their own owner-named prices and are left alone.
+  const floor =
+    row.floor && lookup.state === "ok" && row.floor.postcodes.includes(lookup.nr)
+      ? row.floor.minTotal
+      : 0;
+  const price =
+    (tier === 1 ? Math.max(perHouse(base, override, tier, tripCharge), floor) : perHouse(base, override, tier, tripCharge)) +
+    bonusExtra;
+  const soloPrice = Math.max(perHouse(base, override, 1, tripCharge), floor) + bonusExtra;
   const tenPrice = perHouse(base, override, 10, tripCharge);
   const included = tier === 1 ? tripCharge : tier === 2 ? ceil100(tripCharge / 2) : 0;
 
