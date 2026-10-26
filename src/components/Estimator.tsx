@@ -269,9 +269,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
       : severity === "kraftig"
         ? "Op til tre besøg og tættere opfølgning"
         : "Op til to besøg med opfølgning",
-    property === "erhverv"
-      ? "Dokumentation til egenkontrol og audit"
-      : "Faktura og kvittering",
+    "Faktura og kvittering",
   ];
   // The honest inverse of the list above. Unexpected cost at the end is the
   // single most-cited reason people abandon a purchase, so the variables that

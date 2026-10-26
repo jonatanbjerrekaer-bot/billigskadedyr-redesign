@@ -40,7 +40,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Stankelbenslarve", text: "Grå og læderagtig larve uden ben. Den æder også græsrødder, og skaden bliver tit forvekslet med gåsebiller. Behandlingen er ikke den samme, så det er værd at få set efter, hvad der ligger i plænen." },
     ],
     processNote:
-      "Vi ser først efter, hvilken larve der sidder i plænen, og hvor dybt den ligger, fordi middel og tidspunkt afhænger af det. Derefter behandles plænen, så midlet når ned i rodzonen. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+      "Vi ser først efter, hvilken larve der sidder i plænen, og hvor dybt den ligger, fordi middel og tidspunkt afhænger af det. Derefter behandles plænen, så midlet når ned i rodzonen. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -59,7 +59,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     whyProfessional: [
       "Vi ser efter, om det er gåsebillelarver eller noget andet, der har taget plænen",
       "Behandlingen lægges der, hvor larverne sidder, ikke bare på overfladen",
-      "Du får skriftlig dokumentation for behandlingen",
+      "Du får faktura og kvittering for behandlingen",
     ],
   },
   // his own words, from billigskadedyrprof.dk
@@ -76,7 +76,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Kornsnudebille", text: "Lille brun bille med lang snude. Larven udvikler sig inde i kornkornene, så angrebet ses som meldt korn." },
     ],
     processNote:
-      "Først finder vi ud af, om det er klædemøl eller melmøl, fordi de sidder to forskellige steder og skal behandles hver sin vej. Derefter behandler vi skabe, tekstiler eller fødevareskabe der, hvor larverne er. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+      "Først finder vi ud af, om det er klædemøl eller melmøl, fordi de sidder to forskellige steder og skal behandles hver sin vej. Derefter behandler vi skabe, tekstiler eller fødevareskabe der, hvor larverne er. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -95,7 +95,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     whyProfessional: [
       "Vi finder ud af, om det er melmøl eller klædemøl, fordi behandlingen er forskellig",
       "Vi behandler der, hvor larverne sidder, og ikke kun de møl, du kan se flyve",
-      "Du får skriftlig dokumentation for behandlingen",
+      "Du får faktura og kvittering for behandlingen",
     ],
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
@@ -109,7 +109,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Sørgemyg", text: "Små, spinkle myg, der sværmer op fra potteplanterne, når du vander. De falder ikke i eddikefælder som bananfluer, så metoden er en anden." },
     ],
     processNote:
-      "Vi går rundt om huset og finder det vand, myggene yngler i, for det er der, en behandling gør en forskel. Derefter behandler vi ynglestederne og de steder, myggene hviler om dagen. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+      "Vi går rundt om huset og finder det vand, myggene yngler i, for det er der, en behandling gør en forskel. Derefter behandler vi ynglestederne og de steder, myggene hviler om dagen. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -142,7 +142,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Tæppebiller", text: "Små, runde, brogede biller, hvis larver æder uld, tæpper og fjer. Den kendteste i familien er museumsbillen." },
     ],
     processNote:
-      "Vi finder først ud af, hvor larverne lever, for det er sjældent der, hvor du ser billerne. Derefter behandler vi tæpper, fodlister og de revner, de sidder i. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+      "Vi finder først ud af, hvor larverne lever, for det er sjældent der, hvor du ser billerne. Derefter behandler vi tæpper, fodlister og de revner, de sidder i. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -161,7 +161,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     whyProfessional: [
       "Vi finder ud af, hvor larverne lever, fordi det sjældent er der, du ser billerne",
       "Behandling af tæpper, fodpaneler og revner, hvor de gemmer sig",
-      "Du får skriftlig dokumentation for behandlingen",
+      "Du får faktura og kvittering for behandlingen",
     ],
   },
   // OURS: his page carries only shared boilerplate, so this is written for this site and wants his eye
@@ -174,7 +174,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Vinbjergsnegl", text: "Den store med hus. Den er delvist fredet, så den må ikke indsamles til salg. Ser du den i haven, er den ikke problemet." },
     ],
     processNote:
-      "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen, for det er der, en behandling batter. Derefter behandler vi bede, kanter og skjulesteder. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for behandlingen.",
+      "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen, for det er der, en behandling batter. Derefter behandler vi bede, kanter og skjulesteder. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -206,7 +206,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Skuddene", text: "Mosegrisens skud er som regel mindre end muldvarpens og ligger mere rodet fordelt, og der er tit åbne huller i jorden imellem dem. Formen alene afgør det ikke, så kig også på planterne." },
     ],
     processNote:
-      "Vi finder først ud af, om det er muldvarp eller mosegris, og hvilke gange der er i brug, for der er ingen grund til at bruge tid på de gange, der er forladt. Derefter sættes der ind i selve gangsystemet. Arbejdet udføres efter gældende regler. Prisen ligger fast, før vi går i gang, og du får skriftlig dokumentation for arbejdet.",
+      "Vi finder først ud af, om det er muldvarp eller mosegris, og hvilke gange der er i brug, for der er ingen grund til at bruge tid på de gange, der er forladt. Derefter sættes der ind i selve gangsystemet. Arbejdet udføres efter gældende regler. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for arbejdet.",
     // OURS: his page for this pest carries no questions. These follow
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
@@ -247,7 +247,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     processNote:
       "Først fastlægger vi, hvilken myreart det er, og hvor reden sidder, fordi middel og metode afhænger af " +
       "det. Derefter behandles reden og adgangsvejene. Prisen ligger fast, før vi går i gang, og du får " +
-      "skriftlig dokumentation for behandlingen.",
+      "faktura og kvittering for behandlingen.",
     faq: [
       { q: "Er myrebekæmpelse relevant året rundt?", a: "Myrebekæmpelse udføres typisk i forår og sommer, hvor myrerne er aktive. Tidlig indsats giver ofte det bedste resultat og mindsker risikoen for større problemer senere på sæsonen. Dog har vi set en stigende tendens til myreangreb om vinteren. Dette kommer sig af at vi er blevet bedre til at skrue op for gulvvarmen, og et eventuelt bo direkte under huset derved kan være aktivt, selvom der er koldt ude." },
       { q: "Udfører I myrebekæmpelse i hele Jylland?", a: "Ja. Vi udfører professionel myrebekæmpelse i hele Jylland & Fyn– for både private boliger, erhverv og boligforeninger." },
@@ -298,7 +298,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi når ind i sprækker, sømme og bag løst tapet, hvor dyrene sidder",
       "Godkendte midler, brugt efter de danske regler",
       "Råd om vask og ryddeliggøring, så du undgår, at de vender tilbage",
-      "Skriftlig dokumentation, der er relevant ved udlejning, flytning og forsikringssager",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Almindelig væggelus", text: "Flad, rødlig og aktiv om natten, hvor den søger blod. Holder til i sømme i madras og sengetøj." },
@@ -362,7 +362,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi vurderer, hvor langt angrebet har spredt sig, så behandlingen rammer det, den skal",
       "Godkendte midler til selve træværket",
       "Råd om, hvilke dele der bør udskiftes",
-      "Dokumentation til ejendomsadministration eller forsikring",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Husbuk", text: "Den alvorligste. Gnaver gange i blødt nåletræ, for eksempel i tagkonstruktioner og lofter. De karakteristiske huller i overfladen er et af tegnene." },
@@ -371,7 +371,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     ],
     processNote:
       "Først fastlægger vi, om det er borebiller, og hvor vidt angrebet er gået. Derefter behandles det " +
-      "angrebne træværk, og du får dokumentation for behandlingen.",
+      "angrebne træværk, og du får faktura og kvittering for behandlingen.",
     faq: [
       { q: "Hvad koster professionel bekæmpelse af borebiller?", a: "Prisen afhænger af flere faktorer, herunder angrebets omfang, typen af træværk, bygningens størrelse og adgangsforhold. Derfor tilbyder vi altid en ekspertvurdering og et uforpligtende tilbud, så du får en løsning, der passer præcist til dit behov – uden skjulte omkostninger." },
       { q: "Hvornår på året er det bedst at bekæmpe borebiller?", a: "Borebillebekæmpelse kan udføres året rundt, men angreb opdages ofte i foråret og sommeren, hvor de voksne biller er aktive. Det vigtigste er ikke tidspunktet, men at behandlingen udføres, så snart et aktivt angreb konstateres." },
@@ -404,7 +404,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Gelbehandling i skjulesteder, afløb og bag hvidevarer, du ikke selv når",
       "Vi finder kilden og adgangsvejene, så behandlingen holder",
       "Et forløb tilpasset angrebets størrelse, med opfølgende besøg når det er nødvendigt",
-      "Skriftlig dokumentation, også til audit og egenkontrol",
+      "Faktura og kvittering for behandlingen",
     ],
     species: [
       { name: "Tysk kakerlak", text: "Den almindeligste indendørs. Lille, lysbrun og holder af køkken, badeværelse og bag hvidevarer." },
@@ -413,7 +413,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     ],
     processNote:
       "Vi starter med at finde kilden og adgangsvejene og behandler derefter med gel og lokkedøre tilpasset " +
-      "angrebet. Ved kraftige angreb laver vi opfølgende besøg. Til erhverv får du dokumentation til audit.",
+      "angrebet. Ved kraftige angreb laver vi opfølgende besøg. Du får faktura og kvittering for behandlingen.",
   },
   fluer: {
     intro:
@@ -467,7 +467,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi behandler de steder, hvor spindet sidder, og giver råd om, hvordan du forebygger nye. Prisen ligger " +
       "fast, før vi går i gang.",
     faq: [
-      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger til både erhverv og boligforeninger, herunder faste aftaler og dokumentation ved behov." },
+      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger til både erhverv og boligforeninger, herunder faste aftaler tilpasset jeres behov." },
       { q: "Virker behandlingen også forebyggende?", a: "Ja. Professionel bekæmpelse af edderkopper har en forebyggende effekt, fordi både fødegrundlag og adgangsveje behandles. Det reducerer sandsynligheden for, at nye edderkopper hurtigt vender tilbage." },
       { q: "Hvorfor er der ekstra mange edderkopper i sensommeren og efteråret?", a: "Edderkopper bliver særligt synlige i sensommeren og efteråret, når de søger indendørs for at finde læ, varme og føde. Samtidig er det parringssæson for flere arter, hvilket øger aktiviteten. Det er derfor helt normalt at opleve flere edderkopper i denne periode." },
       { q: "Hvor hurtigt virker behandlingen mod edderkopper?", a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Resultatet forbedres typisk over de efterfølgende uger, dog vil den fulde effekt først mærkes efter flere behandlinger." },

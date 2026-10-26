@@ -17,8 +17,8 @@ const ROWS: { other: string; us: string }[] = [
     us: "Vi siger det ligeud, når du selv kan klare det med et middel til 49 kr.",
   },
   {
-    other: "Ingen dokumentation af behandlingen",
-    us: "Skriftlig dokumentation, klar til ejendomsadministrationen eller forsikringssagen",
+    other: "“Garanti” og dokumentation er med i prisen. Dem, der aldrig får brug for dem, betaler alligevel",
+    us: "Ingen garanti, intet papir. De fleste skal kun behandles én gang — og det kan mærkes på prisen",
   },
 ];
 

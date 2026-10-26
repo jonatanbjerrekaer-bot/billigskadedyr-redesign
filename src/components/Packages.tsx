@@ -57,7 +57,6 @@ const ROWS: { label: string; values: (boolean | string)[] }[] = [
   { label: "Faktura og kvittering", values: [true, true, true] },
   { label: "Hos dig senest", values: ["1-2 hverdage", "1-2 hverdage", "1-2 hverdage"] },
   { label: "Løbende kontrol", values: [false, false, true] },
-  { label: "Dokumentation til audits", values: [false, false, true] },
   { label: "Udvidede åbningstider", values: [false, false, true] },
 ];
 
