@@ -39,6 +39,14 @@ type Owner =
       group?: { 5?: number; 10?: number };
       /** The same, for the two-treatment package. */
       packageGroup?: { 5?: number; 10?: number };
+      /**
+       * Towns he visits so often that the total for one house is capped there
+       * (owner, 2026-10-26). The driving charge shrinks to fit the cap, also
+       * where a named TOWN_SURCHARGE would otherwise push the total past it.
+       * Neighbour tiers only lower the per-house price, so a capped surcharge
+       * keeps every tier under the cap.
+       */
+      cap?: { maxTotal: number; postcodes: string[] };
     }
   | {
       kind: "quote";
@@ -54,6 +62,9 @@ export const OWNER_PRICES: Record<string, Owner> = {
     base: 600,
     maxM2: 250,
     includes: "inkl. moms",
+    // Herning, Holstebro and Viborg are the towns he drives to most; there the
+    // total for one house must never pass 1.200 kr. (owner, 2026-10-26).
+    cap: { maxTotal: 1200, postcodes: ["7400", "7500", "8800"] },
   },
   Edderkopper: {
     kind: "fixed",
@@ -270,7 +281,8 @@ export function estimate(
   const lookup = lookupPostcode(opts.postcode);
   // A blank or unknown postcode is quoted as Aarhus, with a line that says so,
   // rather than inventing a distance.
-  const tripCharge =
+  // let, not const: a frequent-route cap (below) may shrink it to fit.
+  let tripCharge =
     lookup.state === "ok"
       ? (TOWN_SURCHARGE[lookup.nr] ?? driveSurcharge(lookup.place.km, lookup.place.aarhus))
       : 0;
@@ -308,6 +320,19 @@ export function estimate(
     notes.push(
       `Prisen her dækker op til ${row.maxM2} m². Din bolig er større, så vi sætter den endelige pris efter en kort snak.`,
     );
+  }
+
+  // Frequent-route towns: the total for one house must never pass the cap, so
+  // the driving charge shrinks to fit. Done after the package swap so the cap
+  // measures the base actually being quoted, and before perHouse so the
+  // driving line and every tier read the clamped figure.
+  if (
+    row.cap &&
+    lookup.state === "ok" &&
+    row.cap.postcodes.includes(lookup.nr) &&
+    base + tripCharge > row.cap.maxTotal
+  ) {
+    tripCharge = Math.max(0, row.cap.maxTotal - base);
   }
 
   const price = perHouse(base, override, tier, tripCharge);

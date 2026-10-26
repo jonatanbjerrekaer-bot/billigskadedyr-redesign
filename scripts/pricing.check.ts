@@ -70,7 +70,15 @@ assert(at("Myrer", AUTUMN, "", 1).price === 600, "no postcode is quoted as Aarhu
 assert(at("Myrer", AUTUMN, "1234", 1).postcodeState === "unknown", "an unknown postcode is flagged");
 
 const viborg = at("Myrer", AUTUMN, "8800", 1);
-assert(viborg.surcharge === viborg.tripCharge && viborg.tripCharge > 0, "Viborg pays the full surcharge");
+// Herning, Holstebro and Viborg are the frequent-route towns: the total for
+// one house is capped at 1.200 kr., so Viborg's named 900 kr. surcharge
+// shrinks to 600 kr. to fit. Tiers below never exceed the cap.
+assert(viborg.tripCharge === 600 && viborg.surcharge === 600, "Viborg ants: driving shrinks to the 1200 cap");
+assert(viborg.price === 1200, "Viborg ants, one house: never above 1200");
+assert(at("Myrer", AUTUMN, "7400", 1).price <= 1200, "Herning ants are under the cap");
+assert(at("Myrer", AUTUMN, "7500", 1).price <= 1200, "Holstebro ants are under the cap");
+assert(at("Myrer", AUTUMN, "8800", 1).price <= 1200, "Viborg ants are under the cap");
+assert(at("Edderkopper", AUTUMN, "8800", 1).price === 1900, "the cap is ants-only: spiders still pay Viborg's named 900");
 assert(viborg.price === 600 + viborg.tripCharge, "one house: standard + full surcharge");
 assert(at("Myrer", AUTUMN, "8800", 2).price === 600 + Math.ceil(viborg.tripCharge / 2 / 100) * 100, "two houses: half the surcharge, ceil to 100");
 assert(at("Myrer", AUTUMN, "8800", 3).price === at("Myrer", AUTUMN, "8800", 2).price, "three houses get the two-house price");
