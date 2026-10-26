@@ -109,6 +109,39 @@ export default function Select({
     setOpen(false);
     setShowMore(false);
   };
+  /* Touch leak guard. On iOS the tap that opens the sheet is followed by
+     synthesized mouse events (mousedown/mouseup/click) that are hit-tested
+     against the freshly opened sheet — the row sitting under the finger
+     receives that "click" and the sheet closes as fast as it opened. While
+     the sheet is "arming", mouse-only events landing inside it are swallowed
+     at the document; the next real pointerup disarms it, and a timeout
+     covers opens that came from the keyboard. */
+  const [arming, setArming] = useState(false);
+  useEffect(() => {
+    if (!arming) return;
+    const disarm = () => setArming(false);
+    const blockMouse = (e: Event) => {
+      const t = e.target as HTMLElement | null;
+      if (t?.closest?.(".np-popover")) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    window.addEventListener("pointerup", disarm, { capture: true });
+    window.addEventListener("pointercancel", disarm, { capture: true });
+    for (const type of ["mousedown", "mouseup", "click"]) {
+      document.addEventListener(type, blockMouse, { capture: true });
+    }
+    const t = setTimeout(disarm, 700);
+    return () => {
+      window.removeEventListener("pointerup", disarm, { capture: true });
+      window.removeEventListener("pointercancel", disarm, { capture: true });
+      for (const type of ["mousedown", "mouseup", "click"]) {
+        document.removeEventListener(type, blockMouse, { capture: true });
+      }
+      clearTimeout(t);
+    };
+  }, [arming]);
   // The list closes on any pick, the "+N" row included; this keeps that one
   // close from folding the extra rows away again before it reopens.
   const unfolding = useRef(false);
@@ -127,6 +160,7 @@ export default function Select({
       isOpen={open}
       onOpenChange={(o) => {
         setOpen(o);
+        if (o && paper && sheet) setArming(true);
         if (!o && !unfolding.current) setShowMore(false);
         unfolding.current = false;
       }}
