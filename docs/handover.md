@@ -44,6 +44,16 @@ Mobilt (≤640 px) er skadedyrsvælgeren en bundsheet fastgjort til den visuelle
 viewport, med pris-chip (skadedyr + pris + CTA) der ligger sig oven på
 telefonbjælken mens man stiller på beregneren.
 
+## Forretningspositionering: ingen garanti, intet papir
+
+Ejerens model er med vilje anderledes end konkurrenternes: han giver
+**hverken garanti eller skriftlig dokumentation** (kun faktura/kvittering).
+Det er hele grunden til, at han kan være billigere - konkurrenterne har
+gratis genbesøg og garanti med i prisen og taber penge på dem. Sitet siger
+det ligeud som et salgsargument (sammenligningstabel, fordele, pakker,
+service-sider). **Genindfør aldrig løfter om skriftlig dokumentation,
+garanti eller forsikringspapir** - kun Faktura og kvittering.
+
 ## Design
 
 Papir og skovgrøn blæk (oklch-tokens i tradesman.css): lys papirbaggrund, mørk
