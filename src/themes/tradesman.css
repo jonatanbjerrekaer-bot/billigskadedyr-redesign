@@ -498,6 +498,10 @@ html:has(.np) { background: var(--color-paper); }
    question comes up. */
 .np .estimator__where { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
 .np .estimator__where > * { width: 100%; }
+/* the openers are links, not rows: at 100% the hover wash would paint
+   wall-to-wall across the column, so they size to their text like the locate
+   button and the wash sits behind the words */
+.np .estimator__where > .estimator__open { width: auto; }
 .np .estimator__open {
   width: auto; padding: 0; background: none; border: 0; cursor: pointer; text-align: left;
   font: 600 0.9375rem/1.4 var(--font-body); color: var(--color-ink);
@@ -572,6 +576,52 @@ html:has(.np) { background: var(--color-paper); }
    column. */
 .np .estimator__locate { display: inline-flex; align-items: center; align-self: flex-start; gap: 0.4em; width: auto; margin-top: var(--space-xs); }
 .np .estimator__locate:disabled { cursor: progress; opacity: 0.7; }
+
+/* On a phone the pest picker is a sheet, not a floating box: full width, it
+   slides up from the screen edge under a grabber and the list scrolls inside
+   it. react-aria positions the popover with inline top/left, hence the
+   !important; HeroUI's own popover animation is overridden on data-entering
+   (and data-exiting, so the sheet slides back down instead of vanishing).
+   The block sits after every other popover rule so its padding-top actually
+   sticks, and the grabber carries z-index + no pointer events because the
+   rows are positioned and scrolled rows can slide beneath it. */
+@media (max-width: 40rem) {
+  .np-popover {
+    position: fixed !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-height: 85vh;
+    max-height: 85dvh;
+    border-radius: 1rem 1rem 0 0;
+    border-bottom: 0;
+    box-shadow: 0 -12px 40px rgb(0 0 0 / 0.14);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow: hidden;
+  }
+  .np-popover::before {
+    content: ""; position: absolute; top: 0.5rem; left: 50%; translate: -50% 0;
+    width: 2.25rem; height: 0.25rem; border-radius: 999px; background: var(--color-rule-2);
+    z-index: 1; pointer-events: none;
+  }
+  .np-popover[data-entering="true"] { animation: np-sheet-in 280ms var(--ease-out) both !important; }
+  .np-popover[data-exiting="true"] { animation: np-sheet-out 200ms var(--ease-out) both !important; }
+  .np-popover .list-box, .np-popover [role="listbox"] {
+    max-height: calc(85vh - 1rem);
+    max-height: calc(85dvh - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: 1.25rem; /* clear the grabber */
+  }
+}
+@keyframes np-sheet-in { from { transform: translateY(100%); } }
+@keyframes np-sheet-out { to { transform: translateY(100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .np-popover[data-entering="true"], .np-popover[data-exiting="true"] { animation: none !important; }
+}
 
 /* "+7 andre skadedyr" closes the priced list; the pests it unfolds read as a
    second, quieter group that leads to a page rather than a price.
