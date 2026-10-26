@@ -215,11 +215,19 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   }, []);
 
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
+  // From two houses up the price is driven by the tier, and one area or
+  // severity cannot speak for houses that may differ anyway — those controls
+  // are hidden then. Quote and draft from the defaults instead of from state
+  // no control shows, so a hidden slider can never move the number or the
+  // "your home is bigger" note.
+  const multi = houses !== 1;
+  const effM2 = multi ? DEFAULTS.m2 : m2;
+  const effSeverity = multi ? DEFAULTS.severity : severity;
   // His published price, or an honest "we set it after a short chat". The old
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
   // estimate(), which is why no control here asks about it.
-  const quote = estimate(pest.priceKey!, m2, property, severity, new Date(), { postcode, houses });
+  const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), { postcode, houses });
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
 
@@ -239,7 +247,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const included = [
     "Besigtigelse på adressen",
     pest.treatment ?? "Behandling af det angrebne område",
-    severity === "let"
+    multi
+      ? "Op til to besøg pr. hus med opfølgning"
+      : severity === "let"
       ? "Ét besøg, som regel nok ved et lille angreb"
       : severity === "kraftig"
         ? "Op til tre besøg og tættere opfølgning"
@@ -256,8 +266,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
-    ...(m2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
-    ...(severity === "kraftig"
+    ...(effM2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
+    ...(effSeverity === "kraftig"
       ? ["Ekstra besøg, hvis angrebet har bredt sig mere end forventet"]
       : []),
     ...(property === "erhverv"
@@ -269,9 +279,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // answers; publishing is shallow-guarded, so re-renders cost nothing.
   publishEstimatorSelection({
     pestLabel: pest.label,
-    m2,
+    m2: effM2,
     property,
-    severity,
+    severity: effSeverity,
     postcode: quote.kind === "fixed" ? quote.place?.nr ?? null : null,
     town: quote.kind === "fixed" ? quote.place?.by ?? null : null,
     houses: quote.kind === "fixed" ? quote.houses : 1,
@@ -537,8 +547,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 <span>
                   <span className="trigger-title">Tilpas beregningen</span>
                   <span className="small muted" style={{ display: "block" }}>
-                    Areal, boligtype og hvor slemt det er. Ellers regner vi på et
-                    gennemsnitligt hus.
+                    {multi
+                      ? "Kun boligtype — prisen styres af hvor mange I er."
+                      : "Areal, boligtype og hvor slemt det er. Ellers regner vi på et gennemsnitligt hus."}
                   </span>
                 </span>
                 <ChevronDown size={20} aria-hidden="true" className="chev" />
@@ -547,6 +558,11 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
             <Disclosure.Content>
               <Disclosure.Body style={{ display: "flex", flexDirection: "column", gap: "var(--space-lg)", paddingTop: "var(--space-md)" }}>
+                {/* From two houses the tier sets the price and one area cannot
+                    describe houses that differ anyway, so the slider steps
+                    aside. The state is kept: setting "1" again brings the
+                    visitor's own number back. */}
+                {!multi && (
                 <Slider.Root
                   value={m2}
                   onChange={(v) => {
@@ -603,6 +619,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     <span>400 m²</span>
                   </div>
                 </Slider.Root>
+                )}
 
                 <div>
                   <span className="field-label">Ejendomstype</span>
@@ -634,6 +651,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </SegmentTrack>
                 </div>
 
+                {/* Severity shapes the one-house copy, but with several houses
+                    the tier drives the price and a single grade cannot speak
+                    for all of them — hidden like the area, state preserved. */}
+                {!multi && (
                 <div>
                   <span className="field-label">Grad af angreb</span>
                   <SegmentTrack value={severity}>
@@ -662,6 +683,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     {severityHint}
                   </p>
                 </div>
+                )}
 
                 {/* Always in the layout, only visible once there is something to
                     reset: appearing on the first change made the whole
