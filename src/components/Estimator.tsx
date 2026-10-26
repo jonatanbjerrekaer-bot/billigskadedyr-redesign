@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Select from "./ui/Select";
 import SegmentTrack from "./ui/SegmentTrack";
-import { ContactCtas } from "./ui/Cta";
+import { ContactCtas, CONTACT_HREF, homeHref } from "./ui/Cta";
 import {
   publishEstimatorSelection,
   useChosenPest,
@@ -326,8 +326,50 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price]);
 
+  /* Mobile price chip. In the calculator the controls sit far below the
+     result card, and picking from the opened sheet (or from a hero chip,
+     which scrolls here first) leaves the visitor shaping a price they
+     cannot see. While the section is on screen and the result card is
+     not, a small bar above the phone bar keeps the chosen pest, the
+     counting price and a CTA one thumb-reach away. Desktop never sees
+     it — the result card is in plain view there. */
+  const sectionRef = useRef<HTMLElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  const [chipOn, setChipOn] = useState(false);
+  useEffect(() => {
+    const section = sectionRef.current;
+    const result = resultRef.current;
+    // The card is taller than a phone screen, so its edges being on screen
+    // says nothing about the price — watch the price line itself.
+    const priceEl = result?.querySelector<HTMLElement>(".estimator__price");
+    if (!section || !result || !priceEl) return;
+    let sectionIn = false;
+    let priceIn = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const vh = window.innerHeight;
+        for (const e of entries) {
+          const r = e.boundingClientRect;
+          if (e.target === section) {
+            // "In the section": any meaningful band of it is on screen.
+            sectionIn = r.top < vh * 0.8 && r.bottom > vh * 0.2;
+          } else {
+            // The price sits at the top of the card, so the card counts as
+            // visible once its top is comfortably inside the viewport.
+            priceIn = r.bottom > vh * 0.1 && r.top < vh * 0.65;
+          }
+        }
+        setChipOn(sectionIn && !priceIn);
+      },
+      { threshold: [0, 0.2, 0.5, 0.8] },
+    );
+    io.observe(section);
+    io.observe(priceEl);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section id="estimator" className="section section--s estimator estimator--calc">
+    <section id="estimator" ref={sectionRef} className="section section--s estimator estimator--calc">
       {/*
         Phone layout: head, price, controls (newsprint.css orders the flex
         column under 60rem). The price is the product — "et vejledende beløb
@@ -642,7 +684,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           )}
         </div>
 
-        <div className="estimator__result" aria-live="polite">
+        <div className="estimator__result" ref={resultRef} aria-live="polite">
           {/*
             The pest name is what people reach for when they want a different
             pest, so it opens the picker rather than just reporting state.
@@ -785,6 +827,44 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
           <ContactCtas />
         </div>
+      </div>
+
+      {/*
+        Phone-only companion (visibility from the observer above): chosen
+        pest, live price and a CTA while the controls are in use. The open
+        picker's scrim (z 390) covers this (z 380), so they never compete.
+        tabIndex keeps the hidden bar out of the tab order; the strings
+        repeat the result card, so no live region here.
+      */}
+      <div className={`estimator__chip${chipOn ? " is-on" : ""}`}>
+        <div className="estimator__chip-row">
+          <span className="estimator__chip-glyph" aria-hidden="true">
+            <PestGlyph pest={pest} size={20} />
+          </span>
+          <span className="estimator__chip-pest" title={pest.label}>
+            {pest.label}
+          </span>
+          <a
+            href={homeHref(CONTACT_HREF)}
+            className="btn btn--primary estimator__chip-cta"
+            tabIndex={chipOn ? 0 : -1}
+          >
+            Skriv til os
+          </a>
+        </div>
+        <span className="estimator__chip-price">
+          {quote.kind === "fixed" ? (
+            <>
+              {quote.overArea && "Fra "}
+              {dkr(display)}
+              {quote.postcodeState !== "ok" && <span className="estimator__chip-drive"> + kørsel</span>}
+            </>
+          ) : quote.inspection ? (
+            dkr(quote.inspection.price)
+          ) : (
+            "Fast pris efter en kort snak"
+          )}
+        </span>
       </div>
     </section>
   );

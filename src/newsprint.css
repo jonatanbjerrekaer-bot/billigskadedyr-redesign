@@ -398,6 +398,9 @@ html:has(.np) { background: var(--color-paper); }
 
 /* ------------------------------------------------------------- the phone bar and the cookie notice */
 .np .phonebar { display: none; }
+/* The estimator's floating price chip is phone-only (defined with the
+   phone bar below); on larger screens the result card is already in view. */
+.np .estimator__chip { display: none; }
 .np .notice { position: fixed; inset: auto 0 0 0; z-index: var(--z-toast); background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule-2); }
 .np .notice__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md); padding-block: var(--space-md); }
 
@@ -481,6 +484,35 @@ html:has(.np) { background: var(--color-paper); }
   }
   .np .phonebar .btn--primary { flex-grow: 1; }
   .np { padding-bottom: 80px; }
+
+  /* The calculator's price chip: chosen pest, live price and a CTA while the
+     controls are in use and the result card is scrolled out. It floats just
+     above the phone bar (z 380, so the open picker's scrim at 390 covers it)
+     and pops up rather than appearing. */
+  .np .estimator__chip {
+    display: flex; flex-direction: column; gap: var(--space-2xs);
+    position: fixed; left: var(--gutter); right: var(--gutter);
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+    z-index: 380;
+    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-sm);
+    background: var(--color-paper); color: var(--color-ink);
+    border: 1px solid var(--color-rule-2); border-radius: var(--radius-control);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.16);
+    opacity: 0; transform: translateY(10px); pointer-events: none;
+    transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+  .np .estimator__chip.is-on { opacity: 1; transform: none; pointer-events: auto; }
+  /* Two short rows instead of one crowded one: the pest name never
+     truncates, and the price keeps the display weight. */
+  .np .estimator__chip-row { display: flex; align-items: center; gap: var(--space-xs); min-width: 0; }
+  .np .estimator__chip-glyph { display: inline-flex; flex-shrink: 0; color: var(--color-ink); }
+  .np .estimator__chip-pest { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .np .estimator__chip-price { font: 700 var(--text-lg)/1.15 var(--font-display); letter-spacing: var(--tracking-display); }
+  .np .estimator__chip-drive { font: 500 var(--text-sm)/1.15 var(--font-body); letter-spacing: normal; color: var(--color-muted); }
+  .np .estimator__chip-cta { flex-shrink: 0; margin-left: auto; min-height: 36px; padding-inline: var(--space-md); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np .estimator__chip { transition: none; }
 }
 @media (max-width: 40rem) {
   .np .index__list { columns: 1; }
