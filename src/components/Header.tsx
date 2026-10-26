@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { CONTACT_HREF, homeHref } from "./ui/Cta";
 
 const NAV_LINKS = [
@@ -20,6 +21,54 @@ export default function Header({
   mobileNavOpen: boolean;
   onNavToggle: () => void;
 }) {
+  const menuRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+
+  /* The open sheet behaves modally even though it stays a nav landmark:
+     Escape closes it, Tab cycles the links and the one action instead of
+     falling through to the page behind, and focus returns to the toggle so
+     a keyboard never lands on hidden content. The guard keeps the focus
+     move on the open transition only, as the toggle prop is a new identity
+     every render. */
+  useEffect(() => {
+    if (!mobileNavOpen) {
+      /* Back from open: hash navigation moves focus to the target before
+         this runs, so "was focus inside" is too narrow — return it to the
+         trigger unconditionally, the disclosure pattern. */
+      if (wasOpen.current) burgerRef.current?.focus();
+      wasOpen.current = false;
+      return;
+    }
+    const focusables = () =>
+      [...(menuRef.current?.querySelectorAll<HTMLElement>("a[href], button") ?? [])].filter(
+        (el) => !el.hasAttribute("disabled"),
+      );
+    if (!wasOpen.current) focusables()[0]?.focus();
+    wasOpen.current = true;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onNavToggle();
+        burgerRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const els = focusables();
+      if (!els.length) return;
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileNavOpen, onNavToggle]);
+
   return (
     <header className="mast-bar">
       <div className="container mast-bar__row">
@@ -41,6 +90,7 @@ export default function Header({
         </a>
         <button
           type="button"
+          ref={burgerRef}
           onClick={onNavToggle}
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-nav"
@@ -51,10 +101,17 @@ export default function Header({
         </button>
       </div>
 
-      {/* Kept mounted and collapsed with the shared row-collapse class so both
-          opening and closing animate; visibility on the collapsed state keeps
-          the hidden links out of the tab order. */}
-      <nav id="mobile-nav" aria-label="Mobilnavigation" aria-hidden={!mobileNavOpen} className="mast-mobile" hidden={!mobileNavOpen}>
+      {/* Kept mounted and toggled with the hidden attribute: when open it is
+          a fixed full-screen sheet (see tradesman.css), and hidden keeps the
+          links out of the tab order while closed. */}
+      <nav
+        id="mobile-nav"
+        ref={menuRef}
+        aria-label="Mobilnavigation"
+        aria-hidden={!mobileNavOpen}
+        className="mast-mobile"
+        hidden={!mobileNavOpen}
+      >
         <div className="container">
           <ul>
             {NAV_LINKS.map((l) => (
