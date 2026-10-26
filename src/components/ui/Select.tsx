@@ -55,6 +55,56 @@ export default function Select({
   // the page itself or drags on the scrim strip scroll the document behind.
   // This is the same hook RAC calls for its own modal overlays.
   usePreventScroll({ isDisabled: !(open && paper && sheet) });
+  /* Pin the open sheet to the VISUAL viewport. `fixed; bottom: 0` anchors to
+     the layout viewport, which on WebKit can extend past what is actually
+     shown — URL-bar chrome, pinch zoom, a panned page — so the sheet's lower
+     edge and its last rows land off screen and the list reads as broken.
+     visualViewport geometry tracks all of those, so the sheet hugs the
+     visible rectangle. The CSS is var-driven (see tradesman.css) so the
+     !important rules win over react-aria's own inline positioning. HeroUI
+     does not forward the Popover ref, and react-aria REMOUNTS the popover
+     node when the "+N" row unfolds the list — a MutationObserver re-pins
+     whichever node is mounted, no refs involved. */
+  useEffect(() => {
+    if (!(open && paper && sheet)) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    let raf = 0;
+    let pinnedEl: HTMLElement | null = null;
+    const unpin = (el: HTMLElement) => {
+      el.classList.remove("np-popover--pinned");
+      el.style.removeProperty("--np-sheet-top");
+      el.style.removeProperty("--np-sheet-left");
+      el.style.removeProperty("--np-sheet-width");
+      el.style.removeProperty("--np-sheet-height");
+    };
+    const pin = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = document.querySelector<HTMLElement>(".np-popover");
+        if (!el) return;
+        if (pinnedEl && pinnedEl !== el) unpin(pinnedEl);
+        pinnedEl = el;
+        el.style.setProperty("--np-sheet-top", `${vv.offsetTop + vv.height * 0.15}px`);
+        el.style.setProperty("--np-sheet-left", `${vv.offsetLeft}px`);
+        el.style.setProperty("--np-sheet-width", `${vv.width}px`);
+        el.style.setProperty("--np-sheet-height", `${vv.height * 0.85}px`);
+        el.classList.add("np-popover--pinned");
+      });
+    };
+    pin();
+    vv.addEventListener("resize", pin);
+    vv.addEventListener("scroll", pin);
+    const mo = new MutationObserver(pin);
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      vv.removeEventListener("resize", pin);
+      vv.removeEventListener("scroll", pin);
+      mo.disconnect();
+      if (pinnedEl) unpin(pinnedEl);
+    };
+  }, [open, paper, sheet]);
   const closeSheet = () => {
     setOpen(false);
     setShowMore(false);

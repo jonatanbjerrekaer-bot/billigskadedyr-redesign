@@ -631,6 +631,26 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
     padding-bottom: env(safe-area-inset-bottom, 0px);
     overflow: hidden;
   }
+  /* Pinned by Select.tsx to the visual viewport while the sheet is open
+     (WebKit anchors plain fixed bottom:0 to the layout viewport, which can
+     sit off screen — toolbar, zoom, panned page). Same sheet shape, just
+     hugging the visible rectangle; the vars are set from visualViewport. */
+  .np-popover.np-popover--pinned {
+    top: var(--np-sheet-top) !important;
+    left: var(--np-sheet-left) !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: var(--np-sheet-width) !important;
+    height: var(--np-sheet-height) !important;
+    max-height: none !important;
+  }
+  /* the list fills the pinned sheet so a short list of options still hugs
+     the bottom edge and a long one scrolls inside it */
+  .np-popover.np-popover--pinned .list-box,
+  .np-popover.np-popover--pinned [role="listbox"] {
+    height: 100%;
+    max-height: none;
+  }
   .np-popover::before {
     content: ""; position: absolute; top: 0.5rem; left: 50%; translate: -50% 0;
     width: 2.25rem; height: 0.25rem; border-radius: 999px; background: var(--color-rule-2);
@@ -708,6 +728,7 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   .np .toggle-button-group .toggle-button,
   .np .toggle-button-group .toggle-button + .toggle-button { min-height: 44px; }
   .np :is(.close__dl a, .foot__legal a, .score__link a) { display: inline-block; padding-block: 11px; margin-block: -11px; }
+  .np .foot__legal a { display: inline-flex; align-items: center; }
   .np .hero__check-more { padding-block: 10px; margin-block: calc(var(--space-xs) - 10px) -10px; }
   .np .estimator__open { padding-block: 12px; margin-block: -12px; }
   .np .estimator__drive-link { padding-block: 14px; margin-block: -14px; }
