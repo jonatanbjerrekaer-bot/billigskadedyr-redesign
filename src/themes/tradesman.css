@@ -111,6 +111,35 @@ html:has(.np) { background: var(--color-paper); }
 .np .mast-menu { border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
 .np .mast-mobile a:not(.btn) { font: 700 1.25rem/1 var(--font-body); color: var(--color-ink); border-bottom: 1px solid var(--color-rule); }
 
+/* Where the burger replaces the inline nav, the menu is a full-screen sheet
+   under the sticky bar: it starts 72px down so the bar with the wordmark and
+   the X stays visible and tappable, the links fill the space, and the one
+   action pins to the bottom. Body scroll locks via :has while it is open,
+   and the sheet fades and settles on open. The z sits above the mobile CTA
+   bar (which would otherwise cover the pinned button) but below the cookie
+   toast, so consent stays answerable; the bar itself keeps z 300 above the
+   sheet, as the menu lives inside its stacking context anyway. */
+@media (max-width: 60rem) {
+  .np .mast-mobile {
+    position: fixed;
+    inset: 72px 0 0 0;
+    z-index: calc(var(--z-sticky-nav) + 100);
+    background: var(--color-paper);
+    border-top: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: mast-mobile-in 220ms var(--ease-out);
+  }
+  .np .mast-mobile .container { min-height: 100%; display: flex; flex-direction: column; }
+  .np .mast-mobile .btn--block { margin-top: auto; margin-bottom: var(--space-lg); }
+}
+@keyframes mast-mobile-in { from { opacity: 0; transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .np .mast-mobile { animation: none; }
+}
+body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
+
 /* ------------------------------------------------ controls: red for the action, navy outline for the rest */
 .np .btn {
   min-height: 52px; padding: 0 var(--space-lg); border: 2px solid transparent; border-radius: var(--radius-control);
