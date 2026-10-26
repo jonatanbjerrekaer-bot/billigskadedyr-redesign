@@ -105,43 +105,38 @@ export default function Select({
       if (pinnedEl) unpin(pinnedEl);
     };
   }, [open, paper, sheet]);
+  /* Touch leak shield, armed SYNCHRONOUSLY when the sheet opens. On iOS the
+     tap that opens it is followed — same task, before React can flush a
+     single state update — by synthesized mouse events hit-tested against the
+     freshly opened rows: the row under the finger gets "clicked" and the
+     sheet closes as fast as it opened. A body class takes pointer-events
+     off the sheet at hit-test time, which no event ordering can race; the
+     scrim also ignores taps while armed. The next real pointerdown (the
+     user's first deliberate tap) stands it down, with a timeout for opens
+     that came from the keyboard. */
+  const armedRef = useRef(false);
+  const armTimerRef = useRef(0);
+  const disarmShield = () => {
+    if (!armedRef.current) return;
+    armedRef.current = false;
+    document.body.classList.remove("np-sheet-arming");
+    window.removeEventListener("pointerdown", disarmShield, { capture: true });
+    window.removeEventListener("pointercancel", disarmShield, { capture: true });
+    window.clearTimeout(armTimerRef.current);
+  };
+  const armShield = () => {
+    disarmShield();
+    armedRef.current = true;
+    document.body.classList.add("np-sheet-arming");
+    window.addEventListener("pointerdown", disarmShield, { capture: true });
+    window.addEventListener("pointercancel", disarmShield, { capture: true });
+    armTimerRef.current = window.setTimeout(disarmShield, 600);
+  };
   const closeSheet = () => {
+    disarmShield();
     setOpen(false);
     setShowMore(false);
   };
-  /* Touch leak guard. On iOS the tap that opens the sheet is followed by
-     synthesized mouse events (mousedown/mouseup/click) that are hit-tested
-     against the freshly opened sheet — the row sitting under the finger
-     receives that "click" and the sheet closes as fast as it opened. While
-     the sheet is "arming", mouse-only events landing inside it are swallowed
-     at the document; the next real pointerup disarms it, and a timeout
-     covers opens that came from the keyboard. */
-  const [arming, setArming] = useState(false);
-  useEffect(() => {
-    if (!arming) return;
-    const disarm = () => setArming(false);
-    const blockMouse = (e: Event) => {
-      const t = e.target as HTMLElement | null;
-      if (t?.closest?.(".np-popover")) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-    window.addEventListener("pointerup", disarm, { capture: true });
-    window.addEventListener("pointercancel", disarm, { capture: true });
-    for (const type of ["mousedown", "mouseup", "click"]) {
-      document.addEventListener(type, blockMouse, { capture: true });
-    }
-    const t = setTimeout(disarm, 700);
-    return () => {
-      window.removeEventListener("pointerup", disarm, { capture: true });
-      window.removeEventListener("pointercancel", disarm, { capture: true });
-      for (const type of ["mousedown", "mouseup", "click"]) {
-        document.removeEventListener(type, blockMouse, { capture: true });
-      }
-      clearTimeout(t);
-    };
-  }, [arming]);
   // The list closes on any pick, the "+N" row included; this keeps that one
   // close from folding the extra rows away again before it reopens.
   const unfolding = useRef(false);
@@ -151,7 +146,15 @@ export default function Select({
     <>
       {open && paper && sheet &&
         createPortal(
-          <div className="np-sheet-scrim" onPointerDown={closeSheet} />,
+          <div
+            className="np-sheet-scrim"
+            onPointerDown={() => {
+              // While the shield is armed the opener's synthesized events hit
+              // the scrim (the sheet itself ignores pointer-events) — a tap
+              // there must not close what the user just opened.
+              if (!armedRef.current) closeSheet();
+            }}
+          />,
           document.body,
         )}
       <HeroSelect.Root
@@ -160,7 +163,8 @@ export default function Select({
       isOpen={open}
       onOpenChange={(o) => {
         setOpen(o);
-        if (o && paper && sheet) setArming(true);
+        if (o && paper && sheet) armShield();
+        if (!o) disarmShield();
         if (!o && !unfolding.current) setShowMore(false);
         unfolding.current = false;
       }}
