@@ -327,23 +327,27 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   }, [price]);
 
   return (
-    <section id="estimator" className="section section--s estimator">
+    <section id="estimator" className="section section--s estimator estimator--calc">
       {/*
-        Under 60rem the grid becomes a reversed column, so the price sits above
-        the controls and stays on screen while you adjust them. DOM order is
-        unchanged (controls first, then result), which is the order that reads
-        correctly to a screen reader.
+        Phone layout: head, price, controls (newsprint.css orders the flex
+        column under 60rem). The price is the product — "et vejledende beløb
+        med det samme" — so on a small screen it comes before the form that
+        shapes it, within a thumb's reach of the section top. DOM order is
+        head → controls → result, which is how a screen reader should meet it.
+        The modifier scopes the reorder to this calculator; the service pages'
+        quote panel shares estimator__controls/result but its heading belongs
+        before its card, so it keeps DOM order.
       */}
       <div className="container grid12">
-        <div className="estimator__controls">
-          <div>
-            <h2>Prisberegner</h2>
-            <p className="lead" style={{ marginTop: "var(--space-md)" }}>
-              Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige pris
-              aftaler vi, når vi kender opgaven, og så ligger den fast.
-            </p>
-          </div>
+        <div className="estimator__head">
+          <h2>Prisberegner</h2>
+          <p className="lead" style={{ marginTop: "var(--space-md)" }}>
+            Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige pris
+            aftaler vi, når vi kender opgaven, og så ligger den fast.
+          </p>
+        </div>
 
+        <div className="estimator__controls">
           <div>
             <span className="field-label">Hvilket skadedyr?</span>
             <Select
