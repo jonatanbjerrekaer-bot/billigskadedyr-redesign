@@ -696,6 +696,16 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             onClick={() => {
               const el = document.getElementById(PEST_TRIGGER);
               if (!el) return;
+              // Below 40rem the picker is a bottom sheet pinned to the visual
+              // viewport, so it looks identical no matter which trigger opened
+              // it or where that trigger sits — the scroll below would only
+              // yank the page. (Match Select.tsx's sheet breakpoint.)
+              const sheet = window.matchMedia("(max-width: 40rem)").matches;
+              if (sheet) {
+                el.focus({ preventScroll: true });
+                el.click();
+                return;
+              }
               // The list is placed under the trigger when it opens and does not
               // follow it afterwards, so it may only open once the page has
               // stopped moving. Already in view: open at once. Otherwise scroll
