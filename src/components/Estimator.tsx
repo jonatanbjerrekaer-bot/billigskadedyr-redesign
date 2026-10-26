@@ -391,9 +391,16 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </Label>
                   <Input
                     id="estimator-postcode"
-                    name="postcode"
+                    // Not name="postcode": Safari keys its contact/password
+                    // autofill heuristics on the name token, and every 4-digit
+                    // postcode-looking input gets the iCloud autofill bubble
+                    // no matter the autocomplete value. A neutral name keeps
+                    // the field out of the classifier; verified in Safari.
+                    name="nr"
                     inputMode="numeric"
-                    autoComplete="postal-code"
+                    autoComplete="off"
+                    data-1p-ignore
+                    data-lpignore="true"
                     maxLength={4}
                     value={postcode}
                     onChange={(e) => {
