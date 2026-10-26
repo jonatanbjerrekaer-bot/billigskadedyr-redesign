@@ -551,7 +551,10 @@ html:has(.np) { background: var(--color-paper); }
    fade and lift still run. */
 .np .estimator__reveal {
   interpolate-size: allow-keywords;
-  overflow: clip; overflow-clip-margin: 8px;
+  /* the clip exists for the open animation; the margin must clear the wiki
+     wash that buttons paint a little outside themselves (up to the coarse
+     pointer's 12px insets), or hover looks cut at the reveal's edge */
+  overflow: clip; overflow-clip-margin: 16px;
   min-height: 0; /* a flex item's auto min-height would hold it at full size */
   transition: height 280ms var(--ease-out), opacity 220ms var(--ease-out), transform 280ms var(--ease-out), filter 220ms var(--ease-out);
 }
@@ -561,7 +564,13 @@ html:has(.np) { background: var(--color-paper); }
 @media (prefers-reduced-motion: reduce) {
   .np .estimator__reveal { transition: opacity 160ms linear; }
 }
-.np .estimator__locate { display: inline-flex; align-items: center; gap: 0.4em; width: auto; margin-top: var(--space-xs); }
+/* width: auto alone never takes effect here: the parent is a flex column and
+   cross-axis stretch wins, so the button painted its hover wash wall-to-wall
+   and the reveal's overflow clip cut the rounded ends. Sizing it to its
+   content keeps the wash behind the words, the way every other wiki button
+   renders, in this reveal and anywhere else a wash button lands in a flex
+   column. */
+.np .estimator__locate { display: inline-flex; align-items: center; align-self: flex-start; gap: 0.4em; width: auto; margin-top: var(--space-xs); }
 .np .estimator__locate:disabled { cursor: progress; opacity: 0.7; }
 
 /* "+7 andre skadedyr" closes the priced list; the pests it unfolds read as a
@@ -576,9 +585,16 @@ html:has(.np) { background: var(--color-paper); }
   background: var(--color-rule-2);
   transition: opacity 180ms var(--ease-out), filter 180ms var(--ease-out);
 }
+/* The fade keys off react-aria's data attributes, not :hover, so it runs in
+   every browser regardless of how the pointer media query resolves; :hover is
+   kept alongside for the rare case aria never marks the row. The washed row
+   also takes the same fully rounded corners as every other hovered row — a
+   square top against the faded divider reads as a leftover line. */
+.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused])::before { opacity: 0; filter: blur(2px); }
+.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused]) { border-radius: 6px !important; }
 @media (hover: hover) {
-  .np-popover .select-more:hover::before,
-  .np-popover .select-more[data-hovered]::before { opacity: 0; filter: blur(2px); }
+  .np-popover .select-more:hover::before { opacity: 0; filter: blur(2px); }
+  .np-popover .select-more:hover { border-radius: 6px !important; }
 }
 @media (prefers-reduced-motion: reduce) { .np-popover .select-more::before { transition: none; } }
 .np-popover .select-more-item { animation: selectMoreIn 220ms var(--ease-out) both; }
