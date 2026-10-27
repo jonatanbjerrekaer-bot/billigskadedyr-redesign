@@ -21,6 +21,7 @@ export default function Select({
   triggerId,
   paper,
   more,
+  placeholder,
 }: {
   value: string;
   onValueChange: (v: string) => void;
@@ -34,6 +35,8 @@ export default function Select({
   /** Extra options behind a last "+N …" row. Picking that row unfolds them in
       the open list; picking one of them calls onMore, not onValueChange. */
   more?: { label: (n: number) => string; hint?: string; options: SelectOption[]; onPick: (v: string) => void };
+  /** Shown while value is "": an action picker that never holds a value. */
+  placeholder?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
@@ -159,7 +162,8 @@ export default function Select({
         )}
       <HeroSelect.Root
       aria-label={ariaLabel}
-      selectedKey={value}
+      selectedKey={value || null}
+      placeholder={placeholder}
       isOpen={open}
       onOpenChange={(o) => {
         setOpen(o);

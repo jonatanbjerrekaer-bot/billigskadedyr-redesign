@@ -12,6 +12,8 @@ import {
 import {
   ChevronDown,
   LocateFixed,
+  Minus,
+  Plus,
   RotateCcw,
   X,
 } from "lucide-react";
@@ -245,7 +247,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), {
     postcode,
     houses,
-    count: unit ? count : 1,
+    count: unit ? Math.min(count, 10) : 1,
     extras: extraPests.map((p) => ({ key: p.priceKey!, label: p.label })),
   });
   // The big number is what ONE house pays; the count-up follows it.
@@ -476,26 +478,25 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </ul>
               )}
               {addable.length > 0 && (
-                <label className="estimator__add">
+                <div className="estimator__add">
                   <span className="field-label">Flere skadedyr på samme besøg?</span>
-                  <select
-                    className="field"
+                  <Select
                     value=""
-                    onChange={(e) => {
-                      if (!e.target.value) return;
-                      setExtras([...extras.filter((s) => s !== slug), e.target.value]);
+                    onValueChange={(v) => {
+                      setExtras([...extras.filter((s) => s !== slug), v]);
                       setSelTouched(true);
                     }}
-                  >
-                    <option value="">+ Tilføj et skadedyr</option>
-                    {addable.map((p) => (
-                      <option key={p.slug} value={p.slug}>
-                        {p.label}
-                      </option>
-                    ))}
-                  </select>
+                    ariaLabel="Tilføj et skadedyr"
+                    placeholder="+ Tilføj et skadedyr"
+                    paper
+                    options={addable.map((p) => ({
+                      value: p.slug,
+                      label: p.label,
+                      icon: <PestGlyph pest={p} size={22} />,
+                    }))}
+                  />
                   <span className="small muted">Én tur ud, og du betaler kun halv kørsel.</span>
-                </label>
+                </div>
               )}
             </div>
           )}
@@ -646,26 +647,41 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                         {unit === "rum" ? "Antal rum" : "Antal bo"}
                       </span>
                       <span className="small muted">
-                        {unit === "rum"
-                          ? "Prisen er pr. rum, der skal behandles."
-                          : "Hvert ekstra bo koster 400 kr. oveni."}
+                        {count > 10
+                          ? `Prisen viser 10 ${unit}. Er der flere, aftaler vi resten.`
+                          : unit === "rum"
+                            ? "Prisen er pr. rum, der skal behandles."
+                            : "Hvert ekstra bo koster 400 kr. oveni."}
                       </span>
                     </span>
-                    <NumberField.Root
-                      value={count}
-                      onChange={(v) => {
-                        setCount(Number.isNaN(v) ? 1 : Math.max(1, Math.min(20, v)));
-                        setSelTouched(true);
-                      }}
-                      minValue={1}
-                      maxValue={20}
-                      aria-label={unit === "rum" ? "Antal rum" : "Antal bo"}
-                    >
-                      <NumberField.Group className="area-field">
-                        <NumberField.Input />
-                        <span aria-hidden="true">{unit === "rum" ? "rum" : "bo"}</span>
-                      </NumberField.Group>
-                    </NumberField.Root>
+                    {/* ponytail: 11 means "10+", priced as 10 since the list stops there. */}
+                    <div className="area-field stepper" role="group" aria-label={unit === "rum" ? "Antal rum" : "Antal bo"}>
+                      <button
+                        type="button"
+                        aria-label="Færre"
+                        disabled={count <= 1}
+                        onClick={() => {
+                          setCount(count - 1);
+                          setSelTouched(true);
+                        }}
+                      >
+                        <Minus size={16} aria-hidden="true" />
+                      </button>
+                      <output aria-live="polite">
+                        {count > 10 ? "10+" : count} <span>{unit}</span>
+                      </output>
+                      <button
+                        type="button"
+                        aria-label="Flere"
+                        disabled={count > 10}
+                        onClick={() => {
+                          setCount(count + 1);
+                          setSelTouched(true);
+                        }}
+                      >
+                        <Plus size={16} aria-hidden="true" />
+                      </button>
+                    </div>
                   </div>
                 )}
                 {!multi && hasArea && (

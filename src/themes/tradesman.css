@@ -170,6 +170,12 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .field:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent); outline-offset: 0; border-color: var(--color-focus); }
 .np .field-label { font-weight: 600; color: var(--color-ink); }
 .np .area-field input { border-radius: var(--radius-control); }
+.np .stepper { width: auto; }
+.np .stepper button { display: grid; place-items: center; width: 44px; min-height: 46px; border: 0; background: none; color: var(--color-ink); cursor: pointer; border-radius: var(--radius-control); }
+.np .stepper button:disabled { color: var(--color-rule-2); cursor: default; }
+@media (hover: hover) { .np .stepper button:not(:disabled):hover { background: color-mix(in oklab, var(--color-ink) 6%, transparent); } }
+.np .stepper output { min-width: 4.5rem; text-align: center; font: 500 1rem/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
+.np .stepper output span { padding: 0; }
 
 .np .toggle-button-group {
   position: relative; isolation: isolate; gap: 4px; padding: 4px; overflow: visible;
@@ -751,3 +757,5 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   .np .estimator__drive-link::before { inset: calc(14px - 0.1em) -0.3em; }
   .np .wiki-link::before { inset: 0.2em -0.3em; }
 }
+/* The add-pest picker reads as an action, not a missing value: same ink as a filled select. */
+.np .select-trigger [data-placeholder] { color: var(--color-ink); }
