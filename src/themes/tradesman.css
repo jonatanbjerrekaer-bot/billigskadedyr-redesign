@@ -312,6 +312,14 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 @media (hover: hover) and (pointer: fine) { .np .estimator__extra button:hover { background: var(--color-paper-2); } }
 .np .estimator__add { display: flex; flex-direction: column; gap: var(--space-xs); }
 .np .estimator__add select { width: 100%; }
+.np .estimator__extras > .estimator__open { align-self: flex-start; }
+/* only the link showing: it joins the driving and neighbour links below, so it takes their 12px gap, not the controls' 24px */
+.np .estimator__extras:has(> .estimator__open:only-child) { margin-bottom: -12px; }
+.np .estimator__nudge { display: grid; gap: var(--space-xs); padding: var(--space-sm) var(--space-md); border-left: 3px solid var(--color-accent); background: var(--color-paper); }
+.np .estimator__nudge p { margin: 0; color: var(--color-ink); }
+.np .estimator__nudge-actions { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); }
+.np .estimator__nudge-x { display: grid; place-items: center; width: 32px; height: 32px; border: 0; background: none; color: var(--color-ink-2); cursor: pointer; border-radius: var(--radius-control); }
+@media (hover: hover) and (pointer: fine) { .np .estimator__nudge-x:hover { background: var(--color-paper-2); } }
 .np .disclosure-trigger .small, .np .disclosure-trigger span:not(.trigger-title) { font-weight: 400; }
 @media (hover: hover) and (pointer: fine) {
   /* Accordeon-rækkerne svarede kun med :active-tryk. Titelen faar samme

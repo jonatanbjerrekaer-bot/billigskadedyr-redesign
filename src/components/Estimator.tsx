@@ -81,6 +81,7 @@ const NEIGHBOURS: { id: Houses; label: string }[] = [
 const TOGGLE = "";
 const GROUP = "inline-flex";
 const PEST_TRIGGER = "pest-select-trigger";
+const ADD_TRIGGER = "add-pest-trigger";
 
 export default function Estimator({ initialPest }: { initialPest?: string } = {}) {
   // A service page knows which pest the visitor came for, so the picker opens
@@ -112,6 +113,18 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const countDir = useRef<"up" | "down">("up");
   // More pests on the same visit: one trip, half the driving (owner, 2026-10-26).
   const [extras, setExtras] = useState<string[]>([]);
+  // The add picker starts as one line of text, like driving and neighbours:
+  // most visits are one pest, and a second field read as a required question.
+  const [addOpen, setAddOpen] = useState(false);
+  // Switching from one priced pest to another is the moment someone shows they
+  // may have both, so the pest they left is offered back once per visit.
+  const [nudge, setNudge] = useState<string | null>(null);
+  const nudged = useRef(false);
+  const openAdd = () => {
+    setAddOpen(true);
+    // Opens the list straight away, so the link is one click, not two.
+    requestAnimationFrame(() => document.getElementById(ADD_TRIGGER)?.click());
+  };
   // Opens the postnummer field and puts the cursor in it. The field only
   // exists after the render that opens it, hence the frame's wait.
   // "Brug min placering": the browser asks for permission on the click, and
@@ -241,6 +254,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const extraPests = extras
     .filter((s) => s !== slug)
     .flatMap((s) => fixedPests.filter((p) => p.slug === s));
+  const nudgePest = nudge && !extras.includes(nudge) && nudge !== slug ? fixedPests.find((p) => p.slug === nudge) : undefined;
   const addable = fixedPests.filter((p) => p.slug !== slug && !extras.includes(p.slug));
   // His published price, or an honest "we set it after a short chat". The old
   // midpoint arithmetic is gone: these are the figures he actually charges, so
@@ -327,6 +341,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     setHouses(1);
     setCount(1);
     setExtras([]);
+    setAddOpen(false);
+    setNudge(null);
     setSelTouched(false);
   };
 
@@ -430,6 +446,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
               value={slug}
               onValueChange={(v) => {
                 setSelTouched(true);
+                if (!nudged.current && extras.length === 0 && v !== slug && fixedPests.some((p) => p.slug === slug) && fixedPests.some((p) => p.slug === v)) {
+                  nudged.current = true;
+                  setNudge(slug);
+                } else setNudge(null);
                 setSlug(v);
               }}
               ariaLabel="Skadedyr"
@@ -479,9 +499,31 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   ))}
                 </ul>
               )}
-              {addable.length > 0 && (
-                <div className="estimator__add">
-                  <span className="field-label">Flere skadedyr på samme besøg?</span>
+              {nudgePest && quote.kind === "fixed" ? (
+                <div className="estimator__nudge estimator__reveal" role="status">
+                  <p>
+                    Har du også {nudgePest.label.toLowerCase()}? Tag dem med på samme tur
+                    {quote.tripCharge > 0 ? `, og spar ${dkr(quote.tripCharge - Math.round(quote.tripCharge / 200) * 100)} på kørslen.` : ", så klarer vi begge på ét besøg."}
+                  </p>
+                  <div className="estimator__nudge-actions">
+                    <button
+                      type="button"
+                      className="estimator__open"
+                      onClick={() => {
+                        setExtras([...extras, nudgePest.slug]);
+                        setNudge(null);
+                      }}
+                    >
+                      Tilføj {nudgePest.label.toLowerCase()}
+                    </button>
+                    <button type="button" className="estimator__nudge-x" aria-label="Nej tak" onClick={() => setNudge(null)}>
+                      <X size={16} aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+              ) : addOpen && addable.length > 0 ? (
+                <div className="estimator__add estimator__reveal">
+                  <span className="field-label">Flere skadedyr på samme besøg</span>
                   <Select
                     value=""
                     onValueChange={(v) => {
@@ -490,6 +532,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     }}
                     ariaLabel="Tilføj et skadedyr"
                     placeholder="+ Tilføj et skadedyr"
+                    triggerId={ADD_TRIGGER}
                     paper
                     options={addable.map((p) => ({
                       value: p.slug,
@@ -499,6 +542,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   />
                   <span className="small muted">Én tur ud, og du betaler kun halv kørsel.</span>
                 </div>
+              ) : (
+                addable.length > 0 && (
+                  <button type="button" className="estimator__open" onClick={openAdd}>
+                    {extraPests.length ? "Tilføj endnu et skadedyr" : "Har du også et andet skadedyr? Så koster kørslen det halve"}
+                  </button>
+                )
               )}
             </div>
           )}
