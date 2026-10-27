@@ -13,6 +13,7 @@ import {
   ChevronDown,
   LocateFixed,
   RotateCcw,
+  X,
 } from "lucide-react";
 import Select from "./ui/Select";
 import SegmentTrack from "./ui/SegmentTrack";
@@ -103,9 +104,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const [houses, setHouses] = useState<Houses>(1);
   const [driveOpen, setDriveOpen] = useState(false);
   const [neighboursOpen, setNeighboursOpen] = useState(false);
-  // The bonus treatment the owner wants asked about (spiders: an extra
-  // treatment in the season for 500 kr.). Offered, never assumed.
-  const [bonus, setBonus] = useState(false);
+  // Rooms or nests, for the pests he prices that way.
+  const [count, setCount] = useState(1);
+  // More pests on the same visit: one trip, half the driving (owner, 2026-10-26).
+  const [extras, setExtras] = useState<string[]>([]);
   // Opens the postnummer field and puts the cursor in it. The field only
   // exists after the render that opens it, hence the frame's wait.
   // "Brug min placering": the browser asks for permission on the click, and
@@ -226,11 +228,16 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const multi = houses !== 1;
   const effM2 = multi ? DEFAULTS.m2 : m2;
   const effSeverity = multi ? DEFAULTS.severity : severity;
-  // Some fixed prices have an optional extra treatment on top (spiders). It
-  // is asked about, not assumed: unticked, it never moved the number.
   const priceRow = pest.priceKey ? OWNER_PRICES[pest.priceKey] : undefined;
-  const bonusPrice = priceRow?.kind === "fixed" ? (priceRow.summerExtra ?? null) : null;
-  const withBonus = bonus && bonusPrice !== null;
+  const unit = priceRow?.kind === "fixed" ? priceRow.unit : undefined;
+  // Only his area-limited prices (myrer, edderkopper, skægkræ) move with m².
+  const hasArea = priceRow?.kind === "fixed" && priceRow.maxM2 !== undefined;
+  // Only pests with a fixed price can join a visit, and never the one already chosen.
+  const fixedPests = PRICED_PESTS.filter((p) => OWNER_PRICES[p.priceKey!]?.kind === "fixed");
+  const extraPests = extras
+    .filter((s) => s !== slug)
+    .flatMap((s) => fixedPests.filter((p) => p.slug === s));
+  const addable = fixedPests.filter((p) => p.slug !== slug && !extras.includes(p.slug));
   // His published price, or an honest "we set it after a short chat". The old
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
@@ -238,7 +245,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), {
     postcode,
     houses,
-    bonus: withBonus,
+    count: unit ? count : 1,
+    extras: extraPests.map((p) => ({ key: p.priceKey!, label: p.label })),
   });
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
@@ -251,7 +259,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     severity !== DEFAULTS.severity ||
     postcode !== "" ||
     houses !== 1 ||
-    bonus;
+    count !== 1 ||
+    extras.length > 0;
   const severityHint = SEVERITIES.find((x) => x.id === severity)?.hint;
 
   // What is included changes with the answers, so the list says what this job
@@ -259,9 +268,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // Shneiderman 3 again: the list is feedback that the inputs did something.
   const included = [
     pest.treatment ?? "Behandling af det angrebne område",
-    ...(withBonus && bonusPrice !== null
-      ? [`Én ekstra behandling i løbet af sæsonen (${dkr(bonusPrice)})`]
-      : []),
+    ...extraPests.map((p) => `${p.label}: ${(p.treatment ?? "behandling").toLowerCase()}`),
     multi
       ? "Op til to besøg pr. hus med opfølgning"
       : severity === "let"
@@ -279,7 +286,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
-    ...(effM2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
+    ...(hasArea && effM2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
     ...(effSeverity === "kraftig"
       ? ["Ekstra besøg, hvis angrebet har bredt sig mere end forventet"]
       : []),
@@ -302,10 +309,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     // contact form "omkring 0 kr." to send.
     price: quote.kind === "fixed" ? dkr(price) : null,
     amount: quote.kind === "fixed" ? price : null,
-    packageAmount: (() => {
-      const row = OWNER_PRICES[pest.priceKey!];
-      return row?.kind === "fixed" ? row.packagePrice ?? null : null;
-    })(),
+    // He no longer sells a two-treatment package (price list, 2026-10-26).
+    packageAmount: null,
     touched: selTouched,
   });
 
@@ -316,7 +321,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     setSeverity(DEFAULTS.severity);
     setPostcode("");
     setHouses(1);
-    setBonus(false);
+    setCount(1);
+    setExtras([]);
     setSelTouched(false);
   };
 
@@ -445,30 +451,53 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             />
           </div>
 
-          {/* The bonus treatment is the owner's upsell (spiders: one more
-              visit in the season for 500 kr.). It sits under the pest pick
-              because it belongs to the pest, not to the driving or the
-              house. Unticked, it has never touched the price. */}
-          {quote.kind === "fixed" && bonusPrice !== null && (
-            <label className="estimator__bonus">
-              <input
-                type="checkbox"
-                checked={withBonus}
-                onChange={(e) => {
-                  setBonus(e.target.checked);
-                  setSelTouched(true);
-                }}
-              />
-              <span>
-                <span className="field-label" style={{ display: "block" }}>
-                  En bonusbehandling oveni?
-                </span>
-                <span className="small muted">
-                  For kun {dkr(bonusPrice)} ekstra kommer vi forbi én gang til i
-                  løbet af sæsonen, hvis der er brug for det.
-                </span>
-              </span>
-            </label>
+          {/* Several pests on one visit: the treatments add up, the driving is
+              paid once and at half price. */}
+          {quote.kind === "fixed" && (
+            <div className="estimator__extras">
+              {extraPests.length > 0 && (
+                <ul className="estimator__extra-list" aria-label="Skadedyr på samme besøg">
+                  {extraPests.map((p) => (
+                    <li key={p.slug} className="estimator__extra">
+                      <PestGlyph pest={p} size={20} />
+                      <span>{p.label}</span>
+                      <button
+                        type="button"
+                        aria-label={`Fjern ${p.label}`}
+                        onClick={() => {
+                          setExtras(extras.filter((s) => s !== p.slug));
+                          setSelTouched(true);
+                        }}
+                      >
+                        <X size={14} aria-hidden="true" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {addable.length > 0 && (
+                <label className="estimator__add">
+                  <span className="field-label">Flere skadedyr på samme besøg?</span>
+                  <select
+                    className="field"
+                    value=""
+                    onChange={(e) => {
+                      if (!e.target.value) return;
+                      setExtras([...extras.filter((s) => s !== slug), e.target.value]);
+                      setSelTouched(true);
+                    }}
+                  >
+                    <option value="">+ Tilføj et skadedyr</option>
+                    {addable.map((p) => (
+                      <option key={p.slug} value={p.slug}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="small muted">Én tur ud, og du betaler kun halv kørsel.</span>
+                </label>
+              )}
+            </div>
           )}
 
           {/* Driving and neighbours only move a fixed price. A pest that is
@@ -527,7 +556,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </TextField.Root>
               ) : (
                 <button type="button" className="estimator__open" onClick={openDrive}>
-                  Bor du uden for Aarhus? Beregn kørsel
+                  Bor du syd eller vest for Aarhus? Beregn kørsel
                 </button>
               )}
 
@@ -556,8 +585,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     </ToggleButtonGroup.Root>
                   </SegmentTrack>
                   <p className="small muted estimator__where-note">
-                    I deler kørslen, fra 5 huse er den med, og fra 10 huse{" "}
-                    {quote.isPackage ? `koster det ${dkr(quote.tenPrice)} pr. hus.` : "får hver 20 % rabat."}
+                    2 huse: halv kørsel. 5 huse: 80 % rabat på kørslen. 10 huse: en fast,
+                    lavere pris pr. hus, uanset kørsel.
                   </p>
                 </div>
               ) : (
@@ -587,9 +616,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 <span>
                   <span className="trigger-title">Tilpas beregningen</span>
                   <span className="small muted" style={{ display: "block" }}>
-                    {multi
-                      ? "Kun boligtype — prisen styres af hvor mange I er."
-                      : "Areal, boligtype og hvor slemt det er. Ellers regner vi på et gennemsnitligt hus."}
+                    {unit
+                      ? `${unit === "rum" ? "Antal rum" : "Antal bo"}, boligtype og hvor slemt det er.`
+                      : multi
+                        ? "Kun boligtype — prisen styres af hvor mange I er."
+                        : hasArea
+                          ? "Areal, boligtype og hvor slemt det er. Ellers regner vi på et gennemsnitligt hus."
+                          : "Boligtype og hvor slemt det er."}
                   </span>
                 </span>
                 <ChevronDown size={20} aria-hidden="true" className="chev" />
@@ -602,7 +635,40 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     describe houses that differ anyway, so the slider steps
                     aside. The state is kept: setting "1" again brings the
                     visitor's own number back. */}
-                {!multi && (
+                {/* One size question per pest: rooms or nests where he prices
+                    that way, the area only where his price has an area limit.
+                    Rooms stay visible with several houses, since the price is
+                    per room in each house. */}
+                {unit && (
+                  <div className="area-row">
+                    <span>
+                      <span className="field-label" style={{ marginBottom: 0 }}>
+                        {unit === "rum" ? "Antal rum" : "Antal bo"}
+                      </span>
+                      <span className="small muted">
+                        {unit === "rum"
+                          ? "Prisen er pr. rum, der skal behandles."
+                          : "Hvert ekstra bo koster 400 kr. oveni."}
+                      </span>
+                    </span>
+                    <NumberField.Root
+                      value={count}
+                      onChange={(v) => {
+                        setCount(Number.isNaN(v) ? 1 : Math.max(1, Math.min(20, v)));
+                        setSelTouched(true);
+                      }}
+                      minValue={1}
+                      maxValue={20}
+                      aria-label={unit === "rum" ? "Antal rum" : "Antal bo"}
+                    >
+                      <NumberField.Group className="area-field">
+                        <NumberField.Input />
+                        <span aria-hidden="true">{unit === "rum" ? "rum" : "bo"}</span>
+                      </NumberField.Group>
+                    </NumberField.Root>
+                  </div>
+                )}
+                {!multi && hasArea && (
                 <Slider.Root
                   value={m2}
                   onChange={(v) => {

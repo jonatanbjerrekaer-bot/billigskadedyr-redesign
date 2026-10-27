@@ -286,9 +286,13 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .estimator__caveat { border-top: 1px solid var(--color-rule-2); }
 .np .estimator__disclosure { border-top: 1px solid var(--color-rule-2); }
 .np .estimator__reset { color: var(--color-ink); font-weight: 600; text-decoration-color: var(--color-accent); }
-.np .estimator__bonus { display: flex; gap: var(--space-sm); align-items: flex-start; cursor: pointer; padding: var(--space-sm) var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-control); background: var(--color-paper); }
-.np .estimator__bonus input { width: 1.15em; height: 1.15em; margin: 0.2em 0 0; flex: none; accent-color: var(--color-accent); cursor: pointer; }
-@media (hover: hover) and (pointer: fine) { .np .estimator__bonus:hover { border-color: var(--color-rule-2); background: var(--color-paper-2); } }
+.np .estimator__extras { display: flex; flex-direction: column; gap: var(--space-sm); }
+.np .estimator__extra-list { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: 0; padding: 0; list-style: none; }
+.np .estimator__extra { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 4px 4px 4px var(--space-sm); border: 1px solid var(--color-rule); border-radius: var(--radius-control); background: var(--color-paper); }
+.np .estimator__extra button { display: grid; place-items: center; width: 28px; height: 28px; border: 0; background: none; color: inherit; cursor: pointer; border-radius: var(--radius-control); }
+@media (hover: hover) and (pointer: fine) { .np .estimator__extra button:hover { background: var(--color-paper-2); } }
+.np .estimator__add { display: flex; flex-direction: column; gap: var(--space-xs); }
+.np .estimator__add select { width: 100%; }
 .np .disclosure-trigger .small, .np .disclosure-trigger span:not(.trigger-title) { font-weight: 400; }
 @media (hover: hover) and (pointer: fine) {
   /* Accordeon-rækkerne svarede kun med :active-tryk. Titelen faar samme

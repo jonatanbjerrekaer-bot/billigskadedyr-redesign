@@ -1,16 +1,16 @@
 /*
- * Prices as billigskadedyrprof.dk publishes them, read 2026-09-07.
+ * The owner's price list, 2026-10-26. It replaces everything before it: the
+ * spider package, the Viborg floor, the ant cap and the 900 kr. Viborg
+ * surcharge are gone, because this list is the whole of how he prices now.
  *
- * The old table in this file was a market estimate assembled from other Danish
- * firms, because at the time we believed the owner published nothing. He does,
- * on the professional site, for three of his services. Those three are quoted
- * exactly, including what he says is covered. Everything else he prices after a
- * conversation, and the honest thing is to say so rather than invent a range
- * and call it vejledende.
+ * Every pest follows the same four tiers:
+ *   1 house    standard price + driving
+ *   2 houses   standard price + half the driving
+ *   5 houses   standard price + a fifth of the driving (-80 %)
+ *   10 houses  his own lower figure, driving or not
+ * Several pests in one visit drive out once, at half the driving.
  *
- * Season is read from the clock, not from a checkbox. A visitor should not have
- * to know that spring is when the two-treatment package pays off; the page
- * knows what month it is.
+ * Season is read from the clock, not from a checkbox.
  */
 
 import distances from "./distances.json" with { type: "json" };
@@ -22,44 +22,18 @@ export type Season = "forår" | "sommer" | "efterår" | "vinter";
 type Owner =
   | {
       kind: "fixed";
-      /** What one treatment costs, up to maxM2. */
+      /** One treatment, one house. */
       base: number;
-      maxM2: number;
-      /** His wording for what the price covers. */
-      includes: string;
-      /** Both treatments, spring and autumn, as one package. */
-      packagePrice?: number;
-      /** An additional treatment during the summer. */
-      summerExtra?: number;
+      /** What each house pays at ten houses, whatever the distance. */
+      ten: number;
+      /** Where his old published wording names an area limit. */
+      maxM2?: number;
       /**
-       * What each house pays when 5 or 10 houses book together, where the
-       * owner has named a figure that the -20 % rule would not give. Only the
-       * cases that differ are listed; everything else follows the formula.
+       * "rum": the price is per room. "bo": the price is the first nest, and
+       * each extra nest adds `perExtra`.
        */
-      group?: { 5?: number; 10?: number };
-      /** The same, for the two-treatment package. */
-      packageGroup?: { 5?: number; 10?: number };
-      /**
-       * The package is the only way this pest is sold; never quote the single
-       * treatment (owner, 2026-10-26: spiders). Season no longer picks between
-       * them — every season quotes two treatments.
-       */
-      alwaysPackage?: boolean;
-      /**
-       * Towns where a job has a minimum per-house total regardless of the
-       * formula (owner, 2026-10-26): the spider package in Viborg or Holstebro
-       * never starts under 3.000 kr. Applies to a house booking alone; the
-       * neighbour tiers have their own owner-named prices.
-       */
-      floor?: { minTotal: number; postcodes: string[] };
-      /**
-       * Towns he visits so often that the total for one house is capped there
-       * (owner, 2026-10-26). The driving charge shrinks to fit the cap, also
-       * where a named TOWN_SURCHARGE would otherwise push the total past it.
-       * Neighbour tiers only lower the per-house price, so a capped surcharge
-       * keeps every tier under the cap.
-       */
-      cap?: { maxTotal: number; postcodes: string[] };
+      unit?: "rum" | "bo";
+      perExtra?: number;
     }
   | {
       kind: "quote";
@@ -70,78 +44,41 @@ type Owner =
 
 /** Keyed by the priceKey values in lib/pests. */
 export const OWNER_PRICES: Record<string, Owner> = {
-  Myrer: {
-    kind: "fixed",
-    base: 600,
-    maxM2: 250,
-    includes: "inkl. moms",
-    // Herning, Holstebro and Viborg are the towns he drives to most; there the
-    // total for one house must never pass 1.200 kr. (owner, 2026-10-26).
-    cap: { maxTotal: 1200, postcodes: ["7400", "7500", "8800"] },
-  },
-  Edderkopper: {
-    kind: "fixed",
-    base: 1000,
-    maxM2: 250,
-    includes: "inkl. moms",
-    packagePrice: 1600,
-    // Spiders are never sold as one treatment (owner, 2026-10-26): what we
-    // quote is always forår og efterår together. In Viborg and Holstebro the
-    // package never starts under 3.000 kr., and an extra treatment in the
-    // season can be added for 500 kr. — the estimator asks about it.
-    alwaysPackage: true,
-    floor: { minTotal: 3000, postcodes: ["7500", "8800"] },
-    summerExtra: 500,
-    // The owner's own figure for ten houses on the package. The formula would
-    // say 1.300 kr.; he wants 1.000 kr., the same as one treatment at five.
-    packageGroup: { 10: 1000 },
-  },
-  "Skægkræ/sølvfisk": {
-    kind: "fixed",
-    base: 1000,
-    maxM2: 200,
-    includes: "inkl. moms",
-  },
+  Myrer: { kind: "fixed", base: 600, ten: 500, maxM2: 250 },
+  Edderkopper: { kind: "fixed", base: 1200, ten: 1000, maxM2: 250 },
+  // He does not treat sølvfisk, only skægkræ.
+  Skægkræ: { kind: "fixed", base: 1000, ten: 800, maxM2: 200 },
+  "Hvepse & bier": { kind: "fixed", base: 800, ten: 600, unit: "bo", perExtra: 400 },
+  // ponytail: "muligvis pr m² græsplæne" in his list; flat until he names a rate.
+  Gåsebiller: { kind: "fixed", base: 2000, ten: 1500 },
+  Møl: { kind: "fixed", base: 1200, ten: 1000 },
+  Myg: { kind: "fixed", base: 2000, ten: 1500 },
+  // Væggelus, fnat, flåter, lus and lopper share one per-room price.
+  "Pr. rum": { kind: "fixed", base: 1000, ten: 800, unit: "rum" },
+  Klannere: { kind: "fixed", base: 1000, ten: 800 },
+  Kakerlakker: { kind: "fixed", base: 800, ten: 500, unit: "rum" },
+  Fluer: { kind: "fixed", base: 1500, ten: 1200 },
+  Bænkebidere: { kind: "fixed", base: 1000, ten: 800 },
+  Ørentviste: { kind: "fixed", base: 1000, ten: 800 },
+  Bladlus: { kind: "fixed", base: 1000, ten: 800 },
   Borebiller: {
     kind: "quote",
-    why: "Prisen afhænger af angrebets omfang, træværket og adgangsforholdene, så den sætter vi efter en snak.",
+    why: "Prisen afhænger af angrebets omfang, træværket og adgangsforholdene, så den sætter vi efter en besigtigelse.",
     inspection: {
-      price: 1000,
-      text: "for at komme forbi til en vurdering og et uforpligtende tilbud, inkl. moms",
+      price: 500,
+      text: "plus kørsel, for at komme forbi til en vurdering og et uforpligtende tilbud",
     },
-  },
-  Væggelus: {
-    kind: "quote",
-    why: "Prisen afhænger blandt andet af boligens størrelse og hvor mange rum der er angrebet.",
-  },
-  "Hvepse (bo)": {
-    kind: "quote",
-    why: "Prisen afhænger af, hvor boet sidder, og hvor svært det er at komme til.",
-  },
-  Kakerlakker: {
-    kind: "quote",
-    why: "Kakerlakker kræver en vurdering på stedet, før vi sætter en pris.",
   },
 };
 
 /**
- * Vejledende fra-priser for the pests he does not publish a price for.
- *
- * Deliberately NOT part of OWNER_PRICES and NOT reachable from the
- * calculator: his four real prices are the only numbers the estimator is
- * allowed to state. These are shown once, on the pest's own page, under the
- * word "vejledende" and next to the sentence that says the real price comes
- * after a look. Keyed by slug. See the header of this file for the market
- * data and the ratio they were derived from. Owner must confirm.
+ * Vejledende fra-priser for the pests he does not publish a price for. Not
+ * reachable from the calculator; shown once, on the pest's own page, under
+ * the word "vejledende". Keyed by slug. Owner must confirm.
  */
 export const ESTIMATED_FROM: Record<string, { from: number; note: string }> = {
-  fluer: { from: 900, note: "Op til 200 m². Prisen afhænger af, hvor mange rum der skal behandles." },
-  moel: { from: 1000, note: "Op til 200 m². Prisen afhænger af, hvor mange skabe og tekstiler der er angrebet." },
-  myg: { from: 900, note: "Prisen afhænger af, hvor mange ynglesteder der skal behandles." },
-  klannere: { from: 1000, note: "Op til 200 m². Prisen afhænger af, hvor stort et areal der er tæpper og tekstiler på." },
   snegle: { from: 900, note: "Prisen afhænger af havens størrelse." },
   muldvarpe: { from: 1200, note: "Inkl. opstart og én opfølgning. Prisen afhænger af plænens størrelse." },
-  gaasebiller: { from: 1400, note: "Prisen afhænger af plænens størrelse." },
 };
 
 export function seasonOf(date: Date = new Date()): Season {
@@ -165,29 +102,40 @@ export function houseTier(n: number): Houses {
   return 1;
 }
 
-/** Always up to the next hundred: 390 becomes 400, 400 stays, 401 becomes 500. */
-export function ceil100(n: number): number {
-  return Math.ceil(n / 100) * 100;
+/** Share of the driving each house pays, by tier. Ten houses pay a set price instead. */
+const DRIVE_SHARE: Record<Houses, number> = { 1: 1, 2: 0.5, 5: 0.2, 10: 0 };
+
+/** His rule: always to the nearest hundred. 349 becomes 300, 350 becomes 400. */
+export function round100(n: number): number {
+  return Math.round(n / 100) * 100;
 }
 
 /**
- * The driving surcharge for one trip out and home. Inside Aarhus Kommune there
- * is none. Kilometres are one-way, as stored in distances.json, so the round
- * trip is doubled here and nowhere else.
+ * No driving in Aarhus and the towns just north of it, out to and including
+ * Hornslet (owner, 2026-10-26). South of Højbjerg (Tranbjerg, Mårslet, Beder,
+ * Malling, Solbjerg, Hasselager) and west of Sabro and Harlev is charged.
+ * 8382 is Hinnerup's number but also Søften's, which he named, so it is in.
  */
-export function driveSurcharge(km: number, aarhus: boolean): number {
-  return aarhus ? 0 : ceil100(km * 2 * DRIVE_KR_PER_KM);
-}
+export const FREE_ZONE = new Set([
+  "8000", "8100", "8200", "8210", "8220", "8230", "8240", "8245", "8250", "8260", "8270",
+  "8380", "8381", "8382", "8462", "8471", "8520", "8530", "8541", "8543",
+]);
 
-/**
- * Towns where the owner has named the surcharge himself (2026-10-24). These win
- * over the per-km rate, which they do not follow: Holstebro is further than
- * Viborg by road but costs less, so no single rate fits both.
- */
+/** Towns with a fixed driving charge, however far by road (owner, 2026-10-26). */
 export const TOWN_SURCHARGE: Record<string, number> = {
+  "7100": 400, // Vejle
   "7500": 400, // Holstebro
-  "8800": 900, // Viborg
+  "8800": 400, // Viborg
 };
+
+/**
+ * The driving charge for one trip out and home. Kilometres are one-way, as
+ * stored in distances.json, so the round trip is doubled here and nowhere else.
+ */
+export function driveSurcharge(nr: string, km: number): number {
+  if (FREE_ZONE.has(nr)) return 0;
+  return TOWN_SURCHARGE[nr] ?? round100(km * 2 * DRIVE_KR_PER_KM);
+}
 
 type Place = { by: string; km: number; aarhus: boolean; ll?: number[] };
 const PLACES = distances as Record<string, Place>;
@@ -227,24 +175,14 @@ export function lookupPostcode(raw: string | undefined): PostcodeLookup {
   return place ? { state: "ok", nr, place } : { state: "unknown", nr };
 }
 
-/**
- * What one house pays for one job. `base` is the single treatment or the
- * package; `surcharge` is the full round-trip driving charge, which is added
- * once however many treatments the base contains.
- */
-function perHouse(
-  base: number,
-  override: { 5?: number; 10?: number } | undefined,
-  tier: Houses,
-  surcharge: number,
-): number {
-  if (tier === 1) return base + surcharge;
-  // Two houses drive out once between them, so each pays half the round trip.
-  if (tier === 2) return base + ceil100(surcharge / 2);
-  // Five houses: driving is included both ways, at any distance.
-  if (tier === 5) return override?.[5] ?? base;
-  // Ten houses: 20 % off, rounded up to the hundred, driving free.
-  return override?.[10] ?? ceil100((base * 4) / 5);
+type Fixed = Extract<Owner, { kind: "fixed" }>;
+
+/** One pest's treatment price for one house, before driving. */
+function treatment(row: Fixed, tier: Houses, count: number): number {
+  const each = tier === 10 ? row.ten : row.base;
+  if (row.unit === "rum") return each * count;
+  if (row.unit === "bo") return each + (row.perExtra ?? 0) * (count - 1);
+  return each;
 }
 
 export type Quote =
@@ -256,16 +194,12 @@ export type Quote =
       houses: Houses;
       /** price x houses. */
       total: number;
-      /** The driving each house's price includes. Zero in Aarhus and from five houses. */
+      /** The driving each house's price includes. */
       surcharge: number;
       /** The one-house price at this postcode, so the UI can show the saving. */
       soloPrice: number;
-      /** The per-house price at ten houses, for the neighbour line. */
-      tenPrice: number;
       /** The full round-trip charge for this postcode, whatever the tier. */
       tripCharge: number;
-      /** True when the price is the two-treatment package, whose ten-house price is the owner's own figure. */
-      isPackage: boolean;
       /** Named so the price never appears without saying what it covers. */
       caption: string;
       /** One line about driving, written from the postcode and the tier. */
@@ -287,108 +221,79 @@ export function estimate(
   _property: PropertyType,
   _severity: Severity,
   now: Date = new Date(),
-  opts: { postcode?: string; houses?: number; bonus?: boolean } = {},
+  opts: {
+    postcode?: string;
+    houses?: number;
+    /** Rooms or nests for the main pest, where it is priced that way. */
+    count?: number;
+    /** More pests treated on the same visit: priceKey, and the name to print. */
+    extras?: { key: string; label: string }[];
+  } = {},
 ): Quote {
   const row = OWNER_PRICES[pest];
   if (!row) return { kind: "quote", why: "Den pris sætter vi efter en kort snak." };
   if (row.kind === "quote") return row;
 
-  const season = seasonOf(now);
-  const overArea = area > row.maxM2;
+  const count = Math.max(1, Math.round(opts.count ?? 1));
+  // ponytail: extras are one room / one nest each; per-extra counts if he asks.
+  const extras = (opts.extras ?? []).flatMap(({ key, label }) => {
+    const r = OWNER_PRICES[key];
+    return r?.kind === "fixed" ? [[label, r] as const] : [];
+  });
+  const combo = extras.length > 0;
+
+  const overArea = row.maxM2 !== undefined && area > row.maxM2;
   const notes: string[] = [];
   const tier = houseTier(opts.houses ?? 1);
   const lookup = lookupPostcode(opts.postcode);
   // A blank or unknown postcode is quoted as Aarhus, with a line that says so,
   // rather than inventing a distance.
-  // let, not const: a frequent-route cap (below) may shrink it to fit.
-  let tripCharge =
-    lookup.state === "ok"
-      ? (TOWN_SURCHARGE[lookup.nr] ?? driveSurcharge(lookup.place.km, lookup.place.aarhus))
-      : 0;
+  const tripCharge = lookup.state === "ok" ? driveSurcharge(lookup.nr, lookup.place.km) : 0;
   const place = lookup.state === "ok" ? { nr: lookup.nr, by: lookup.place.by } : null;
 
-  let base = row.base;
-  let override = row.group;
-  let caption = `1 behandling af bolig op til ${row.maxM2} m², ${row.includes}`;
+  // Several pests on one visit: one trip, half the driving. A neighbour tier
+  // that already gives more off keeps its own share.
+  const share = (t: Houses) => Math.min(DRIVE_SHARE[t], combo ? 0.5 : 1);
+  const perHouse = (t: Houses) =>
+    treatment(row, t, count) +
+    extras.reduce((sum, [, r]) => sum + treatment(r, t, 1), 0) +
+    round100(tripCharge * share(t));
 
-  // In spring the two-treatment package is the one that pays off, so it is what
-  // we quote. Some pests are never sold as a single treatment at all
-  // (alwaysPackage); for the rest we quote the single treatment outside spring
-  // and say what the package would cost, without pretending the visitor asked
-  // for it.
-  if (row.packagePrice && (season === "forår" || row.alwaysPackage)) {
-    base = row.packagePrice;
-    override = row.packageGroup;
-    caption = `2 behandlinger, forår og efterår, op til ${row.maxM2} m², ${row.includes}`;
-    if (!row.alwaysPackage) {
-      notes.push("Du rammer foråret, hvor forår og efterår samlet står bedst.");
-    }
-  } else if (row.packagePrice) {
-    notes.push(
-      `Forår og efterår samlet koster ${row.packagePrice.toLocaleString("da-DK")} kr.`,
-    );
-  }
+  const price = perHouse(tier);
+  const soloPrice = perHouse(1);
+  const included = round100(tripCharge * share(tier));
 
-  // The optional extra treatment the estimator asks about. Charged per house,
-  // on top of whatever tier price came out, and never halved or discounted.
-  const bonusExtra = opts.bonus && row.summerExtra ? row.summerExtra : 0;
-  if (bonusExtra) {
-    caption += " + 1 bonusbehandling i løbet af sæsonen";
-  }
+  let caption =
+    row.unit === "rum"
+      ? `Behandling af ${count} rum`
+      : row.unit === "bo"
+        ? `Fjernelse af ${count} ${count === 1 ? "bo" : "boer"}`
+        : row.maxM2
+          ? `1 behandling af bolig op til ${row.maxM2} m²`
+          : "1 behandling";
+  if (combo) caption += ` + ${extras.map(([k]) => k.toLowerCase()).join(", ")} på samme besøg`;
+  caption += ", inkl. moms";
 
-  if (row.summerExtra && season === "sommer" && !row.alwaysPackage) {
-    notes.push(
-      `Har du allerede fået behandlet i foråret, koster en ekstra behandling nu ${row.summerExtra} kr.`,
-    );
-  }
-
-  if (season === "vinter") {
+  if (seasonOf(now) === "vinter") {
     notes.push("Behandlingen udføres typisk fra foråret, hvor dyrene er aktive.");
   }
-
   if (overArea) {
     notes.push(
       `Prisen her dækker op til ${row.maxM2} m². Din bolig er større, så vi sætter den endelige pris efter en kort snak.`,
     );
   }
 
-  // Frequent-route towns: the total for one house must never pass the cap, so
-  // the driving charge shrinks to fit. Done after the package swap so the cap
-  // measures the base actually being quoted, and before perHouse so the
-  // driving line and every tier read the clamped figure.
-  if (
-    row.cap &&
-    lookup.state === "ok" &&
-    row.cap.postcodes.includes(lookup.nr) &&
-    base + tripCharge > row.cap.maxTotal
-  ) {
-    tripCharge = Math.max(0, row.cap.maxTotal - base);
-  }
-
-  // A house booking alone in a floored town never sees less than the floor;
-  // neighbour tiers have their own owner-named prices and are left alone.
-  const floor =
-    row.floor && lookup.state === "ok" && row.floor.postcodes.includes(lookup.nr)
-      ? row.floor.minTotal
-      : 0;
-  const price =
-    (tier === 1 ? Math.max(perHouse(base, override, tier, tripCharge), floor) : perHouse(base, override, tier, tripCharge)) +
-    bonusExtra;
-  const soloPrice = Math.max(perHouse(base, override, 1, tripCharge), floor) + bonusExtra;
-  const tenPrice = perHouse(base, override, 10, tripCharge);
-  const included = tier === 1 ? tripCharge : tier === 2 ? ceil100(tripCharge / 2) : 0;
-
   let driving: string;
   if (lookup.state === "unknown") {
     driving = "Det postnummer kender vi ikke";
   } else if (lookup.state === "none") {
-    driving = "I Aarhus Kommune. Udenfor lægger vi 3 kr. pr. kørt km til";
+    driving = "Ingen kørsel i Aarhus og nord for, ud til Hornslet. Ellers 3 kr. pr. kørt km";
   } else if (tripCharge === 0) {
-    driving = "Ingen kørselstillæg i Aarhus";
-  } else if (tier >= 5) {
-    driving = "Kørsel er med, når I er 5 eller flere";
-  } else if (tier === 2) {
-    driving = `Kørsel til ${lookup.nr} ${lookup.place.by}: ${dkr(tripCharge)}, I deler den`;
+    driving = "Ingen kørsel i dit område";
+  } else if (tier === 10) {
+    driving = "Fra 10 huse er prisen fast, uanset kørsel";
+  } else if (included < tripCharge) {
+    driving = `Kørsel til ${lookup.nr} ${lookup.place.by}: ${dkr(tripCharge)}, du betaler ${dkr(included)}`;
   } else {
     driving = `Kørsel til ${lookup.nr} ${lookup.place.by}: ${dkr(tripCharge)}, betales én gang`;
   }
@@ -400,9 +305,7 @@ export function estimate(
     total: price * tier,
     surcharge: included,
     soloPrice,
-    tenPrice,
     tripCharge,
-    isPackage: base === row.packagePrice,
     caption,
     driving,
     place,

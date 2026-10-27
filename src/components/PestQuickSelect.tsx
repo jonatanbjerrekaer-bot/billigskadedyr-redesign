@@ -82,7 +82,8 @@ function matches(p: PestEntry, q: string) {
  */
 export function priceOf(p: PestEntry): { text: string; ask: boolean; note?: string } {
   const row = p.priceKey ? OWNER_PRICES[p.priceKey] : undefined;
-  if (row?.kind === "fixed") return { text: dkr(row.base), ask: false };
+  if (row?.kind === "fixed")
+    return { text: dkr(row.base), ask: false, note: row.unit === "rum" ? "pr. rum" : undefined };
   if (row?.kind === "quote" && row.inspection)
     return { text: dkr(row.inspection.price), ask: false, note: "besigtigelse" };
   return { text: "Efter en snak", ask: true };
