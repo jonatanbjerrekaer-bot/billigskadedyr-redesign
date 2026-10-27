@@ -108,6 +108,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const [neighboursOpen, setNeighboursOpen] = useState(false);
   // Rooms or nests, for the pests he prices that way.
   const [count, setCount] = useState(1);
+  // Which way the stepper number rolls: up for more, down for fewer.
+  const countDir = useRef<"up" | "down">("up");
   // More pests on the same visit: one trip, half the driving (owner, 2026-10-26).
   const [extras, setExtras] = useState<string[]>([]);
   // Opens the postnummer field and puts the cursor in it. The field only
@@ -646,7 +648,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                       <span className="field-label" style={{ marginBottom: 0 }}>
                         {unit === "rum" ? "Antal rum" : "Antal bo"}
                       </span>
-                      <span className="small muted">
+                      {/* Keyed on the wording, so the 10 → 10+ switch animates in. */}
+                      <span key={count > 10 ? "over" : "per"} className="small muted text-swap">
                         {count > 10
                           ? `Prisen viser 10 ${unit}. Er der flere, aftaler vi resten.`
                           : unit === "rum"
@@ -661,6 +664,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                         aria-label="Færre"
                         disabled={count <= 1}
                         onClick={() => {
+                          countDir.current = "down";
                           setCount(count - 1);
                           setSelTouched(true);
                         }}
@@ -668,13 +672,18 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                         <Minus size={16} aria-hidden="true" />
                       </button>
                       <output aria-live="polite">
-                        {count > 10 ? "10+" : count} <span>{unit}</span>
+                        {/* Keyed, so each new number mounts and rolls in. */}
+                        <b key={count} className="stepper__num" data-dir={countDir.current}>
+                          {count > 10 ? "10+" : count}
+                        </b>{" "}
+                        <span>{unit}</span>
                       </output>
                       <button
                         type="button"
                         aria-label="Flere"
                         disabled={count > 10}
                         onClick={() => {
+                          countDir.current = "up";
                           setCount(count + 1);
                           setSelTouched(true);
                         }}

@@ -1,6 +1,6 @@
 import { ListBox, ListBoxItem, Select as HeroSelect } from "@heroui/react";
 import { usePreventScroll } from "react-aria";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 /**
@@ -40,6 +40,31 @@ export default function Select({
 }) {
   const [open, setOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  /* Which ends of the list still hide rows: drives the blurred, shadowed edge. */
+  const [edge, setEdge] = useState({ top: false, bottom: false });
+  const listEl = useRef<HTMLDivElement | null>(null);
+  const measure = useCallback(() => {
+    const el = listEl.current;
+    if (!el) return;
+    const top = el.scrollTop > 1;
+    const bottom = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
+    setEdge((e) => (e.top === top && e.bottom === bottom ? e : { top, bottom }));
+  }, []);
+  const listRef = useCallback(
+    (el: HTMLDivElement | null) => {
+      listEl.current?.removeEventListener("scroll", measure);
+      listEl.current = el;
+      if (el) {
+        el.addEventListener("scroll", measure, { passive: true });
+        requestAnimationFrame(measure);
+      }
+    },
+    [measure],
+  );
+  // Unfolding the "+N" rows grows the list without a scroll event.
+  useEffect(() => {
+    if (open) requestAnimationFrame(measure);
+  }, [open, showMore, measure]);
   /* The phone sheet is NON-modal: RAC's default (modal) moves focus into the
      popover on open, and on WebKit — deep in a scrolled page — that focus is
      lost to the body a beat later, the blur closes the sheet (adobe/react-
@@ -196,8 +221,9 @@ export default function Select({
         <HeroSelect.Indicator className="text-ink-100/70" />
       </HeroSelect.Trigger>
 
-      <HeroSelect.Popover isNonModal={paper && sheet} className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
-        <ListBox>
+      <HeroSelect.Popover isNonModal={paper && sheet} className={paper ? `np-popover${edge.top ? " np-more-above" : ""}${edge.bottom ? " np-more-below" : ""}` : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
+        {paper && <EdgeFade side="top" />}
+        <ListBox ref={paper ? listRef : undefined}>
           {options.map((o) => (
             <ListBoxItem
               key={o.value}
@@ -232,8 +258,21 @@ export default function Select({
             </ListBoxItem>
           )}
         </ListBox>
+        {paper && <EdgeFade side="bottom" />}
       </HeroSelect.Popover>
     </HeroSelect.Root>
     </>
+  );
+}
+
+/* Eight stacked blur layers, each stronger and masked to a later band, so the rows
+   soften gradually into the edge instead of under one flat blur. */
+function EdgeFade({ side }: { side: "top" | "bottom" }) {
+  return (
+    <div className={`np-edge np-edge--${side}`} aria-hidden="true">
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <i key={i} />
+      ))}
+    </div>
   );
 }

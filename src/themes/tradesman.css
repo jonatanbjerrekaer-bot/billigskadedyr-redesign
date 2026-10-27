@@ -286,8 +286,18 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .estimator { box-shadow: none; border-top: 0; background: var(--color-paper-2); padding-block: var(--section-gap-s); }
 .np .estimator__result { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
 .np .estimator__price { font-size: clamp(3rem, 4.5vw, 4.25rem); line-height: 1; }
-.np .estimator__pick { border: 1.5px solid var(--color-rule-2); border-radius: var(--radius-control); background: var(--color-paper); }
-@media (hover: hover) and (pointer: fine) { .np .estimator__pick:hover { background: var(--color-paper-2); } }
+.np .estimator__pick { border: 0; border-radius: var(--radius-control); background: none; position: relative; isolation: isolate; margin-inline-start: calc(-1 * var(--space-sm)); }
+/* No frame; on hover the same pale wash as the calculator's text links grows
+   out from the centre. Pulled left by its padding so the icon lines up with the price. */
+.np .estimator__pick::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: color-mix(in oklab, var(--color-accent) 14%, transparent);
+  transform: scaleX(0); opacity: 0;
+  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .estimator__pick:hover::before { transform: scaleX(1); opacity: 1; }
+}
 .np .estimator__list li { border-top: 1px solid var(--color-rule); font-weight: 600; color: var(--color-ink); }
 .np .estimator__caveat { border-top: 1px solid var(--color-rule-2); }
 .np .estimator__disclosure { border-top: 1px solid var(--color-rule-2); }
@@ -759,3 +769,52 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 }
 /* The add-pest picker reads as an action, not a missing value: same ink as a filled select. */
 .np .select-trigger [data-placeholder] { color: var(--color-ink); }
+
+/* Scroll edge on paper dropdowns. The list is the scroller and the edges sit
+   still on top of it (pinned outside the scroll layer, the usual recipe).
+   Progressive blur: eight backdrop-filter layers, blur doubling 0.25→32px,
+   each masked to one band so the strength steps up toward the edge. Under it
+   an eased fade to the panel colour (white in light mode, the dark panel in
+   dark mode). Shown with visibility, not opacity: opacity on a backdrop-filter
+   parent flattens the blur in Chromium and Safari. */
+.np-popover { display: flex; flex-direction: column; overflow: hidden !important; }
+.np-popover > .list-box, .np-popover > [role="listbox"] { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.np-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 4.5rem; z-index: 2; pointer-events: none; visibility: hidden; }
+.np-edge--top { top: 0; bottom: auto; scale: 1 -1; }
+.np-more-above .np-edge--top, .np-more-below .np-edge--bottom { visibility: visible; }
+.np-edge i { position: absolute; inset: 0; }
+.np-edge i:nth-child(1) { -webkit-backdrop-filter: blur(0.25px); backdrop-filter: blur(0.25px); -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); }
+.np-edge i:nth-child(2) { -webkit-backdrop-filter: blur(0.5px); backdrop-filter: blur(0.5px); -webkit-mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); }
+.np-edge i:nth-child(3) { -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); -webkit-mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); }
+.np-edge i:nth-child(4) { -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); -webkit-mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); }
+.np-edge i:nth-child(5) { -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); -webkit-mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); }
+.np-edge i:nth-child(6) { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); -webkit-mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); }
+.np-edge i:nth-child(7) { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%); mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%); }
+.np-edge i:nth-child(8) { -webkit-backdrop-filter: blur(32px); backdrop-filter: blur(32px); -webkit-mask: linear-gradient(to bottom, transparent 87.5%, #000 100%); mask: linear-gradient(to bottom, transparent 87.5%, #000 100%); }
+/* eased stops (ease-in), so the fade has no visible start line */
+.np-edge::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    color-mix(in oklab, var(--color-paper) 0%, transparent) 0%,
+    color-mix(in oklab, var(--color-paper) 3%, transparent) 20%,
+    color-mix(in oklab, var(--color-paper) 12%, transparent) 40%,
+    color-mix(in oklab, var(--color-paper) 30%, transparent) 60%,
+    color-mix(in oklab, var(--color-paper) 58%, transparent) 80%,
+    color-mix(in oklab, var(--color-paper) 85%, transparent) 100%);
+}
+@media (max-width: 40rem) { .np-popover::before { z-index: 3; } }
+
+/* The stepper number rolls in the direction of the change, so a one-step
+   change reads as movement the way the price's count-up does. */
+.np .stepper__num { display: inline-block; font: inherit; animation: stepper-up 240ms var(--ease-out); }
+.np .stepper__num[data-dir="down"] { animation-name: stepper-down; }
+@keyframes stepper-up { from { transform: translateY(35%) scale(0.8); opacity: 0; filter: blur(4px); } }
+@keyframes stepper-down { from { transform: translateY(-35%) scale(0.8); opacity: 0; filter: blur(4px); } }
+@media (prefers-reduced-motion: reduce) { .np .stepper__num { animation: none; } }
+.np .stepper output { overflow: hidden; }
+
+/* A line that changes wording blurs, scales and fades in, like the calculator's other appearing lines. */
+.np .text-swap { display: block; transform-origin: left center; animation: text-swap-in 240ms var(--ease-out); }
+@keyframes text-swap-in { from { opacity: 0; transform: scale(0.97); filter: blur(4px); } }
+@media (prefers-reduced-motion: reduce) { .np .text-swap { animation-duration: 120ms; animation-name: text-swap-fade; } }
+@keyframes text-swap-fade { from { opacity: 0; } }
