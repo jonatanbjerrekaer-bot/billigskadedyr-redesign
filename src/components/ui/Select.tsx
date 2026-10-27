@@ -51,11 +51,20 @@ export default function Select({
     setEdge((e) => (e.top === top && e.bottom === bottom ? e : { top, bottom }));
   }, []);
   /* Arrow keys: react-aria scrolls the focused row just into view, which puts
-     it under the blurred edge. Keep two rows of room on either side instead. */
+     it under the blurred edge. Keep two rows of room on either side instead.
+     Keyboard only: hover also moves focus in a select list, and the list must
+     not scroll away under a mouse. */
+  const byKeys = useRef(false);
+  const onKey = useCallback(() => {
+    byKeys.current = true;
+  }, []);
+  const onPointer = useCallback(() => {
+    byKeys.current = false;
+  }, []);
   const keepRoom = useCallback((e: FocusEvent) => {
     const el = listEl.current;
     const row = e.target as HTMLElement;
-    if (!el || !row.matches('[role="option"]')) return;
+    if (!el || !byKeys.current || !row.matches('[role="option"]')) return;
     requestAnimationFrame(() => {
       const room = row.offsetHeight * 2;
       const top = row.offsetTop - room;
@@ -68,14 +77,20 @@ export default function Select({
     (el: HTMLDivElement | null) => {
       listEl.current?.removeEventListener("scroll", measure);
       listEl.current?.removeEventListener("focusin", keepRoom);
+      listEl.current?.removeEventListener("keydown", onKey);
+      listEl.current?.removeEventListener("pointermove", onPointer);
       listEl.current = el;
       if (el) {
+        // Opened from the keyboard counts as keys until the mouse moves.
+        byKeys.current = !el.matches(":hover");
         el.addEventListener("scroll", measure, { passive: true });
         el.addEventListener("focusin", keepRoom);
+        el.addEventListener("keydown", onKey);
+        el.addEventListener("pointermove", onPointer, { passive: true });
         requestAnimationFrame(measure);
       }
     },
-    [measure, keepRoom],
+    [measure, keepRoom, onKey, onPointer],
   );
   // Unfolding the "+N" rows grows the list without a scroll event.
   useEffect(() => {
