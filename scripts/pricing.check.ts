@@ -61,6 +61,8 @@ assert(at("Hvepse & bier", { postcode: "8000", count: 3 }).price === 1600, "wasp
 const combo = at("Myrer", { postcode: "8800", extras: [{ key: "Edderkopper", label: "Edderkopper" }] });
 assert(combo.price === 600 + 1200 + 200, "ants + spiders Viborg: 1800 + half of 400");
 assert(combo.caption.includes("edderkopper"), "the caption names the added pest");
+assert(at("Myrer", { postcode: "8800" }).comboSaving === 200, "a second pest in Viborg saves half of 400");
+assert(at("Myrer", { postcode: "8800", houses: 5 }).comboSaving === 0, "5 houses already beat half driving");
 assert(
   at("Myrer", { postcode: "8800", houses: 5, extras: [{ key: "Fluer", label: "Fluer" }] }).price === 600 + 1500 + 100,
   "combo at 5 houses keeps the bigger 80 % discount (80 -> 100)",

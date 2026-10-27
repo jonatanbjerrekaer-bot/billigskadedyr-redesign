@@ -209,6 +209,7 @@ fulde deploy-rutine.
 | 2026-10-23 | Tradesman-temaet vælges (ejerens valg), første redesign |
 | 2026-10-24 | Wiki-fasen: 22 services, 76 arter, bundsheets på telefon |
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
+| 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 
 Ændrer du designet, opdaterer du tabellerne og historikken i samme
 commit.

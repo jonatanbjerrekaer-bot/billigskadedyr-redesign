@@ -200,6 +200,8 @@ export type Quote =
       soloPrice: number;
       /** The full round-trip charge for this postcode, whatever the tier. */
       tripCharge: number;
+      /** What a second pest on the same visit takes off the driving here. */
+      comboSaving: number;
       /** Named so the price never appears without saying what it covers. */
       caption: string;
       /** One line about driving, written from the postcode and the tier. */
@@ -306,6 +308,7 @@ export function estimate(
     surcharge: included,
     soloPrice,
     tripCharge,
+    comboSaving: round100(tripCharge * DRIVE_SHARE[tier]) - round100(tripCharge * Math.min(DRIVE_SHARE[tier], 0.5)),
     caption,
     driving,
     place,

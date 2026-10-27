@@ -499,28 +499,21 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   ))}
                 </ul>
               )}
+              {/* The pest they just left, offered back as the same kind of
+                  text link as driving and neighbours: no box, no new pattern. */}
               {nudgePest && quote.kind === "fixed" ? (
-                <div className="estimator__nudge estimator__reveal" role="status">
-                  <p>
-                    Har du også {nudgePest.label.toLowerCase()}? Tag dem med på samme tur
-                    {quote.tripCharge > 0 ? `, og spar ${dkr(quote.tripCharge - Math.round(quote.tripCharge / 200) * 100)} på kørslen.` : ", så klarer vi begge på ét besøg."}
-                  </p>
-                  <div className="estimator__nudge-actions">
-                    <button
-                      type="button"
-                      className="estimator__open"
-                      onClick={() => {
-                        setExtras([...extras, nudgePest.slug]);
-                        setNudge(null);
-                      }}
-                    >
-                      Tilføj {nudgePest.label.toLowerCase()}
-                    </button>
-                    <button type="button" className="estimator__nudge-x" aria-label="Nej tak" onClick={() => setNudge(null)}>
-                      <X size={16} aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  className="estimator__open"
+                  onClick={() => {
+                    setExtras([...extras, nudgePest.slug]);
+                    setNudge(null);
+                    setSelTouched(true);
+                  }}
+                >
+                  Har du også {nudgePest.label.toLowerCase()}? Tag dem med
+                  {quote.comboSaving > 0 ? `, og spar ${dkr(quote.comboSaving)} på kørslen` : " på samme besøg"}
+                </button>
               ) : addOpen && addable.length > 0 ? (
                 <div className="estimator__add estimator__reveal">
                   <span className="field-label">Flere skadedyr på samme besøg</span>
