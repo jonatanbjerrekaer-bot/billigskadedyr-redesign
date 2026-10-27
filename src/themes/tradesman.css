@@ -64,7 +64,7 @@ html:has(.np) { background: var(--color-paper); }
 .np-popover [role="option"][data-pressed] {
   background-color: var(--color-paper-3);
 }
-.np :is(.link:not(.wiki-link), .foot__cols a, .foot__link-btn, .crumbs a, .svc-hero__back, .hero__check-more, .quoted__other, .estimator__reset, .legal__inline-btn, .close__dl a, .mast-dateline a, .hero__rating a, .mast-nav a):active {
+.np :is(.link:not(.wiki-link), .foot__cols a, .foot__link-btn, .crumbs a, .svc-hero__back, .hero__check-more, .quoted__other, .legal__inline-btn, .close__dl a, .mast-dateline a, .hero__rating a, .mast-nav a):active {
   border-radius: 0.3em;
   background-color: color-mix(in oklab, currentColor 12%, transparent);
   box-shadow: 0 0 0 0.25em color-mix(in oklab, currentColor 12%, transparent);
@@ -286,7 +286,10 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .estimator { box-shadow: none; border-top: 0; background: var(--color-paper-2); padding-block: var(--section-gap-s); }
 .np .estimator__result { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
 .np .estimator__price { font-size: clamp(3rem, 4.5vw, 4.25rem); line-height: 1; }
-.np .estimator__pick { border: 0; border-radius: var(--radius-control); background: none; position: relative; isolation: isolate; margin-inline-start: calc(-1 * var(--space-sm)); }
+.np .estimator__pick-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.np .estimator__pick { border: 0; border-radius: var(--radius-control); background: none; position: relative; isolation: isolate; align-items: center; gap: var(--space-xs); padding: var(--space-2xs) var(--space-sm); margin-inline-start: calc(-1 * var(--space-sm)); }
+.np .estimator__pick > svg { margin-bottom: 0; }
+.np .estimator__pick .trigger-title { font-size: 1.125rem; }
 /* No frame; on hover the same pale wash as the calculator's text links grows
    out from the centre. Pulled left by its padding so the icon lines up with the price. */
 .np .estimator__pick::before {
@@ -572,13 +575,13 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 /* Wiki links in article text, and the calculator's text buttons that read
    like them: on hover a pale wash grows out from the centre behind the
    words, and they lift a hair above the line (a mouse only: see "input modes"). */
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link) {
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__reset) {
   position: relative;
   z-index: 0;
   display: inline-block;
   transition: transform 160ms var(--ease-out);
 }
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link)::before {
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__reset)::before {
   content: "";
   position: absolute;
   inset: -0.1em -0.3em;
@@ -597,7 +600,7 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    finger is down and fades when it lifts, so nothing stays lit after a tap. */
 .np :is(.wiki-link, .estimator__open, .estimator__drive-link):active::before { transform: scaleX(1); opacity: 1; transition-duration: 120ms; }
 @media (prefers-reduced-motion: reduce) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link), .np :is(.wiki-link, .estimator__open, .estimator__drive-link)::before { transition-duration: 0ms; }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link), .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__reset)::before { transition-duration: 0ms; }
 }
 
 /* Opening "Beregn kørsel" or "Har din nabo": the block grows open from its
@@ -818,3 +821,8 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 @keyframes text-swap-in { from { opacity: 0; transform: scale(0.97); filter: blur(4px); } }
 @media (prefers-reduced-motion: reduce) { .np .text-swap { animation-duration: 120ms; animation-name: text-swap-fade; } }
 @keyframes text-swap-fade { from { opacity: 0; } }
+
+/* Reset: the same centre-out wash as the calculator's text links, shown on
+   press too (touch has no hover), and a small give under the finger. */
+.np .estimator__reset:active { transform: scale(0.98); }
+.np .estimator__reset:active::before { transform: scaleX(1); opacity: 1; }

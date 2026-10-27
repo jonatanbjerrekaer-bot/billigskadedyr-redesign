@@ -651,7 +651,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                       {/* Keyed on the wording, so the 10 → 10+ switch animates in. */}
                       <span key={count > 10 ? "over" : "per"} className="small muted text-swap">
                         {count > 10
-                          ? `Prisen viser 10 ${unit}. Er der flere, aftaler vi resten.`
+                          ? `Prisen viser 10 ${unit}, resten aftaler vi.`
                           : unit === "rum"
                             ? "Prisen er pr. rum, der skal behandles."
                             : "Hvert ekstra bo koster 400 kr. oveni."}
@@ -844,6 +844,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             ponytail: driven by focus+click on the trigger — react-aria exposes
             no imperative "open" on Select.
           */}
+          {/* The label sits above as its own line, flush with the price, so the
+              button is one tight row: icon, name, chevron. */}
+          <div className="estimator__pick-wrap">
+          <span className="select-none small muted">Vejledende pris</span>
           <button
             type="button"
             onClick={() => {
@@ -894,12 +898,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             className="estimator__pick"
           >
             <PestGlyph pest={pest} size={28} />
-            <span>
-              <span className="select-none small muted" style={{ display: "block" }}>Vejledende pris</span>
-              <span className="trigger-title">{pest.label}</span>
-            </span>
+            <span className="trigger-title">{pest.label}</span>
             <ChevronDown size={16} aria-hidden="true" />
           </button>
+          </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
             {quote.kind === "fixed" ? (

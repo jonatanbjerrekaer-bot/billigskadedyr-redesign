@@ -50,16 +50,32 @@ export default function Select({
     const bottom = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
     setEdge((e) => (e.top === top && e.bottom === bottom ? e : { top, bottom }));
   }, []);
+  /* Arrow keys: react-aria scrolls the focused row just into view, which puts
+     it under the blurred edge. Keep two rows of room on either side instead. */
+  const keepRoom = useCallback((e: FocusEvent) => {
+    const el = listEl.current;
+    const row = e.target as HTMLElement;
+    if (!el || !row.matches('[role="option"]')) return;
+    requestAnimationFrame(() => {
+      const room = row.offsetHeight * 2;
+      const top = row.offsetTop - room;
+      const bottom = row.offsetTop + row.offsetHeight + room - el.clientHeight;
+      if (el.scrollTop > top) el.scrollTop = Math.max(0, top);
+      else if (el.scrollTop < bottom) el.scrollTop = bottom;
+    });
+  }, []);
   const listRef = useCallback(
     (el: HTMLDivElement | null) => {
       listEl.current?.removeEventListener("scroll", measure);
+      listEl.current?.removeEventListener("focusin", keepRoom);
       listEl.current = el;
       if (el) {
         el.addEventListener("scroll", measure, { passive: true });
+        el.addEventListener("focusin", keepRoom);
         requestAnimationFrame(measure);
       }
     },
-    [measure],
+    [measure, keepRoom],
   );
   // Unfolding the "+N" rows grows the list without a scroll event.
   useEffect(() => {
@@ -204,6 +220,13 @@ export default function Select({
           unfolding.current = true;
           setShowMore(true);
           requestAnimationFrame(() => setOpen(true));
+          // Bring the unfolded rows into view, after react-aria's own
+          // scroll-to-selected on reopen has run.
+          window.setTimeout(() => {
+            const el = listEl.current;
+            const first = el?.querySelector<HTMLElement>(".select-more-item");
+            if (el && first) el.scrollTo({ top: first.offsetTop - first.offsetHeight, behavior: "smooth" });
+          }, 120);
           return;
         }
         if (more?.options.some((o) => o.value === k)) return more.onPick(k);
