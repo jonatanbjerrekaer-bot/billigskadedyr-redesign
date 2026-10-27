@@ -109,8 +109,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const [neighboursOpen, setNeighboursOpen] = useState(false);
   // Rooms or nests, for the pests he prices that way.
   const [count, setCount] = useState(1);
-  // Which way the stepper number rolls: up for more, down for fewer.
-  const countDir = useRef<"up" | "down">("up");
+  // The same for each added pest, by slug.
+  const [extraCounts, setExtraCounts] = useState<Record<string, number>>({});
   // More pests on the same visit: one trip, half the driving (owner, 2026-10-26).
   const [extras, setExtras] = useState<string[]>([]);
   // The add picker starts as one line of text, like driving and neighbours:
@@ -256,6 +256,15 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     .flatMap((s) => fixedPests.filter((p) => p.slug === s));
   const nudgePest = nudge && !extras.includes(nudge) && nudge !== slug ? fixedPests.find((p) => p.slug === nudge) : undefined;
   const addable = fixedPests.filter((p) => p.slug !== slug && !extras.includes(p.slug));
+  const unitOf = (p: (typeof fixedPests)[number]) => {
+    const r = OWNER_PRICES[p.priceKey!];
+    return r?.kind === "fixed" ? r.unit : undefined;
+  };
+  const countedExtras = extraPests.flatMap((p) => {
+    const u = unitOf(p);
+    return u ? [{ pest: p, unit: u }] : [];
+  });
+  const extraUnit = countedExtras[0]?.unit;
   // His published price, or an honest "we set it after a short chat". The old
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
@@ -264,7 +273,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     postcode,
     houses,
     count: unit ? Math.min(count, 10) : 1,
-    extras: extraPests.map((p) => ({ key: p.priceKey!, label: p.label })),
+    extras: extraPests.map((p) => ({ key: p.priceKey!, label: p.label, count: extraCounts[p.slug] })),
   });
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
@@ -340,6 +349,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     setPostcode("");
     setHouses(1);
     setCount(1);
+    setExtraCounts({});
     setExtras([]);
     setAddOpen(false);
     setNudge(null);
@@ -490,6 +500,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                         aria-label={`Fjern ${p.label}`}
                         onClick={() => {
                           setExtras(extras.filter((s) => s !== p.slug));
+                          setExtraCounts(({ [p.slug]: _, ...rest }) => rest);
                           setSelTouched(true);
                         }}
                       >
@@ -663,6 +674,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   <span className="small muted" style={{ display: "block" }}>
                     {unit
                       ? `${unit === "rum" ? "Antal rum" : "Antal bo"}, boligtype og hvor slemt det er.`
+                      : extraUnit
+                        ? `${hasArea && !multi ? "Areal, antal" : "Antal"} ${extraUnit}, boligtype og hvor slemt det er.`
                       : multi
                         ? "Kun boligtype — prisen styres af hvor mange I er."
                         : hasArea
@@ -685,55 +698,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     Rooms stay visible with several houses, since the price is
                     per room in each house. */}
                 {unit && (
-                  <div className="area-row">
-                    <span>
-                      <span className="field-label" style={{ marginBottom: 0 }}>
-                        {unit === "rum" ? "Antal rum" : "Antal bo"}
-                      </span>
-                      {/* Keyed on the wording, so the 10 → 10+ switch animates in. */}
-                      <span key={count > 10 ? "over" : "per"} className="small muted text-swap">
-                        {count > 10
-                          ? `Prisen viser 10 ${unit}, resten aftaler vi.`
-                          : unit === "rum"
-                            ? "Prisen er pr. rum, der skal behandles."
-                            : "Hvert ekstra bo koster 400 kr. oveni."}
-                      </span>
-                    </span>
-                    {/* ponytail: 11 means "10+", priced as 10 since the list stops there. */}
-                    <div className="area-field stepper" role="group" aria-label={unit === "rum" ? "Antal rum" : "Antal bo"}>
-                      <button
-                        type="button"
-                        aria-label="Færre"
-                        disabled={count <= 1}
-                        onClick={() => {
-                          countDir.current = "down";
-                          setCount(count - 1);
-                          setSelTouched(true);
-                        }}
-                      >
-                        <Minus size={16} aria-hidden="true" />
-                      </button>
-                      <output aria-live="polite">
-                        {/* Keyed, so each new number mounts and rolls in. */}
-                        <b key={count} className="stepper__num" data-dir={countDir.current}>
-                          {count > 10 ? "10+" : count}
-                        </b>{" "}
-                        <span>{unit}</span>
-                      </output>
-                      <button
-                        type="button"
-                        aria-label="Flere"
-                        disabled={count > 10}
-                        onClick={() => {
-                          countDir.current = "up";
-                          setCount(count + 1);
-                          setSelTouched(true);
-                        }}
-                      >
-                        <Plus size={16} aria-hidden="true" />
-                      </button>
-                    </div>
-                  </div>
+                  <CountStepper unit={unit} label={unit === "rum" ? "Antal rum" : "Antal bo"} count={count} onChange={(n) => {
+                    setCount(n);
+                    setSelTouched(true);
+                  }} />
                 )}
                 {!multi && hasArea && (
                 <Slider.Root
@@ -793,6 +761,20 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </div>
                 </Slider.Root>
                 )}
+                {/* Added pests priced per room or nest get the same stepper, so
+                    "1 bo" is something the visitor set, not something we assumed. */}
+                {countedExtras.map(({ pest: p, unit: u }) => (
+                  <CountStepper
+                    key={p.slug}
+                    unit={u}
+                    label={`${u === "rum" ? "Antal rum" : "Antal bo"}, ${p.label.toLowerCase()}`}
+                    count={extraCounts[p.slug] ?? 1}
+                    onChange={(n) => {
+                      setExtraCounts({ ...extraCounts, [p.slug]: n });
+                      setSelTouched(true);
+                    }}
+                  />
+                ))}
 
                 <div>
                   <span className="field-label">Ejendomstype</span>
@@ -1074,5 +1056,48 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
         </span>
       </div>
     </section>
+  );
+}
+
+/** Rooms or nests, for the pests he prices that way: the main pest and every added one. */
+function CountStepper({ unit, label, count, onChange }: { unit: "rum" | "bo"; label: string; count: number; onChange: (n: number) => void }) {
+  // Which way the number rolls: up for more, down for fewer.
+  const dir = useRef<"up" | "down">("up");
+  const step = (n: number) => {
+    dir.current = n > count ? "up" : "down";
+    onChange(n);
+  };
+  return (
+    <div className="area-row">
+      <span>
+        <span className="field-label" style={{ marginBottom: 0 }}>
+          {label}
+        </span>
+        {/* Keyed on the wording, so the 10 → 10+ switch animates in. */}
+        <span key={count > 10 ? "over" : "per"} className="small muted text-swap">
+          {count > 10
+            ? `Prisen viser 10 ${unit}, resten aftaler vi.`
+            : unit === "rum"
+              ? "Prisen er pr. rum, der skal behandles."
+              : "Hvert ekstra bo koster 400 kr. oveni."}
+        </span>
+      </span>
+      {/* ponytail: 11 means "10+", priced as 10 since the list stops there. */}
+      <div className="area-field stepper" role="group" aria-label={label}>
+        <button type="button" aria-label="Færre" disabled={count <= 1} onClick={() => step(count - 1)}>
+          <Minus size={16} aria-hidden="true" />
+        </button>
+        <output aria-live="polite">
+          {/* Keyed, so each new number mounts and rolls in. */}
+          <b key={count} className="stepper__num" data-dir={dir.current}>
+            {count > 10 ? "10+" : count}
+          </b>{" "}
+          <span>{unit}</span>
+        </output>
+        <button type="button" aria-label="Flere" disabled={count > 10} onClick={() => step(count + 1)}>
+          <Plus size={16} aria-hidden="true" />
+        </button>
+      </div>
+    </div>
   );
 }

@@ -228,8 +228,8 @@ export function estimate(
     houses?: number;
     /** Rooms or nests for the main pest, where it is priced that way. */
     count?: number;
-    /** More pests treated on the same visit: priceKey, and the name to print. */
-    extras?: { key: string; label: string }[];
+    /** More pests treated on the same visit: priceKey, the name to print, and rooms or nests where it is priced that way. */
+    extras?: { key: string; label: string; count?: number }[];
   } = {},
 ): Quote {
   const row = OWNER_PRICES[pest];
@@ -237,10 +237,10 @@ export function estimate(
   if (row.kind === "quote") return row;
 
   const count = Math.max(1, Math.round(opts.count ?? 1));
-  // ponytail: extras are one room / one nest each; per-extra counts if he asks.
-  const extras = (opts.extras ?? []).flatMap(({ key, label }) => {
+  // Capped at 10 like the main pest: the stepper's "10+" is priced as 10.
+  const extras = (opts.extras ?? []).flatMap(({ key, label, count: n }) => {
     const r = OWNER_PRICES[key];
-    return r?.kind === "fixed" ? [[label, r] as const] : [];
+    return r?.kind === "fixed" ? [[label, r, Math.min(Math.max(1, Math.round(n ?? 1)), 10)] as const] : [];
   });
   const combo = extras.length > 0;
 
@@ -258,7 +258,7 @@ export function estimate(
   const share = (t: Houses) => Math.min(DRIVE_SHARE[t], combo ? 0.5 : 1);
   const perHouse = (t: Houses) =>
     treatment(row, t, count) +
-    extras.reduce((sum, [, r]) => sum + treatment(r, t, 1), 0) +
+    extras.reduce((sum, [, r, n]) => sum + treatment(r, t, n), 0) +
     round100(tripCharge * share(t));
 
   const price = perHouse(tier);
@@ -273,7 +273,11 @@ export function estimate(
         : row.maxM2
           ? `1 behandling af bolig op til ${row.maxM2} m²`
           : "1 behandling";
-  if (combo) caption += ` + ${extras.map(([k]) => k.toLowerCase()).join(", ")} på samme besøg`;
+  // The count is printed for every counted pest, so "1 bo" is never a hidden assumption.
+  const named = extras.map(([k, r, n]) =>
+    k.toLowerCase() + (r.unit === "rum" ? ` (${n} rum)` : r.unit === "bo" ? ` (${n} ${n === 1 ? "bo" : "boer"})` : ""),
+  );
+  if (combo) caption += ` + ${new Intl.ListFormat("da", { type: "conjunction" }).format(named)} på samme besøg`;
   caption += ", inkl. moms";
 
   if (seasonOf(now) === "vinter") {

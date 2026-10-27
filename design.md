@@ -210,6 +210,7 @@ fulde deploy-rutine.
 | 2026-10-24 | Wiki-fasen: 22 services, 76 arter, bundsheets på telefon |
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
+| 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
 
 Ændrer du designet, opdaterer du tabellerne og historikken i samme
 commit.
