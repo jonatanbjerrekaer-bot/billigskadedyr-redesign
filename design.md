@@ -158,9 +158,11 @@ resten kræver, at man ser på siden. Kør
   angreb, postnummer, naboer og flere skadedyr ændrer prisen eller en linje
   under den. En kontrol, der ikke gør noget, fjernes eller kobles på
   `estimate()`.
-- **IX-08 Hver ny knap får den fælles hover.** Klassen skal med i hover-reglen
-  i `tradesman.css` (vasken bag ordet, `scale(1.01)`), ikke kun en farve på
-  understregningen.
+- **IX-08 Hvert understreget link og hver knap får den fælles hover.** Klassen
+  skal med i hover-reglen i `tradesman.css` (vasken bag ordet, `scale(1.01)`),
+  ikke kun en farve på understregningen. Scriptet tjekker knapperne i
+  beregneren og alle understregede links på forsiden, myrer-siden og de to
+  politiksider. På mørk bund er vasken lys (toplinjen).
 
 **Tjekkes med øjnene**
 
@@ -179,7 +181,9 @@ resten kræver, at man ser på siden. Kør
   et nyt link er som "+ kørsel".
 - **IX-15 Se den åbne tilstand og 390 px.** Åbn hvert panel, tjek
   hårlinjerne, og se om tekst på knapper ombrydes pænt
-  (`text-align: inherit`).
+  (`text-align: inherit`). Hold musen over links ved et panels kant: vasken
+  må ikke klippes af panelets `overflow` (paneler har derfor 0,5em ekstra
+  klippeplads på hver side).
 - **IX-16 Lukket, til der er en grund.** "Tilpas beregningen" starter lukket;
   et link åbner den præcis ved feltet.
 
@@ -250,6 +254,7 @@ fulde deploy-rutine.
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 | 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
+| 2026-10-28 | Vasken bag ordet ved hover gælder nu også "Ikke på listen?" i heroen, "Ryd beskedfeltet", mail- og telefonlinks og e-mærket-linket i toplinjen (lys vask på mørk bund). Åbne paneler klipper ikke længere vasken, når den når kanten |
 | 2026-10-28 | Ny sektion "Interaktion" med tjeklisten for beregneren og `scripts/interaction.check.py`, der tjekker at hver kontrol flytter resultatet og hver knap har hover. Den første kørsel fandt "Nulstil" uden hover; den har den nu, og ikonet står igen ved siden af teksten i stedet for over den |
 | 2026-10-28 | Oprydning: 22 produktbilleder fra varer, der ikke længere er i butikken, et ubrugt mørkt logo, to komponenter ingen importerede (ClosingCta, Reveal) og CSS for seks klasser uden element (why__well, hero__photo, hero__index, notice__row, rule-double, section--l) er fjernet |
 | 2026-10-28 | Brødtekst skifter fra Manrope til Public Sans: ejeren valgte den som mest læsbar efter en side-om-side-test med Atkinson Hyperlegible Next og Source Sans 3 på den rigtige side |

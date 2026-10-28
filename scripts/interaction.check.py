@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Prisberegnerens interaktionsregler, de to der kan maskintjekkes.
 
-IX-08: hver knap i Estimator.tsx har en hover-regel i temaet.
+IX-08: hver knap i Estimator.tsx har en hover-regel i temaet, og intet
+       understreget link eller knap på de vigtigste sider står uden hover.
 IX-01: hver kontrol flytter resultatet (pris eller en linje under den).
 
 De øvrige regler kræver et menneske; de står i design.md under
@@ -91,6 +92,36 @@ CONTROLS = {
 }
 
 
+# Every underlined link or button that is on screen must match some :hover rule.
+LINK_AUDIT = r"""(() => {
+  const hov = [];
+  const walk = rules => { for (const r of rules) {
+    if (r.cssRules && !r.selectorText) { try { walk(r.cssRules); } catch (e) {} }
+    else if (r.selectorText && r.selectorText.includes(':hover')) hov.push(r.selectorText);
+  } };
+  for (const s of document.styleSheets) { try { walk(s.cssRules); } catch (e) {} }
+  const hovered = el => hov.some(sel => sel.split(/,(?![^(]*\))/).some(x => {
+    if (!x.includes(':hover')) return false;
+    try { return el.matches(x.replace(/:hover(::?[\w-]+)?/g, '').replace(/::?(before|after)/g, '').trim()); } catch (e) { return false; }
+  }));
+  return [...document.querySelectorAll('a, button')]
+    .filter(el => getComputedStyle(el).textDecorationLine.includes('underline') && el.getClientRects().length && !hovered(el))
+    .map(el => `${el.className || el.tagName}: "${el.textContent.trim().slice(0, 40)}"`);
+})()"""
+LINK_PAGES = ["", "service/myrer/", "cookiepolitik/", "privatlivspolitik/"]
+
+
+def check_links():
+    for page in LINK_PAGES:
+        tab = cdp.Tab(f"http://127.0.0.1:{prerender.PORT}{prerender.BASE}{page}")
+        try:
+            tab.js("new Promise(r => setTimeout(r, 1500))", timeout=10)
+            for hit in tab.js(LINK_AUDIT) or []:
+                fails.append(f"IX-08 link uden hover på /{page}: {hit} -> føj klassen til den fælles hover-regel i tradesman.css")
+        finally:
+            tab.close()
+
+
 def check_controls():
     url = f"http://127.0.0.1:{prerender.PORT}{prerender.BASE}service/myrer/"
     for name, steps in CONTROLS.items():
@@ -120,7 +151,8 @@ if __name__ == "__main__":
     # prerender.py; shutdown() would wait on Chrome's open connection.
     prerender.serve()
     check_controls()
+    check_links()
     if fails:
         print("\n".join(fails))
         sys.exit(1)
-    print(f"OK interaktion  ({len(CONTROLS)} kontroller flytter resultatet, alle knapper har hover)")
+    print(f"OK interaktion  ({len(CONTROLS)} kontroller flytter resultatet, alle knapper og links på {len(LINK_PAGES)} sider har hover)")

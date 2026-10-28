@@ -585,15 +585,25 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 /* Wiki links in article text, and the calculator's text buttons that read
    like them: on hover a pale wash grows out from the centre behind the
    words, and they lift a hair above the line (a mouse only: see "input modes"). */
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset) {
+/* :where keeps this base at the lowest weight, so a link's own display
+   (the inline-flex rows with an icon, the inline dateline link) always wins. */
+.np :where(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a) {
   position: relative;
   z-index: 0;
   display: inline-block;
   transition: transform 160ms var(--ease-out);
 }
-/* the reset carries an icon beside its words, so it keeps the row it has in newsprint.css */
-.np .estimator__reset { display: inline-flex; }
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset)::before {
+/* The dateline is dark, so its wash is paper, not green. It stays inline so the
+   ellipsis can still cut a long line; its li clips with a margin wide enough for
+   the wash (where the browser supports overflow-clip-margin). */
+.np .mast-dateline a { display: inline; }
+.np .mast-dateline a::before { background: color-mix(in oklab, var(--color-paper) 18%, transparent); }
+.np .mast-dateline li { overflow: clip; overflow-clip-margin: 0.4em; }
+/* A panel clips so it can animate its height, which cut off a hover wash at its
+   edge. Padding widens the clip box by the wash's reach and the negative margin
+   pulls it back, so the content stays where it was and the wash has room. */
+.np .disclosure__content { margin-inline: -0.5em; padding-inline: 0.5em; }
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a)::before {
   content: "";
   position: absolute;
   inset: -0.1em -0.3em;
@@ -605,14 +615,14 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset):hover { z-index: 1; transform: scale(1.01); }
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset):hover::before { transform: scaleX(1); opacity: 1; }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):hover { z-index: 1; transform: scale(1.01); }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):hover::before { transform: scaleX(1); opacity: 1; }
 }
 /* On a touch screen the wash is the pressed state instead: it shows while the
    finger is down and fades when it lifts, so nothing stays lit after a tap. */
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link):active::before { transform: scaleX(1); opacity: 1; transition-duration: 120ms; }
+.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):active::before { transform: scaleX(1); opacity: 1; transition-duration: 120ms; }
 @media (prefers-reduced-motion: reduce) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link), .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset)::before { transition-duration: 0ms; }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a), .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a)::before { transition-duration: 0ms; }
 }
 
 /* Opening "Beregn kørsel" or "Har din nabo": the block grows open from its
