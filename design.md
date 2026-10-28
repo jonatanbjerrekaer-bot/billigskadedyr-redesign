@@ -183,7 +183,7 @@ resten kræver, at man ser på siden. Kør
   hårlinjerne, og se om tekst på knapper ombrydes pænt
   (`text-align: inherit`). Hold musen over links ved et panels kant: vasken
   må ikke klippes af panelets `overflow` (paneler har derfor 0,5em ekstra
-  klippeplads på hver side).
+  klippeplads på hver side og, mens de er åbne, i bunden).
 - **IX-16 Lukket, til der er en grund.** "Tilpas beregningen" starter lukket;
   et link åbner den præcis ved feltet.
 

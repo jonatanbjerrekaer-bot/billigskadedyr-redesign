@@ -603,6 +603,9 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    edge. Padding widens the clip box by the wash's reach and the negative margin
    pulls it back, so the content stays where it was and the wash has room. */
 .np .disclosure__content { margin-inline: -0.5em; padding-inline: 0.5em; }
+/* The same at the bottom, but only while open: a closed panel is 0 tall, and
+   padding there would show the top of its content. */
+.np .disclosure__content[data-expanded="true"] { margin-block-end: -0.5em; padding-block-end: 0.5em; }
 .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a)::before {
   content: "";
   position: absolute;
