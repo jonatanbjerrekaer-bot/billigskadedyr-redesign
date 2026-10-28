@@ -522,9 +522,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     setSelTouched(true);
                   }}
                 >
-                  <span className="estimator__q">Har du også {nudgePest.label.toLowerCase()}?</span>{" "}
-                  <span className="estimator__act">
-                    {quote.comboSaving > 0 ? `Tag dem med og spar ${dkr(quote.comboSaving)} på kørslen` : "Tag dem med på samme besøg"}
+                  <span className="estimator__act">Tilføj {nudgePest.label.toLowerCase()}</span>{" "}
+                  <span className="estimator__q">
+                    {quote.comboSaving > 0 ? `spar ${dkr(quote.comboSaving)} på kørslen` : "på samme besøg"}
                   </span>
                 </button>
               ) : addOpen && addable.length > 0 ? (
@@ -555,8 +555,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                       <span className="estimator__act">Tilføj endnu et skadedyr</span>
                     ) : (
                       <>
-                        <span className="estimator__q">Har du også et andet skadedyr?</span>{" "}
-                        <span className="estimator__act">Tilføj det til halv kørsel</span>
+                        <span className="estimator__act">Tilføj et skadedyr</span>{" "}
+                        <span className="estimator__q">halv kørsel</span>
                       </>
                     )}
                   </button>
@@ -621,8 +621,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </TextField.Root>
               ) : (
                 <button type="button" className="estimator__open" onClick={openDrive}>
-                  <span className="estimator__q">Bor du syd eller vest for Aarhus?</span>{" "}
-                  <span className="estimator__act">Beregn kørsel</span>
+                  <span className="estimator__act">Beregn kørsel</span>{" "}
+                  <span className="estimator__q">syd og vest for Aarhus</span>
                 </button>
               )}
 
@@ -657,8 +657,8 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </div>
               ) : (
                 <button type="button" className="estimator__open" onClick={() => setNeighboursOpen(true)}>
-                  <span className="estimator__q">Har din nabo også et problem?</span>{" "}
-                  <span className="estimator__act">Se naboprisen</span>
+                  <span className="estimator__act">Se naboprisen</span>{" "}
+                  <span className="estimator__q">når I er flere</span>
                 </button>
               )}
             </div>

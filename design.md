@@ -211,7 +211,7 @@ fulde deploy-rutine.
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 | 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
-| 2026-10-27 | Prisberegnerens tekstlinks er spørgsmål + handling: spørgsmålet står dæmpet uden understregning, kun handlingen ("Beregn kørsel") er understreget |
+| 2026-10-28 | Prisberegnerens tekstlinks starter med handlingen ("Beregn kørsel"), understreget og venstrestillet, efterfulgt af en kort dæmpet forklaring ("halv kørsel") |
 
 Ændrer du designet, opdaterer du tabellerne og historikken i samme
 commit.

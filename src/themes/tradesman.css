@@ -566,10 +566,10 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
 }
 @media (hover: hover) and (pointer: fine) { .np .estimator__open:hover { text-decoration-color: currentColor; } }
-/* question + action: the question is quiet, only the action carries the
-   underline, so three openers read as three short links and not three stripes */
+/* action + context: the verb leads, so every link starts on the same left
+   edge, and only it carries the underline; the short context after it is quiet */
 .np .estimator__open:has(.estimator__act) { text-decoration: none; }
-.np .estimator__q { font-weight: 500; color: var(--color-muted); }
+.np .estimator__q { margin-left: 0.25em; font-weight: 500; color: var(--color-muted); }
 .np .estimator__act { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 @media (hover: hover) and (pointer: fine) { .np .estimator__open:hover .estimator__act { text-decoration-color: currentColor; } }
 .np .estimator__where-note { margin-top: var(--space-xs); }
