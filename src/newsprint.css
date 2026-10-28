@@ -50,14 +50,9 @@ html:has(.np) { background: var(--color-paper); }
 }
 .np .section { padding-block: var(--section-gap); }
 .np .section--s { padding-block: var(--section-gap-s); }
-.np .section--l { padding-block: var(--section-gap-l); }
 .np .section + .section:not(.band):not(.estimator):not(.close) { padding-top: 0; }
 /* ...except after a tinted band: the next section starts on a new ground and needs its own top padding. Same weight as the rule above, later, so it wins. */
 .np :is(.band, .estimator, .close) + .section:not(.band):not(.estimator):not(.close) { padding-top: var(--section-gap); }
-.np .rule-double {
-  box-sizing: content-box; height: 2px; margin: 0; border: 0;
-  border-block: var(--rule-hair) solid var(--color-rule-2);
-}
 .np .muted { color: var(--color-muted); }
 .np .small { font-size: var(--text-sm); line-height: 1.45; }
 .np .agate {
@@ -141,7 +136,6 @@ html:has(.np) { background: var(--color-paper); }
 .np .hero__text h1 .keep { white-space: nowrap; }
 .np .hero__text .lead { margin-top: var(--space-lg); color: var(--color-ink-2); }
 .np .hero__text .actions { margin-top: var(--space-xl); }
-.np .hero__index { grid-column: 6 / span 7; }
 
 .np .index__head { font-size: var(--text-title); }
 .np .index__intro { margin-top: var(--space-2xs); }
@@ -398,7 +392,6 @@ html:has(.np) { background: var(--color-paper); }
    phone bar below); on larger screens the result card is already in view. */
 .np .estimator__chip { display: none; }
 .np .notice { position: fixed; inset: auto 0 0 0; z-index: var(--z-toast); background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule-2); }
-.np .notice__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md); padding-block: var(--space-md); }
 
 /* ------------------------------------------------------------- service pages */
 .np .svc-hero { padding-block: var(--space-xl) var(--space-2xl); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
@@ -416,13 +409,6 @@ html:has(.np) { background: var(--color-paper); }
 .np .why__list { list-style: none; margin: var(--space-xl) 0 0; padding: 0; }
 .np .why__list li { padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
 .np .why__list li:first-child { border-top-color: var(--color-rule-2); }
-.np .why__well { grid-column: 8 / span 5; align-self: start; position: sticky; top: 120px; padding: var(--space-xl); background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule); }
-.np .why__well dl { margin: var(--space-lg) 0 0; }
-.np .why__well dl > div { padding-block: var(--space-sm); border-top: var(--rule-hair) solid var(--color-rule); }
-.np .why__well dt { font-weight: 500; }
-.np .why__well dd { margin: var(--space-3xs) 0 0; font-size: var(--text-sm); color: var(--color-ink-2); }
-.np .why__well .btn { margin-top: var(--space-lg); }
-.np .why__well > p:last-child { margin-top: var(--space-xs); text-align: center; font-size: var(--text-sm); color: var(--color-muted); }
 .np .species { columns: 2 18rem; column-gap: var(--space-2xl); column-rule: var(--rule-hair) solid var(--color-rule); margin: var(--space-xl) 0 0; }
 .np .species > div { break-inside: avoid; padding-bottom: var(--space-lg); }
 .np .species dt { font: 700 var(--text-title)/1.15 var(--font-display); letter-spacing: var(--tracking-display); }
@@ -442,7 +428,6 @@ html:has(.np) { background: var(--color-paper); }
   .np .mast-dateline ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-2xs); }
   .np .mast-nav, .np .mast-bar__row > .btn { display: none; }
   .np .mast-menu { display: inline-flex; margin-left: auto; }
-  .np .hero__index { margin-top: var(--space-2xl); }
   .np .promises__head { margin-bottom: var(--space-xl); }
   .np .promises__head h2 { position: static; }
   .np .promises__rows { grid-template-columns: minmax(0, 1fr); }
@@ -471,7 +456,6 @@ html:has(.np) { background: var(--color-paper); }
   .np .faq__list { margin-top: var(--space-xl); }
   .np .close__form { margin-top: var(--space-2xl); }
   .np .foot__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-xl); }
-  .np .why__well { position: static; margin-top: var(--space-2xl); }
   .np .svc-hero__title { gap: var(--space-md); }
   .np .phonebar {
     display: flex; gap: var(--space-xs); position: fixed; inset: auto 0 0 0; z-index: var(--z-sticky);

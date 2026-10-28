@@ -211,6 +211,7 @@ fulde deploy-rutine.
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 | 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
+| 2026-10-28 | Oprydning: 22 produktbilleder fra varer, der ikke længere er i butikken, et ubrugt mørkt logo, to komponenter ingen importerede (ClosingCta, Reveal) og CSS for seks klasser uden element (why__well, hero__photo, hero__index, notice__row, rule-double, section--l) er fjernet |
 | 2026-10-28 | Brødtekst skifter fra Manrope til Public Sans: ejeren valgte den som mest læsbar efter en side-om-side-test med Atkinson Hyperlegible Next og Source Sans 3 på den rigtige side |
 | 2026-10-28 | Alle store priser står i Archivo (forsidens pris stod i Manrope). Newsprint-grundens fem ubrugte fonte (Zilla Slab, Spectral, Libre Franklin 500) er fjernet; butikkens og de gemte temaers fonte bliver |
 | 2026-10-28 | Grad af angreb påvirker prisen: kraftig lægger et tredje besøg til (halv behandlingspris, skal bekræftes af ejeren), let koster det samme som normal. Besøgslinjen under "Prisen dækker" åbner grad af angreb, og den dobbelte linje om ekstra besøg under "Det kan ændre prisen" er fjernet |

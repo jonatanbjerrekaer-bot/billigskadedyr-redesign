@@ -34,7 +34,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .stages li:first-child, .np .tiers { border-top: var(--rule-bar) solid var(--color-ink); }
 .np .band--ink .tiers { border-top-color: var(--color-paper); }
 .np .score { border-block: var(--rule-bar) solid var(--color-ink); box-shadow: none; margin-block: 0; }
-.np .rule-double, .np .estimator { box-shadow: none; }
+.np .estimator { box-shadow: none; }
 .np .estimator { border-top: var(--rule-bar) solid var(--color-ink); }
 .np .foot { box-shadow: none; border-top: var(--rule-bar) solid var(--color-ink); }
 
@@ -60,7 +60,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .toggle-button-group { border-width: 2px; }
 
 /* the cast plate: the price result and the service promises */
-.np .estimator__result, .np .why__well { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
+.np .estimator__result { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
 .np .index__empty { background: var(--color-plate); border: 2px solid var(--color-ink); }
 .np .close { background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-ink); }
 

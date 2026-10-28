@@ -84,7 +84,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .hero__text h1 { font-size: clamp(2.5rem, 2.6vw + 1.25rem, 4rem); letter-spacing: -0.025em; }
 .np .hero__text h1 .keep { white-space: normal; }
 .np .trigger-title, .np .index__name, .np .promise dt, .np .species dt, .np .others a, .np .stages h3, .np .tier h3,
-.np .versus h3, .np .why__well dt, .np .wordmark, .np .foot__mark {
+.np .versus h3, .np .wordmark, .np .foot__mark {
   font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; text-transform: none; color: var(--color-ink);
 }
 .np .index__name { font-size: 1.0625rem; }
@@ -238,8 +238,6 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 /* "fjerner dem." stays together so the head never strands one word */
 .np .hero__text h1 .tail { white-space: nowrap; }
 .np .hero__text .lead { margin-top: var(--space-lg); font-size: 1.25rem; max-width: 44ch; }
-.np .hero__photo { grid-column: 8 / span 5; margin: 0; align-self: center; }
-.np .hero__photo [data-slot] { aspect-ratio: 4 / 3.4; border-radius: var(--radius-panel); overflow: hidden; }
 [data-slot][data-alt] > img { filter: none; }
 [data-slot][data-alt] { background: var(--color-paper-3); }
 
@@ -378,7 +376,6 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .seal svg { color: currentColor; }
 
 /* ------------------------------------------------ service page */
-.np .why__well { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
 .np .why__list li, .np .why__list li:first-child { border-top: 1px solid var(--color-rule); }
 .np .others { column-rule: 0; }
 .np .others li { border-bottom: 1px solid var(--color-rule); }
@@ -395,7 +392,7 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np-popover [role="option"][data-focused] { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
 
 @media (max-width: 60rem) {
-  .np .hero__photo, .np .hero__check { margin-top: var(--space-2xl); grid-column: 1 / -1; }
+  .np .hero__check { margin-top: var(--space-2xl); grid-column: 1 / -1; }
   .np .promises__rows { grid-template-columns: minmax(0, 1fr); }
   .np #process .stages { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
   .np .score > div + div { border-left: 0; border-top: 1px solid var(--color-rule); }
