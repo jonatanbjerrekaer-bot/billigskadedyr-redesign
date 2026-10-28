@@ -1,9 +1,10 @@
 /* Hallmark · theme variant: Tradesman (custom, chosen by the owner 2026-10-23) · same sections and wiring;
  * the material: white stock, a deep forest-green ink for heads and the dark bands, a mid green for
- * the one action per view (lime on the green hero), Manrope 800 heads over Manrope 400 body, 8px controls and 12px panels, no shadows,
+ * the one action per view (lime on the green hero), Archivo 800 heads over Public Sans 400 body, 8px controls and 12px panels, no shadows,
  * no gradients, no pills. A good Danish håndværker site: safe, clear, prices up front. */
-@font-face { font-family: "Manrope"; font-style: normal; font-weight: 200 800; font-display: swap; src: url("/fonts/manrope-wght.woff2") format("woff2"); }
-/* Archivo for headings: sturdier and more upright than Manrope, closer to trade signage (owner's pick 2026-10-23). */
+/* Public Sans for body text: the most readable of four tried on the real page (owner's pick 2026-10-28, over Manrope). */
+@font-face { font-family: "Public Sans"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/public-sans-wght.woff2") format("woff2"); }
+/* Archivo for headings: sturdier and more upright than a geometric sans, closer to trade signage (owner's pick 2026-10-23). */
 @font-face { font-family: "Archivo"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/archivo-wght.woff2") format("woff2"); }
 
 :root {
@@ -15,8 +16,8 @@
   --color-navy: oklch(30% 0.065 158); --color-navy-2: oklch(35% 0.07 158);
   --color-lime: oklch(90% 0.17 125); --color-lime-2: oklch(85% 0.18 125);
   --color-on-ink-muted: oklch(86% 0.03 150); --color-ok-on-ink: oklch(88% 0.15 130); --color-on-ink-rule: oklch(42% 0.06 158);
-  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-outlier: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Public Sans", ui-sans-serif, system-ui, sans-serif;
   --tracking-display: -0.015em; --display-weight: 800;
   --radius-control: 8px; --radius-panel: 12px;
   color-scheme: light;
