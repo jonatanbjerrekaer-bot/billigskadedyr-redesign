@@ -16,6 +16,8 @@
 import distances from "./distances.json" with { type: "json" };
 
 export type PropertyType = "lejlighed" | "hus" | "erhverv";
+/** The property type as the price line names it. */
+const PLACE: Record<PropertyType, string> = { hus: "hus", lejlighed: "lejlighed", erhverv: "erhvervslokale" };
 export type Severity = "let" | "normal" | "kraftig";
 export type Season = "forår" | "sommer" | "efterår" | "vinter";
 
@@ -220,7 +222,7 @@ export type Quote =
 export function estimate(
   pest: string,
   area: number,
-  _property: PropertyType,
+  property: PropertyType,
   _severity: Severity,
   now: Date = new Date(),
   opts: {
@@ -271,7 +273,7 @@ export function estimate(
       : row.unit === "bo"
         ? `Fjernelse af ${count} ${count === 1 ? "bo" : "boer"}`
         : row.maxM2
-          ? `1 behandling af bolig op til ${row.maxM2} m²`
+          ? `1 behandling af ${PLACE[property]} op til ${row.maxM2} m²`
           : "1 behandling";
   // The count is printed for every counted pest, so "1 bo" is never a hidden assumption.
   const named = extras.map(([k, r, n]) =>

@@ -577,6 +577,12 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
 }
 @media (hover: hover) and (pointer: fine) { .np .estimator__drive-link:hover { color: var(--color-ink); } }
+/* "op til 250 m²" in the price line: the same opener as "+ kørsel", at the line's own size */
+.np .estimator__area-link {
+  padding: 0; background: none; border: 0; cursor: pointer; font: inherit; color: inherit;
+  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) { .np .estimator__area-link:hover { text-decoration-color: currentColor; } }
 .np #pest-select-trigger { scroll-margin-top: 7rem; }
 
 /* Wiki links in article text, and the calculator's text buttons that read

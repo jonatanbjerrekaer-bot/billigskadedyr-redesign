@@ -61,6 +61,9 @@ assert(at("Hvepse & bier", { postcode: "8000", count: 3 }).price === 1600, "wasp
 const combo = at("Myrer", { postcode: "8800", extras: [{ key: "Edderkopper", label: "Edderkopper" }] });
 assert(combo.price === 600 + 1200 + 200, "ants + spiders Viborg: 1800 + half of 400");
 assert(combo.caption.includes("edderkopper"), "the caption names the added pest");
+assert(at("Myrer", {}).caption.startsWith("1 behandling af hus op til"), "the price line names the property type");
+const apt = estimate("Myrer", 140, "lejlighed", "normal", NOW, {});
+assert(apt.kind === "fixed" && apt.caption.includes("af lejlighed op til"), "an apartment is called one");
 const wasps = at("Myrer", { extras: [{ key: "Hvepse & bier", label: "Hvepse & bier", count: 2 }] });
 assert(wasps.price === 600 + 800 + 400, "an added pest prices its own nests: 2 bo is 800 + 400");
 assert(wasps.caption.includes("hvepse & bier (2 boer)"), "the caption says how many nests");

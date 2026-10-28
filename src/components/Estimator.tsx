@@ -150,6 +150,18 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
     );
   };
+  const openArea = () => {
+    advTouched.current = true;
+    setAdvOpen(true);
+    // the panel mounts its content on open, so wait a frame for the field
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const el = advRef.current?.querySelector<HTMLInputElement>(".area-field input");
+      if (!el) return;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+      el.focus({ preventScroll: true });
+    }));
+  };
   const openDrive = () => {
     setDriveOpen(true);
     requestAnimationFrame(() => {
@@ -165,7 +177,9 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // the draft must describe the visitor's own situation, not a made-up one.
   const [selTouched, setSelTouched] = useState(false);
   const [display, setDisplay] = useState(0);
-  const [advOpen, setAdvOpen] = useState(() => typeof window !== "undefined" && window.matchMedia("(min-width: 60rem)").matches);
+  // Folded until asked for: the price works on an average house, and
+  // "op til 250 m²" under the price opens it straight at the area.
+  const [advOpen, setAdvOpen] = useState(false);
   const rafRef = useRef<number | null>(null);
   const advRef = useRef<HTMLDivElement | null>(null);
   const advTouched = useRef(false);
@@ -186,55 +200,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
   };
 
-  // Desktop only: open the refinements as the calculator comes into view, so
-  // the controls are already there by the time the eye arrives. On a phone
-  // they stay folded — screen space is the scarce thing there, not attention.
-  // Once the visitor opens or closes it themselves we never override them
-  // again (Shneiderman 7: they keep control).
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia("(min-width: 768px)").matches) return;
-    const el = advRef.current;
-    if (!el) return;
-    // Two guards, because the observer alone opened the panel too early.
-    //
-    // 1. A narrow band. The old margin left a 45%-to-75% window, so the block
-    //    tripped it while its top edge was still down near the fold. The band
-    //    is now a strip around the middle of the screen: the block has to be
-    //    where the reader is actually looking, not merely present.
-    // 2. A dwell. Scrolling past at speed used to fire it in passing, so the
-    //    panel opened for someone already gone. It now has to stay in the band
-    //    for a beat before anything moves, which is the difference between
-    //    "you have arrived" and "you went by".
-    let dwell: number | undefined;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        // Nothing in that block affects a quoted pest, so it should not
-        // invite the visitor to go and move it.
-        if (advTouched.current || quote.kind !== "fixed") return;
-        if (entry.isIntersecting) {
-          dwell = window.setTimeout(() => {
-            if (!advTouched.current) setAdvOpen(true);
-            io.disconnect();
-          }, 400);
-        } else if (dwell !== undefined) {
-          window.clearTimeout(dwell);
-          dwell = undefined;
-        }
-      },
-      // A single edge, not a strip. An earlier attempt used a narrow band
-      // (55%-65%) and a short block could pass through it without ever
-      // satisfying the observer, so the panel simply never opened. This asks
-      // one question instead: has the block risen into the top 60% of the
-      // screen? That is later than the old 75% trigger, which is the fix, and
-      // it cannot be stepped over.
-      { threshold: 0, rootMargin: "0px 0px -40% 0px" },
-    );
-    io.observe(el);
-    return () => {
-      if (dwell !== undefined) window.clearTimeout(dwell);
-      io.disconnect();
-    };
-  }, []);
 
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
   // From two houses up the price is driven by the tier, and one area or
@@ -974,7 +939,20 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </p>
                 )}
                 {/* The price never appears without saying what it covers. */}
-                <p className="small">{quote.caption}</p>
+                <p className="small">
+                  {(() => {
+                    // The area limit opens the area control, as "+ kørsel" opens the postnummer.
+                    const m = !multi && hasArea ? /op til \d+ m²/.exec(quote.caption) : null;
+                    if (!m) return quote.caption;
+                    return (
+                      <>
+                        {quote.caption.slice(0, m.index)}
+                        <button type="button" className="estimator__area-link" onClick={openArea}>{m[0]}</button>
+                        {quote.caption.slice(m.index + m[0].length)}
+                      </>
+                    );
+                  })()}
+                </p>
                 {quote.notes.map((n) => (
                   <p key={n} className="enter-soft small muted">
                     {n}
