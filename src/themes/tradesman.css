@@ -426,7 +426,7 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .hero__check h2 { font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
 .np .hero__check .field-label { display: block; font-weight: 700; color: var(--color-ink); margin-bottom: var(--space-xs); }
 .np .hero__check select { width: 100%; min-height: 52px; padding: 0 var(--space-md); font: 600 1.0625rem var(--font-body); color: var(--color-ink); background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); }
-.np .hero__check-price { margin: var(--space-lg) 0 var(--space-xs); font: 800 clamp(2.75rem, 3.5vw, 3.5rem)/1 var(--font-body); color: var(--color-ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.np .hero__check-price { margin: var(--space-lg) 0 var(--space-xs); font: 800 clamp(2.75rem, 3.5vw, 3.5rem)/1 var(--font-display); color: var(--color-ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .np .hero__check-note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
 .np .hero__check .btn { width: 100%; justify-content: center; }
 .np .hero .btn--primary { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
