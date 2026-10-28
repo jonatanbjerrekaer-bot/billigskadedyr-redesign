@@ -150,12 +150,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
     );
   };
-  const openArea = () => {
+  // Opens "Tilpas beregningen" at one control: the area, or the grade.
+  const openAt = (selector: string) => {
     advTouched.current = true;
     setAdvOpen(true);
     // the panel mounts its content on open, so wait a frame for the field
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = advRef.current?.querySelector<HTMLInputElement>(".area-field input");
+      const el = advRef.current?.querySelector<HTMLElement>(selector);
       if (!el) return;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
@@ -258,16 +259,19 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // What is included changes with the answers, so the list says what this job
   // covers rather than repeating four generic promises regardless of input.
   // Shneiderman 3 again: the list is feedback that the inputs did something.
+  const visits = multi
+    ? "Op til to besøg pr. hus med opfølgning"
+    : severity === "let"
+      ? "Ét besøg er som regel nok, opfølgningen er med"
+      : severity === "kraftig" && quote.kind === "fixed" && quote.extraVisit
+        ? `Op til tre besøg, det tredje (${dkr(quote.extraVisit)}) er med i prisen`
+        : severity === "kraftig"
+          ? "Op til tre besøg og tættere opfølgning"
+          : "Op til to besøg med opfølgning";
   const included = [
     pest.treatment ?? "Behandling af det angrebne område",
     ...extraPests.map((p) => `${p.label}: ${(p.treatment ?? "behandling").toLowerCase()}`),
-    multi
-      ? "Op til to besøg pr. hus med opfølgning"
-      : severity === "let"
-      ? "Ét besøg, som regel nok ved et lille angreb"
-      : severity === "kraftig"
-        ? "Op til tre besøg og tættere opfølgning"
-        : "Op til to besøg med opfølgning",
+    visits,
     "Faktura og kvittering",
   ];
   // The honest inverse of the list above. Unexpected cost at the end is the
@@ -279,9 +283,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
     ...(hasArea && effM2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
-    ...(effSeverity === "kraftig"
-      ? ["Ekstra besøg, hvis angrebet har bredt sig mere end forventet"]
-      : []),
     ...(property === "erhverv"
       ? ["Krav om dokumentation ud over det normale, for eksempel til en audit"]
       : []),
@@ -947,7 +948,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                     return (
                       <>
                         {quote.caption.slice(0, m.index)}
-                        <button type="button" className="estimator__area-link" onClick={openArea}>{m[0]}</button>
+                        <button type="button" className="estimator__area-link" onClick={() => openAt(".area-field input")}>{m[0]}</button>
                         {quote.caption.slice(m.index + m[0].length)}
                       </>
                     );
@@ -985,7 +986,20 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             <p className="select-none estimator__sub">Prisen dækker</p>
             <ul className="estimator__list">
               {included.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  {/* The visits follow the grade, so they open it, as "op til 250 m²" opens the area. */}
+                  {item === visits && !multi ? (
+                    <button
+                      type="button"
+                      className="estimator__area-link"
+                      onClick={() => openAt('[aria-label="Grad af angreb"] [data-selected="true"]')}
+                    >
+                      {item}
+                    </button>
+                  ) : (
+                    item
+                  )}
+                </li>
               ))}
             </ul>
           </div>

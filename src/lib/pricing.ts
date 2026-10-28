@@ -107,6 +107,12 @@ export function houseTier(n: number): Houses {
 /** Share of the driving each house pays, by tier. Ten houses pay a set price instead. */
 const DRIVE_SHARE: Record<Houses, number> = { 1: 1, 2: 0.5, 5: 0.2, 10: 0 };
 
+/**
+ * A heavy infestation is priced with its third visit, as a share of the treatment.
+ * ponytail: half is our guess, not his number. Owner must confirm.
+ */
+const EXTRA_VISIT_SHARE = 0.5;
+
 /** His rule: always to the nearest hundred. 349 becomes 300, 350 becomes 400. */
 export function round100(n: number): number {
   return Math.round(n / 100) * 100;
@@ -202,6 +208,8 @@ export type Quote =
       soloPrice: number;
       /** The full round-trip charge for this postcode, whatever the tier. */
       tripCharge: number;
+      /** What the third visit adds for a heavy infestation; 0 otherwise. */
+      extraVisit: number;
       /** What a second pest on the same visit takes off the driving here. */
       comboSaving: number;
       /** Named so the price never appears without saying what it covers. */
@@ -223,7 +231,7 @@ export function estimate(
   pest: string,
   area: number,
   property: PropertyType,
-  _severity: Severity,
+  severity: Severity,
   now: Date = new Date(),
   opts: {
     postcode?: string;
@@ -263,8 +271,12 @@ export function estimate(
     extras.reduce((sum, [, r, n]) => sum + treatment(r, t, n), 0) +
     round100(tripCharge * share(t));
 
-  const price = perHouse(tier);
-  const soloPrice = perHouse(1);
+  // "Kraftig" puts the third visit in the price, so it is not a surprise later.
+  const extra = (t: Houses) =>
+    severity === "kraftig" ? round100((perHouse(t) - round100(tripCharge * share(t))) * EXTRA_VISIT_SHARE) : 0;
+
+  const price = perHouse(tier) + extra(tier);
+  const soloPrice = perHouse(1) + extra(1);
   const included = round100(tripCharge * share(tier));
 
   let caption =
@@ -314,6 +326,7 @@ export function estimate(
     surcharge: included,
     soloPrice,
     tripCharge,
+    extraVisit: extra(tier),
     comboSaving: round100(tripCharge * DRIVE_SHARE[tier]) - round100(tripCharge * Math.min(DRIVE_SHARE[tier], 0.5)),
     caption,
     driving,

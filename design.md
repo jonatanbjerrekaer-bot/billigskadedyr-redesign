@@ -211,6 +211,7 @@ fulde deploy-rutine.
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 | 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
+| 2026-10-28 | Grad af angreb påvirker prisen: kraftig lægger et tredje besøg til (halv behandlingspris, skal bekræftes af ejeren), let koster det samme som normal. Besøgslinjen under "Prisen dækker" åbner grad af angreb, og den dobbelte linje om ekstra besøg under "Det kan ændre prisen" er fjernet |
 | 2026-10-28 | "Tilpas beregningen" er lukket som standard. "op til 250 m²" i prislinjen er et link, der åbner den ved arealet, og prislinjen siger hus, lejlighed eller erhvervslokale efter boligtypen |
 | 2026-10-28 | Prisberegnerens åbnere (flere skadedyr, kørsel, naboer) er rækker som "Tilpas beregningen": titel, én dæmpet sætning og et plus, adskilt af hårlinjer, så de og "Tilpas beregningen" står som én liste |
 
