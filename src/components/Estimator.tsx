@@ -511,21 +511,22 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </ul>
               )}
               {/* The pest they just left, offered back as the same kind of
-                  text link as driving and neighbours: no box, no new pattern. */}
+                  row as driving and neighbours: no box, no new pattern. */}
               {nudgePest && quote.kind === "fixed" ? (
                 <button
                   type="button"
-                  className="estimator__open"
+                  className="disclosure-trigger estimator__row"
                   onClick={() => {
                     setExtras([...extras, nudgePest.slug]);
                     setNudge(null);
                     setSelTouched(true);
                   }}
                 >
-                  <span className="estimator__act">Tilføj {nudgePest.label.toLowerCase()}</span>{" "}
-                  <span className="estimator__q">
-                    {quote.comboSaving > 0 ? `spar ${dkr(quote.comboSaving)} på kørslen` : "på samme besøg"}
+                  <span>
+                    <span className="trigger-title">Har du også {nudgePest.label.toLowerCase()}?</span>
+                    <span className="small muted" style={{ display: "block" }}>{quote.comboSaving > 0 ? `Tag dem med på samme besøg, så sparer du ${dkr(quote.comboSaving)} på kørslen.` : "Tag dem med på samme besøg."}</span>
                   </span>
+                  <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
               ) : addOpen && addable.length > 0 ? (
                 <div className="estimator__add estimator__reveal">
@@ -550,15 +551,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                 </div>
               ) : (
                 addable.length > 0 && (
-                  <button type="button" className="estimator__open" onClick={openAdd}>
-                    {extraPests.length ? (
-                      <span className="estimator__act">Tilføj endnu et skadedyr</span>
-                    ) : (
-                      <>
-                        <span className="estimator__act">Tilføj et skadedyr</span>{" "}
-                        <span className="estimator__q">halv kørsel</span>
-                      </>
-                    )}
+                  <button type="button" className="disclosure-trigger estimator__row" onClick={openAdd}>
+                    <span>
+                    <span className="trigger-title">{extraPests.length ? "Endnu et skadedyr" : "Flere skadedyr"}</span>
+                    <span className="small muted" style={{ display: "block" }}>{extraPests.length ? "Det kommer med på samme besøg." : "Tager vi dem på samme besøg, betaler du kun halv kørsel."}</span>
+                  </span>
+                  <Plus size={20} aria-hidden="true" className="plus" />
                   </button>
                 )
               )}
@@ -620,9 +618,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   )}
                 </TextField.Root>
               ) : (
-                <button type="button" className="estimator__open" onClick={openDrive}>
-                  <span className="estimator__act">Beregn kørsel</span>{" "}
-                  <span className="estimator__q">syd og vest for Aarhus</span>
+                <button type="button" className="disclosure-trigger estimator__row" onClick={openDrive}>
+                  <span>
+                    <span className="trigger-title">Kørsel</span>
+                    <span className="small muted" style={{ display: "block" }}>Gratis i Aarhus og byerne nord for. Længere væk regner vi den ud fra dit postnummer.</span>
+                  </span>
+                  <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
               )}
 
@@ -656,9 +657,12 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </p>
                 </div>
               ) : (
-                <button type="button" className="estimator__open" onClick={() => setNeighboursOpen(true)}>
-                  <span className="estimator__act">Se naboprisen</span>{" "}
-                  <span className="estimator__q">når I er flere</span>
+                <button type="button" className="disclosure-trigger estimator__row" onClick={() => setNeighboursOpen(true)}>
+                  <span>
+                    <span className="trigger-title">Naboer</span>
+                    <span className="small muted" style={{ display: "block" }}>Går I flere huse sammen, deler I kørslen.</span>
+                  </span>
+                  <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
               )}
             </div>

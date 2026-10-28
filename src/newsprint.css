@@ -533,7 +533,7 @@ html:has(.np) { background: var(--color-paper); }
 /* the pest switcher in the result reads as a control, chevron on the name's line */
 .np .estimator__pick { align-items: flex-end; align-self: flex-start; margin: 0; padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-sm); border: var(--rule-hair) solid var(--color-muted); }
 .np .estimator__pick > svg { margin-bottom: 0.2em; }
-.np .estimator__pick .trigger-title, .np .estimator__disclosure .trigger-title { font-family: var(--font-body); font-weight: 600; font-size: 1rem; letter-spacing: 0; }
+.np .estimator__pick .trigger-title, .np .estimator__disclosure .trigger-title, .np .estimator__row .trigger-title { font-family: var(--font-body); font-weight: 600; font-size: 1rem; letter-spacing: 0; }
 /* index: the "besigtigelse" note sits on the price's line, not over it */
 /* the note sits under its price, so the pest name keeps the width */
 .np .index__price { display: flex; flex-direction: column-reverse; align-items: flex-end; }
