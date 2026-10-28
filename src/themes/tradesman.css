@@ -591,6 +591,8 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   display: inline-block;
   transition: transform 160ms var(--ease-out);
 }
+/* the reset carries an icon beside its words, so it keeps the row it has in newsprint.css */
+.np .estimator__reset { display: inline-flex; }
 .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset)::before {
   content: "";
   position: absolute;
@@ -603,8 +605,8 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link):hover { z-index: 1; transform: scale(1.01); }
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link):hover::before { transform: scaleX(1); opacity: 1; }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset):hover { z-index: 1; transform: scale(1.01); }
+  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset):hover::before { transform: scaleX(1); opacity: 1; }
 }
 /* On a touch screen the wash is the pressed state instead: it shows while the
    finger is down and fades when it lifts, so nothing stays lit after a tap. */

@@ -144,6 +144,45 @@ telefonbjælken, mens man stiller på beregneren.
 - `-webkit-tap-highlight-color: transparent`, `touch-action: manipulation`,
   `user-select: none` på kontroller (aldrig på løbende tekst).
 
+## Interaktion
+
+Tjeklisten for prisberegneren og alt andet, hvor et valg ændrer et resultat.
+Numrene følger skillen `interaction-lint`. To af reglerne tjekker et script;
+resten kræver, at man ser på siden. Kør
+`npm run build:site && python3 scripts/interaction.check.py` efter enhver
+ændring i beregneren.
+
+**Tjekkes af scriptet**
+
+- **IX-01 Hver kontrol flytter resultatet.** Areal, ejendomstype, grad af
+  angreb, postnummer, naboer og flere skadedyr ændrer prisen eller en linje
+  under den. En kontrol, der ikke gør noget, fjernes eller kobles på
+  `estimate()`.
+- **IX-08 Hver ny knap får den fælles hover.** Klassen skal med i hover-reglen
+  i `tradesman.css` (vasken bag ordet, `scale(1.01)`), ikke kun en farve på
+  understregningen.
+
+**Tjekkes med øjnene**
+
+- **IX-02 Et tal i resultatet fører tilbage til sit valg.** "op til 250 m²"
+  åbner arealet, besøgslinjen åbner grad af angreb, "+ kørsel" åbner
+  postnummeret. Linket åbner panelet og sætter fokus i feltet.
+- **IX-03 Teksten følger valgene.** Hus, lejlighed eller erhvervslokale, aldrig
+  "bolig", når vi ved, hvad det er.
+- **IX-04 Hver ting siges ét sted.** Står det i "Prisen dækker", står det ikke
+  også i "Det kan ændre prisen".
+- **IX-05 Teksten lover ikke noget, prisen ikke betaler.** "Op til tre besøg"
+  betyder, at det tredje er med i tallet.
+- **IX-06 Et tal, ejeren ikke har givet, står i én navngiven konstant** med
+  "Owner must confirm" (fx `EXTRA_VISIT_SHARE`).
+- **IX-07 Genbrug før nyt.** En ny åbner er en række som "Tilpas beregningen",
+  et nyt link er som "+ kørsel".
+- **IX-15 Se den åbne tilstand og 390 px.** Åbn hvert panel, tjek
+  hårlinjerne, og se om tekst på knapper ombrydes pænt
+  (`text-align: inherit`).
+- **IX-16 Lukket, til der er en grund.** "Tilpas beregningen" starter lukket;
+  et link åbner den præcis ved feltet.
+
 ## Komponentkatalog
 
 Alt ligger i `src/components/` (servicesitet) — brug det eksisterende,
@@ -211,6 +250,7 @@ fulde deploy-rutine.
 | 2026-10-26 | Ingen-garanti-positioneringen skrives ind overalt; denne fil oprettes |
 | 2026-10-27 | Flere skadedyr på samme besøg er et tekstlink som kørsel og nabo; skifter man skadedyr, bliver linket til "Har du også X?". Ingen kasser eller accent-striber til forslag |
 | 2026-10-27 | Tilføjede skadedyr med pris pr. rum eller bo får samme tæller som hovedskadedyret under Tilpas beregningen, og prislinjen skriver antallet ("hvepse & bier (2 boer)") |
+| 2026-10-28 | Ny sektion "Interaktion" med tjeklisten for beregneren og `scripts/interaction.check.py`, der tjekker at hver kontrol flytter resultatet og hver knap har hover. Den første kørsel fandt "Nulstil" uden hover; den har den nu, og ikonet står igen ved siden af teksten i stedet for over den |
 | 2026-10-28 | Oprydning: 22 produktbilleder fra varer, der ikke længere er i butikken, et ubrugt mørkt logo, to komponenter ingen importerede (ClosingCta, Reveal) og CSS for seks klasser uden element (why__well, hero__photo, hero__index, notice__row, rule-double, section--l) er fjernet |
 | 2026-10-28 | Brødtekst skifter fra Manrope til Public Sans: ejeren valgte den som mest læsbar efter en side-om-side-test med Atkinson Hyperlegible Next og Source Sans 3 på den rigtige side |
 | 2026-10-28 | Alle store priser står i Archivo (forsidens pris stod i Manrope). Newsprint-grundens fem ubrugte fonte (Zilla Slab, Spectral, Libre Franklin 500) er fjernet; butikkens og de gemte temaers fonte bliver |
