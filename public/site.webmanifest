@@ -1,0 +1,38 @@
+{
+  "name": "Billigskadedyr.dk",
+  "short_name": "Billigskadedyr",
+  "description": "Skadedyrsbekæmpelse i Jylland og på Fyn. Fast pris, aftalt før vi går i gang.",
+  "lang": "da",
+  "dir": "ltr",
+  "start_url": "/billigskadedyr-redesign/",
+  "scope": "/billigskadedyr-redesign/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF5F00",
+  "icons": [
+    {
+      "src": "/billigskadedyr-redesign/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/billigskadedyr-redesign/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/billigskadedyr-redesign/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/billigskadedyr-redesign/icon-512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}
