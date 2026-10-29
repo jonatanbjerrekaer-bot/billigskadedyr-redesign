@@ -181,12 +181,12 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     faq: [
       { q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?", a: "Dræbersneglen er stor, den har ikke hus, og den er rødbrun til næsten sort. Rører du ved den, trækker den sig sammen til en hård klump. Sneglen med hus er som regel vinbjergsneglen, og den er delvist fredet, så den må ikke indsamles til salg. Den skal have lov at være, den gør ikke noget." },
       { q: "Hvornår er sneglene værst?", a: "Efter regn, og i det hele taget når det er fugtigt. Værst er sensommeren, hvor der er kommet en ny generation. De arbejder om natten og tidligt om morgenen, så du ser skaden længe før du ser sneglene." },
-      { q: "Hvorfor bliver de ved med at komme igen?", a: "Fordi æggene ligger i jorden. Tit i kompostbunken, under brædder og nede i tæt bunddække. En behandling tager de snegle, der går rundt nu. De æg, der ligger og venter, klækker senere. Derfor giver det som regel mest at behandle ad et par omgange i stedet for at satse på én." },
+      { q: "Hvorfor bliver de ved med at komme igen?", a: "Fordi æggene ligger i jorden. Tit i kompostbunken, under brædder og nede i tæt bunddække. Én professionel behandling tager de snegle, der går rundt nu, og holder typisk haven fri resten af sæsonen. Skulle der dukke nye op fra æg, er en opfølgende behandling billigere hos os end hos konkurrenterne — hold bare øje med bedene efter regn." },
       { q: "Hjælper ølfælder og snegleværn?", a: "Ølfælder fanger nogle stykker, men de trækker også snegle ind i haven, og det er ikke altid en fordel. Snegleværn omkring et enkelt bed kan godt virke, hvis kanten er høj nok og bliver holdt ren. Men ingen af delene gør noget ved dem, der ligger i kompostbunken, og det er der, de er." },
       { q: "Kan sneglene komme fra naboen?", a: "Ja, og sådan hænger det tit sammen. Ligger der en have med højt græs eller en ubrugt kompostbunke lige ved siden af, kommer der nye ind hele sæsonen. Kan I blive enige om at gøre noget ved det samtidig, batter det langt mere, end hvis du står med det alene." },
       { q: "Udfører I sneglebekæmpelse i hele Jylland og på Fyn?", a: "Ja, både til private haver, til erhverv og for boligforeninger." },
       { q: "Er behandlingen farlig for pindsvin, hunde og fugle?", a: "Vi bruger godkendte midler i den dosering, de er godkendt til, og de bliver lagt der, hvor sneglene er, ikke ud over det hele. Har du hund, eller fodrer du pindsvin, så sig det når vi aftaler besøget. Så tager vi hensyn til det." },
-      { q: "Hvad kan jeg selv gøre imellem behandlingerne?", a: "Fjern de skjulesteder, du kan undvære. Brædder, løse fliser, gammelt haveaffald, tæt bunddække op ad bedene. Slå græsset langs kanterne. Og vand om morgenen i stedet for om aftenen, så haven er tør, når sneglene kommer frem. Det lyder småt, men det flytter noget." },
+      { q: "Hvad kan jeg selv gøre for at holde sneglene væk?", a: "Fjern de skjulesteder, du kan undvære. Brædder, løse fliser, gammelt haveaffald, tæt bunddække op ad bedene. Slå græsset langs kanterne. Og vand om morgenen i stedet for om aftenen, så haven er tør, når sneglene kommer frem. Det lyder småt, men det flytter noget." },
     ],
     intro:
       "Dræbersnegle og andre snegle æder sig gennem bede og køkkenhave på få nætter. De gemmer sig fugtigt og mørkt om dagen, og det er der, en behandling skal lægges, hvis den skal batte noget.",
@@ -254,7 +254,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { q: "Hvad er forskellen på professionel myrebekæmpelse og gør-det-selv midler?", a: "Gør-det-selv produkter rammer ofte kun de synlige myrer og ikke selv kolonien, eller dronningen. Professionel myrebekæmpelse er målrettet hele myreboet og udføres med midler og metoder, der har en langt mere langtidsholdbar effekt." },
       { q: "Hvor hurtigt kan I komme og udføre myrebekæmpelse?", a: "Vi bestræber os på at rykke hurtigt ud, da myreproblemer ofte forværres, hvis de ikke behandles i tide. I mange tilfælde kan vi tilbyde behandling inden for få hverdage. Kontakt os for at høre om mulighederne i dit område i Jylland." },
       { q: "Er der forskellige slags myrer?", a: "Længere oppe på siden kan du læse om de tre mest udbredte myrearter vi har i Danmark." },
-      { q: "Burde mine naboer også få behandlet?", a: "Det er altid en god ide at i er flere naboer der får behandlet årligt. Det hjælper på at holde den naturlig bestand, der kan bevæge sig ind på din grund, nede. Det er dog ikke nødvendigt at dine naboer får behandlet før du kan blive myrefri, men det hjælper helt sikkert." },
+      { q: "Burde mine naboer også få behandlet?", a: "Det hjælper altid, hvis flere naboer gør noget ved myrerne samtidig, for så holder I den nære bestand nede sammen. Det er dog ikke nødvendigt, at dine naboer behandles, før du kan blive myrefri — vores behandling er målrettet boene på netop din grund." },
       { q: "Hvordan fungere giften?", a: "Giften fungerer som k-vitamin, hvilket er et naturligt stof for mennesker og dyr. Stoffet hjælper blodet med at størkne ved for eksempel en rift eller et sår. K-Vitamin er et stof som mange indtager hvis de har problemer med kraftige blødninger eller før og efter fødsel. De mængder vi benytter til en behandling er derfor ikke farligt for os mennesker og dyr, store som små.\nGiften går ind og størkner myrernes væskeomløb, og fungere som en stor blodprop. Det vil derfor se ud som en naturlig dødsårsag til de andre myrer, hvilket gør at de tager dem med ned i boet og spiser de døde. Med tiden vil boet dø ud og du kan herefter være myrefri." },
       { q: "Husmor-råd mod myrer?", a: "Der findes mange husmor-råd som glorificeres af forskellige medier på nettet, men her er min klare mening om dem. Virker de? NEJ!\nDe mest populære husmor-råd er:\nKanel og kaffegrums er et af de mest populære råd mod myrer og kan måske irritere myrerne i en kort periode men bekæmper dem altså ikke.\nKogende vand er endnu et populært råd. Kogende vand vil naturligvis bekæmpe de myrer det berører og det lyder jo meget godt, hvis ikke det var fordi der findes en halv til en hel million myrer i et bo. De få hundrede måske tusinde myrer du rammer gør desværre ikke en forskel. Desuden skader det din græsplæne og andre planter i din have, som set på billedet under.\nProblemet med disse husmor-råd er at myrerne vil flytte til en nyt område i en periode, indtil de kan flytte tilbage til boet igen. Når de for eksempel vender sig til lugten af kaffegrums, salt, eddike eller gær. Nu har du så myrer to …" },
     ],
@@ -293,7 +293,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
   vaeggelus: {
     intro:
       "Væggelus gemmer sig i sømme, fodlister og bag løst tapet. De forsvinder ikke ved vask og nyt sengetøj " +
-      "alene. En fagmand når de steder, du ikke selv når, og behandler over et forløb.",
+      "alene. En fagmand når de steder, du ikke selv når.",
     whyProfessional: [
       "Vi når ind i sprækker, sømme og bag løst tapet, hvor dyrene sidder",
       "Godkendte midler, brugt efter de danske regler",
@@ -305,8 +305,10 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { name: "Vingetæge", text: "Ligner almindelig væggelus og ses især, hvor der er flagermus på loftet. Samme adfærd og samme behov for behandling." },
     ],
     processNote:
-      "Forløbet er ofte to eller flere besøg med mellemrum, fordi æggene ikke bliver ramt første gang. Du får " +
-      "konkret råd om, hvad der skal vaskes og ryddes mellem besøgene. Prisen aftales, før forløbet går i gang.",
+      "Vi starter med en grundig gennemgang af boligen, behandler alle steder, hvor væggelus holder til, og giver " +
+      "dig konkret råd om, hvad der skal vaskes og ryddes efter behandlingen. I langt de fleste tilfælde er én " +
+      "behandling nok — skulle en enkelt opfølgning blive nødvendig, er den stadig billigere end hos konkurrenterne. " +
+      "Prisen aftales, før vi går i gang.",
     faq: [
       { q: "Er væggelus tegn på dårlig hygiejne?", a: "Nej. Dette er en af de mest udbredte myter om væggelus. De kan forekomme i alle typer boliger – uanset rengøringsniveau. Væggelus søger mennesker, ikke snavs. Derfor kan både private hjem, hoteller, kontorer og offentlige bygninger blive ramt." },
       { q: "Kan væggelus komme igen?", a: "Ja. Hvis en ny væggelus bringes med hjem efter en rejse eller via brugte møbler, kan et nyt angreb opstå. Derfor er forebyggelse og opmærksomhed vigtige, også efter en vellykket bekæmpelse. Vi rådgiver altid om, hvordan risikoen for nye angreb kan reduceres." },
@@ -403,7 +405,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     whyProfessional: [
       "Gelbehandling i skjulesteder, afløb og bag hvidevarer, du ikke selv når",
       "Vi finder kilden og adgangsvejene, så behandlingen holder",
-      "Et forløb tilpasset angrebets størrelse, med opfølgende besøg når det er nødvendigt",
+      "Én grundig behandling, tilpasset angrebets størrelse — i langt de fleste tilfælde er den nok",
       "Faktura og kvittering for behandlingen",
     ],
     species: [
@@ -413,7 +415,8 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     ],
     processNote:
       "Vi starter med at finde kilden og adgangsvejene og behandler derefter med gel og lokkedøre tilpasset " +
-      "angrebet. Ved kraftige angreb laver vi opfølgende besøg. Du får faktura og kvittering for behandlingen.",
+      "angrebet. Én grundig behandling er nok i langt de fleste tilfælde; skulle en opfølgning blive nødvendig, " +
+      "er den stadig billigere end hos konkurrenterne. Du får faktura og kvittering for behandlingen.",
   },
   fluer: {
     intro:
@@ -467,10 +470,10 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Vi behandler de steder, hvor spindet sidder, og giver råd om, hvordan du forebygger nye. Prisen ligger " +
       "fast, før vi går i gang.",
     faq: [
-      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger til både erhverv og boligforeninger, herunder faste aftaler tilpasset jeres behov." },
+      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger tilpasset jeres behov, både til erhverv og boligforeninger." },
       { q: "Virker behandlingen også forebyggende?", a: "Ja. Professionel bekæmpelse af edderkopper har en forebyggende effekt, fordi både fødegrundlag og adgangsveje behandles. Det reducerer sandsynligheden for, at nye edderkopper hurtigt vender tilbage." },
       { q: "Hvorfor er der ekstra mange edderkopper i sensommeren og efteråret?", a: "Edderkopper bliver særligt synlige i sensommeren og efteråret, når de søger indendørs for at finde læ, varme og føde. Samtidig er det parringssæson for flere arter, hvilket øger aktiviteten. Det er derfor helt normalt at opleve flere edderkopper i denne periode." },
-      { q: "Hvor hurtigt virker behandlingen mod edderkopper?", a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Resultatet forbedres typisk over de efterfølgende uger, dog vil den fulde effekt først mærkes efter flere behandlinger." },
+      { q: "Hvor hurtigt virker behandlingen mod edderkopper?", a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist over de efterfølgende uger, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Én grundig behandling er i langt de fleste tilfælde nok til at holde boligen fri." },
       { q: "Kan jeg selv slippe af med edderkopper?", a: "Man kan fjerne synlige edderkopper med støvsuger eller rengøring, men det løser ikke problemet permanent. Uden forebyggende behandling vil nye edderkopper hurtigt finde vej ind, især hvis der fortsat er føde i form af andre insekter. Professionel bekæmpelse fokuserer både på edderkopperne og deres fødegrundlag, hvilket giver et mere langtidsholdbart resultat." },
       { q: "Er edderkopper farlige?", a: "Edderkopper i Danmark er som udgangspunkt ikke farlige for mennesker. De fleste arter er sky og undgår kontakt. I sjældne tilfælde kan en edderkop bide, men et bid er normalt harmløst og kan sammenlignes med et let myggestik. Problemet med edderkopper handler derfor typisk ikke om sundhedsrisiko, men om ubehag, spind og gentagen forekomst i boligen." },
       { q: "Er Edderkopper nyttedyr?", a: "Man kan godt sige at edderkopper er nyttedyr, da de spiser mange andre typer insekter. Dog vil vores behandling også tage disse. Det er derfor ikke nødvendigt at leve med dem i din bolig!" },

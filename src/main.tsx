@@ -5,7 +5,7 @@ import ServicePage from "./components/ServicePage.tsx";
 import ServiceIndexPage from "./components/ServiceIndexPage.tsx";
 import LegalPage from "./components/LegalPage.tsx";
 import SpeciesPage from "./components/SpeciesPage.tsx";
-import CookieBanner from "./components/CookieConsent.tsx";
+import ConsentBox from "./components/ConsentBox.tsx";
 import { serviceContentFor, servicePest } from "./lib/serviceContent.ts";
 import { speciesBySlug, type SpeciesArticle } from "./lib/speciesContent.ts";
 import { slugOf, legalOf, speciesRouteOf, usePathname, useLinkRouting } from "./lib/router.tsx";
@@ -119,7 +119,7 @@ function Site() {
   return (
     <>
       {page}
-      <CookieBanner />
+      <ConsentBox />
     </>
   );
 }

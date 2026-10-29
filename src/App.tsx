@@ -31,11 +31,11 @@ export default function App() {
         <Hero />
         <Benefits />
         <Process />
-        <Estimator />
+        <Estimator contextKey="home" />
         <Packages />
         <Reviews />
         <Faq />
-        <Contact />
+        <Contact contextKey="home" />
       </main>
       <Footer />
       <MobileCtaBar />

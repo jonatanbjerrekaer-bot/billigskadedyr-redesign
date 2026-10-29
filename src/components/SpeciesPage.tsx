@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import MobileCtaBar from "./MobileCtaBar";
 import Contact from "./Contact";
 import SpeciesCards from "./SpeciesCards";
+import TreatmentDetails from "./TreatmentDetails";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import { serviceContentFor, servicePest } from "../lib/serviceContent";
 import { SPECIES_ART } from "../lib/speciesArt";
@@ -103,11 +104,12 @@ export default function SpeciesPage({ service, article }: { service: string; art
                   ))}
                 </section>
               ))}
+              <TreatmentDetails service={service} speciesSlug={article.slug} bare />
               <div className="species-page__cta">
                 <h2>Vil du have hjælp?</h2>
                 <p>
-                  Skriv, hvad du har set, og gerne et billede. Så siger vi, om du selv kan klare det, eller om det er
-                  en opgave for os. Prisen ligger fast, før vi går i gang.
+                  Skriv, hvad du har set, og gerne et billede. Så vurderer vi,
+                  hvad der skal til, og giver dig en fast pris, før vi går i gang.
                 </p>
                 <div className="actions">
                   <a href="#skriv" className="btn btn--primary">
@@ -118,20 +120,6 @@ export default function SpeciesPage({ service, article }: { service: string; art
                   </a>
                 </div>
               </div>
-              {article.sources.length > 0 && (
-                <div className="species-page__sources">
-                  <h2>Kilder</h2>
-                  <ul>
-                    {article.sources.map((url) => (
-                      <li key={url}>
-                        <a href={url} className="link" rel="external noopener" target="_blank">
-                          {sourceLabel(url)}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </article>
           </div>
         </section>
@@ -150,23 +138,11 @@ export default function SpeciesPage({ service, article }: { service: string; art
           </section>
         )}
 
-        <Contact pestLabel={label} />
+        <Contact pestLabel={heading} contextKey={`species:${service}:${article.slug}`} />
       </main>
       <Footer />
       <MobileCtaBar />
       <ToastProvider />
     </div>
   );
-}
-
-/** "https://da.wikipedia.org/wiki/Husedderkop" -> "da.wikipedia.org: Husedderkop". */
-function sourceLabel(url: string): string {
-  try {
-    const u = new URL(url);
-    const host = u.hostname.replace(/^www\./, "");
-    const last = decodeURIComponent(u.pathname.split("/").filter(Boolean).pop() ?? "").replace(/[_-]+/g, " ");
-    return last ? `${host}: ${last}` : host;
-  } catch {
-    return url;
-  }
 }

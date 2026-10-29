@@ -8,6 +8,7 @@ import Estimator from "./Estimator";
 import Contact from "./Contact";
 import Process from "./Process";
 import Faq from "./Faq";
+import TreatmentDetails from "./TreatmentDetails";
 import { ToastProvider } from "@heroui/react";
 import { PestGlyph, PRICED_PESTS } from "../lib/pests";
 import QuotePanel from "./QuotePanel";
@@ -23,10 +24,10 @@ const B = import.meta.env.BASE_URL;
 const PROMISES: [string, string][] = [
   ["Fast pris, aftalt før vi går i gang", "Du siger ja til et beløb, ikke til et estimat. Det tal ændrer sig ikke undervejs."],
   ["Certificerede teknikere", "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver."],
-  ["94 % har kun haft brug for én behandling", "Det er vores tal for 2026. Du betaler ikke for garanti eller genbesøg, du måske aldrig får brug for. Det holder prisen nede."],
+  ["Ingen garanti — derfor billigere", "Du betaler ikke for gratis genbesøg, du måske aldrig får brug for. Én professionel behandling er nok i 99 % af tilfældene — og skulle der mod forventning være brug for endnu en, er den stadig billigere end hos konkurrenterne."],
   ["Du ved, hvem der kommer", "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring."],
   ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel et hvepsebo tæt på en indgang, ringer du bare."],
-  ["Vi siger det, hvis du selv kan klare det", "Er angrebet lille, er et middel til omkring 49 kr. ofte nok. Så siger vi det ligeud i stedet for at sende en tekniker."],
+  ["Én behandling, gjort rigtigt", "Vi behandler årsagen og ikke kun det, du kan se, så langt de fleste er færdige med én behandling."],
 ];
 
 export default function ServicePage({ slug }: { slug: string }) {
@@ -86,19 +87,18 @@ export default function ServicePage({ slug }: { slug: string }) {
         </section>
 
         {/*
-          The conversion section. The reader is typically a homeowner who has
-          already bought something at the hardware store and watched it not
-          work. Three things move him: knowing what actually happens, knowing
-          the price cannot move once agreed, and being told straight when he
-          does not need us.
+          The conversion section. The reader has usually tried something
+          already and watched the problem come back. Three things move him:
+          knowing what actually happens, knowing the price cannot move once
+          agreed, and seeing exactly what the visit involves.
         */}
         <section className="section">
           <div className="container grid12">
             <div className="why__text">
-              <h2>Hvorfor virkede midlet fra byggemarkedet ikke?</h2>
+              <h2>Hvorfor vender problemet tilbage?</h2>
               <p className="lead">
-                Det rammer det, du kan se. Problemet sidder der, hvor du ikke kan komme til, og
-                derfor kommer det igen.
+                Det, der kan ses og nås let, er sjældent hele problemet. Årsagen
+                sidder der, hvor du ikke kan komme til, og derfor kommer det igen.
               </p>
               <ul className="why__list">
                 {(content.whyProfessional ?? []).map((w) => (
@@ -144,11 +144,13 @@ export default function ServicePage({ slug }: { slug: string }) {
 
         <Process />
 
+        <TreatmentDetails service={slug} />
+
         {/* Either the calculator or the answer it would have given. Both
             carry id="estimator", so Priser in the nav resolves on every
             service page. */}
         {priced ? (
-          <Estimator initialPest={slug} />
+          <Estimator initialPest={slug} contextKey={`service:${slug}`} />
         ) : (
           <QuotePanel slug={slug} label={label} treatment={pest.treatment} />
         )}
@@ -169,7 +171,7 @@ export default function ServicePage({ slug }: { slug: string }) {
           </div>
         </section>
 
-        <Contact pestLabel={label} />
+        <Contact pestLabel={label} contextKey={`service:${slug}`} />
       </main>
       <Footer />
       <MobileCtaBar />

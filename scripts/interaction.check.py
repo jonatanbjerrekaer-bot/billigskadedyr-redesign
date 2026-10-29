@@ -61,7 +61,7 @@ const open = async (click, sel) => {
   throw new Error('åbnede ikke ' + sel);
 };
 const openRow = (t, sel) => open(() => row(t)?.click(), sel);
-const tilpas = () => open(() => { const t = row('Tilpas beregningen'); if (t.getAttribute('aria-expanded') !== 'true') t.click(); }, '[aria-label="Grad af angreb"] button');
+const tilpas = () => open(() => { const t = row('Tilpas beregningen'); if (t.getAttribute('aria-expanded') !== 'true') t.click(); }, '[aria-label="Ejendomstype"] button');
 const pick = (group, label) => [...document.querySelectorAll(`[aria-label="${group}"] button`)].find(b => b.textContent.trim() === label).click();
 const type = (el, v) => {
   el.focus();
@@ -78,7 +78,6 @@ const HOUSES = '[aria-label="Antal huse, der går sammen"] button';
 CONTROLS = {
     "Areal": "await tilpas(); before = result(); type(await need('.area-field input'), '400');",
     "Ejendomstype": "await tilpas(); before = result(); pick('Ejendomstype', 'Lejlighed');",
-    "Grad af angreb": "await tilpas(); before = result(); pick('Grad af angreb', 'Kraftig');",
     "Kørsel": "const f = await openRow('Kørsel', '.estimator__postcode input'); before = result(); type(f, '8800');",
     "Naboer": "await openRow('Naboer', HOUSES); before = result(); document.querySelectorAll(HOUSES)[1].click();",
     "Flere skadedyr": """

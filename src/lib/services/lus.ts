@@ -2,11 +2,11 @@ import type { ServiceContent } from "../serviceContent";
 
 const content: ServiceContent = {
   intro:
-    "Lus og fnat behandler de fleste selv hjemme med tættekam og medicin fra apoteket — det er den lige besked. Vores rolle er at finde kilden, behandle hjemmet, når der er brug for det, og sige det, hvis du ikke har brug for os.",
+    "Hovedlus og fladlus behandles hos apoteket — det er den lige besked. Vores rolle er at finde kilden, behandle hjemmet, når der er brug for det, og sige det ærligt, hvis du ikke har brug for os.",
   whyProfessional: [
     "Vi finder kilden og tjekker, om hele husstanden er ramt, så den ikke går i ring",
     "Når fnatmiden alene ikke er nok, behandler vi hjemmet: støvsuger, vasker ved 60 °C og behandler opholdsstederne",
-    "Vi siger det ligeud, hvis du kan klare det selv med kam og apotekets midler",
+    "Vi siger det ligeud, hvis opgaven hører til hos apoteket og ikke hos os",
     "Kløen kan vare flere uger, efter behandlingen har virket — vi hjælper dig med at vurdere, om det er restkløe eller et nyt angreb",
   ],
   species: [
@@ -15,9 +15,9 @@ const content: ServiceContent = {
     { name: "Fnat", text: "En mikroskopisk mide, der graver gange i huden og giver intens kløe, værst om natten. Hele husstanden skal behandles samtidigt, og hjemmet vaskes og støvsuges." },
   ],
   processNote:
-    "Vi starter med at finde ud af, hvad du står med: hovedlus, fladlus eller fnat. Hovedlus og fladlus behandler du selv med tættekam og eventuelt lusemiddel fra apoteket — der er som regel ingen grund til at betale os for det. Ved fnat behandler lægen eller apoteket huden, og så hjælper vi med hjemmet: vi støvsuger grundigt, får vasket tøj og sengetøj ved 60 °C og isolerer det, der ikke kan vaskes. Er du i tvivl om, hvad kløen kommer af, så skriv til os, så siger vi, om det er noget, vi skal se på.",
+    "Vi starter med at finde ud af, hvad du står med: hovedlus, fladlus eller fnat. Hovedlus og fladlus behandles hos apoteket — der er som regel ingen grund til at betale os for det, og det siger vi ligeud. Ved fnat behandler lægen huden, og så hjælper vi med hjemmet: vi støvsuger grundigt, får vasket tøj og sengetøj ved 60 °C og isolerer det, der ikke kan vaskes. Er du i tvivl om, hvad kløen kommer af, så skriv til os, så siger vi, om det er noget, vi skal se på.",
   faq: [
-    { q: "Kan I ikke bare behandle lusene for mig?", a: "Hovedlus behandles bedst med tættekam og eventuelt lusemiddel fra apoteket — det kan du gøre selv samme aften, og det er sjældent nødvendigt at behandle boligen. Vores rolle er at hjælpe, når problemet sidder i hjemmet, som ved fnat, eller når kilden er svær at finde. Så siger vi det hellere, end vi sælger dig en behandling, du ikke har brug for." },
+    { q: "Kan I ikke bare behandle lusene for mig?", a: "Hovedlus behandles hos apoteket — ofte samme aften — og det er sjældent nødvendigt at behandle boligen. Vores rolle er at hjælpe, når problemet sidder i hjemmet, som ved fnat, eller når kilden er svær at finde. Så siger vi det hellere, end vi sælger dig en behandling, du ikke har brug for." },
     { q: "Hvordan smitter lus?", a: "Hovedlus kan hverken hoppe eller flyve. De smitter næsten udelukkende ved direkte kontakt: sove tæt sammen, dele hue, hjelm, kam eller hårbørste. Derfor rammer de oftest børn, og derfor skal kun de smittede behandles — ikke hele klassen eller hele husstanden." },
     { q: "Hvor lang tid kan lus overleve væk fra hovedet?", a: "Højst 48 timer. Derfor er det nok at vaske huer, kamme og sengetøj, fryse dem eller lægge dem væk i et døgn — og derfor er behandling af selve boligen sjældent nødvendig ved hovedlus." },
     { q: "Klør det stadig, selvom lusene er væk?", a: "Ja. Kløen kommer af overfølsomhed over for lusenes affaldsstoffer, og den kan godt blive ved i flere uger, efter lusene er væk. Det er også derfor symptomerne først viser sig 2-4 uger efter, man er blevet smittet. Tænk derfor ikke automatisk, at behandlingen har slået fejl, fordi der stadig klør." },

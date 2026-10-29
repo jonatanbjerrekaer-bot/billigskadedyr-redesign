@@ -1,5 +1,5 @@
 import TrustSeal from "./TrustSeal";
-import { CookieSettingsButton } from "./CookieConsent";
+import { CookieSettingsButton } from "./ConsentBox";
 
 export default function Footer() {
   return (

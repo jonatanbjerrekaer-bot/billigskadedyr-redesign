@@ -14,11 +14,11 @@ const ROWS: { other: string; us: string }[] = [
   },
   {
     other: "Alt sælges som en opgave for en fagmand",
-    us: "Vi siger det ligeud, når du selv kan klare det med et middel til 49 kr.",
+    us: "Én professionel behandling er nok i 99 % af tilfældene — du betaler ikke for besøg, du ikke får brug for",
   },
   {
-    other: "Garanti og dokumentation er med i prisen. Også hvis du aldrig får brug for dem",
-    us: "94 % af vores kunder har i 2026 kun haft brug for én behandling. Vi har ingen garanti eller inkluderede genbesøg, og derfor kan vi holde prisen lavere",
+    other: "“Garanti” og dokumentation er med i prisen. Dem, der aldrig får brug for dem, betaler alligevel",
+    us: "Ingen garanti, intet papir. De fleste skal kun behandles én gang — og det kan mærkes på prisen",
   },
 ];
 

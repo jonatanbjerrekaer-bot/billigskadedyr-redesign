@@ -51,11 +51,11 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Sådan kommer du af med den",
         paragraphs: [
-          "Mindre angreb kan ofte behandles selv, men du bør overveje professionel hjælp, hvis træet virker svækket, angrebet dækker store områder, eller der er mistanke om husbuk i stedet for borebiller. Professionelle kan vurdere konstruktionens tilstand og sikre korrekt behandling.",
-          "Ved en professionel behandling rengør vi først træet for spindelvæv, støv og træmel. Dernæst bliver træet behandlet af 2-3 omgange med godkendte midler, indtil træets mæthed er nået. Du får en rapport over behandlingen, som du kan bruge i et eventuelt hussalg.",
+          "Angreb i bærende konstruktioner, over store områder eller med mistanke om husbuk bør altid vurderes professionelt. Vi fastlægger, hvor vidt angrebet har spredt sig, og sikrer, at behandlingen rammer alt det angrebne træ — ikke kun det, hvor du ser hullerne.",
+          "Ved en professionel behandling rengør vi først træet for spindelvæv, støv og træmel. Dernæst behandles træet med godkendte midler i 2-3 omgange i løbet af det samme besøg, indtil træets mæthed er nået.",
           "Behandlingen stopper billerne, men den genskaber ikke allerede beskadiget træ. Ved alvorlige skader kan det være nødvendigt at få en byggeteknisk vurdering af, om udskiftning er nødvendig.",
         ],
-        provenance: [BEH, PRO, PRO],
+        provenance: ["new", "new", PRO],
       },
     ],
     sources: ["https://da.wikipedia.org/wiki/Husbuk", "https://en.wikipedia.org/wiki/House_longhorn_beetle"],
@@ -147,11 +147,11 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Sådan kommer du af med den",
         paragraphs: [
-          "Mindre angreb kan ofte behandles selv, især hvis du opdager problemet tidligt. Fjern løst boremel og støv med en børste eller støvsuger, så træbeskyttelsen trænger bedre ind. Træværket skal have 2-3 omgange, til træets mæthed er nået, og du skal bruge åndedrætsværn, briller, handsker og engangsdragt.",
+          "Behandling af borebiller kræver, at midlet trænger ind i træet, og at fugtforholdene bag angrebet bliver taget hånd om. En professionel behandling starter derfor med at fastlægge omfanget, og den afsluttes først, når træet er behandlet til mæthed.",
           "Mange begår den fejl kun at fokusere på insektmidlet, men uden at løse fugtproblemet kan angrebet vende tilbage. Sørg for god ventilation på loftet, hold luftfugtigheden lav, behandl nyt træ før montering, og inspicér træværket én gang om året.",
           "Er der mange nye flyvehuller hvert år, store områder med svækket træ eller angreb i bærende konstruktioner, bør det vurderes professionelt. Vi vurderer, om det er almindelig borebille eller husbuk, og hvor meget af træet der skal behandles.",
         ],
-        provenance: [BEH + " + " + HAR.replace("owner ", ""), GUIDE + " + " + BEH.replace("owner ", ""), "owner+new https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/"],
+        provenance: ["new", GUIDE + " + " + BEH.replace("owner ", ""), "owner+new https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/"],
       },
       {
         heading: "Forveksles med",

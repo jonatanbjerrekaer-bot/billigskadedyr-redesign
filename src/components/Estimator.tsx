@@ -26,14 +26,14 @@ import {
 } from "../lib/estimatorSelection";
 import { PestGlyph, PESTS, PRICED_PESTS } from "../lib/pests";
 import { estimate, dkr, houseTier, nearestPostcode, OWNER_PRICES } from "../lib/pricing";
-import type { Houses, PropertyType, Severity } from "../lib/pricing";
+import type { Houses, PropertyType } from "../lib/pricing";
 
 /**
  * Progressive disclosure (Norman: visibility; Shneiderman 8: reduce short-term
- * memory load). Choosing the pest is the only step that must happen. Area,
- * property type and severity only refine an estimate that is already on screen,
- * so they start folded away behind one control and every one of them has a
- * sensible default. A first-time visitor sees two things, not five.
+ * memory load). Choosing the pest is the only step that must happen. Area and
+ * property type only refine an estimate that is already on screen, so they
+ * start folded away behind one control and each has a sensible default. A
+ * first-time visitor sees two things, not five.
  */
 
 // Gennemsnitligt boligareal i Jylland og på Fyn, Danmarks Statistik 2026
@@ -48,24 +48,12 @@ const AREA_PRESETS: Partial<Record<PropertyType, number>> = {
 const DEFAULTS = {
   m2: AREA_PRESETS.hus!,
   property: "hus" as PropertyType,
-  severity: "normal" as Severity,
 };
 
 const PROPERTIES: { id: PropertyType; label: string }[] = [
   { id: "hus", label: "Hus" },
   { id: "lejlighed", label: "Lejlighed" },
   { id: "erhverv", label: "Erhverv" },
-];
-
-// One line per level, and only the chosen one is shown. Listing all three at
-// once is a paragraph to parse before you can pick; showing the selected one is
-// the same information delivered when it is actually useful (progressive
-// disclosure, and Shneiderman 3: the description doubles as feedback that the
-// choice registered).
-const SEVERITIES: { id: Severity; label: string; hint: string }[] = [
-  { id: "let", label: "Let", hint: "Du ser dem sjældent, og kun ét sted." },
-  { id: "normal", label: "Normal", hint: "Du ser dem jævnligt." },
-  { id: "kraftig", label: "Kraftig", hint: "Du ser dem dagligt eller flere steder i boligen." },
 ];
 
 // "10+" because ten is the top tier: eleven houses still get the ten-house price.
@@ -83,7 +71,7 @@ const GROUP = "inline-flex";
 const PEST_TRIGGER = "pest-select-trigger";
 const ADD_TRIGGER = "add-pest-trigger";
 
-export default function Estimator({ initialPest }: { initialPest?: string } = {}) {
+export default function Estimator({ initialPest, contextKey }: { initialPest?: string; contextKey?: string } = {}) {
   // A service page knows which pest the visitor came for, so the picker opens
   // on it. This is not counted as the visitor having used the calculator:
   // selTouched stays false until they change something themselves, so the
@@ -100,7 +88,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   }, [initialPest]);
   const [m2, setM2] = useState(DEFAULTS.m2);
   const [property, setProperty] = useState<PropertyType>(DEFAULTS.property);
-  const [severity, setSeverity] = useState<Severity>(DEFAULTS.severity);
   // Where the job is and how many neighbours join in. Both change the price,
   // so they sit with the pest at the top and not behind "Tilpas beregningen".
   const [postcode, setPostcode] = useState("");
@@ -124,6 +111,17 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     setAddOpen(true);
     // Opens the list straight away, so the link is one click, not two.
     requestAnimationFrame(() => document.getElementById(ADD_TRIGGER)?.click());
+  };
+  // From the result panel: same control as the "Flere skadedyr" row, plus a
+  // scroll to it, since on a phone it can sit a screenful above the price.
+  const addFromResult = () => {
+    openAdd();
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const el = document.getElementById(ADD_TRIGGER);
+      if (!el) return;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+    }));
   };
   // Opens the postnummer field and puts the cursor in it. The field only
   // exists after the render that opens it, hence the frame's wait.
@@ -150,7 +148,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
     );
   };
-  // Opens "Tilpas beregningen" at one control: the area, or the grade.
+  // Opens "Tilpas beregningen" at one control: the area.
   const openAt = (selector: string) => {
     advTouched.current = true;
     setAdvOpen(true);
@@ -203,14 +201,13 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
 
 
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
-  // From two houses up the price is driven by the tier, and one area or
-  // severity cannot speak for houses that may differ anyway — those controls
-  // are hidden then. Quote and draft from the defaults instead of from state
-  // no control shows, so a hidden slider can never move the number or the
-  // "your home is bigger" note.
+  // From two houses up the price is driven by the tier, and one area cannot
+  // speak for houses that may differ anyway — that control is hidden then.
+  // Quote and draft from the defaults instead of from state no control shows,
+  // so a hidden slider can never move the number or the "your home is bigger"
+  // note.
   const multi = houses !== 1;
   const effM2 = multi ? DEFAULTS.m2 : m2;
-  const effSeverity = multi ? DEFAULTS.severity : severity;
   const priceRow = pest.priceKey ? OWNER_PRICES[pest.priceKey] : undefined;
   const unit = priceRow?.kind === "fixed" ? priceRow.unit : undefined;
   // Only his area-limited prices (myrer, edderkopper, skægkræ) move with m².
@@ -235,7 +232,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   // midpoint arithmetic is gone: these are the figures he actually charges, so
   // there is nothing left to average. Season comes from the clock inside
   // estimate(), which is why no control here asks about it.
-  const quote = estimate(pest.priceKey!, effM2, property, effSeverity, new Date(), {
+  const quote = estimate(pest.priceKey!, effM2, property, new Date(), {
     postcode,
     houses,
     count: unit ? Math.min(count, 10) : 1,
@@ -249,25 +246,15 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const touched =
     m2 !== DEFAULTS.m2 ||
     property !== DEFAULTS.property ||
-    severity !== DEFAULTS.severity ||
     postcode !== "" ||
     houses !== 1 ||
     count !== 1 ||
     extras.length > 0;
-  const severityHint = SEVERITIES.find((x) => x.id === severity)?.hint;
 
   // What is included changes with the answers, so the list says what this job
   // covers rather than repeating four generic promises regardless of input.
   // Shneiderman 3 again: the list is feedback that the inputs did something.
-  const visits = multi
-    ? "Op til to besøg pr. hus med opfølgning"
-    : severity === "let"
-      ? "Ét besøg er som regel nok, opfølgningen er med"
-      : severity === "kraftig" && quote.kind === "fixed" && quote.extraVisit
-        ? `Op til tre besøg, det tredje (${dkr(quote.extraVisit)}) er med i prisen`
-        : severity === "kraftig"
-          ? "Op til tre besøg og tættere opfølgning"
-          : "Op til to besøg med opfølgning";
+  const visits = multi ? "Én professionel behandling pr. hus" : "Én professionel behandling";
   const included = [
     pest.treatment ?? "Behandling af det angrebne område",
     ...extraPests.map((p) => `${p.label}: ${(p.treatment ?? "behandling").toLowerCase()}`),
@@ -289,12 +276,16 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   ];
 
   // The contact section below drafts its message placeholder from these
-  // answers; publishing is shallow-guarded, so re-renders cost nothing.
+  // answers; publishing is shallow-guarded, so re-renders cost nothing. The
+  // contextKey ties the selection to the page that produced it: arriving on
+  // another page, the contact form falls back to that page's own draft
+  // instead of quoting a calculator the visitor used somewhere else.
   publishEstimatorSelection({
+    pestSlug: pest.slug,
     pestLabel: pest.label,
+    contextKey: contextKey ?? "home",
     m2: effM2,
     property,
-    severity: effSeverity,
     postcode: quote.kind === "fixed" ? quote.place?.nr ?? null : null,
     town: quote.kind === "fixed" ? quote.place?.by ?? null : null,
     houses: quote.kind === "fixed" ? quote.houses : 1,
@@ -302,6 +293,14 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     // contact form "omkring 0 kr." to send.
     price: quote.kind === "fixed" ? dkr(price) : null,
     amount: quote.kind === "fixed" ? price : null,
+    // Rooms or nests for the main pest and every extra one, so the draft
+    // says "2 bo" and not a bare pest name.
+    count: unit ? Math.min(count, 10) : null,
+    extras: extraPests.map((p) => ({
+      slug: p.slug,
+      label: p.label,
+      count: unitOf(p) ? Math.min(extraCounts[p.slug] ?? 1, 10) : null,
+    })),
     // He no longer sells a two-treatment package (price list, 2026-10-26).
     packageAmount: null,
     touched: selTouched,
@@ -311,7 +310,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
     m2Touched.current = false;
     glideArea(DEFAULTS.m2);
     setProperty(DEFAULTS.property);
-    setSeverity(DEFAULTS.severity);
     setPostcode("");
     setHouses(1);
     setCount(1);
@@ -634,10 +632,10 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             </div>
           )}
 
-          {/* Area, property type and severity feed the fixed-price
-              calculation. For a pest that is quoted after a visit they
-              change nothing, and a control that does nothing reads as a
-              broken tool or as a hidden number. */}
+          {/* Area and property type feed the fixed-price calculation. For a
+              pest that is quoted after a visit they change nothing, and a
+              control that does nothing reads as a broken tool or as a hidden
+              number. */}
           {quote.kind === "fixed" && (
           <Disclosure.Root
             ref={advRef}
@@ -654,14 +652,14 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   <span className="trigger-title">Tilpas beregningen</span>
                   <span className="small muted" style={{ display: "block" }}>
                     {unit
-                      ? `${unit === "rum" ? "Antal rum" : "Antal bo"}, boligtype og hvor slemt det er.`
+                      ? `${unit === "rum" ? "Antal rum" : "Antal bo"} og boligtype.`
                       : extraUnit
-                        ? `${hasArea && !multi ? "Areal, antal" : "Antal"} ${extraUnit}, boligtype og hvor slemt det er.`
+                        ? `${hasArea && !multi ? "Areal, antal" : "Antal"} ${extraUnit} og boligtype.`
                       : multi
                         ? "Kun boligtype — prisen styres af hvor mange I er."
                         : hasArea
-                          ? "Areal, boligtype og hvor slemt det er. Ellers regner vi på et gennemsnitligt hus."
-                          : "Boligtype og hvor slemt det er."}
+                          ? "Areal og boligtype. Ellers regner vi på et gennemsnitligt hus."
+                          : "Boligtype."}
                   </span>
                 </span>
                 <ChevronDown size={20} aria-hidden="true" className="chev" />
@@ -787,40 +785,6 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
                   </SegmentTrack>
                 </div>
 
-                {/* Severity shapes the one-house copy, but with several houses
-                    the tier drives the price and a single grade cannot speak
-                    for all of them — hidden like the area, state preserved. */}
-                {!multi && (
-                <div>
-                  <span className="field-label">Grad af angreb</span>
-                  <SegmentTrack value={severity}>
-                    <ToggleButtonGroup.Root
-                      selectionMode="single"
-                      disallowEmptySelection
-                      selectedKeys={[severity]}
-                      onSelectionChange={(keys) => {
-                        const next = [...keys][0];
-                        if (next) {
-                          setSeverity(next as Severity);
-                          setSelTouched(true);
-                        }
-                      }}
-                      className={GROUP}
-                      aria-label="Grad af angreb"
-                    >
-                      {SEVERITIES.map((o) => (
-                        <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
-                          {o.label}
-                        </ToggleButton>
-                      ))}
-                    </ToggleButtonGroup.Root>
-                  </SegmentTrack>
-                  <p className="small muted" style={{ marginTop: "var(--space-xs)" }} aria-live="polite">
-                    {severityHint}
-                  </p>
-                </div>
-                )}
-
                 {/* Always in the layout, only visible once there is something to
                     reset: appearing on the first change made the whole
                     calculator 47px taller and everything below it jump. */}
@@ -908,6 +872,48 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           </button>
           </div>
 
+          {/* The extra pests ride along in the number, so they sit in the
+              result panel as chips the visitor can see and undo — a price
+              that silently swallows lopper and væggelus reads as a bug. The
+              block only exists once an extra is added, so the panel starts
+              as clean as the one-pest price it shows. */}
+          {quote.kind === "fixed" && extraPests.length > 0 && (
+            <div className="estimator__result-extras">
+              <ul className="estimator__extra-list" aria-label="Skadedyr på samme besøg">
+                {extraPests.map((p) => {
+                  const n = extraCounts[p.slug] ?? 1;
+                  const u = unitOf(p);
+                  return (
+                    <li key={p.slug} className="estimator__extra">
+                      <PestGlyph pest={p} size={20} />
+                      <span>
+                        {p.label}
+                        {u && n > 1 ? (u === "rum" ? ` (${n} rum)` : ` (${n} ${n === 1 ? "bo" : "boer"})`) : ""}
+                      </span>
+                      <button
+                        type="button"
+                        aria-label={`Fjern ${p.label}`}
+                        onClick={() => {
+                          setExtras(extras.filter((s) => s !== p.slug));
+                          setExtraCounts(({ [p.slug]: _, ...rest }) => rest);
+                          setSelTouched(true);
+                        }}
+                      >
+                        <X size={14} aria-hidden="true" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              {addable.length > 0 && (
+                <button type="button" className="estimator__open estimator__result-add" onClick={addFromResult}>
+                  <Plus size={14} aria-hidden="true" />
+                  Tilføj endnu et skadedyr
+                </button>
+              )}
+            </div>
+          )}
+
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
             {quote.kind === "fixed" ? (
               <>
@@ -986,20 +992,7 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
             <p className="select-none estimator__sub">Prisen dækker</p>
             <ul className="estimator__list">
               {included.map((item) => (
-                <li key={item}>
-                  {/* The visits follow the grade, so they open it, as "op til 250 m²" opens the area. */}
-                  {item === visits && !multi ? (
-                    <button
-                      type="button"
-                      className="estimator__area-link"
-                      onClick={() => openAt('[aria-label="Grad af angreb"] [data-selected="true"]')}
-                    >
-                      {item}
-                    </button>
-                  ) : (
-                    item
-                  )}
-                </li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>

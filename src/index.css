@@ -360,7 +360,7 @@ img {
   user-select: none;
 }
 
-/* Segmented control (Ejendomstype, Grad af angreb).
+/* Segmented control (Ejendomstype).
    HeroUI's .toggle-button declares its own colour variables:
      --toggle-button-bg: var(--default)            <- a light surface
      --toggle-button-bg-selected: var(--accent-soft)
@@ -539,7 +539,7 @@ img {
 }
 
 /* Anything the calculator adds to its own answer: the seasonal lines under the
-   price, the caveats that appear with area or severity. Same gesture as the
+   price, the caveats that appear with area. Same gesture as the
    price prefix so the panel speaks with one voice, rather than each addition
    inventing its own entrance.
 

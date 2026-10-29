@@ -341,6 +341,19 @@ html:has(.np) { background: var(--color-paper); }
 .np .faq__body .link { display: inline-flex; min-height: 44px; align-items: center; margin-top: var(--space-xs); }
 .np .disclosure__body { padding: 0 !important; }
 
+/* ------------------------------------------------------------- treatment: the method */
+.np .treatment__head { grid-column: 1 / span 4; align-self: start; }
+.np .treatment__head p { margin-top: var(--space-md); color: var(--color-ink-2); }
+.np .treatment__item { grid-column: 5 / span 8; border-block: var(--rule-hair) solid var(--color-rule-2); }
+.np .treatment__item .disclosure-trigger { min-height: 72px; padding-block: var(--space-md); }
+.np .treatment__steps { margin: 0; padding: 0 0 0 1.25rem; display: flex; flex-direction: column; gap: var(--space-sm); }
+.np .treatment__aftercare-title { margin-top: var(--space-lg); font-size: var(--text-title); }
+.np .treatment__aftercare { margin: var(--space-xs) 0 0; padding-left: 1.25rem; }
+.np .treatment__aftercare li + li { margin-top: var(--space-2xs); }
+.np .treatment__note { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+.np .treatment--bare { margin-top: var(--space-xl); }
+.np .treatment--bare .treatment__item { border-top: var(--rule-hair) solid var(--color-rule-2); }
+
 /* ------------------------------------------------------------- the close: contact */
 .np .close { background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule-2); }
 .np .close__facts { grid-column: 1 / span 5; }
