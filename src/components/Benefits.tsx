@@ -11,7 +11,7 @@ const BENEFITS: { title: string; desc: string }[] = [
   },
   {
     title: "Ingen garanti — derfor billigere",
-    desc: "Du betaler ikke for gratis genbesøg, du måske aldrig får brug for. Langt de fleste skal kun behandles én gang.",
+    desc: "Du betaler ikke for gratis genbesøg, du måske aldrig får brug for. Én professionel behandling er nok i 99 % af tilfældene — og skulle der mod forventning være brug for endnu en, er den stadig billigere end hos konkurrenterne.",
   },
   {
     title: "Hurtig og diskret",

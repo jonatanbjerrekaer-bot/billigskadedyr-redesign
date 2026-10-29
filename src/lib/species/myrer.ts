@@ -100,11 +100,10 @@ const articles: SpeciesArticle[] = [
       {
         heading: "Sådan kommer du af med den",
         paragraphs: [
-          "Gør-det-selv produkter rammer ofte kun de synlige myrer og ikke selve kolonien eller dronningen. Vil du selv i gang, så vælg midler, myrerne bærer hjem til boet: gel i små dråber langs fodpaneler, ved indgangssteder, bag køkkensokler og i revner og sprækker, og lokkedåser ved mindre angreb. Udvanding langs sokkel, terrasse og indgangssteder rammer kolonien ved kilden.",
-          "Myrer forsvinder sjældent med det samme. De første dage ser du øget aktivitet omkring gelen, efter 1-2 uger falder aktiviteten, og efter 2 uger er der markant færre myrer eller ingen. Den største fejl er at overse kolonien udenfor.",
-          "Kommer de igen år efter år, behandler vi udenfor hele vejen rundt langs sokkel, rundt om potter, planter, store sten og sandkasser og langs flisekanten. Inde behandler vi de rum, hvor der er set aktivitet. Kontakt os, så snart du ser den første vedvarende aktivitet af myrer. Venter du for længe, vil boet vokse sig større.",
+          "Midler fra hylden rammer ofte kun de synlige myrer og ikke selve kolonien eller dronningen. Derfor starter vores behandling med at finde boet: udenfor hele vejen rundt langs sokkel, rundt om potter, planter, store sten og sandkasser og langs flisekanten, og inde i de rum, hvor der er set aktivitet. Kontakt os, så snart du ser den første vedvarende aktivitet af myrer. Venter du for længe, vil boet vokse sig større.",
+          "Myrer forsvinder sjældent med det samme. De første dage ser du øget aktivitet omkring behandlingen, efter 1-2 uger falder aktiviteten, og herefter er der markant færre myrer eller ingen. Den største fejl er at overse kolonien udenfor.",
         ],
-        provenance: [`owner ${PRO} + ${INDE}`, `owner ${INDE}`, `owner ${PRO}`],
+        provenance: ["new", `owner ${INDE}`],
       },
       {
         heading: "Forveksles med",

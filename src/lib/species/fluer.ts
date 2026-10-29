@@ -51,10 +51,10 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Se efter et mønster. Kommer fluerne mest ind, når døren står åben, er insektnet og dørtætninger stedet at starte. Kommer de, selv når der er lukket, skal du lede i huset: ved affald, glemte madvarer, dyrefoder og kroge, du ikke kommer til så ofte.",
           "Sørg for, at affaldet er lukket inde, fjern spild omkring beholderen, og rengør selve spanden. En ny pose fjerner ikke det, der sidder fast i bunden.",
-          "Har du kun enkelte fluer, er behandling af en professionel ikke altid nødvendig. En fluefælde eller en elektrisk insektfanger fra webshoppen er ofte nok.",
+          "Har du kun enkelte fluer, er der sjældent behov for en professionel behandling — men hold øje med, om de vender tilbage, eller om der kommer flere.",
           "Har du mange fluer, eller vender de tilbage igen og igen, ligger der ofte en aktiv yngleplads et sted. Så behandler vi de steder, fluerne sætter sig i løbet af dagen — vinduer, karme og lyse, solopvarmede flader — og finder ud af, hvordan ynglestedet fjernes.",
         ],
-        provenance: [HOUSE, HOUSE, PRO, PRO],
+        provenance: [HOUSE, HOUSE, "new", PRO],
       },
       {
         heading: "Forveksles med",
@@ -170,10 +170,10 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "En bananfluefælde fanger voksne fluer. For at stoppe tilgangen af nye fluer skal du samtidig fjerne de steder, hvor larverne udvikler sig.",
           "Fjern overmodne og beskadigede varer, og vask frugtskålen. Opbevar egnede frugter i køleskab under indsatsen. Skyl pantemballage med rester af vin, øl, juice og sodavand. Tøm affaldet, og rengør selve spanden, låget og området under posen.",
-          "Stil fælden ved det område, hvor du faktisk ser aktivitet. Sidder fluerne primært ved flaskerne, er en placering ved pantemballagen mere relevant end ved frugtskålen. En frugtfluefælde fra webshoppen er som regel det, der skal til i en privat bolig.",
+          "Kig efter aktiviteten, hvor du faktisk ser den. Sidder fluerne primært ved flaskerne, er kilden pantemballagen snarere end frugtskålen. Kommer bananfluerne igen, trods at du har ryddet op, sidder ynglestedet et sted, du ikke har fundet — der hjælper vi med at lede.",
           "Ved fødevarevirksomheder bør gentagne fund indgå i virksomhedens skadedyrskontrol og håndteres systematisk.",
         ],
-        provenance: [BANANA, BANANA, "owner+new https://billigskadedyr.dk/bananfluer-i-koekkenet/", SMALL],
+        provenance: [BANANA, BANANA, "new", SMALL],
       },
       {
         heading: "Forveksles med",

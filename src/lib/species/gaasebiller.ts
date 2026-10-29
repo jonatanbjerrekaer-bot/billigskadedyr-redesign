@@ -55,10 +55,10 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Du kan forsigtigt løfte et mindre stykke græstørv med en spade. Hvis du finder flere hvidlige, C-formede larver med brunt hoved og små ben, er der stor sandsynlighed for, at du har gåsebillelarver.",
           "Gåsebillelarver er mest sårbare, mens de stadig er små og opholder sig relativt tæt på jordoverfladen. Den bedste periode er normalt fra august til september.",
-          "Mindre angreb kan i nogle tilfælde håndteres med produkter til privat brug, hvis de anvendes korrekt og på det rigtige tidspunkt. Nematoder kan være meget effektive, når de anvendes korrekt og på det rette tidspunkt. Vi foretrækker dog kemisk behandling af hele græsplænen, fordi den ikke er afhængig af jordtemperatur, fugtighed og timing på samme måde.",
+          "Vi behandler det angrebne areal med et professionelt middel, der når ned i den øverste del af jorden og rodzonen, hvor larverne lever. Behandlingen lægges, mens larverne stadig er små og tæt på overfladen — normalt fra august til september — og én behandling på det rette tidspunkt er nok i langt de fleste tilfælde.",
           "Hvis gåsebillelarverne bekæmpes i tide, kan græssets rodsystem gradvist genopbygges. Ved mindre angreb vil plænen ofte komme sig i løbet af den følgende vækstsæson. Ved større angreb kan det være nødvendigt at efterså.",
         ],
-        provenance: [`owner ${G}`, `owner ${G}`, `owner ${G}`, `owner ${G}`],
+        provenance: [`owner ${G}`, `owner ${G}`, "new", `owner ${G}`],
       },
       {
         heading: "Forveksles med",

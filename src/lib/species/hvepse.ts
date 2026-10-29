@@ -3,7 +3,6 @@ import type { SpeciesArticle } from "../speciesContent";
 const PRO = "https://billigskadedyrprof.dk/service/hvepse/";
 const SHOP = "https://billigskadedyr.dk/hvepse/";
 const FAELDE = "https://billigskadedyr.dk/hvepsefaelde-eller-bekaempelse-af-bo/";
-const PLACERING = "https://billigskadedyr.dk/hvepsefaelde-placering/";
 
 const articles: SpeciesArticle[] = [
   {
@@ -49,11 +48,11 @@ const articles: SpeciesArticle[] = [
         heading: "Sådan kommer du af med den",
         paragraphs: [
           "Hold afstand til boet. Undlad at banke på det, stikke redskaber ind i indgangen eller lukke en aktiv åbning. I en bygning kan en lukket indgang få hvepsene til at søge andre veje, herunder ind mod beboelsen.",
-          "Mindre og let tilgængelige hvepsebo kan i nogle tilfælde behandles af dig selv, for eksempel med en hvepsespray fra webshoppen, men det indebærer altid en risiko. Sidder boet i en væg, på loftet, i jorden eller på svært tilgængelige steder, anbefales professionel hjælp.",
+          "Et hvepsebo bør altid behandles med omtanke. Bo i en væg, på loftet, i jorden eller på svært tilgængelige steder anbefales det at lade en professionel tage sig af — både for resultatet og for sikkerheden.",
           "Vi starter altid med at gennemgå det område, hvor hvepsene er aktive, og behandler direkte på boet. Kan vi ikke komme til boet, behandler vi i stedet hvepsenes ind- og udgang. Det anbefales at holde døre og vinduer omkring boet lukket i op til 2 døgn.",
-          "Er det kun hvepse ved bordet og intet bo i nærheden, kan en hvepsefælde være nok. Placér den væk fra spisepladsen, og dæk søde drikke og mad til.",
+          "Er det kun enkelte hvepse ved bordet og intet bo i nærheden, er der som regel ikke behov for en behandling. Dæk søde drikke og mad til, og hold afstand til områder med faldet frugt.",
         ],
-        provenance: [`owner ${FAELDE}`, `owner+new ${PRO}`, `owner ${SHOP} + ${PRO}`, `owner ${PLACERING}`],
+        provenance: [`owner ${FAELDE}`, "new", `owner ${SHOP} + ${PRO}`, "new"],
       },
       {
         heading: "Forveksles med",

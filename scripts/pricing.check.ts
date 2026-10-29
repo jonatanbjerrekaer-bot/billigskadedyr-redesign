@@ -1,6 +1,7 @@
 // ponytail: one runnable check for the pricing rules, no framework.
 //   node --experimental-strip-types scripts/pricing.check.ts
 // It fails if the owner's price list (2026-10-26) ever drifts.
+import { readFileSync } from "node:fs";
 import { driveSurcharge, estimate, round100, seasonOf } from "../src/lib/pricing.ts";
 
 const assert = (cond: unknown, msg: string) => {
@@ -26,9 +27,9 @@ assert(driveSurcharge("8800", 71) === 400, "Viborg: 400 flat");
 assert(driveSurcharge("7500", 134) === 400, "Holstebro: 400 flat");
 assert(driveSurcharge("7100", 80) === 400, "Vejle: 400 flat");
 
-type Opts = Parameters<typeof estimate>[5];
+type Opts = Parameters<typeof estimate>[4];
 const at = (pest: string, opts: Opts) => {
-  const q = estimate(pest, 140, "hus", "normal", NOW, opts);
+  const q = estimate(pest, 140, "hus", NOW, opts);
   if (q.kind !== "fixed") throw new Error("expected a fixed quote for " + pest);
   return q;
 };
@@ -62,12 +63,15 @@ const combo = at("Myrer", { postcode: "8800", extras: [{ key: "Edderkopper", lab
 assert(combo.price === 600 + 1200 + 200, "ants + spiders Viborg: 1800 + half of 400");
 assert(combo.caption.includes("edderkopper"), "the caption names the added pest");
 assert(at("Myrer", {}).caption.startsWith("1 behandling af hus op til"), "the price line names the property type");
-const apt = estimate("Myrer", 140, "lejlighed", "normal", NOW, {});
+const apt = estimate("Myrer", 140, "lejlighed", NOW, {});
 assert(apt.kind === "fixed" && apt.caption.includes("af lejlighed op til"), "an apartment is called one");
-const heavy = estimate("Myrer", 140, "hus", "kraftig", NOW, {});
-assert(heavy.kind === "fixed" && heavy.price === 900 && heavy.extraVisit === 300, "kraftig adds a third visit at half the treatment: 600 + 300");
-const light = estimate("Myrer", 140, "hus", "let", NOW, {});
-assert(light.kind === "fixed" && light.price === 600, "let costs the same as normal, no discount");
+// One treatment is the standard: no severity multiplier, no priced follow-up visit.
+const one = at("Myrer", {});
+assert(!("extraVisit" in one) && !("severity" in one), "a fixed quote is one treatment, with no severity field");
+assert(
+  !/Severity|EXTRA_VISIT_SHARE|severity/.test(readFileSync(new URL("../src/lib/pricing.ts", import.meta.url), "utf8")),
+  "pricing.ts must not reintroduce a severity dimension or priced extra visits",
+);
 const wasps = at("Myrer", { extras: [{ key: "Hvepse & bier", label: "Hvepse & bier", count: 2 }] });
 assert(wasps.price === 600 + 800 + 400, "an added pest prices its own nests: 2 bo is 800 + 400");
 assert(wasps.caption.includes("hvepse & bier (2 boer)"), "the caption says how many nests");
@@ -82,6 +86,6 @@ assert(
   "combo at 5 houses keeps the bigger 80 % discount (80 -> 100)",
 );
 
-assert(estimate("Borebiller", 140, "hus", "normal", NOW).kind === "quote", "borebiller: after inspection");
+assert(estimate("Borebiller", 140, "hus", NOW).kind === "quote", "borebiller: after inspection");
 
 console.log("OK pricing");

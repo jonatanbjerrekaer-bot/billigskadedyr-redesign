@@ -312,6 +312,29 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 .np .estimator__add { display: flex; flex-direction: column; gap: var(--space-xs); }
 .np .estimator__add select { width: 100%; }
 .np .estimator__extras > .estimator__open { align-self: flex-start; }
+/* In the result panel the chips say what the number covers; the add-link
+   rides under them, icon on the line like the plus on the "Flere skadedyr" row. */
+.np .estimator__result-extras { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+.np .estimator__result-add { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+/* Entering the panel: materialise out of a blur rather than popping in, one
+   after another so a stack reads as a growing list. */
+@keyframes estimator-extra-in {
+  from { opacity: 0; filter: blur(5px); transform: scale(0.9); }
+}
+.np .estimator__result-extras .estimator__extra,
+.np .estimator__result-extras .estimator__result-add {
+  transform-origin: left center;
+  animation: estimator-extra-in 280ms var(--ease-out) both;
+}
+.np .estimator__result-extras .estimator__extra:nth-child(2) { animation-delay: 45ms; }
+.np .estimator__result-extras .estimator__extra:nth-child(3) { animation-delay: 90ms; }
+.np .estimator__result-extras .estimator__extra:nth-child(4) { animation-delay: 135ms; }
+.np .estimator__result-extras .estimator__extra:nth-child(5) { animation-delay: 180ms; }
+.np .estimator__result-extras .estimator__result-add { animation-delay: 120ms; }
+@media (prefers-reduced-motion: reduce) {
+  .np .estimator__result-extras .estimator__extra,
+  .np .estimator__result-extras .estimator__result-add { animation: none; }
+}
 .np .disclosure-trigger .small, .np .disclosure-trigger span:not(.trigger-title) { font-weight: 400; }
 @media (hover: hover) and (pointer: fine) {
   /* Accordeon-rækkerne svarede kun med :active-tryk. Titelen faar samme

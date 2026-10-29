@@ -41,21 +41,20 @@ const articles: SpeciesArticle[] = [
         provenance: ["new", `owner ${MA}`],
       },
       {
-        heading: "Sådan finder du en aktiv gang",
+        heading: "Sådan finder vi en aktiv gang",
         paragraphs: [
-          "En muldvarpefælde skal stå dér, hvor muldvarpen færdes. Se efter nyligt opståede skud, og sammenlign området fra dag til dag. Et billede af plænen kan gøre det lettere at registrere nye jordbunker.",
-          "Hvis du kan se en hævet gang lige under græsset, kan du forsigtigt trykke et kort stykke ned. Markér stedet, og kontrollér det efter cirka 24 timer. Er jorden løftet igen, er det tegn på, at gangen er blevet benyttet og genåbnet.",
+          "Indsatsen starter altid med at finde de gange, der faktisk er i brug. Vi ser efter nyligt opståede skud og sammenligner området fra dag til dag — der er ingen grund til at bruge tid på forladte gange.",
+          "Er du i tvivl, om en gang er aktiv, kan du forsigtigt trykke et kort stykke af en hævet gang ned og kontrollere stedet efter cirka 24 timer. Er jorden løftet igen, er gangen i brug. Den slags viden bruger vi til at sætte ind de rigtige steder.",
         ],
-        provenance: [`owner ${MA}`, `owner ${MA}`],
+        provenance: ["new", "new"],
       },
       {
-        heading: "Sæt fælden",
+        heading: "Sådan sætter vi ind",
         paragraphs: [
-          "Følg altid den valgte models opsætningsvejledning. Åbn kun det nødvendige omkring opsætningsstedet, og undgå at ødelægge de tilstødende gange. Markér placeringen, og hold børn og kæledyr væk.",
-          "Tilse fælden mindst én gang om dagen. Flyt til en anden aktiv passage, hvis den oprindelige placering ikke bliver brugt.",
-          "Andre muldvarpe kan senere overtage et eksisterende gangsystem. Nye skud efter en periode uden aktivitet er derfor anledning til en ny undersøgelse. Har du brug for hjælp til vurderingen, kan du skrive til os.",
+          "Vi opsætter fælder i de aktive gange og følger op, indtil dyret er fanget. Arbejdet udføres efter gældende regler for bekæmpelse af muldvarpe og mosegrise, og vi holder børn og kæledyr i mente, når vi vælger placeringer.",
+          "Andre muldvarpe kan senere overtage et eksisterende gangsystem. Nye skud efter en periode uden aktivitet er derfor anledning til en ny undersøgelse — skriv til os, så kigger vi på det.",
         ],
-        provenance: [`owner ${MA}`, `owner ${MA}`, `owner ${MA}`],
+        provenance: ["new", `owner ${MA}`],
       },
       {
         heading: "Forveksles med",

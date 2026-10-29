@@ -9,7 +9,6 @@ export type OrderSelection = {
   pest: string;
   extraPests: string[];
   property: string;
-  severity: string;
   area: string | null;
   count: string | null;
   houses: number;
@@ -110,7 +109,6 @@ export default function OrderModal({
   const details = [
     { label: "Skadedyr", value: [selection.pest, ...selection.extraPests].join(", ") },
     { label: "Ejendomstype", value: selection.property },
-    { label: "Grad af angreb", value: selection.severity },
     ...(selection.area ? [{ label: "Areal", value: selection.area }] : []),
     ...(selection.count ? [{ label: "Antal", value: selection.count }] : []),
     ...(selection.houses > 1 ? [{ label: "Antal huse", value: String(selection.houses) }] : []),

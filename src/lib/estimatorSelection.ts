@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import type { PropertyType, Severity } from "./pricing";
+import type { PropertyType } from "./pricing";
 
 /**
  * The estimator owns its input state, but the contact section below it needs
@@ -7,12 +7,20 @@ import type { PropertyType, Severity } from "./pricing";
  * context would turn Estimator inside out for one string, so the selections
  * live in a module-level store instead: Estimator publishes during render,
  * the shallow guard makes repeated publishes free, and Contact subscribes.
+ *
+ * Every selection carries the contextKey of the page that produced it, so a
+ * contact form only picks it up when the visitor used the calculator on that
+ * same page. After navigation the stale selection is ignored and the form
+ * falls back to the simple current-page draft.
  */
 export type EstimatorSelection = {
+  /** The priced pest's slug, e.g. "myrer". */
+  pestSlug: string;
   pestLabel: string;
+  /** "home", "service:<slug>" or "species:<service>:<slug>". */
+  contextKey: string;
   m2: number;
   property: PropertyType;
-  severity: Severity;
   /** The matched postnummer and its town, e.g. "8800" / "Viborg". null until
       four digits we know have been typed. */
   postcode: string | null;
@@ -25,6 +33,10 @@ export type EstimatorSelection = {
   price: string | null;
   /** The same price as a number, for the packages band. null when quoted. */
   amount: number | null;
+  /** Rooms or nests for the main pest, where it is priced that way. */
+  count: number | null;
+  /** More pests on the same visit, with their own rooms or nests. */
+  extras: { slug: string; label: string; count: number | null }[];
   /** The owner's published spring-and-autumn package for this pest, if any. */
   packageAmount: number | null;
   /** True once the visitor has touched any calculator input themselves. */
@@ -41,18 +53,28 @@ function subscribe(fn: () => void) {
   };
 }
 
+function extrasEqual(
+  a: EstimatorSelection["extras"],
+  b: EstimatorSelection["extras"],
+): boolean {
+  return a.length === b.length && a.every((x, i) => x.slug === b[i]!.slug && x.label === b[i]!.label && x.count === b[i]!.count);
+}
+
 export function publishEstimatorSelection(next: EstimatorSelection) {
   if (
     current &&
+    current.pestSlug === next.pestSlug &&
     current.pestLabel === next.pestLabel &&
+    current.contextKey === next.contextKey &&
     current.m2 === next.m2 &&
     current.property === next.property &&
     current.postcode === next.postcode &&
     current.town === next.town &&
     current.houses === next.houses &&
-    current.severity === next.severity &&
     current.price === next.price &&
     current.amount === next.amount &&
+    current.count === next.count &&
+    extrasEqual(current.extras, next.extras) &&
     current.packageAmount === next.packageAmount &&
     current.touched === next.touched
   ) {

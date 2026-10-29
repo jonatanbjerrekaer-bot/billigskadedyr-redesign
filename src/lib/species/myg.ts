@@ -44,9 +44,9 @@ const articles: SpeciesArticle[] = [
           "Undersøg underskåle, spande, presenninger, legetøj og andre steder, hvor vand bliver stående. Tøm unødvendige beholdere, og opbevar dem, så de ikke fyldes igen. Dæk opsamlet regnvand på en måde, der passer til beholderen. Ændr ikke naturlige vandhuller eller beskyttet natur som et gør-det-selv-tiltag mod myg.",
           "Et intakt insektnet gør det muligt at lufte ud med mindre indflyvning. Kontrollér kanter, samlinger og huller. En god netdug hjælper kun, hvis myggene ikke kan komme rundt om den.",
           "Ved ophold ude kan dækkende tøj være en praktisk del af beskyttelsen. Et myggemiddel skal være beregnet til personen og anvendelsesstedet; alder, påføring og gentagelse følger etiketten.",
-          "En almindelig fluefælde eller frugtfluevæske er ikke automatisk en myggeløsning. Se efter, hvilke insekter produktet faktisk er beregnet til. Der er ikke grundlag for at love en myggefri have, men en målrettet indsats giver bedre forudsætninger end tilfældig behandling af hele udearealet.",
+          "En almindelig fluefælde eller frugtfluevæske er ikke automatisk en myggeløsning. Der er ikke grundlag for at love en myggefri have, men en målrettet indsats giver bedre forudsætninger end tilfældig behandling af hele udearealet. Kommer myggene igen, selvom du har tømt alt stillestående vand, sidder ynglestedet et sted, du ikke har fundet — der hjælper vi med at lede.",
         ],
-        provenance: [`owner ${MY1}`, `owner ${MY1}`, `owner ${MY1}`, `owner ${MY1}`],
+        provenance: [`owner ${MY1}`, `owner ${MY1}`, `owner ${MY1}`, "new"],
       },
       {
         heading: "Forveksles med",

@@ -8,16 +8,16 @@ import { homeHref } from "./ui/Cta";
  * "hvad koster en skadedyrsbekæmper"), because FAQ answers are what Google
  * lifts into featured snippets. Kept to 2-4 sentences for the same reason.
  *
- * The DIY-vs-professional entry is a Danish take on
- * gogreenpestcontrol.com/professional-vs-diy-pest-control/ — same decision
- * framing (cost, safety, recurrence), written from scratch for a Danish reader.
+ * The first entry carries the site's one-treatment positioning: a single
+ * professional treatment is enough in the vast majority of cases, and a rare
+ * second one is still cheaper than the competitors'.
  */
 type FaqItem = { q: string; a: string; cta?: { href: string; label: string } };
 
 const ITEMS: FaqItem[] = [
   {
-    q: "Skal jeg vælge gør-det-selv eller en professionel skadedyrsbekæmper?",
-    a: "Gør-det-selv virker bedst på små, tidlige angreb: enkelte myrer, fluer eller et par sølvfisk. Her koster de rette midler typisk under 200 kr., og du kan handle med det samme. Professionel skadedyrsbekæmpelse betaler sig, når problemet er vendt tilbage mere end én gang, når du ikke kan finde reden, eller når det gælder rotter, væggelus eller borebiller. De kræver godkendte midler, adgang til hulrum og dokumentation. Et halvt udført forsøg gør ofte problemet dyrere at løse bagefter.",
+    q: "Hvornår skal jeg kontakte en professionel skadedyrsbekæmper?",
+    a: "Kontakt os, når problemet vender tilbage, når du ikke kan finde kilden, eller når det gælder rotter, væggelus eller borebiller. De kræver godkendte midler, adgang til hulrum og dokumentation. Én professionel behandling er nok i langt de fleste tilfælde — og skulle der mod forventning være brug for endnu en, er den stadig billigere end hos konkurrenterne.",
     cta: { href: "#pest", label: "Find dit skadedyr" },
   },
   {

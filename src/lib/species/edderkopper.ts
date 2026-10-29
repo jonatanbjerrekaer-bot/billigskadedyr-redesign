@@ -53,10 +53,10 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Hvis du vil fjerne en enkelt edderkop uden direkte berøring, kan du bruge en egnet beholder og et stift stykke papir. Arbejd roligt, og sørg for, at beholderen er stor nok til ikke at klemme benene.",
           "Gør støvsugeren til din bedste ven, og kom godt ned i alle fodlister og revner, da det ofte er der, en edderkop opholder sig. Husk også at komme op i højden og så vidt muligt få fjernet støv og spindelvæv i alle kroge og hjørner.",
-          "Til mindre bekæmpelse, som når det kun drejer sig om en enkelt edderkop eller to, kan du bruge et insektmiddel fra webshoppen, både til bekæmpelse og forebyggelse.",
-          "Normalt vil det ikke være nødvendigt at behandle indendørs, da edderkopperne ikke kun er inde, men bevæger sig ind og ud flere gange dagligt. Har du mange år efter år, giver det mening at behandle udenfor to gange årligt, forår og efterår, langs tagrender, udhæng, vinduer og døre.",
+          "Er der kun tale om en enkelt edderkop eller to, er det sjældent et behandlingsbehov i sig selv. Kommer de igen år efter år, eller er der mange af dem, er en professionel udendørs behandling vejen frem.",
+          "Normalt vil det ikke være nødvendigt at behandle indendørs, da edderkopperne ikke kun er inde, men bevæger sig ind og ud flere gange dagligt. Vi behandler udenfor langs tagrender, udhæng, vinduer og døre — og én behandling holder normalt hele sæsonen.",
         ],
-        provenance: [SHOP3, SHOP1, SHOP1, PRO],
+        provenance: [SHOP3, SHOP1, "new", PRO],
       },
       {
         heading: "Forveksles med",
@@ -113,9 +113,9 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Gør støvsugeren til din bedste ven, og kom op i højden. Få fjernet støv og spindelvæv i alle kroge og hjørner, så den ikke får lov at blive siddende.",
           "Spind kan være forladte og blive siddende længe. Rengør de relevante områder og se, hvor der opstår nyt spind. Det giver et bedre billede af den aktuelle aktivitet end at tælle alle gamle tråde på én gang.",
-          "Vil du holde dem væk fra vindueskarme og hjørner, kan et insektmiddel fra webshoppen være nok. Edderkopper kan være særligt generende i opgange, fællesarealer og erhvervslokaler, og der tilbyder vi faste aftaler.",
+          "Kommer edderkopperne igen, efter at du har gjort rent, sidder kilden et sted, rengøring ikke når. Så er en professionel behandling den langtidsholdbare løsning. Edderkopper kan være særligt generende i opgange, fællesarealer og erhvervslokaler — der lægger vi gerne en løsning, der passer til jer.",
         ],
-        provenance: [SHOP1, SHOP3, "owner+new https://billigskadedyrprof.dk/service/edderkopper/"],
+        provenance: [SHOP1, SHOP3, "new"],
       },
       {
         heading: "Forveksles med",
@@ -171,10 +171,10 @@ const articles: SpeciesArticle[] = [
         heading: "Sådan kommer du af med den",
         paragraphs: [
           "Vinduer og døre er gode steder at begynde, når edderkopper og spind vender tilbage. Rengør karme, false og tilgængelige hjørner, og se efter huller i insektnet og mellemrum langs kanterne.",
-          "Overvej, om lyset behøver at være tændt hele natten, og om placering eller styring kan ændres uden at forringe sikkerhed og adgang. Et insektmiddel fra webshoppen langs vinduer og døre hjælper på en lille flade.",
-          "Er huset dækket af spind hvert år, sprøjter vi hække, buske, træer, stakit, havelamper og møbler, samt rundt ved tagrender, udhæng, vinduer, døre og væglamper. Behandlingen gentages forår og efterår. Efter behandlingen skal der ikke vaskes vinduer eller hække de næste 14 dage, så midlet bliver siddende. Man kan aldrig blive 100% fri for edderkopper, men vi kan holde bestanden betydeligt nede.",
+          "Overvej, om lyset behøver at være tændt hele natten, og om placering eller styring kan ændres uden at forringe sikkerhed og adgang. Gør det ikke en forskel, behandler vi målrettet langs vinduer og døre.",
+          "Er huset dækket af spind hvert år, sprøjter vi hække, buske, træer, stakit, havelamper og møbler, samt rundt ved tagrender, udhæng, vinduer, døre og væglamper. Én behandling er nok i langt de fleste tilfælde. Efter behandlingen skal der ikke vaskes vinduer eller hække de næste 14 dage, så midlet bliver siddende. Man kan aldrig blive 100% fri for edderkopper, men vi kan holde bestanden betydeligt nede.",
         ],
-        provenance: [WIN, `${SHOP3} (+ new: insektmiddel fra webshoppen)`, PRO],
+        provenance: [WIN, "new", PRO],
       },
     ],
     sources: [

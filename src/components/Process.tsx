@@ -8,8 +8,8 @@ const STEPS = [
     desc: "Vi ser, hvor slemt det er, og hvad der skal til. Prisen får du, før der sker noget.",
   },
   {
-    title: "Vi gør arbejdet og følger op",
-    desc: "Du får behandlingen på skrift bagefter. Vi følger op, så det ikke kommer igen.",
+    title: "Vi gør arbejdet — i ét besøg",
+    desc: "Behandlingen bliver udført færdig, mens vi er hos dig, og du får skriftlig besked om, hvad der er gjort. I langt de fleste tilfælde er dét nok, og du får klare instrukser til, hvad du selv skal gøre bagefter.",
   },
 ];
 

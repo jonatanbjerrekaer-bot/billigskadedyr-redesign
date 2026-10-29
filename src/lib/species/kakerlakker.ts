@@ -52,10 +52,10 @@ const articles: SpeciesArticle[] = [
         paragraphs: [
           "Tag et skarpt foto, hvis du kan gøre det uden at sprede dyret. Notér størrelse, tidspunkt og præcis placering. Hvis et eksemplar kan opbevares sikkert i en lukket beholder til identifikation, giver det et bedre grundlag end kun at beskrive noget som en brun bille.",
           "Luk fødevarer, fjern krummer og fedtrester, og udbedr tilgængelige vandspild. Tøm affald, og undgå, at opvask og madrester står fremme natten over.",
-          "Egnede insektfælder fra webshoppen kan hjælpe med at registrere, hvor kakerlakkerne bevæger sig. En tilfældig spraybehandling af gulvet fortæller derimod hverken, hvor dyrene opholder sig, eller om der findes aktivitet i naboområder.",
+          "Overvågning med fælder kan registrere, hvor kakerlakkerne bevæger sig, men fortæller sjældent hele omfanget. En tilfældig spraybehandling af gulvet fortæller hverken, hvor dyrene opholder sig, eller om der findes aktivitet i naboområder.",
           "Ved bekræftede tyske kakerlakker er en tidlig professionel indsats relevant, især ved gentagne fund eller aktivitet i flere rum. Gelen, der bruges, er forbeholdt professionel skadedyrsbekæmpelse, og behandlingen kræver opfølgning, fordi en kort periode uden observationer ikke alene er dokumentation for, at opgaven er afsluttet.",
         ],
-        provenance: [GUIDE, FIRST, "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats-2/", GUIDE],
+        provenance: [GUIDE, FIRST, "new", GUIDE],
       },
       {
         heading: "Forveksles med",
