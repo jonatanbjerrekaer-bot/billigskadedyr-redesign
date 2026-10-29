@@ -198,6 +198,7 @@ byg ikke parallelle varianter.
 | `Select` | Dropdowns; bliver bundsheet på telefon | `Select.tsx` + react-aria listbox |
 | `SegmentTrack` | Segmented control med glidende navy-thumb | `ui/SegmentTrack.tsx` |
 | `Estimator` | Prisberegneren. Inkluderet-listen og "kunne ændre"-listen afledes af svarene | `Estimator.tsx` |
+| `OrderModal` | Bestilling med kontaktoplysninger og live opsummering fra beregneren. Fuldt skærmbillede på telefon | `OrderModal.tsx` |
 | `PestQuickSelect` | Skadedyrsvælger med søgning | `PestQuickSelect.tsx` |
 | `ServicePage` / `ServiceIndexPage` | Skabelon for alle 22 servicesider | `ServicePage.tsx` |
 | `SpeciesCards` / `SpeciesPage` | Artikler under hver service | `SpeciesCards.tsx` |
@@ -262,6 +263,8 @@ fulde deploy-rutine.
 | 2026-10-28 | Grad af angreb påvirker prisen: kraftig lægger et tredje besøg til (halv behandlingspris, skal bekræftes af ejeren), let koster det samme som normal. Besøgslinjen under "Prisen dækker" åbner grad af angreb, og den dobbelte linje om ekstra besøg under "Det kan ændre prisen" er fjernet |
 | 2026-10-28 | "Tilpas beregningen" er lukket som standard. "op til 250 m²" i prislinjen er et link, der åbner den ved arealet, og prislinjen siger hus, lejlighed eller erhvervslokale efter boligtypen |
 | 2026-10-28 | Prisberegnerens åbnere (flere skadedyr, kørsel, naboer) er rækker som "Tilpas beregningen": titel, én dæmpet sætning og et plus, adskilt af hårlinjer, så de og "Tilpas beregningen" står som én liste |
+| 2026-10-29 | Pris-chippets primære handling åbner bestillingsflowet direkte. Popuppen viser den vejledende pris og oplyser, at kunden først betaler, når arbejdet er udført. På telefon forsvinder chippet, når resultatets bestillingsknap er synlig, og de dobbelte kontaktknapper i resultatet er fjernet, fordi telefonbjælken har de samme handlinger. Prispanelet er nu en fuldbredde-forlængelse af telefonbjælken med fælles kanter, ingen mellemrum og ingen skygge |
+| 2026-10-29 | Bestil tilbud er beregnerens eneste grønne primærknap. Skriv til os og Ring er sekundære knapper med kontur, så hierarkiet er tydeligt på både computer og telefon. Telefonbjælkens grønne kontaktknap skifter også til sekundær stil, mens resultatet eller prispanelet er synligt |
 
 Ændrer du designet, opdaterer du tabellerne og historikken i samme
 commit.

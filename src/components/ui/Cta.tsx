@@ -48,10 +48,10 @@ export default function Cta({
 }
 
 /** The pair used under the price: mail first, phone second. */
-export function ContactCtas({ className = "" }: { className?: string }) {
+export function ContactCtas({ className = "", emphasize = true }: { className?: string; emphasize?: boolean }) {
   return (
     <div className={`actions ${className}`}>
-      <Cta href={CONTACT_HREF} variant="primary">
+      <Cta href={CONTACT_HREF} variant={emphasize ? "primary" : "secondary"}>
         Skriv til os
       </Cta>
       <Cta href={TEL} variant="secondary">

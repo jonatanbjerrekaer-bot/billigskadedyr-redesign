@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Select from "./ui/Select";
 import SegmentTrack from "./ui/SegmentTrack";
+import OrderModal, { type OrderRequest, type OrderSelection } from "./OrderModal";
 import { ContactCtas, CONTACT_HREF, homeHref } from "./ui/Cta";
 import {
   publishEstimatorSelection,
@@ -243,6 +244,31 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   });
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
+  const [orderOpen, setOrderOpen] = useState(false);
+  const orderSelection: OrderSelection | null = quote.kind === "fixed" ? {
+    pest: pest.label,
+    extraPests: extraPests.map((p) => {
+      const extraUnit = unitOf(p);
+      const extraCount = extraCounts[p.slug] ?? 1;
+      return extraUnit ? `${p.label} (${extraCount > 10 ? "10+" : extraCount} ${extraUnit})` : p.label;
+    }),
+    property: PROPERTIES.find((item) => item.id === property)?.label ?? property,
+    severity: SEVERITIES.find((item) => item.id === effSeverity)?.label ?? effSeverity,
+    area: hasArea && !multi ? `${effM2} m²` : null,
+    count: unit ? `${count > 10 ? "10+" : count} ${unit}` : null,
+    houses: quote.houses,
+    postcode: quote.place ? `${quote.place.nr} ${quote.place.by}` : postcode || null,
+    price,
+    priceLabel: `${quote.overArea ? "Fra " : ""}${dkr(price)}${quote.postcodeState !== "ok" ? " + kørsel" : ""}`,
+    totalLabel: quote.houses > 1 ? `${dkr(quote.total)} i alt for ${quote.houses} huse` : null,
+    caption: quote.caption,
+    driving: quote.driving,
+  } : null;
+  const submitOrder = (_order: OrderRequest) => {
+    // The prototype has no order endpoint. Keep the same testable async contract
+    // as InquiryForm until the real endpoint is connected.
+    return new Promise<void>((resolve) => window.setTimeout(resolve, 900));
+  };
 
   // Shneiderman 6: easy reversal. Anyone who has fiddled the inputs can get
   // back to the starting point without reloading the page.
@@ -362,40 +388,36 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
   const sectionRef = useRef<HTMLElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   const [chipOn, setChipOn] = useState(false);
+  const [orderInView, setOrderInView] = useState(false);
   useEffect(() => {
     const section = sectionRef.current;
     const result = resultRef.current;
-    // The card is taller than a phone screen, so its edges being on screen
-    // says nothing about the price — watch the price line itself.
+    // The card is taller than a phone screen, so watch the two elements that
+    // make the floating chip redundant: its price and its order button.
     const priceEl = result?.querySelector<HTMLElement>(".estimator__price");
+    const orderEl = result?.querySelector<HTMLElement>(".estimator__order");
     if (!section || !result || !priceEl) return;
-    let sectionIn = false;
-    let priceIn = false;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const vh = window.innerHeight;
-        for (const e of entries) {
-          const r = e.boundingClientRect;
-          if (e.target === section) {
-            // "In the section": any meaningful band of it is on screen.
-            sectionIn = r.top < vh * 0.8 && r.bottom > vh * 0.2;
-          } else {
-            // The price sits at the top of the card, so the card counts as
-            // visible once its top is comfortably inside the viewport.
-            priceIn = r.bottom > vh * 0.1 && r.top < vh * 0.65;
-          }
-        }
-        setChipOn(sectionIn && !priceIn);
-      },
-      { threshold: [0, 0.2, 0.5, 0.8] },
-    );
+    const sync = () => {
+      const vh = window.innerHeight;
+      const sectionRect = section.getBoundingClientRect();
+      const priceRect = priceEl.getBoundingClientRect();
+      const orderRect = orderEl?.getBoundingClientRect();
+      const sectionIn = sectionRect.top < vh * 0.8 && sectionRect.bottom > vh * 0.2;
+      const priceIn = priceRect.bottom > vh * 0.1 && priceRect.top < vh * 0.65;
+      const orderIn = orderRect ? orderRect.bottom > vh * 0.1 && orderRect.top < vh * 0.9 : false;
+      setOrderInView(orderIn);
+      setChipOn(sectionIn && !priceIn && !orderIn);
+    };
+    const io = new IntersectionObserver(sync, { threshold: [0, 0.2, 0.5, 0.8] });
     io.observe(section);
     io.observe(priceEl);
+    if (orderEl) io.observe(orderEl);
+    sync();
     return () => io.disconnect();
   }, []);
 
   return (
-    <section id="estimator" ref={sectionRef} className="section section--s estimator estimator--calc">
+    <section id="estimator" ref={sectionRef} className={`section section--s estimator estimator--calc${orderInView ? " estimator--order-visible" : ""}`}>
       {/*
         Phone layout: head, price, controls (newsprint.css orders the flex
         column under 60rem). The price is the product — "et vejledende beløb
@@ -1021,9 +1043,23 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           </div>
 
 
-          <ContactCtas />
+          {orderSelection && (
+            <button type="button" className="btn btn--primary btn--block estimator__order" onClick={() => setOrderOpen(true)}>
+              Bestil tilbud
+            </button>
+          )}
+          <ContactCtas className="estimator__contact" emphasize={false} />
         </div>
       </div>
+
+      {orderSelection && (
+        <OrderModal
+          open={orderOpen}
+          selection={orderSelection}
+          onClose={() => setOrderOpen(false)}
+          onSubmit={submitOrder}
+        />
+      )}
 
       {/*
         Phone-only companion (visibility from the observer above): chosen
@@ -1040,13 +1076,24 @@ export default function Estimator({ initialPest }: { initialPest?: string } = {}
           <span className="estimator__chip-pest" title={pest.label}>
             {pest.label}
           </span>
-          <a
-            href={homeHref(CONTACT_HREF)}
-            className="btn btn--primary estimator__chip-cta"
-            tabIndex={chipOn ? 0 : -1}
-          >
-            Skriv til os
-          </a>
+          {orderSelection ? (
+            <button
+              type="button"
+              className="btn btn--primary estimator__chip-cta"
+              tabIndex={chipOn ? 0 : -1}
+              onClick={() => setOrderOpen(true)}
+            >
+              Bestil tilbud
+            </button>
+          ) : (
+            <a
+              href={homeHref(CONTACT_HREF)}
+              className="btn btn--primary estimator__chip-cta"
+              tabIndex={chipOn ? 0 : -1}
+            >
+              Skriv til os
+            </a>
+          )}
         </div>
         <span className="estimator__chip-price">
           {quote.kind === "fixed" ? (

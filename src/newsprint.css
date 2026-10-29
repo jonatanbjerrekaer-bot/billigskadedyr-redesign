@@ -366,6 +366,68 @@ html:has(.np) { background: var(--color-paper); }
 .np .form__chips button { display: grid; place-items: center; width: 28px; height: 28px; border: 0; background: none; color: var(--color-muted); }
 .np .form__textlink { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; border: 0; background: none; padding: 0; font-size: var(--text-sm); color: var(--color-accent); text-decoration: underline 1px; text-underline-offset: 0.16em; }
 
+.np .estimator__order { margin-bottom: var(--space-sm); }
+
+/* The order dialog keeps the calculated job in view while the customer types.
+   Native dialog supplies focus trapping, Escape and focus return; a single
+   paper surface keeps the estimator, rather than the chrome, as the focus. */
+.np .order-modal {
+  width: min(42rem, calc(100% - var(--space-xl)));
+  max-width: none;
+  max-height: calc(100dvh - var(--space-xl));
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: var(--space-3xl) 40vh;
+  border: var(--rule-hair) solid var(--color-rule-2);
+  border-radius: var(--radius-panel);
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  font-family: var(--font-body);
+}
+.np .order-modal::backdrop { background: rgb(20 24 20 / 0.55); }
+.np .order-modal__panel { position: relative; padding: var(--space-xl); }
+.np .order-modal__close {
+  position: absolute; top: var(--space-sm); right: var(--space-sm);
+  display: grid; place-items: center; width: 44px; height: 44px;
+  border: 0; border-radius: var(--radius-control); background: transparent; color: var(--color-ink); cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) { .np .order-modal__close:hover { background: var(--color-paper-2); } }
+.np .order-modal__head { padding-right: var(--space-2xl); }
+.np .order-modal__head h2, .np .order-modal__success h2 { font-size: var(--text-2xl); }
+.np .order-modal__head p { margin-top: var(--space-xs); max-width: 46ch; }
+.np .order-modal__summary {
+  margin-top: var(--space-lg); padding: var(--space-md);
+  border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-control);
+  background: var(--color-paper-2);
+}
+.np .order-modal__price { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs); }
+.np .order-modal__price > span { font-size: var(--text-sm); color: var(--color-muted); }
+.np .order-modal__price strong { font: 800 var(--text-xl)/1.1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.np .order-modal__summary > p { margin-top: var(--space-2xs); }
+.np .order-modal__summary dl { margin: var(--space-sm) 0 0; border-top: var(--rule-hair) solid var(--color-rule); }
+.np .order-modal__summary dl > div { display: grid; grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr); gap: var(--space-sm); padding-block: var(--space-2xs); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.np .order-modal__summary dt { font-size: var(--text-sm); color: var(--color-muted); }
+.np .order-modal__summary dd { margin: 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-ink); overflow-wrap: anywhere; }
+.np .order-modal__form { margin-top: var(--space-lg); }
+.np .order-modal__submit { align-self: flex-start; min-width: 12rem; }
+.np .order-modal__error { padding: var(--space-sm); border: var(--rule-hair) solid var(--color-error); color: var(--color-error); }
+.np .order-modal__error a { color: inherit; text-underline-offset: 0.16em; }
+.np .order-modal__success { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-md); padding-block: var(--space-2xl); }
+.np .order-modal__success p { max-width: 46ch; }
+.np .order-modal__eyebrow { font-weight: 700; color: var(--color-accent); }
+@media (max-width: 40rem) {
+  .np .order-modal {
+    width: 100%; height: 100dvh; max-height: none; margin: 0;
+    border: 0; border-radius: 0;
+  }
+  .np .order-modal__panel { min-height: 100%; padding: var(--space-lg) var(--gutter) calc(var(--space-xl) + env(safe-area-inset-bottom, 0px)); }
+  .np .order-modal__head h2, .np .order-modal__success h2 { font-size: var(--text-xl); }
+  .np .order-modal__price { align-items: flex-start; flex-direction: column; }
+  .np .order-modal__submit { width: 100%; }
+}
+
 /* ------------------------------------------------------------- footer: the mast */
 .np .foot { padding-block: var(--section-gap-s) var(--space-xl); border-top: var(--rule-hair) solid var(--color-rule-2); box-shadow: inset 0 3px 0 var(--color-paper), inset 0 4px 0 var(--color-rule-2); }
 .np .foot__mark { display: flex; align-items: center; gap: var(--space-md); font: 700 var(--text-2xl)/1 var(--font-display); letter-spacing: var(--tracking-display); }
@@ -465,19 +527,18 @@ html:has(.np) { background: var(--color-paper); }
   .np .phonebar .btn--primary { flex-grow: 1; }
   .np { padding-bottom: 80px; }
 
-  /* The calculator's price chip: chosen pest, live price and a CTA while the
-     controls are in use and the result card is scrolled out. It floats just
-     above the phone bar (z 380, so the open picker's scrim at 390 covers it)
-     and pops up rather than appearing. */
+  /* The calculator's price panel extends the phone bar while the controls are
+     in use and the result card is scrolled out. Full-width shared edges make
+     the two read as one dock rather than two competing floating panels. */
   .np .estimator__chip {
     display: flex; flex-direction: column; gap: var(--space-2xs);
-    position: fixed; left: var(--gutter); right: var(--gutter);
-    bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+    position: fixed; left: 0; right: 0;
+    bottom: calc(77px + env(safe-area-inset-bottom, 0px));
     z-index: 380;
-    padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-sm);
+    padding: var(--space-sm) var(--gutter);
     background: var(--color-paper); color: var(--color-ink);
-    border: 1px solid var(--color-rule-2); border-radius: var(--radius-control);
-    box-shadow: 0 10px 30px rgb(0 0 0 / 0.16);
+    border: 1px solid var(--color-rule-2); border-inline: 0; border-bottom: 0;
+    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
     opacity: 0; transform: translateY(10px); pointer-events: none;
     transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
   }
@@ -497,6 +558,13 @@ html:has(.np) { background: var(--color-paper); }
 @media (max-width: 40rem) {
   .np .index__list { columns: 1; }
   .np .form__pair { grid-template-columns: minmax(0, 1fr); }
+  /* Ordering is the primary action whenever either order button is present. */
+  body:has(.estimator--order-visible) .np .phonebar .btn--primary,
+  body:has(.estimator__chip.is-on) .np .phonebar .btn--primary {
+    background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink);
+  }
+  /* The fixed phone bar already carries these two contact actions. */
+  .np .estimator__contact { display: none; }
   .np .actions .btn { flex-grow: 1; }
   .np .wordmark { font-size: 1.375rem; }
   .np .wordmark img { width: 32px; }
