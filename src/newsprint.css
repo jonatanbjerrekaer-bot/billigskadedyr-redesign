@@ -367,6 +367,7 @@ html:has(.np) { background: var(--color-paper); }
 .np .form__textlink { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; border: 0; background: none; padding: 0; font-size: var(--text-sm); color: var(--color-accent); text-decoration: underline 1px; text-underline-offset: 0.16em; }
 
 .np .estimator__order { margin-bottom: var(--space-sm); }
+.np .estimator__contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 /* The order dialog keeps the calculated job in view while the customer types.
    Native dialog supplies focus trapping, Escape and focus return; a single

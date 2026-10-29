@@ -264,7 +264,7 @@ fulde deploy-rutine.
 | 2026-10-28 | "Tilpas beregningen" er lukket som standard. "op til 250 m²" i prislinjen er et link, der åbner den ved arealet, og prislinjen siger hus, lejlighed eller erhvervslokale efter boligtypen |
 | 2026-10-28 | Prisberegnerens åbnere (flere skadedyr, kørsel, naboer) er rækker som "Tilpas beregningen": titel, én dæmpet sætning og et plus, adskilt af hårlinjer, så de og "Tilpas beregningen" står som én liste |
 | 2026-10-29 | Pris-chippets primære handling åbner bestillingsflowet direkte. Popuppen viser den vejledende pris og oplyser, at kunden først betaler, når arbejdet er udført. På telefon forsvinder chippet, når resultatets bestillingsknap er synlig, og de dobbelte kontaktknapper i resultatet er fjernet, fordi telefonbjælken har de samme handlinger. Prispanelet er nu en fuldbredde-forlængelse af telefonbjælken med fælles kanter, ingen mellemrum og ingen skygge |
-| 2026-10-29 | Bestil tilbud er beregnerens eneste grønne primærknap. Skriv til os og Ring er sekundære knapper med kontur, så hierarkiet er tydeligt på både computer og telefon. Telefonbjælkens grønne kontaktknap skifter også til sekundær stil, mens resultatet eller prispanelet er synligt |
+| 2026-10-29 | Bestil tilbud er beregnerens eneste grønne primærknap. Skriv til os og Ring er sekundære knapper med kontur, så hierarkiet er tydeligt på både computer og telefon. Telefonbjælkens grønne kontaktknap skifter også til sekundær stil, mens resultatet eller prispanelet er synligt. På computer deler de to sekundære knapper hele bredden under primærknappen i to lige store kolonner |
 
 Ændrer du designet, opdaterer du tabellerne og historikken i samme
 commit.
