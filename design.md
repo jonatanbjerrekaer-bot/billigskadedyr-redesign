@@ -208,7 +208,7 @@ byg ikke parallelle varianter.
 | `Faq` | Accordion (`.faq__item`, `.disclosure-trigger`) | `Faq.tsx` |
 | `Reviews` / `TrustSeal` | Sociale beviser — kun reelle tal | `Reviews.tsx` |
 | `MobileCtaBar` | Pris-chip fast på telefonbjælken | `MobileCtaBar.tsx` |
-| `CookieBanner` | Cookie-kort nederst til venstre | `CookieBanner.tsx` |
+| `ConsentBox` | Cookie-kort nederst til venstre | `ConsentBox.tsx` |
 | `Reveal` | Engangs-indgangsanimering | `ui/Reveal.tsx` |
 
 Z-lag: sticky-nav 300 · mobil CTA-bar 300 · sheets 390–399 (scrim 390) ·

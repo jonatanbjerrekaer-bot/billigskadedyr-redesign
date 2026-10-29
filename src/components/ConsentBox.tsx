@@ -14,7 +14,7 @@ const B = import.meta.env.BASE_URL;
  * easy as accepting (Datatilsynet). It enters with a short rise and fade, and
  * not at all under reduced motion. The footer's "Cookieindstillinger" reopens it.
  */
-export default function CookieBanner() {
+export default function ConsentBox() {
   const consent = useConsent();
   const [reopened, setReopened] = useState(false);
 
@@ -40,19 +40,19 @@ export default function CookieBanner() {
   }
 
   return (
-    <section role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-text" className="np cookiebox">
-      <div className="cookiebox__head">
-        <span className="cookiebox__icon" aria-hidden="true">
+    <section role="dialog" aria-labelledby="np-choice-title" aria-describedby="np-choice-text" className="np np-choice">
+      <div className="np-choice__head">
+        <span className="np-choice__icon" aria-hidden="true">
           <Cookie size={20} strokeWidth={2} />
         </span>
-        <h2 id="cookie-title">Må vi bruge cookies?</h2>
+        <h2 id="np-choice-title">Må vi bruge cookies?</h2>
       </div>
-      <p id="cookie-text">
+      <p id="np-choice-text">
         Med cookies fra {analyticsToolNames} kan vi se, hvilke sider der bliver læst, og gøre siden bedre. Vi bruger
         dem ikke til reklamer.{" "}
         <a href={`${B}cookiepolitik/`} className="link">Læs mere om cookies</a>
       </p>
-      <div className="cookiebox__actions">
+      <div className="np-choice__actions">
         <button type="button" onClick={() => choose(true)} className="btn btn--primary">
           Ja tak
         </button>
