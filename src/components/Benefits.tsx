@@ -10,8 +10,8 @@ const BENEFITS: { title: string; desc: string }[] = [
     desc: "Vi er uddannede og autoriserede til de midler, opgaven kræver.",
   },
   {
-    title: "Ingen garanti — derfor billigere",
-    desc: "Du betaler ikke for gratis genbesøg, du måske aldrig får brug for. Langt de fleste skal kun behandles én gang.",
+    title: "94 % har kun haft brug for én behandling",
+    desc: "Det er vores tal for 2026. Du betaler ikke for garanti eller genbesøg, du måske aldrig får brug for. Det holder prisen nede.",
   },
   {
     title: "Hurtig og diskret",

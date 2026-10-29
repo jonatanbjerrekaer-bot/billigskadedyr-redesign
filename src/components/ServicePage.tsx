@@ -23,7 +23,7 @@ const B = import.meta.env.BASE_URL;
 const PROMISES: [string, string][] = [
   ["Fast pris, aftalt før vi går i gang", "Du siger ja til et beløb, ikke til et estimat. Det tal ændrer sig ikke undervejs."],
   ["Certificerede teknikere", "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver."],
-  ["Ingen garanti — derfor billigere", "Du betaler ikke for gratis genbesøg, du måske aldrig får brug for. Langt de fleste skal kun behandles én gang."],
+  ["94 % har kun haft brug for én behandling", "Det er vores tal for 2026. Du betaler ikke for garanti eller genbesøg, du måske aldrig får brug for. Det holder prisen nede."],
   ["Du ved, hvem der kommer", "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring."],
   ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel et hvepsebo tæt på en indgang, ringer du bare."],
   ["Vi siger det, hvis du selv kan klare det", "Er angrebet lille, er et middel til omkring 49 kr. ofte nok. Så siger vi det ligeud i stedet for at sende en tekniker."],

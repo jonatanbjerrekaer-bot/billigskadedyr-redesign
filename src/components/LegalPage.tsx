@@ -4,7 +4,7 @@ import Header from "./Header";
 import UspBar from "./UspBar";
 import Footer from "./Footer";
 import MobileCtaBar from "./MobileCtaBar";
-import { CookieSettingsButton } from "./CookieBanner";
+import { CookieSettingsButton } from "./CookieConsent";
 import { tools } from "../lib/analytics";
 import { controller, updated, processors, enquiryRetentionMonths } from "../lib/legal";
 
