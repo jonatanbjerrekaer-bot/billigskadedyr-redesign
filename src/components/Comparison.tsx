@@ -14,11 +14,11 @@ const ROWS: { other: string; us: string }[] = [
   },
   {
     other: "Alt sælges som en opgave for en fagmand",
-    us: "Én professionel behandling er nok i 99 % af tilfældene — du betaler ikke for besøg, du ikke får brug for",
+    us: "Én professionel behandling er nok i 96 % af tilfældene. Du betaler ikke for besøg, du ikke får brug for",
   },
   {
     other: "“Garanti” og dokumentation er med i prisen. Dem, der aldrig får brug for dem, betaler alligevel",
-    us: "Ingen garanti, intet papir. De fleste skal kun behandles én gang — og det kan mærkes på prisen",
+    us: "Ingen garanti, intet papir. I 2026 behandlede vi 96 % af opgaverne med én behandling. Du betaler for den, ikke for besøg du aldrig får brug for",
   },
 ];
 

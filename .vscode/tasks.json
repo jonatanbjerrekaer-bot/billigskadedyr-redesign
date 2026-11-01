@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev: start dev server",
+      "type": "shell",
+      "command": "npm run dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE v.*",
+          "endsPattern": "ready in|Local:"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "install dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "build: site (build + prerender)",
+      "type": "shell",
+      "command": "npm run build:site",
+      "group": "build",
+      "dependsOn": "install dependencies",
+      "dependsOrder": "sequence",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "preview: serve production build",
+      "type": "shell",
+      "command": "npm run preview",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}

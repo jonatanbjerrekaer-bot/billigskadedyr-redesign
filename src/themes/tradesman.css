@@ -348,7 +348,7 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 
 /* ------------------------------------------------ packages: navy band, white tier panels, the recommended one outlined red */
 .np .band--ink { background: var(--color-navy); color: var(--color-paper); }
-.np .band--ink h2, .np .band--ink h3, .np .band--ink .matrix th { color: var(--color-paper); }
+.np .band--ink h2, .np .band--ink h3, .np .band--ink h4, .np .band--ink .matrix th { color: var(--color-paper); }
 .np .band--ink .muted, .np .band--ink .head-split > p { color: var(--color-on-ink-muted); }
 .np .tiers { border: 0; gap: var(--space-md); }
 .np .tier, .np .tier:first-child, .np .tier:last-child { padding: var(--space-xl); background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); }
