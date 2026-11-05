@@ -61,8 +61,11 @@ def serve():
             pass
 
     # Back-to-back runs otherwise die on the previous socket's TIME_WAIT.
-    socketserver.TCPServer.allow_reuse_address = True
-    httpd = socketserver.TCPServer(("127.0.0.1", PORT), Handler)
+    # Threaded: Chromium keeps connections open, and a one-at-a-time server
+    # stalls on the first idle one (the run hung after ~20 pages).
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    socketserver.ThreadingTCPServer.daemon_threads = True
+    httpd = socketserver.ThreadingTCPServer(("127.0.0.1", PORT), Handler)
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
     return httpd
 

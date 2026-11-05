@@ -1743,10 +1743,11 @@ body:has(.np .mast-mobile:not([hidden])) {
     animation: none;
   }
 }
-/* Phone: a slim sheet along the bottom edge instead of a tall card (it was a
-   quarter of the screen and sat on top of the fixed price bar). The price bar
-   waits until the question is answered, which takes a tap. */
-@media (max-width: 40rem) {
+/* Phone and tablet (up to 1024px): a slim sheet along the bottom edge instead
+   of a tall card (it was a quarter of the screen, sat on top of the fixed price
+   bar and, at 1024px, on the hero's pest chips). The price bar waits until the
+   question is answered, which takes a tap. */
+@media (max-width: 64rem) {
   .np.np-choice {
     left: 0;
     right: 0;
