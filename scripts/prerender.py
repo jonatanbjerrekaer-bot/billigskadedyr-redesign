@@ -40,18 +40,31 @@ import cdp  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
-BASE = "/billigskadedyr-redesign/"
+
+
+def detect_base():
+    """The path the build was made for ("/billigskadedyr-redesign/" on GitHub Pages,
+    "/" at a domain root), read from the asset URLs in the built front page so it
+    cannot drift from vite.config.ts."""
+    m = re.search(r'src="([^"]*/)assets/', (DIST / "index.html").read_text())
+    return m.group(1) if m else "/"
+
+
+BASE = detect_base()
 PORT = 8791
 
 
 def serve():
     """dist has to be reachable at its real base path or the assets 404."""
-    stage = pathlib.Path("/tmp/prerender-root")
-    stage.mkdir(exist_ok=True)
-    link = stage / BASE.strip("/")
-    if link.is_symlink():
-        link.unlink()
-    link.symlink_to(DIST)
+    if BASE == "/":
+        stage = DIST
+    else:
+        stage = pathlib.Path("/tmp/prerender-root")
+        stage.mkdir(exist_ok=True)
+        link = stage / BASE.strip("/")
+        if link.is_symlink():
+            link.unlink()
+        link.symlink_to(DIST)
 
     class Handler(http.server.SimpleHTTPRequestHandler):
         def __init__(self, *a, **kw):

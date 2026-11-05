@@ -2,7 +2,7 @@ name: Deploy static site to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, react-router]
   workflow_dispatch:
 
 permissions:
@@ -25,6 +25,16 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      # Every page gets its rendered markup written into its HTML file: the
+      # content is in the source for crawlers, and the page paints on first frame.
+      # Chrome is preinstalled on the runner; scripts/prerender.py drives it over CDP.
+      - name: Prerender pages
+        run: |
+          pip install websockets
+          google-chrome --headless=new --no-sandbox --disable-gpu --remote-debugging-port=9222 about:blank &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:9222/json/version >/dev/null && break; sleep 1; done
+          python3 scripts/prerender.py
+          test "$(grep -rl '<h1' dist --include=index.html | wc -l)" -ge 100
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

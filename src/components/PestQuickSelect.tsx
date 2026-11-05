@@ -117,7 +117,7 @@ export function PestChips({ exclude, list }: { exclude?: string; list?: PestEntr
         <li key={p.slug}>
           <a href={`${import.meta.env.BASE_URL}service/${p.slug}/`}>
             {/* Marked so the router can name it for the flight to the
-                service page hero; see flyPest in lib/router. */}
+                service page hero; see flyPest in lib/linkRouting. */}
             <span data-vt-pest={p.slug}>
               <PestGlyph pest={p} size={24} />
             </span>
