@@ -1743,12 +1743,31 @@ body:has(.np .mast-mobile:not([hidden])) {
     animation: none;
   }
 }
+/* Phone: a slim sheet along the bottom edge instead of a tall card (it was a
+   quarter of the screen and sat on top of the fixed price bar). The price bar
+   waits until the question is answered, which takes a tap. */
 @media (max-width: 40rem) {
   .np.np-choice {
-    left: var(--space-md);
-    right: var(--space-md);
-    bottom: var(--space-md);
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: auto;
+    padding: var(--space-md);
+    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
+  }
+  .np.np-choice h2 {
+    font-size: 1.125rem;
+  }
+  .np.np-choice p {
+    margin-top: var(--space-xs);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .np.np-choice .np-choice__actions {
+    margin-top: var(--space-sm);
+  }
+  body:has(.np-choice) .estimator__chip {
+    visibility: hidden;
   }
 }
 
