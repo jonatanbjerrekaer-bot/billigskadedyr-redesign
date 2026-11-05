@@ -89,7 +89,10 @@ const articles: SpeciesArticle[] = [
           "Flyvehullerne er små og runde, omkring 1 mm, og boremelet er næsten som talkum. Hullerne er mindre end hos almindelig borebille.",
           "Hvis du ser frisk boremel under et træområde, er der stor sandsynlighed for, at angrebet stadig er aktivt. Den nemmeste og mest lavpraktiske løsning er at støvsuge under det berørte træ og efterfølgende holde øje med, om der kommer nyt træmel.",
         ],
-        provenance: ["new", "owner https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/ + https://billigskadedyr.dk/har-du-borebiller-i-traevaerket-det-skal-du-vide/"],
+        provenance: [
+          "new",
+          "owner https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/ + https://billigskadedyr.dk/har-du-borebiller-i-traevaerket-det-skal-du-vide/",
+        ],
       },
       {
         heading: "Sådan kommer du af med den",
@@ -151,7 +154,11 @@ const articles: SpeciesArticle[] = [
           "Mange begår den fejl kun at fokusere på insektmidlet, men uden at løse fugtproblemet kan angrebet vende tilbage. Sørg for god ventilation på loftet, hold luftfugtigheden lav, behandl nyt træ før montering, og inspicér træværket én gang om året.",
           "Er der mange nye flyvehuller hvert år, store områder med svækket træ eller angreb i bærende konstruktioner, bør det vurderes professionelt. Vi vurderer, om det er almindelig borebille eller husbuk, og hvor meget af træet der skal behandles.",
         ],
-        provenance: ["new", GUIDE + " + " + BEH.replace("owner ", ""), "owner+new https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/"],
+        provenance: [
+          "new",
+          GUIDE + " + " + BEH.replace("owner ", ""),
+          "owner+new https://billigskadedyr.dk/den-ultimative-guide-til-borebiller/",
+        ],
       },
       {
         heading: "Forveksles med",

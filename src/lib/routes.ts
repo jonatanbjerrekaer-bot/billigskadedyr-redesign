@@ -20,8 +20,7 @@ const HOME_DESCRIPTION =
   "Vi kommer ud i hele Jylland og på Fyn, ser på det og giver en fast pris, før vi går i gang. Skriv til os, så svarer vi inden for en hverdag.";
 
 /** Species pages are named for the species: that is what someone searching "husedderkop" typed. */
-export const speciesTitle = (a: SpeciesArticle) =>
-  `${a.title ?? a.name}: kendetegn og bekæmpelse | Billigskadedyr.dk`;
+export const speciesTitle = (a: SpeciesArticle) => `${a.title ?? a.name}: kendetegn og bekæmpelse | Billigskadedyr.dk`;
 
 export type RouteInput = {
   slug?: string;

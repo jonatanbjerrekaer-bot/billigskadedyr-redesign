@@ -54,11 +54,7 @@ const ITEMS: FaqItem[] = [
   },
 ];
 
-export default function Faq({
-  items,
-  title,
-  intro,
-}: { items?: FaqItem[]; title?: string; intro?: string } = {}) {
+export default function Faq({ items, title, intro }: { items?: FaqItem[]; title?: string; intro?: string } = {}) {
   const list = items?.length ? items : ITEMS;
   return (
     <section id="faq" className="section">

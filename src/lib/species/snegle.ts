@@ -56,10 +56,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Iberisk_skovsnegl",
-      "https://en.wikipedia.org/wiki/Arion_vulgaris",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Iberisk_skovsnegl", "https://en.wikipedia.org/wiki/Arion_vulgaris"],
   },
   {
     name: "Agersnegl",
@@ -107,10 +104,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Agersnegl",
-      "https://en.wikipedia.org/wiki/Deroceras_reticulatum",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Agersnegl", "https://en.wikipedia.org/wiki/Deroceras_reticulatum"],
   },
   {
     name: "Vinbjergsnegl",
@@ -156,10 +150,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Vinbjergsnegl",
-      "https://www.retsinformation.dk/eli/lta/2021/521",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Vinbjergsnegl", "https://www.retsinformation.dk/eli/lta/2021/521"],
   },
 ];
 

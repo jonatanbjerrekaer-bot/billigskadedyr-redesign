@@ -14,13 +14,7 @@ const NAV_LINKS = [
  * the one action. Sticky, so "Skriv til os" stays one click away all the way
  * down the page; on a phone the bottom bar does that job instead.
  */
-export default function Header({
-  mobileNavOpen,
-  onNavToggle,
-}: {
-  mobileNavOpen: boolean;
-  onNavToggle: () => void;
-}) {
+export default function Header({ mobileNavOpen, onNavToggle }: { mobileNavOpen: boolean; onNavToggle: () => void }) {
   const menuRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const wasOpen = useRef(false);
@@ -74,7 +68,9 @@ export default function Header({
       <div className="container mast-bar__row">
         <a href={homeHref("#top")} className="wordmark" aria-label="Billigskadedyr Prof, til forsiden">
           <img src={`${import.meta.env.BASE_URL}logo-prof.svg`} alt="" width={184} height={185} />
-          <span aria-hidden="true">Billigskadedyr<span className="wordmark__prof">Prof</span></span>
+          <span aria-hidden="true">
+            Billigskadedyr<span className="wordmark__prof">Prof</span>
+          </span>
         </a>
 
         <nav className="mast-nav" aria-label="Hovedmenu">

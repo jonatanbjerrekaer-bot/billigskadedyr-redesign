@@ -127,9 +127,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://www.naturhistoriskmuseum.dk/viden-forskning/naturlex/pattedyr/gr%C3%A6vling",
-    ],
+    sources: ["https://www.naturhistoriskmuseum.dk/viden-forskning/naturlex/pattedyr/gr%C3%A6vling"],
   },
   {
     name: "Hare",
@@ -183,9 +181,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://www.havenyt.dk/artikler/dyr_i_haven/dyr/409.html",
-    ],
+    sources: ["https://www.havenyt.dk/artikler/dyr_i_haven/dyr/409.html"],
   },
 ];
 

@@ -30,7 +30,7 @@ export const LIMITS = {
 } as const;
 
 /** Base64 costs 4 bytes per 3, plus header overhead. */
-export const encodedSize = (bytes: number) => Math.ceil(bytes * 4 / 3) + 512;
+export const encodedSize = (bytes: number) => Math.ceil((bytes * 4) / 3) + 512;
 
 /**
  * What the file actually is, by its leading bytes, rather than by its name or
@@ -90,9 +90,7 @@ async function reencode(file: File): Promise<{ blob: Blob; name: string }> {
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("no 2d context");
     ctx.drawImage(img, 0, 0, w, h);
-    const blob = await new Promise<Blob | null>((res) =>
-      canvas.toBlob(res, "image/jpeg", LIMITS.quality),
-    );
+    const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, "image/jpeg", LIMITS.quality));
     if (!blob) throw new Error("encode");
     return { blob, name: file.name.replace(/\.[^.]+$/, "") + ".jpg" };
   } finally {

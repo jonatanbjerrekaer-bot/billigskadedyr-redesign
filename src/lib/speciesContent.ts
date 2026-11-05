@@ -101,5 +101,7 @@ export function speciesBySlug(service: string, slug: string): SpeciesArticle | u
 
 /** Every species route as [service, slug], for anything that lists URLs. */
 export function allSpeciesRoutes(): [string, string][] {
-  return Object.entries(BY_SERVICE).flatMap(([service, list]) => list.map((a) => [service, a.slug] as [string, string]));
+  return Object.entries(BY_SERVICE).flatMap(([service, list]) =>
+    list.map((a) => [service, a.slug] as [string, string]),
+  );
 }

@@ -70,8 +70,7 @@ export function usePathname(): string {
   );
 }
 
-const reduced = () =>
-  typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduced = () => typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
  * Swap page. The pest tile on the grid and the tile in the service hero share

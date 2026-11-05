@@ -22,12 +22,27 @@ import SpeciesCards from "./SpeciesCards";
 const B = import.meta.env.BASE_URL;
 
 const PROMISES: [string, string][] = [
-  ["Fast pris, aftalt før vi går i gang", "Du siger ja til et beløb, ikke til et estimat. Det tal ændrer sig ikke undervejs."],
-  ["Certificerede teknikere", "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver."],
-  ["Ingen garanti — derfor billigere", "Du betaler ikke for gratis genbesøg, du nok alligevel aldrig får brug for. Én professionel behandling er nok i 96 % af tilfældene. Har du alligevel brug for en mere, koster den stadig mindre end hos konkurrenterne."],
-  ["Du ved, hvem der kommer", "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring."],
+  [
+    "Fast pris, aftalt før vi går i gang",
+    "Du siger ja til et beløb, ikke til et estimat. Det tal ændrer sig ikke undervejs.",
+  ],
+  [
+    "Certificerede teknikere",
+    "Vi arbejder efter gældende lovgivning og har de autorisationer, den enkelte behandling kræver.",
+  ],
+  [
+    "Ingen garanti — derfor billigere",
+    "Du betaler ikke for gratis genbesøg, du nok alligevel aldrig får brug for. Én professionel behandling er nok i 96 % af tilfældene. Har du alligevel brug for en mere, koster den stadig mindre end hos konkurrenterne.",
+  ],
+  [
+    "Du ved, hvem der kommer",
+    "Daniel Nemborg overtog virksomheden efter sin far i 2017 og har knap 20 års praktisk erfaring.",
+  ],
   ["Hos dig på 1-2 hverdage", "Er det akut, for eksempel et hvepsebo tæt på en indgang, ringer du bare."],
-  ["Én behandling, gjort rigtigt", "Vi behandler årsagen og ikke kun det, du kan se, så langt de fleste er færdige med én behandling."],
+  [
+    "Én behandling, gjort rigtigt",
+    "Vi behandler årsagen og ikke kun det, du kan se, så langt de fleste er færdige med én behandling.",
+  ],
 ];
 
 export default function ServicePage({ slug }: { slug: string }) {
@@ -97,8 +112,8 @@ export default function ServicePage({ slug }: { slug: string }) {
             <div className="why__text">
               <h2>Hvorfor vender problemet tilbage?</h2>
               <p className="lead">
-                Det, der kan ses og nås let, er sjældent hele problemet. Årsagen
-                sidder der, hvor du ikke kan komme til, og derfor kommer det igen.
+                Det, der kan ses og nås let, er sjældent hele problemet. Årsagen sidder der, hvor du ikke kan komme til,
+                og derfor kommer det igen.
               </p>
               <ul className="why__list">
                 {(content.whyProfessional ?? []).map((w) => (
@@ -106,7 +121,6 @@ export default function ServicePage({ slug }: { slug: string }) {
                 ))}
               </ul>
             </div>
-
           </div>
         </section>
 

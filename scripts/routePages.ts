@@ -13,8 +13,7 @@ import { createServer, type Plugin } from "vite";
  */
 const SITE = "https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/";
 
-const esc = (s: string) =>
-  s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export function routePages(): Plugin {
   let root = "";

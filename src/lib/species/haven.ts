@@ -98,9 +98,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://dcapub.au.dk/pub/Plantesygdomme_i_Danmark_1966.pdf",
-    ],
+    sources: ["https://dcapub.au.dk/pub/Plantesygdomme_i_Danmark_1966.pdf"],
   },
 ];
 

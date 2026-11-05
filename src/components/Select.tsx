@@ -144,7 +144,9 @@ export default function Select({
   const extra = more && showMore ? more.options : [];
   return (
     <>
-      {open && paper && sheet &&
+      {open &&
+        paper &&
+        sheet &&
         createPortal(
           <div
             className="np-sheet-scrim"
@@ -158,78 +160,98 @@ export default function Select({
           document.body,
         )}
       <HeroSelect.Root
-      aria-label={ariaLabel}
-      selectedKey={value}
-      isOpen={open}
-      onOpenChange={(o) => {
-        setOpen(o);
-        if (o && paper && sheet) armShield();
-        if (!o) disarmShield();
-        if (!o && !unfolding.current) setShowMore(false);
-        unfolding.current = false;
-      }}
-      onSelectionChange={(key) => {
-        const k = String(key);
-        // The "+N" row is a button inside the list, not a value: unfold and stay open.
-        if (k === MORE) {
-          unfolding.current = true;
-          setShowMore(true);
-          requestAnimationFrame(() => setOpen(true));
-          return;
-        }
-        if (more?.options.some((o) => o.value === k)) return more.onPick(k);
-        onValueChange(k);
-      }}
-      fullWidth
-    >
-      <HeroSelect.Trigger id={triggerId} className={paper ? "select-trigger" : "w-full rounded-lg border border-ink-700 bg-ink-800 px-3 py-2.5 text-left text-cream min-h-[52px] hover:border-ink-600 data-[pressed]:border-accent-500"}>
-        {/* The trigger mirrors the row so the icon does not appear only on open. */}
-        {/* Value renders the selected option's own children, icon included.
+        aria-label={ariaLabel}
+        selectedKey={value}
+        isOpen={open}
+        onOpenChange={(o) => {
+          setOpen(o);
+          if (o && paper && sheet) armShield();
+          if (!o) disarmShield();
+          if (!o && !unfolding.current) setShowMore(false);
+          unfolding.current = false;
+        }}
+        onSelectionChange={(key) => {
+          const k = String(key);
+          // The "+N" row is a button inside the list, not a value: unfold and stay open.
+          if (k === MORE) {
+            unfolding.current = true;
+            setShowMore(true);
+            requestAnimationFrame(() => setOpen(true));
+            return;
+          }
+          if (more?.options.some((o) => o.value === k)) return more.onPick(k);
+          onValueChange(k);
+        }}
+        fullWidth
+      >
+        <HeroSelect.Trigger
+          id={triggerId}
+          className={
+            paper
+              ? "select-trigger"
+              : "w-full rounded-lg border border-ink-700 bg-ink-800 px-3 py-2.5 text-left text-cream min-h-[52px] hover:border-ink-600 data-[pressed]:border-accent-500"
+          }
+        >
+          {/* The trigger mirrors the row so the icon does not appear only on open. */}
+          {/* Value renders the selected option's own children, icon included.
             The accent colour is set here so the glyph inherits it. */}
-        <span className={`flex items-center gap-3 grow min-w-0 ${paper ? "" : "text-accent-500"}`}>
-          <HeroSelect.Value className={`flex items-center gap-3 truncate ${paper ? "" : "text-cream"}`} />
-        </span>
-        <HeroSelect.Indicator className="text-ink-100/70" />
-      </HeroSelect.Trigger>
+          <span className={`flex items-center gap-3 grow min-w-0 ${paper ? "" : "text-accent-500"}`}>
+            <HeroSelect.Value className={`flex items-center gap-3 truncate ${paper ? "" : "text-cream"}`} />
+          </span>
+          <HeroSelect.Indicator className="text-ink-100/70" />
+        </HeroSelect.Trigger>
 
-      <HeroSelect.Popover isNonModal={paper && sheet} className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}>
-        <ListBox>
-          {options.map((o) => (
-            <ListBoxItem
-              key={o.value}
-              id={o.value}
-              textValue={o.label}
-              className={paper ? "cursor-pointer px-3 py-2 outline-none flex items-center gap-3" : "cursor-pointer rounded-md px-3 py-2 text-sm text-ink-100 outline-none flex items-center gap-3 data-[focused]:bg-ink-700 data-[focused]:text-cream data-[selected]:font-semibold data-[selected]:text-accent-500"}
-            >
-              {o.icon && (
-                <span className={`shrink-0 flex w-7 items-center justify-center ${paper ? "" : "text-accent-500"}`}>
-                  {o.icon}
+        <HeroSelect.Popover
+          isNonModal={paper && sheet}
+          className={paper ? "np-popover" : "rounded-lg border border-ink-700 bg-ink-800 p-1 shadow-xl"}
+        >
+          <ListBox>
+            {options.map((o) => (
+              <ListBoxItem
+                key={o.value}
+                id={o.value}
+                textValue={o.label}
+                className={
+                  paper
+                    ? "cursor-pointer px-3 py-2 outline-none flex items-center gap-3"
+                    : "cursor-pointer rounded-md px-3 py-2 text-sm text-ink-100 outline-none flex items-center gap-3 data-[focused]:bg-ink-700 data-[focused]:text-cream data-[selected]:font-semibold data-[selected]:text-accent-500"
+                }
+              >
+                {o.icon && (
+                  <span className={`shrink-0 flex w-7 items-center justify-center ${paper ? "" : "text-accent-500"}`}>
+                    {o.icon}
+                  </span>
+                )}
+                {o.label}
+              </ListBoxItem>
+            ))}
+            {extra.map((o) => (
+              <ListBoxItem
+                key={o.value}
+                id={o.value}
+                textValue={o.label}
+                className="cursor-pointer px-3 py-2 outline-none flex items-center gap-3 select-more-item"
+              >
+                {o.icon && <span className="shrink-0 flex w-7 items-center justify-center">{o.icon}</span>}
+                <span className="grow">{o.label}</span>
+                {more?.hint && <span className="small muted">{more.hint}</span>}
+              </ListBoxItem>
+            ))}
+            {more && !showMore && (
+              <ListBoxItem
+                id={MORE}
+                textValue={more.label(more.options.length)}
+                className="cursor-pointer px-3 py-2 outline-none flex items-center gap-3 select-more"
+              >
+                <span className="shrink-0 flex w-7 items-center justify-center" aria-hidden="true">
+                  +
                 </span>
-              )}
-              {o.label}
-            </ListBoxItem>
-          ))}
-          {extra.map((o) => (
-            <ListBoxItem
-              key={o.value}
-              id={o.value}
-              textValue={o.label}
-              className="cursor-pointer px-3 py-2 outline-none flex items-center gap-3 select-more-item"
-            >
-              {o.icon && <span className="shrink-0 flex w-7 items-center justify-center">{o.icon}</span>}
-              <span className="grow">{o.label}</span>
-              {more?.hint && <span className="small muted">{more.hint}</span>}
-            </ListBoxItem>
-          ))}
-          {more && !showMore && (
-            <ListBoxItem id={MORE} textValue={more.label(more.options.length)} className="cursor-pointer px-3 py-2 outline-none flex items-center gap-3 select-more">
-              <span className="shrink-0 flex w-7 items-center justify-center" aria-hidden="true">+</span>
-              {more.label(more.options.length)}
-            </ListBoxItem>
-          )}
-        </ListBox>
-      </HeroSelect.Popover>
-    </HeroSelect.Root>
+                {more.label(more.options.length)}
+              </ListBoxItem>
+            )}
+          </ListBox>
+        </HeroSelect.Popover>
+      </HeroSelect.Root>
     </>
   );
 }

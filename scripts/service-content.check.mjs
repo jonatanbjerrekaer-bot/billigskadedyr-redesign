@@ -40,7 +40,10 @@ try {
   for (const [service, slug] of routes) {
     const t = treatmentFor(service, slug);
     assert(t, `species "${service}/${slug}" resolves a treatment section`);
-    assert(t && t.intro.trim().length > 0 && t.steps.length >= 1, `species "${service}/${slug}" treatment is not empty`);
+    assert(
+      t && t.intro.trim().length > 0 && t.steps.length >= 1,
+      `species "${service}/${slug}" treatment is not empty`,
+    );
   }
 
   // 3: banned terms in rendered copy. `sources` arrays are provenance only and
@@ -72,7 +75,9 @@ try {
 
   // 4: no severity dimension may creep back into pricing.
   assert(
-    !/Severity|EXTRA_VISIT_SHARE|severity/.test(readFileSync(new URL("../src/lib/pricing.ts", import.meta.url), "utf8")),
+    !/Severity|EXTRA_VISIT_SHARE|severity/.test(
+      readFileSync(new URL("../src/lib/pricing.ts", import.meta.url), "utf8"),
+    ),
     "pricing.ts must not reintroduce a severity dimension or priced extra visits",
   );
 

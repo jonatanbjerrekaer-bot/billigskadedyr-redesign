@@ -73,9 +73,7 @@ const articles: SpeciesArticle[] = [
         provenance: [SK + " + " + FAQ.replace("owner ", "")],
       },
     ],
-    sources: [
-      "https://www.bolius.dk/saadan-faar-du-bugt-med-skaegkrae-i-boligen-91693",
-    ],
+    sources: ["https://www.bolius.dk/saadan-faar-du-bugt-med-skaegkrae-i-boligen-91693"],
   },
   {
     name: "Sølvfisk",
@@ -133,7 +131,11 @@ const articles: SpeciesArticle[] = [
         provenance: [FAQ],
       },
     ],
-    sources: ["https://en.wikipedia.org/wiki/Silverfish", "https://da.wikipedia.org/wiki/Sølvkræ", "https://www.bolius.dk/saadan-faar-du-bugt-med-skaegkrae-i-boligen-91693"],
+    sources: [
+      "https://en.wikipedia.org/wiki/Silverfish",
+      "https://da.wikipedia.org/wiki/Sølvkræ",
+      "https://www.bolius.dk/saadan-faar-du-bugt-med-skaegkrae-i-boligen-91693",
+    ],
   },
 ];
 

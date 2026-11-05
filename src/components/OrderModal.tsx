@@ -86,8 +86,7 @@ export default function OrderModal({
     const trimmedEmail = email.trim();
     if (!trimmedEmail) next.email = "Skriv din e-mail, så vi kan svare dig.";
     else if (!EMAIL_RE.test(trimmedEmail)) next.email = "Den e-mail ser ikke rigtig ud. Tjek den lige.";
-    if (phone.replace(/\D/g, "").length < PHONE_MIN_DIGITS)
-      next.phone = "Skriv et telefonnummer med mindst 8 cifre.";
+    if (phone.replace(/\D/g, "").length < PHONE_MIN_DIGITS) next.phone = "Skriv et telefonnummer med mindst 8 cifre.";
 
     setErrors(next);
     if (Object.keys(next).length > 0) return;
@@ -145,7 +144,8 @@ export default function OrderModal({
             <p className="order-modal__eyebrow">Forespørgsel sendt</p>
             <h2 id="order-modal-title">Tak, {name.trim()}.</h2>
             <p id="order-modal-intro">
-              Vi kontakter dig for at aftale tidspunktet. Din forespørgsel indeholder {selection.pest.toLowerCase()} til {selection.priceLabel}. Du betaler først, når arbejdet er udført.
+              Vi kontakter dig for at aftale tidspunktet. Din forespørgsel indeholder {selection.pest.toLowerCase()} til{" "}
+              {selection.priceLabel}. Du betaler først, når arbejdet er udført.
             </p>
             <button type="button" className="btn btn--primary" onClick={close}>
               Luk
@@ -155,9 +155,7 @@ export default function OrderModal({
           <>
             <div className="order-modal__head">
               <h2 id="order-modal-title">Bestil dit tilbud</h2>
-              <p id="order-modal-intro">
-                Udfyld dine oplysninger, så kontakter vi dig for at aftale tidspunktet.
-              </p>
+              <p id="order-modal-intro">Udfyld dine oplysninger, så kontakter vi dig for at aftale tidspunktet.</p>
             </div>
 
             <section className="order-modal__summary" aria-label="Din beregning">
@@ -181,7 +179,9 @@ export default function OrderModal({
 
             <form onSubmit={submit} noValidate className="form order-modal__form">
               <TextField.Root>
-                <Label htmlFor="order-name" className="field-label">Dit navn</Label>
+                <Label htmlFor="order-name" className="field-label">
+                  Dit navn
+                </Label>
                 <Input
                   id="order-name"
                   name="name"
@@ -197,12 +197,18 @@ export default function OrderModal({
                   aria-invalid={errors.name ? true : undefined}
                   aria-describedby={errors.name ? "order-name-error" : undefined}
                 />
-                {errors.name && <p id="order-name-error" role="alert" className="field-error">{errors.name}</p>}
+                {errors.name && (
+                  <p id="order-name-error" role="alert" className="field-error">
+                    {errors.name}
+                  </p>
+                )}
               </TextField.Root>
 
               <div className="form__pair">
                 <TextField.Root>
-                  <Label htmlFor="order-email" className="field-label">Din e-mail</Label>
+                  <Label htmlFor="order-email" className="field-label">
+                    Din e-mail
+                  </Label>
                   <Input
                     id="order-email"
                     name="email"
@@ -218,11 +224,17 @@ export default function OrderModal({
                     aria-invalid={errors.email ? true : undefined}
                     aria-describedby={errors.email ? "order-email-error" : undefined}
                   />
-                  {errors.email && <p id="order-email-error" role="alert" className="field-error">{errors.email}</p>}
+                  {errors.email && (
+                    <p id="order-email-error" role="alert" className="field-error">
+                      {errors.email}
+                    </p>
+                  )}
                 </TextField.Root>
 
                 <TextField.Root>
-                  <Label htmlFor="order-phone" className="field-label">Telefon</Label>
+                  <Label htmlFor="order-phone" className="field-label">
+                    Telefon
+                  </Label>
                   <Input
                     id="order-phone"
                     name="phone"
@@ -239,7 +251,11 @@ export default function OrderModal({
                     aria-invalid={errors.phone ? true : undefined}
                     aria-describedby={errors.phone ? "order-phone-error" : undefined}
                   />
-                  {errors.phone && <p id="order-phone-error" role="alert" className="field-error">{errors.phone}</p>}
+                  {errors.phone && (
+                    <p id="order-phone-error" role="alert" className="field-error">
+                      {errors.phone}
+                    </p>
+                  )}
                 </TextField.Root>
               </div>
 

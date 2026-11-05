@@ -18,9 +18,7 @@ export const CONTACT_HREF = "#skriv";
 // still lives only on the front page, so it is the only hash worth rewriting.
 const HOME_ONLY = new Set(["#pest", "#top"]);
 export const homeHref = (hash: string) =>
-  HOME_ONLY.has(hash) && location.pathname.includes("/service/")
-    ? import.meta.env.BASE_URL + hash
-    : hash;
+  HOME_ONLY.has(hash) && location.pathname.includes("/service/") ? import.meta.env.BASE_URL + hash : hash;
 
 const VARIANTS = {
   /** Ink on paper, or paper on the ink band. The one action we most want taken. */

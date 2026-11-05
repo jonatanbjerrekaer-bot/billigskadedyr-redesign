@@ -9,22 +9,12 @@ import {
   TextField,
   ToggleButtonGroup,
 } from "@heroui/react";
-import {
-  ChevronDown,
-  LocateFixed,
-  Minus,
-  Plus,
-  RotateCcw,
-  X,
-} from "lucide-react";
+import { ChevronDown, LocateFixed, Minus, Plus, RotateCcw, X } from "lucide-react";
 import Select from "./ui/Select";
 import SegmentTrack from "./ui/SegmentTrack";
 import OrderModal, { type OrderRequest, type OrderSelection } from "./OrderModal";
 import { ContactCtas, CONTACT_HREF, homeHref } from "./ui/Cta";
-import {
-  publishEstimatorSelection,
-  useChosenPest,
-} from "../lib/estimatorSelection";
+import { publishEstimatorSelection, useChosenPest } from "../lib/estimatorSelection";
 import { PestGlyph, PESTS, PRICED_PESTS } from "../lib/pests";
 import { estimate, dkr, houseTier, nearestPostcode, OWNER_PRICES } from "../lib/pricing";
 import type { Houses, PropertyType } from "../lib/pricing";
@@ -117,12 +107,14 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   // scroll to it, since on a phone it can sit a screenful above the price.
   const addFromResult = () => {
     openAdd();
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = document.getElementById(ADD_TRIGGER);
-      if (!el) return;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
-    }));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = document.getElementById(ADD_TRIGGER);
+        if (!el) return;
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+      }),
+    );
   };
   // Opens the postnummer field and puts the cursor in it. The field only
   // exists after the render that opens it, hence the frame's wait.
@@ -154,13 +146,15 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
     advTouched.current = true;
     setAdvOpen(true);
     // the panel mounts its content on open, so wait a frame for the field
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = advRef.current?.querySelector<HTMLElement>(selector);
-      if (!el) return;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
-      el.focus({ preventScroll: true });
-    }));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = advRef.current?.querySelector<HTMLElement>(selector);
+        if (!el) return;
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+        el.focus({ preventScroll: true });
+      }),
+    );
   };
   const openDrive = () => {
     setDriveOpen(true);
@@ -200,7 +194,6 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
     animTimer.current = window.setTimeout(() => setAreaAnim(false), 500);
   };
 
-
   const pest = PRICED_PESTS.find((p) => p.slug === slug) ?? PRICED_PESTS[0];
   // From two houses up the price is driven by the tier, and one area cannot
   // speak for houses that may differ anyway — that control is hidden then.
@@ -215,10 +208,9 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   const hasArea = priceRow?.kind === "fixed" && priceRow.maxM2 !== undefined;
   // Only pests with a fixed price can join a visit, and never the one already chosen.
   const fixedPests = PRICED_PESTS.filter((p) => OWNER_PRICES[p.priceKey!]?.kind === "fixed");
-  const extraPests = extras
-    .filter((s) => s !== slug)
-    .flatMap((s) => fixedPests.filter((p) => p.slug === s));
-  const nudgePest = nudge && !extras.includes(nudge) && nudge !== slug ? fixedPests.find((p) => p.slug === nudge) : undefined;
+  const extraPests = extras.filter((s) => s !== slug).flatMap((s) => fixedPests.filter((p) => p.slug === s));
+  const nudgePest =
+    nudge && !extras.includes(nudge) && nudge !== slug ? fixedPests.find((p) => p.slug === nudge) : undefined;
   const addable = fixedPests.filter((p) => p.slug !== slug && !extras.includes(p.slug));
   const unitOf = (p: (typeof fixedPests)[number]) => {
     const r = OWNER_PRICES[p.priceKey!];
@@ -242,24 +234,27 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   // The big number is what ONE house pays; the count-up follows it.
   const price = quote.kind === "fixed" ? quote.price : 0;
   const [orderOpen, setOrderOpen] = useState(false);
-  const orderSelection: OrderSelection | null = quote.kind === "fixed" ? {
-    pest: pest.label,
-    extraPests: extraPests.map((p) => {
-      const extraUnit = unitOf(p);
-      const extraCount = extraCounts[p.slug] ?? 1;
-      return extraUnit ? `${p.label} (${extraCount > 10 ? "10+" : extraCount} ${extraUnit})` : p.label;
-    }),
-    property: PROPERTIES.find((item) => item.id === property)?.label ?? property,
-    area: hasArea && !multi ? `${effM2} m²` : null,
-    count: unit ? `${count > 10 ? "10+" : count} ${unit}` : null,
-    houses: quote.houses,
-    postcode: quote.place ? `${quote.place.nr} ${quote.place.by}` : postcode || null,
-    price,
-    priceLabel: `${quote.overArea ? "Fra " : ""}${dkr(price)}${quote.postcodeState !== "ok" ? " + kørsel" : ""}`,
-    totalLabel: quote.houses > 1 ? `${dkr(quote.total)} i alt for ${quote.houses} huse` : null,
-    caption: quote.caption,
-    driving: quote.driving,
-  } : null;
+  const orderSelection: OrderSelection | null =
+    quote.kind === "fixed"
+      ? {
+          pest: pest.label,
+          extraPests: extraPests.map((p) => {
+            const extraUnit = unitOf(p);
+            const extraCount = extraCounts[p.slug] ?? 1;
+            return extraUnit ? `${p.label} (${extraCount > 10 ? "10+" : extraCount} ${extraUnit})` : p.label;
+          }),
+          property: PROPERTIES.find((item) => item.id === property)?.label ?? property,
+          area: hasArea && !multi ? `${effM2} m²` : null,
+          count: unit ? `${count > 10 ? "10+" : count} ${unit}` : null,
+          houses: quote.houses,
+          postcode: quote.place ? `${quote.place.nr} ${quote.place.by}` : postcode || null,
+          price,
+          priceLabel: `${quote.overArea ? "Fra " : ""}${dkr(price)}${quote.postcodeState !== "ok" ? " + kørsel" : ""}`,
+          totalLabel: quote.houses > 1 ? `${dkr(quote.total)} i alt for ${quote.houses} huse` : null,
+          caption: quote.caption,
+          driving: quote.driving,
+        }
+      : null;
   const submitOrder = (_order: OrderRequest) => {
     // The prototype has no order endpoint. Keep the same testable async contract
     // as InquiryForm until the real endpoint is connected.
@@ -295,9 +290,7 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   const couldChange = [
     "Svær adgang, for eksempel krybekælder eller loft uden fast trappe",
     ...(hasArea && effM2 > 200 ? ["Flere etager eller bygninger på samme adresse"] : []),
-    ...(property === "erhverv"
-      ? ["Krav om dokumentation ud over det normale, for eksempel til en audit"]
-      : []),
+    ...(property === "erhverv" ? ["Krav om dokumentation ud over det normale, for eksempel til en audit"] : []),
   ];
 
   // The contact section below drafts its message placeholder from these
@@ -311,8 +304,8 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
     contextKey: contextKey ?? "home",
     m2: effM2,
     property,
-    postcode: quote.kind === "fixed" ? quote.place?.nr ?? null : null,
-    town: quote.kind === "fixed" ? quote.place?.by ?? null : null,
+    postcode: quote.kind === "fixed" ? (quote.place?.nr ?? null) : null,
+    town: quote.kind === "fixed" ? (quote.place?.by ?? null) : null,
     houses: quote.kind === "fixed" ? quote.houses : 1,
     // null, not 0: a quote has no number yet, and dkr(0) would hand the
     // contact form "omkring 0 kr." to send.
@@ -346,9 +339,7 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   };
 
   useEffect(() => {
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Slider drags and typed numbers must stay 1:1 with the pointer, the same
     // rule the thumb itself follows: those changes render instantly, and only
     // discrete changes (pest, preset, reset) get the tween.
@@ -414,7 +405,11 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
   }, []);
 
   return (
-    <section id="estimator" ref={sectionRef} className={`section section--s estimator estimator--calc${orderInView ? " estimator--order-visible" : ""}`}>
+    <section
+      id="estimator"
+      ref={sectionRef}
+      className={`section section--s estimator estimator--calc${orderInView ? " estimator--order-visible" : ""}`}
+    >
       {/*
         Phone layout: head, price, controls (newsprint.css orders the flex
         column under 60rem). The price is the product — "et vejledende beløb
@@ -429,8 +424,8 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
         <div className="estimator__head">
           <h2>Prisberegner</h2>
           <p className="lead" style={{ marginTop: "var(--space-md)" }}>
-            Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige pris
-            aftaler vi, når vi kender opgaven, og så ligger den fast.
+            Et vejledende beløb med det samme, så du ikke behøver ringe først. Den endelige pris aftaler vi, når vi
+            kender opgaven, og så ligger den fast.
           </p>
         </div>
 
@@ -441,7 +436,13 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
               value={slug}
               onValueChange={(v) => {
                 setSelTouched(true);
-                if (!nudged.current && extras.length === 0 && v !== slug && fixedPests.some((p) => p.slug === slug) && fixedPests.some((p) => p.slug === v)) {
+                if (
+                  !nudged.current &&
+                  extras.length === 0 &&
+                  v !== slug &&
+                  fixedPests.some((p) => p.slug === slug) &&
+                  fixedPests.some((p) => p.slug === v)
+                ) {
                   nudged.current = true;
                   setNudge(slug);
                 } else setNudge(null);
@@ -509,7 +510,11 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                 >
                   <span>
                     <span className="trigger-title">Har du også {nudgePest.label.toLowerCase()}?</span>
-                    <span className="small muted" style={{ display: "block" }}>{quote.comboSaving > 0 ? `Tag dem med på samme besøg, så sparer du ${dkr(quote.comboSaving)} på kørslen.` : "Tag dem med på samme besøg."}</span>
+                    <span className="small muted" style={{ display: "block" }}>
+                      {quote.comboSaving > 0
+                        ? `Tag dem med på samme besøg, så sparer du ${dkr(quote.comboSaving)} på kørslen.`
+                        : "Tag dem med på samme besøg."}
+                    </span>
                   </span>
                   <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
@@ -538,10 +543,16 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                 addable.length > 0 && (
                   <button type="button" className="disclosure-trigger estimator__row" onClick={openAdd}>
                     <span>
-                    <span className="trigger-title">{extraPests.length ? "Endnu et skadedyr" : "Flere skadedyr"}</span>
-                    <span className="small muted" style={{ display: "block" }}>{extraPests.length ? "Det kommer med på samme besøg." : "Tager vi dem på samme besøg, betaler du kun halv kørsel."}</span>
-                  </span>
-                  <Plus size={20} aria-hidden="true" className="plus" />
+                      <span className="trigger-title">
+                        {extraPests.length ? "Endnu et skadedyr" : "Flere skadedyr"}
+                      </span>
+                      <span className="small muted" style={{ display: "block" }}>
+                        {extraPests.length
+                          ? "Det kommer med på samme besøg."
+                          : "Tager vi dem på samme besøg, betaler du kun halv kørsel."}
+                      </span>
+                    </span>
+                    <Plus size={20} aria-hidden="true" className="plus" />
                   </button>
                 )
               )}
@@ -589,10 +600,17 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                   {/* The town confirms the postnummer was read right; the
                       driving line already names it when there is a charge. */}
                   <p id="estimator-driving" className="small muted estimator__where-note" aria-live="polite">
-                    {quote.place && !quote.driving.includes(quote.place.by) ? `${quote.place.nr} ${quote.place.by}. ` : ""}
+                    {quote.place && !quote.driving.includes(quote.place.by)
+                      ? `${quote.place.nr} ${quote.place.by}. `
+                      : ""}
                     {quote.driving}
                   </p>
-                  <button type="button" className="estimator__open estimator__locate" onClick={locate} disabled={locating}>
+                  <button
+                    type="button"
+                    className="estimator__open estimator__locate"
+                    onClick={locate}
+                    disabled={locating}
+                  >
                     <LocateFixed size={16} aria-hidden="true" />
                     {locating ? "Finder din placering…" : "Brug min placering"}
                   </button>
@@ -606,7 +624,9 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                 <button type="button" className="disclosure-trigger estimator__row" onClick={openDrive}>
                   <span>
                     <span className="trigger-title">Kørsel</span>
-                    <span className="small muted" style={{ display: "block" }}>Gratis i Aarhus og byerne nord for. Længere væk regner vi den ud fra dit postnummer.</span>
+                    <span className="small muted" style={{ display: "block" }}>
+                      Gratis i Aarhus og byerne nord for. Længere væk regner vi den ud fra dit postnummer.
+                    </span>
                   </span>
                   <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
@@ -637,15 +657,21 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                     </ToggleButtonGroup.Root>
                   </SegmentTrack>
                   <p className="small muted estimator__where-note">
-                    2 huse: halv kørsel. 5 huse: 80 % rabat på kørslen. 10 huse: en fast,
-                    lavere pris pr. hus, uanset kørsel.
+                    2 huse: halv kørsel. 5 huse: 80 % rabat på kørslen. 10 huse: en fast, lavere pris pr. hus, uanset
+                    kørsel.
                   </p>
                 </div>
               ) : (
-                <button type="button" className="disclosure-trigger estimator__row" onClick={() => setNeighboursOpen(true)}>
+                <button
+                  type="button"
+                  className="disclosure-trigger estimator__row"
+                  onClick={() => setNeighboursOpen(true)}
+                >
                   <span>
                     <span className="trigger-title">Naboer</span>
-                    <span className="small muted" style={{ display: "block" }}>Går I flere huse sammen, deler I kørslen.</span>
+                    <span className="small muted" style={{ display: "block" }}>
+                      Går I flere huse sammen, deler I kørslen.
+                    </span>
                   </span>
                   <Plus size={20} aria-hidden="true" className="plus" />
                 </button>
@@ -658,172 +684,186 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
               control that does nothing reads as a broken tool or as a hidden
               number. */}
           {quote.kind === "fixed" && (
-          <Disclosure.Root
-            ref={advRef}
-            isExpanded={advOpen}
-            onExpandedChange={(v: boolean) => {
-              advTouched.current = true;
-              setAdvOpen(v);
-            }}
-            className="estimator__disclosure"
-          >
-            <Disclosure.Heading>
-              <Disclosure.Trigger className="disclosure-trigger">
-                <span>
-                  <span className="trigger-title">Tilpas beregningen</span>
-                  <span className="small muted" style={{ display: "block" }}>
-                    {unit
-                      ? `${unit === "rum" ? "Antal rum" : "Antal bo"} og boligtype.`
-                      : extraUnit
-                        ? `${hasArea && !multi ? "Areal, antal" : "Antal"} ${extraUnit} og boligtype.`
-                      : multi
-                        ? "Kun boligtype — prisen styres af hvor mange I er."
-                        : hasArea
-                          ? "Areal og boligtype. Ellers regner vi på et gennemsnitligt hus."
-                          : "Boligtype."}
+            <Disclosure.Root
+              ref={advRef}
+              isExpanded={advOpen}
+              onExpandedChange={(v: boolean) => {
+                advTouched.current = true;
+                setAdvOpen(v);
+              }}
+              className="estimator__disclosure"
+            >
+              <Disclosure.Heading>
+                <Disclosure.Trigger className="disclosure-trigger">
+                  <span>
+                    <span className="trigger-title">Tilpas beregningen</span>
+                    <span className="small muted" style={{ display: "block" }}>
+                      {unit
+                        ? `${unit === "rum" ? "Antal rum" : "Antal bo"} og boligtype.`
+                        : extraUnit
+                          ? `${hasArea && !multi ? "Areal, antal" : "Antal"} ${extraUnit} og boligtype.`
+                          : multi
+                            ? "Kun boligtype — prisen styres af hvor mange I er."
+                            : hasArea
+                              ? "Areal og boligtype. Ellers regner vi på et gennemsnitligt hus."
+                              : "Boligtype."}
+                    </span>
                   </span>
-                </span>
-                <ChevronDown size={20} aria-hidden="true" className="chev" />
-              </Disclosure.Trigger>
-            </Disclosure.Heading>
+                  <ChevronDown size={20} aria-hidden="true" className="chev" />
+                </Disclosure.Trigger>
+              </Disclosure.Heading>
 
-            <Disclosure.Content>
-              <Disclosure.Body style={{ display: "flex", flexDirection: "column", gap: "var(--space-lg)", paddingTop: "var(--space-md)" }}>
-                {/* From two houses the tier sets the price and one area cannot
+              <Disclosure.Content>
+                <Disclosure.Body
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "var(--space-lg)",
+                    paddingTop: "var(--space-md)",
+                  }}
+                >
+                  {/* From two houses the tier sets the price and one area cannot
                     describe houses that differ anyway, so the slider steps
                     aside. The state is kept: setting "1" again brings the
                     visitor's own number back. */}
-                {/* One size question per pest: rooms or nests where he prices
+                  {/* One size question per pest: rooms or nests where he prices
                     that way, the area only where his price has an area limit.
                     Rooms stay visible with several houses, since the price is
                     per room in each house. */}
-                {unit && (
-                  <CountStepper unit={unit} label={unit === "rum" ? "Antal rum" : "Antal bo"} count={count} onChange={(n) => {
-                    setCount(n);
-                    setSelTouched(true);
-                  }} />
-                )}
-                {!multi && hasArea && (
-                <Slider.Root
-                  value={m2}
-                  onChange={(v) => {
-                    if (Number(v) !== m2) {
-                      m2Touched.current = true;
-                      setAreaAnim(false);
-                      instantRef.current = true;
-                      setSelTouched(true);
-                    }
-                    setM2(Number(v));
-                  }}
-                  minValue={20}
-                  maxValue={400}
-                  step={5}
-                  aria-label="Størrelse af område i kvadratmeter"
-                  className={`slider-block${areaAnim ? " area-anim" : ""}`}
-                  style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}
-                >
-                  <div className="area-row">
-                    <span>
-                      <span className="field-label" style={{ marginBottom: 0 }}>Størrelse af område</span>
-                      <span className="small muted">
-                        Arealet vi skal behandle. Er du i tvivl, så tag hele boligen.
-                      </span>
-                    </span>
-                    <NumberField.Root
+                  {unit && (
+                    <CountStepper
+                      unit={unit}
+                      label={unit === "rum" ? "Antal rum" : "Antal bo"}
+                      count={count}
+                      onChange={(n) => {
+                        setCount(n);
+                        setSelTouched(true);
+                      }}
+                    />
+                  )}
+                  {!multi && hasArea && (
+                    <Slider.Root
                       value={m2}
                       onChange={(v) => {
-                        const next = Number.isNaN(v) ? 20 : Math.max(20, Math.min(400, v));
-                        if (next !== m2) {
+                        if (Number(v) !== m2) {
                           m2Touched.current = true;
                           setAreaAnim(false);
                           instantRef.current = true;
                           setSelTouched(true);
                         }
-                        setM2(next);
+                        setM2(Number(v));
                       }}
                       minValue={20}
                       maxValue={400}
+                      step={5}
                       aria-label="Størrelse af område i kvadratmeter"
+                      className={`slider-block${areaAnim ? " area-anim" : ""}`}
+                      style={{ display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}
                     >
-                      <NumberField.Group className="area-field">
-                        <NumberField.Input />
-                        <span aria-hidden="true">m²</span>
-                      </NumberField.Group>
-                    </NumberField.Root>
-                  </div>
-                  <Slider.Track className="relative w-full">
-                    <Slider.Fill className="absolute left-0 top-0 h-full" />
-                    <Slider.Thumb />
-                  </Slider.Track>
-                  <div className="scale">
-                    <span>20 m²</span>
-                    <span>400 m²</span>
-                  </div>
-                </Slider.Root>
-                )}
-                {/* Added pests priced per room or nest get the same stepper, so
+                      <div className="area-row">
+                        <span>
+                          <span className="field-label" style={{ marginBottom: 0 }}>
+                            Størrelse af område
+                          </span>
+                          <span className="small muted">
+                            Arealet vi skal behandle. Er du i tvivl, så tag hele boligen.
+                          </span>
+                        </span>
+                        <NumberField.Root
+                          value={m2}
+                          onChange={(v) => {
+                            const next = Number.isNaN(v) ? 20 : Math.max(20, Math.min(400, v));
+                            if (next !== m2) {
+                              m2Touched.current = true;
+                              setAreaAnim(false);
+                              instantRef.current = true;
+                              setSelTouched(true);
+                            }
+                            setM2(next);
+                          }}
+                          minValue={20}
+                          maxValue={400}
+                          aria-label="Størrelse af område i kvadratmeter"
+                        >
+                          <NumberField.Group className="area-field">
+                            <NumberField.Input />
+                            <span aria-hidden="true">m²</span>
+                          </NumberField.Group>
+                        </NumberField.Root>
+                      </div>
+                      <Slider.Track className="relative w-full">
+                        <Slider.Fill className="absolute left-0 top-0 h-full" />
+                        <Slider.Thumb />
+                      </Slider.Track>
+                      <div className="scale">
+                        <span>20 m²</span>
+                        <span>400 m²</span>
+                      </div>
+                    </Slider.Root>
+                  )}
+                  {/* Added pests priced per room or nest get the same stepper, so
                     "1 bo" is something the visitor set, not something we assumed. */}
-                {countedExtras.map(({ pest: p, unit: u }) => (
-                  <CountStepper
-                    key={p.slug}
-                    unit={u}
-                    label={`${u === "rum" ? "Antal rum" : "Antal bo"}, ${p.label.toLowerCase()}`}
-                    count={extraCounts[p.slug] ?? 1}
-                    onChange={(n) => {
-                      setExtraCounts({ ...extraCounts, [p.slug]: n });
-                      setSelTouched(true);
-                    }}
-                  />
-                ))}
-
-                <div>
-                  <span className="field-label">Ejendomstype</span>
-                  <SegmentTrack value={property}>
-                    <ToggleButtonGroup.Root
-                      selectionMode="single"
-                      disallowEmptySelection
-                      selectedKeys={[property]}
-                      onSelectionChange={(keys) => {
-                        const next = [...keys][0];
-                        if (!next) return;
-                        const p = next as PropertyType;
-                        setProperty(p);
+                  {countedExtras.map(({ pest: p, unit: u }) => (
+                    <CountStepper
+                      key={p.slug}
+                      unit={u}
+                      label={`${u === "rum" ? "Antal rum" : "Antal bo"}, ${p.label.toLowerCase()}`}
+                      count={extraCounts[p.slug] ?? 1}
+                      onChange={(n) => {
+                        setExtraCounts({ ...extraCounts, [p.slug]: n });
                         setSelTouched(true);
-                        // Sæt arealet til et realistisk gennemsnit for den valgte
-                        // boligtype, men aldrig oven i et tal brugeren selv har sat.
-                        const preset = AREA_PRESETS[p];
-                        if (!m2Touched.current && preset) glideArea(preset);
                       }}
-                      className={GROUP}
-                      aria-label="Ejendomstype"
-                    >
-                      {PROPERTIES.map((o) => (
-                        <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
-                          {o.label}
-                        </ToggleButton>
-                      ))}
-                    </ToggleButtonGroup.Root>
-                  </SegmentTrack>
-                </div>
+                    />
+                  ))}
 
-                {/* Always in the layout, only visible once there is something to
+                  <div>
+                    <span className="field-label">Ejendomstype</span>
+                    <SegmentTrack value={property}>
+                      <ToggleButtonGroup.Root
+                        selectionMode="single"
+                        disallowEmptySelection
+                        selectedKeys={[property]}
+                        onSelectionChange={(keys) => {
+                          const next = [...keys][0];
+                          if (!next) return;
+                          const p = next as PropertyType;
+                          setProperty(p);
+                          setSelTouched(true);
+                          // Sæt arealet til et realistisk gennemsnit for den valgte
+                          // boligtype, men aldrig oven i et tal brugeren selv har sat.
+                          const preset = AREA_PRESETS[p];
+                          if (!m2Touched.current && preset) glideArea(preset);
+                        }}
+                        className={GROUP}
+                        aria-label="Ejendomstype"
+                      >
+                        {PROPERTIES.map((o) => (
+                          <ToggleButton key={o.id} id={o.id} className={TOGGLE}>
+                            {o.label}
+                          </ToggleButton>
+                        ))}
+                      </ToggleButtonGroup.Root>
+                    </SegmentTrack>
+                  </div>
+
+                  {/* Always in the layout, only visible once there is something to
                     reset: appearing on the first change made the whole
                     calculator 47px taller and everything below it jump. */}
-                <button
-                  type="button"
-                  onClick={reset}
-                  className="estimator__reset"
-                  disabled={!touched}
-                  aria-hidden={!touched || undefined}
-                  tabIndex={touched ? undefined : -1}
-                  style={touched ? undefined : { visibility: "hidden" }}
-                >
-                  <RotateCcw size={15} strokeWidth={2} aria-hidden="true" />
-                  Nulstil til standard
-                </button>
-              </Disclosure.Body>
-            </Disclosure.Content>
-          </Disclosure.Root>
+                  <button
+                    type="button"
+                    onClick={reset}
+                    className="estimator__reset"
+                    disabled={!touched}
+                    aria-hidden={!touched || undefined}
+                    tabIndex={touched ? undefined : -1}
+                    style={touched ? undefined : { visibility: "hidden" }}
+                  >
+                    <RotateCcw size={15} strokeWidth={2} aria-hidden="true" />
+                    Nulstil til standard
+                  </button>
+                </Disclosure.Body>
+              </Disclosure.Content>
+            </Disclosure.Root>
           )}
         </div>
 
@@ -837,60 +877,60 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
           {/* The label sits above as its own line, flush with the price, so the
               button is one tight row: icon, name, chevron. */}
           <div className="estimator__pick-wrap">
-          <span className="select-none small muted">Vejledende pris</span>
-          <button
-            type="button"
-            onClick={() => {
-              const el = document.getElementById(PEST_TRIGGER);
-              if (!el) return;
-              // Below 40rem the picker is a bottom sheet pinned to the visual
-              // viewport, so it looks identical no matter which trigger opened
-              // it or where that trigger sits — the scroll below would only
-              // yank the page. (Match Select.tsx's sheet breakpoint.)
-              const sheet = window.matchMedia("(max-width: 40rem)").matches;
-              if (sheet) {
-                el.focus({ preventScroll: true });
-                el.click();
-                return;
-              }
-              // The list is placed under the trigger when it opens and does not
-              // follow it afterwards, so it may only open once the page has
-              // stopped moving. Already in view: open at once. Otherwise scroll
-              // there first and open when the scroll has settled.
-              const open = () => {
-                el.focus({ preventScroll: true });
-                el.click();
-              };
-              const r = el.getBoundingClientRect();
-              if (r.top >= 0 && r.bottom <= window.innerHeight) return open();
-              const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-              if (reduced) {
-                el.scrollIntoView({ block: "start" });
-                return open();
-              }
-              // Wait until the page has held still for a few frames: scrollend
-              // is missing in older Safari, and a fixed timeout fires mid-scroll
-              // on a long way down. Capped, so the list always opens.
-              const started = performance.now();
-              let lastY = -1;
-              let still = 0;
-              const settle = () => {
-                still = window.scrollY === lastY ? still + 1 : 0;
-                lastY = window.scrollY;
-                if (still >= 4 || performance.now() - started > 1500) return open();
+            <span className="select-none small muted">Vejledende pris</span>
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById(PEST_TRIGGER);
+                if (!el) return;
+                // Below 40rem the picker is a bottom sheet pinned to the visual
+                // viewport, so it looks identical no matter which trigger opened
+                // it or where that trigger sits — the scroll below would only
+                // yank the page. (Match Select.tsx's sheet breakpoint.)
+                const sheet = window.matchMedia("(max-width: 40rem)").matches;
+                if (sheet) {
+                  el.focus({ preventScroll: true });
+                  el.click();
+                  return;
+                }
+                // The list is placed under the trigger when it opens and does not
+                // follow it afterwards, so it may only open once the page has
+                // stopped moving. Already in view: open at once. Otherwise scroll
+                // there first and open when the scroll has settled.
+                const open = () => {
+                  el.focus({ preventScroll: true });
+                  el.click();
+                };
+                const r = el.getBoundingClientRect();
+                if (r.top >= 0 && r.bottom <= window.innerHeight) return open();
+                const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (reduced) {
+                  el.scrollIntoView({ block: "start" });
+                  return open();
+                }
+                // Wait until the page has held still for a few frames: scrollend
+                // is missing in older Safari, and a fixed timeout fires mid-scroll
+                // on a long way down. Capped, so the list always opens.
+                const started = performance.now();
+                let lastY = -1;
+                let still = 0;
+                const settle = () => {
+                  still = window.scrollY === lastY ? still + 1 : 0;
+                  lastY = window.scrollY;
+                  if (still >= 4 || performance.now() - started > 1500) return open();
+                  requestAnimationFrame(settle);
+                };
                 requestAnimationFrame(settle);
-              };
-              requestAnimationFrame(settle);
-              // Near the top (scroll-margin clears the sticky header), so the
-              // list has room to open downwards instead of flipping up over it.
-              el.scrollIntoView({ block: "start", behavior: "smooth" });
-            }}
-            className="estimator__pick"
-          >
-            <PestGlyph pest={pest} size={28} />
-            <span className="trigger-title">{pest.label}</span>
-            <ChevronDown size={16} aria-hidden="true" />
-          </button>
+                // Near the top (scroll-margin clears the sticky header), so the
+                // list has room to open downwards instead of flipping up over it.
+                el.scrollIntoView({ block: "start", behavior: "smooth" });
+              }}
+              className="estimator__pick"
+            >
+              <PestGlyph pest={pest} size={28} />
+              <span className="trigger-title">{pest.label}</span>
+              <ChevronDown size={16} aria-hidden="true" />
+            </button>
           </div>
 
           {/* The extra pests ride along in the number, so they sit in the
@@ -949,11 +989,7 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                       says driving may come on top, and the note itself takes the
                       visitor to the field that works it out. */}
                   {quote.postcodeState !== "ok" && (
-                    <button
-                      type="button"
-                      className="estimator__drive-link"
-                      onClick={openDrive}
-                    >
+                    <button type="button" className="estimator__drive-link" onClick={openDrive}>
                       + kørsel
                     </button>
                   )}
@@ -961,9 +997,7 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                 {quote.houses > 1 && (
                   <p className="small" data-testid="group-total">
                     pr. hus, {dkr(quote.total)} i alt for {quote.houses} huse
-                    {quote.soloPrice > quote.price && (
-                      <> · Hver sparer {dkr(quote.soloPrice - quote.price)}</>
-                    )}
+                    {quote.soloPrice > quote.price && <> · Hver sparer {dkr(quote.soloPrice - quote.price)}</>}
                   </p>
                 )}
                 {/* The price never appears without saying what it covers. */}
@@ -975,7 +1009,13 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
                     return (
                       <>
                         {quote.caption.slice(0, m.index)}
-                        <button type="button" className="estimator__area-link" onClick={() => openAt(".area-field input")}>{m[0]}</button>
+                        <button
+                          type="button"
+                          className="estimator__area-link"
+                          onClick={() => openAt(".area-field input")}
+                        >
+                          {m[0]}
+                        </button>
                         {quote.caption.slice(m.index + m[0].length)}
                       </>
                     );
@@ -1034,9 +1074,12 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
             </p>
           </div>
 
-
           {orderSelection && (
-            <button type="button" className="btn btn--primary btn--block estimator__order" onClick={() => setOrderOpen(true)}>
+            <button
+              type="button"
+              className="btn btn--primary btn--block estimator__order"
+              onClick={() => setOrderOpen(true)}
+            >
               Bestil tilbud
             </button>
           )}
@@ -1106,7 +1149,17 @@ export default function Estimator({ initialPest, contextKey }: { initialPest?: s
 }
 
 /** Rooms or nests, for the pests he prices that way: the main pest and every added one. */
-function CountStepper({ unit, label, count, onChange }: { unit: "rum" | "bo"; label: string; count: number; onChange: (n: number) => void }) {
+function CountStepper({
+  unit,
+  label,
+  count,
+  onChange,
+}: {
+  unit: "rum" | "bo";
+  label: string;
+  count: number;
+  onChange: (n: number) => void;
+}) {
   // Which way the number rolls: up for more, down for fewer.
   const dir = useRef<"up" | "down">("up");
   const step = (n: number) => {

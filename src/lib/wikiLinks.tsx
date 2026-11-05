@@ -7,10 +7,28 @@ const B = import.meta.env.BASE_URL;
 // The everyday singular of each pest, so "en hveps" or "myren" links too,
 // not only the plural on the service page.
 const SINGULAR: Record<string, string> = {
-  myre: "myrer", edderkop: "edderkopper", hveps: "hvepse", kakerlak: "kakerlakker", flue: "fluer",
-  "møl": "moel", snegl: "snegle", klanner: "klannere", borebille: "borebiller", "væggelus": "vaeggelus",
-  rotte: "mus-og-rotter", mus: "mus-og-rotter", loppe: "lopper", lus: "lus", "flåt": "flaater", "tæge": "flaater",
-  "mår": "maar", due: "fugle", fugl: "fugle", "ræv": "vildedyr", "grævling": "vildedyr", hare: "vildedyr",
+  myre: "myrer",
+  edderkop: "edderkopper",
+  hveps: "hvepse",
+  kakerlak: "kakerlakker",
+  flue: "fluer",
+  møl: "moel",
+  snegl: "snegle",
+  klanner: "klannere",
+  borebille: "borebiller",
+  væggelus: "vaeggelus",
+  rotte: "mus-og-rotter",
+  mus: "mus-og-rotter",
+  loppe: "lopper",
+  lus: "lus",
+  flåt: "flaater",
+  tæge: "flaater",
+  mår: "maar",
+  due: "fugle",
+  fugl: "fugle",
+  ræv: "vildedyr",
+  grævling: "vildedyr",
+  hare: "vildedyr",
 };
 
 /**
@@ -53,7 +71,10 @@ let PATTERN: RegExp | undefined;
 export function linkify(text: string, used: Set<string>): ReactNode[] {
   HREF ??= targets();
   PATTERN ??= new RegExp(
-    `(?<!\\p{L})(${[...HREF.keys()].map(escape).sort((a, b) => b.length - a.length).join("|")})(?:erne|ens|en|er|et|ne|s|n|e|r)?(?!\\p{L})`,
+    `(?<!\\p{L})(${[...HREF.keys()]
+      .map(escape)
+      .sort((a, b) => b.length - a.length)
+      .join("|")})(?:erne|ens|en|er|et|ne|s|n|e|r)?(?!\\p{L})`,
     "giu",
   );
   const out: ReactNode[] = [];
@@ -62,7 +83,12 @@ export function linkify(text: string, used: Set<string>): ReactNode[] {
     const href = HREF.get(m[1].toLowerCase());
     if (!href || used.has(href)) continue;
     used.add(href);
-    out.push(text.slice(last, m.index), <a key={m.index} href={href} className="link wiki-link">{m[0]}</a>);
+    out.push(
+      text.slice(last, m.index),
+      <a key={m.index} href={href} className="link wiki-link">
+        {m[0]}
+      </a>,
+    );
     last = m.index! + m[0].length;
   }
   out.push(text.slice(last));

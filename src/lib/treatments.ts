@@ -67,8 +67,7 @@ const skaegkrae: TreatmentDetails = {
 };
 
 const soelvfiskArt: TreatmentDetails = {
-  intro:
-    "Almindelige sølvfisk er et tegn på fugt, og derfor går behandlingen efter årsagen — ikke kun efter dyrene.",
+  intro: "Almindelige sølvfisk er et tegn på fugt, og derfor går behandlingen efter årsagen — ikke kun efter dyrene.",
   steps: [
     "Vi gennemgår de fugtige zoner — kælder, bryggers, badeværelse og køkken — og finder de utætheder og fødekilder, som sølvfiskene lever af.",
     "Vi behandler revner, områder bag fodlister og de steder, hvor der er aktivitet.",
@@ -107,8 +106,7 @@ const moel: TreatmentDetails = {
 };
 
 const fluer: TreatmentDetails = {
-  intro:
-    "Fluer forsvinder ikke, før kilden er væk, så behandlingen starter med at finde den.",
+  intro: "Fluer forsvinder ikke, før kilden er væk, så behandlingen starter med at finde den.",
   steps: [
     "Vi identificerer flueartens hvile- og ynglesteder: affald, afløb, modne frugter, et dødt dyr i konstruktionen eller noget helt fjerde.",
     "Vi behandler vinduer, vinduesrammer, vægge, lofter, solrige facader og de steder, hvor der er produktion, affald eller opstaldning — overalt hvor fluerne samler sig.",
@@ -127,24 +125,20 @@ const vaeggelus: TreatmentDetails = {
 };
 
 const hvepse: TreatmentDetails = {
-  intro:
-    "Et hvepsebo behandles, mens kolonien er hjemme, så hele boet — også dronningen — bliver ramt.",
+  intro: "Et hvepsebo behandles, mens kolonien er hjemme, så hele boet — også dronningen — bliver ramt.",
   steps: [
     "Vi lokaliserer boet og vurderer aktiviteten og placeringen, så vi kan ramme kolonien uden at udsætte dig eller omgivelserne for stik.",
     "Vi behandler boet med professionelle produkter og det udstyr, opgaven kræver — også når det sidder et besværligt sted.",
     "Stedet efterbehandler vi, så nye hvepse ikke bygger bo samme sted igen.",
   ],
-  aftercare: [
-    "Hold døre og vinduer tæt på boet lukkede i op til et par døgn, mens behandlingen virker.",
-  ],
+  aftercare: ["Hold døre og vinduer tæt på boet lukkede i op til et par døgn, mens behandlingen virker."],
 };
 
 // ---- Draft entries (no owner treatment article; owner must approve) ----
 
 const myg: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Myg bekæmpes bedst ved at ramme det vand, de yngler i — ikke kun de myg, der allerede er flået ind.",
+  intro: "Myg bekæmpes bedst ved at ramme det vand, de yngler i — ikke kun de myg, der allerede er flået ind.",
   steps: [
     "Vi går rundt om huset og finder det stillestående vand, myggene yngler i: tagrender, regnbeholdere, hjulspor og andre skjulte steder.",
     "Vi behandler ynglestederne og de steder, hvor myggene hviler i skyggen om dagen, langs hæk og buske.",
@@ -164,8 +158,7 @@ const klannere: TreatmentDetails = {
 
 const snegle: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Snegle behandles, hvor de gemmer sig om dagen — ikke kun der, hvor du ser skaden om morgenen.",
+  intro: "Snegle behandles, hvor de gemmer sig om dagen — ikke kun der, hvor du ser skaden om morgenen.",
   steps: [
     "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen: under brædder, løse fliser, tæt bunddække og op ad kompostbunken.",
     "Vi behandler bede, kanter og skjulesteder med godkendte midler i den dosering, de er godkendt til.",
@@ -175,8 +168,7 @@ const snegle: TreatmentDetails = {
 
 const muldvarpe: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Arbejdet starter med at finde ud af, hvilket dyr der laver skuddene, og hvilke gange der faktisk er i brug.",
+  intro: "Arbejdet starter med at finde ud af, hvilket dyr der laver skuddene, og hvilke gange der faktisk er i brug.",
   steps: [
     "Vi klarlægger, om det er muldvarp eller mosegris, og undersøger hvilke gange der er aktive — der er ingen grund til at bruge tid på forladte gange.",
     "Vi sætter derefter ind i selve gangsystemet. Arbejdet udføres efter gældende regler for bekæmpelse af muldvarpe og mosegrise.",
@@ -186,8 +178,7 @@ const muldvarpe: TreatmentDetails = {
 
 const kakerlakker: TreatmentDetails = {
   // DRAFT: the owner's article for this pest is a placeholder; drafted from the service page's own processNote.
-  intro:
-    "Kakerlakker bekæmpes ved at ramme kilden og skjulestederne — ikke kun dem, du ser løbe om natten.",
+  intro: "Kakerlakker bekæmpes ved at ramme kilden og skjulestederne — ikke kun dem, du ser løbe om natten.",
   steps: [
     "Vi starter med at finde kilden og adgangsvejene: hvordan de er kommet ind, og hvor de holder til.",
     "Vi behandler målrettet med gel og stationer i revner, bag hvidevarer og i de tekniske installationer, hvor de gemmer sig.",
@@ -197,8 +188,7 @@ const kakerlakker: TreatmentDetails = {
 
 const musOgRotter: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Mus og rotter bekæmpes lovligt og grundigt: arten fastslås først, og rotter anmeldes altid til kommunen.",
+  intro: "Mus og rotter bekæmpes lovligt og grundigt: arten fastslås først, og rotter anmeldes altid til kommunen.",
   steps: [
     "Vi fastslår, hvilket dyr du har med at gøre — og om der er tale om rotter, som altid skal anmeldes til kommunen.",
     "Vi sætter professionelle fælder de rigtige steder, hvor dyrene færdes, og følger op, indtil bestanden er væk.",
@@ -208,8 +198,7 @@ const musOgRotter: TreatmentDetails = {
 
 const lopper: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Lopper bekæmpes i to spor samtidig: kilden findes, og boligen behandles, hvor pupperne sidder.",
+  intro: "Lopper bekæmpes i to spor samtidig: kilden findes, og boligen behandles, hvor pupperne sidder.",
   steps: [
     "Vi finder ud af, hvor lopperne kommer fra: kæledyr, en fuglerede under taget eller et hus, der har stået tomt.",
     "Kæledyret behandles af dyrlægen — det er dit ansvar, og vi siger det ligeud, hvis det er det eneste, der skal til.",
@@ -223,8 +212,7 @@ const lopper: TreatmentDetails = {
 
 const flaater: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Flåter kan ikke sprøjtes væk, men grunden kan gøres markant mindre attraktiv for dem.",
+  intro: "Flåter kan ikke sprøjtes væk, men grunden kan gøres markant mindre attraktiv for dem.",
   steps: [
     "Vi gennemgår grunden og finder de steder, flåterne trives: højt græs, tæt hæk, krat og fugtige hjørner.",
     "Vi laver en plan for indsatsen — fra klipning og oprydning til råd om, hvordan du beskytter dig selv og dine dyr.",
@@ -234,8 +222,7 @@ const flaater: TreatmentDetails = {
 
 const lus: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Først fastslår vi, hvad du står med: hovedlus, fladlus eller fnat — behandlingen er forskellig for hver.",
+  intro: "Først fastslår vi, hvad du står med: hovedlus, fladlus eller fnat — behandlingen er forskellig for hver.",
   steps: [
     "Ved hovedlus og fladlus behandles personen med tættekam og midler fra apoteket; her er der som regel ingen grund til at betale os.",
     "Ved fnat hjælper vi med hjemmet: vi støvsuger grundigt, får vasket tøj og sengetøj ved 60 °C og isolerer det, der ikke kan vaskes.",
@@ -245,8 +232,7 @@ const lus: TreatmentDetails = {
 
 const maar: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Mårbehandling følger loven: arten skal sikres, før der gøres noget, og dyret skal ud, før huset tættes.",
+  intro: "Mårbehandling følger loven: arten skal sikres, før der gøres noget, og dyret skal ud, før huset tættes.",
   steps: [
     "Vi fastslår, hvilket dyr der er tale om, og hvor det kommer ind.",
     "Vi sætter godkendte fælder op eller monterer et envejssystem, så dyret kan komme ud, men ikke ind igen.",
@@ -256,8 +242,7 @@ const maar: TreatmentDetails = {
 
 const fugle: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "Fugle bekæmpes ikke med gift — de holdes væk ved at gøre siddepladserne ubrugelige.",
+  intro: "Fugle bekæmpes ikke med gift — de holdes væk ved at gøre siddepladserne ubrugelige.",
   steps: [
     "Vi kigger på bygningen og finder ud af, hvilken fugl der er tale om, og hvor den holder til.",
     "Vi fjerner reder, hvor loven tillader det, og desinficerer stedet bagefter.",
@@ -278,8 +263,7 @@ const vildedyr: TreatmentDetails = {
 
 const haven: TreatmentDetails = {
   // DRAFT: no owner treatment article; drafted from the service page's own processNote.
-  intro:
-    "I haven starter vi altid med at fastslå, hvad der laver skaden — før der overhovedet tales om en behandling.",
+  intro: "I haven starter vi altid med at fastslå, hvad der laver skaden — før der overhovedet tales om en behandling.",
   steps: [
     "Vi går haven og køkkenhaven igennem og identificerer skadedyret.",
     "Finder vi kartoffelbiller, hjælper vi dig også med at melde fundet til kommunen eller Plantetilsynet.",
@@ -335,8 +319,7 @@ const SPECIES_TREATMENT_OVERRIDES: Record<string, TreatmentDetails> = {
   // Gul engmyre er ufarlig og skal som udgangspunkt ikke bekæmpes.
   "myrer/gul-engmyre": {
     assessmentOnly: true,
-    intro:
-      "De små jordhøje i plænen er gul engmyre, og den er ufarlig. Den skal som udgangspunkt ikke bekæmpes.",
+    intro: "De små jordhøje i plænen er gul engmyre, og den er ufarlig. Den skal som udgangspunkt ikke bekæmpes.",
     steps: [
       "Vi kigger på højene og bekræfter, at det er engmyre og ikke en art, der faktisk gør skade.",
       "Sker det indendørs, eller er du i tvivl om arten, vurderer vi det på stedet og siger dig ligeud, om der er behov for en behandling.",
@@ -377,8 +360,7 @@ const SPECIES_TREATMENT_OVERRIDES: Record<string, TreatmentDetails> = {
   // Skovmåren er totalfredet.
   "maar/skovmaar": {
     assessmentOnly: true,
-    intro:
-      "Skovmåren er totalfredet i Danmark. Den må hverken jages, fanges eller generes — heller ikke med fælder.",
+    intro: "Skovmåren er totalfredet i Danmark. Den må hverken jages, fanges eller generes — heller ikke med fælder.",
     steps: [
       "Vi ser på spor og skader og fastslår, om der er tale om skovmår eller husmår.",
       "Er det en skovmår, henviser vi til den rette myndighed, så sagen håndteres lovligt.",

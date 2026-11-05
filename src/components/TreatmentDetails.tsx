@@ -82,8 +82,8 @@ function TreatmentAccordion({ details }: { details: TreatmentDetailsModel }) {
           )}
           {!details.assessmentOnly && (
             <p className="small muted treatment__note">
-              Én professionel behandling er nok i langt de fleste tilfælde. Skulle der mod forventning
-              være brug for endnu en, er den stadig billigere end hos konkurrenterne.
+              Én professionel behandling er nok i langt de fleste tilfælde. Skulle der mod forventning være brug for
+              endnu en, er den stadig billigere end hos konkurrenterne.
             </p>
           )}
         </Disclosure.Body>

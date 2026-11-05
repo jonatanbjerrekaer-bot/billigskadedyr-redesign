@@ -80,9 +80,7 @@ const articles: SpeciesArticle[] = [
       },
       {
         heading: "Forveksles med",
-        paragraphs: [
-          "Vingetæge, der ligner almindelig væggelus og ses især, hvor der er flagermus på loftet.",
-        ],
+        paragraphs: ["Vingetæge, der ligner almindelig væggelus og ses især, hvor der er flagermus på loftet."],
         provenance: [CARD],
       },
     ],

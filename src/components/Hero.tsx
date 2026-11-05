@@ -39,8 +39,7 @@ export default function Hero() {
               <br /> Vi kommer og <span className="tail">fjerner dem.</span>
             </h1>
             <p className="lead">
-              Du får en fast pris, før vi går i gang. Vi kigger efter først, og du siger ja,
-              før vi rører noget.
+              Du får en fast pris, før vi går i gang. Vi kigger efter først, og du siger ja, før vi rører noget.
             </p>
             <ul className="hero__chips" aria-label="Skadedyr vi fjerner">
               {GRID_PESTS.slice(0, 6).map((p) => (
@@ -60,8 +59,7 @@ export default function Hero() {
               </li>
             </ul>
             <p className="hero__rating">
-              <strong>4,6 af 5</strong> på e-mærket ·{" "}
-              <a href="#reviews">Læs hvad kunderne skriver</a>
+              <strong>4,6 af 5</strong> på e-mærket · <a href="#reviews">Læs hvad kunderne skriver</a>
             </p>
           </div>
 

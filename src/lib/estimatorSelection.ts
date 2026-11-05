@@ -53,11 +53,11 @@ function subscribe(fn: () => void) {
   };
 }
 
-function extrasEqual(
-  a: EstimatorSelection["extras"],
-  b: EstimatorSelection["extras"],
-): boolean {
-  return a.length === b.length && a.every((x, i) => x.slug === b[i]!.slug && x.label === b[i]!.label && x.count === b[i]!.count);
+function extrasEqual(a: EstimatorSelection["extras"], b: EstimatorSelection["extras"]): boolean {
+  return (
+    a.length === b.length &&
+    a.every((x, i) => x.slug === b[i]!.slug && x.label === b[i]!.label && x.count === b[i]!.count)
+  );
 }
 
 export function publishEstimatorSelection(next: EstimatorSelection) {

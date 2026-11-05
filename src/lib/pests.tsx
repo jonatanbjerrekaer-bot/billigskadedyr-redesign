@@ -38,67 +38,160 @@ export type PestEntry = {
 };
 
 export const PESTS: PestEntry[] = [
-  { slug: "myrer", treatment: "Behandling af reder og adgangsveje", label: "Myrer", priceKey: "Myrer", png: "ant", scale: 0.96 },
   {
-    slug: "edderkopper", treatment: "Behandling af træer, buske og havemøbler omkring huset",
+    slug: "myrer",
+    treatment: "Behandling af reder og adgangsveje",
+    label: "Myrer",
+    priceKey: "Myrer",
+    png: "ant",
+    scale: 0.96,
+  },
+  {
+    slug: "edderkopper",
+    treatment: "Behandling af træer, buske og havemøbler omkring huset",
     label: "Edderkopper",
     priceKey: "Edderkopper",
     png: "spider",
     scale: 1.05,
   },
   {
-    slug: "hvepse", treatment: "Fjernelse af bo og efterbehandling af hulrummet",
+    slug: "hvepse",
+    treatment: "Fjernelse af bo og efterbehandling af hulrummet",
     label: "Hvepse & bier",
     priceKey: "Hvepse & bier",
     png: "bee",
     scale: 0.97,
   },
-  { slug: "mus-og-rotter", treatment: "Sikring af huset, fangst og bekæmpelse af gangsystemer", label: "Mus & rotter", icon: "mus.svg" },
   {
-    slug: "vaeggelus", treatment: "Behandling af senge, møbler og fodpaneler",
+    slug: "mus-og-rotter",
+    treatment: "Sikring af huset, fangst og bekæmpelse af gangsystemer",
+    label: "Mus & rotter",
+    icon: "mus.svg",
+  },
+  {
+    slug: "vaeggelus",
+    treatment: "Behandling af senge, møbler og fodpaneler",
     label: "Væggelus",
     priceKey: "Pr. rum",
     Svg: BedBug,
     scale: 1.05,
   },
   {
-    slug: "soelvfisk", treatment: "Behandling af fugtzoner, revner og fodpaneler",
+    slug: "soelvfisk",
+    treatment: "Behandling af fugtzoner, revner og fodpaneler",
     label: "Skægkræ",
     priceKey: "Skægkræ",
     icon: "skaegkrae.svg",
   },
   {
-    slug: "borebiller", treatment: "Behandling af det angrebne træværk",
+    slug: "borebiller",
+    treatment: "Behandling af det angrebne træværk",
     label: "Borebiller",
     priceKey: "Borebiller",
     png: "beetle",
     scale: 1.13,
   },
   {
-    slug: "kakerlakker", treatment: "Gelbehandling af køkken, skjul og afløb",
+    slug: "kakerlakker",
+    treatment: "Gelbehandling af køkken, skjul og afløb",
     label: "Kakerlakker",
     priceKey: "Kakerlakker",
     png: "cockroach",
     scale: 0.9,
   },
-  { slug: "lopper", treatment: "Behandling af boligen og rådgivning om kæledyr", label: "Lopper", priceKey: "Pr. rum", icon: "lopper.svg" },
-  { slug: "fluer", treatment: "Behandling af hvilesteder og indflyvningsveje", label: "Fluer", priceKey: "Fluer", png: "fluer", scale: 1.02 },
-  { slug: "flaater", treatment: "Flåtsikring af grunden og rådgivning", label: "Flåter", priceKey: "Pr. rum", icon: "flaater.svg" },
-  { slug: "gaasebiller", treatment: "Behandling af plænen mod larverne i rodzonen", label: "Gåsebiller", priceKey: "Gåsebiller", icon: "gaasebiller.svg" },
-  { slug: "moel", treatment: "Behandling af skabe, tekstiler og fødevareskabe", label: "Møl", priceKey: "Møl", icon: "moel.svg" },
-  { slug: "myg", treatment: "Behandling af ynglesteder og indflyvningsveje", label: "Myg", priceKey: "Myg", png: "mosquito" },
-  { slug: "klannere", treatment: "Behandling af tæpper, tekstiler og revner", label: "Klannere", priceKey: "Klannere", icon: "klannere.svg" },
+  {
+    slug: "lopper",
+    treatment: "Behandling af boligen og rådgivning om kæledyr",
+    label: "Lopper",
+    priceKey: "Pr. rum",
+    icon: "lopper.svg",
+  },
+  {
+    slug: "fluer",
+    treatment: "Behandling af hvilesteder og indflyvningsveje",
+    label: "Fluer",
+    priceKey: "Fluer",
+    png: "fluer",
+    scale: 1.02,
+  },
+  {
+    slug: "flaater",
+    treatment: "Flåtsikring af grunden og rådgivning",
+    label: "Flåter",
+    priceKey: "Pr. rum",
+    icon: "flaater.svg",
+  },
+  {
+    slug: "gaasebiller",
+    treatment: "Behandling af plænen mod larverne i rodzonen",
+    label: "Gåsebiller",
+    priceKey: "Gåsebiller",
+    icon: "gaasebiller.svg",
+  },
+  {
+    slug: "moel",
+    treatment: "Behandling af skabe, tekstiler og fødevareskabe",
+    label: "Møl",
+    priceKey: "Møl",
+    icon: "moel.svg",
+  },
+  {
+    slug: "myg",
+    treatment: "Behandling af ynglesteder og indflyvningsveje",
+    label: "Myg",
+    priceKey: "Myg",
+    png: "mosquito",
+  },
+  {
+    slug: "klannere",
+    treatment: "Behandling af tæpper, tekstiler og revner",
+    label: "Klannere",
+    priceKey: "Klannere",
+    icon: "klannere.svg",
+  },
   { slug: "snegle", treatment: "Behandling af bede, kanter og fugtige skjul", label: "Snegle", icon: "snegle.svg" },
   { slug: "muldvarpe", treatment: "Bekæmpelse i gangsystemet under plænen", label: "Muldvarpe", icon: "muldvarpe.svg" },
-  { slug: "lus", treatment: "Tjek af hele husstanden og behandling af hjemmet", label: "Lus & fnat", priceKey: "Pr. rum", icon: "lus.svg" },
+  {
+    slug: "lus",
+    treatment: "Tjek af hele husstanden og behandling af hjemmet",
+    label: "Lus & fnat",
+    priceKey: "Pr. rum",
+    icon: "lus.svg",
+  },
   { slug: "maar", treatment: "Kortlægning, fangst og mårsikring af huset", label: "Mår", icon: "maar.svg" },
   { slug: "fugle", treatment: "Net, pigge og fjernelse af reder", label: "Fugle", icon: "fugle.svg" },
-  { slug: "vildedyr", treatment: "Afvisning og afskærmning af haven", label: "Vilde dyr i haven", icon: "vildedyr.svg" },
+  {
+    slug: "vildedyr",
+    treatment: "Afvisning og afskærmning af haven",
+    label: "Vilde dyr i haven",
+    icon: "vildedyr.svg",
+  },
   { slug: "haven", treatment: "Artsbestemmelse og målrettet behandling", label: "Skadedyr i haven", icon: "haven.svg" },
   // Priced in the calculator only: no service page or own icon yet.
-  { slug: "baenkebidere", treatment: "Behandling af fugtzoner, fodpaneler og indgangsveje", label: "Bænkebidere", priceKey: "Bænkebidere", icon: "skaegkrae.svg", gridHidden: true },
-  { slug: "oerentviste", treatment: "Behandling af revner, fodpaneler og indgangsveje", label: "Ørentviste", priceKey: "Ørentviste", png: "beetle", gridHidden: true },
-  { slug: "bladlus", treatment: "Behandling af de angrebne planter", label: "Bladlus", priceKey: "Bladlus", icon: "haven.svg", gridHidden: true },
+  {
+    slug: "baenkebidere",
+    treatment: "Behandling af fugtzoner, fodpaneler og indgangsveje",
+    label: "Bænkebidere",
+    priceKey: "Bænkebidere",
+    icon: "skaegkrae.svg",
+    gridHidden: true,
+  },
+  {
+    slug: "oerentviste",
+    treatment: "Behandling af revner, fodpaneler og indgangsveje",
+    label: "Ørentviste",
+    priceKey: "Ørentviste",
+    png: "beetle",
+    gridHidden: true,
+  },
+  {
+    slug: "bladlus",
+    treatment: "Behandling af de angrebne planter",
+    label: "Bladlus",
+    priceKey: "Bladlus",
+    icon: "haven.svg",
+    gridHidden: true,
+  },
 ];
 
 /** The subset shown in the quick-select grid. */
@@ -116,15 +209,7 @@ export function pestBySlug(slug: string): PestEntry | undefined {
  * mask so `currentColor` tints them exactly like the SVGs — a filter can only
  * force pure white or black.
  */
-export function PestGlyph({
-  pest,
-  size = 28,
-  className,
-}: {
-  pest: PestEntry;
-  size?: number;
-  className?: string;
-}) {
+export function PestGlyph({ pest, size = 28, className }: { pest: PestEntry; size?: number; className?: string }) {
   const scale = pest.scale ?? 1;
 
   if (pest.Svg) {

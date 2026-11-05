@@ -36,9 +36,20 @@ const at = (pest: string, opts: Opts) => {
 
 // Base prices, Aarhus.
 for (const [k, p] of [
-  ["Myrer", 600], ["Edderkopper", 1200], ["Skægkræ", 1000], ["Hvepse & bier", 800],
-  ["Gåsebiller", 2000], ["Møl", 1200], ["Myg", 2000], ["Pr. rum", 1000], ["Klannere", 1000],
-  ["Kakerlakker", 800], ["Fluer", 1500], ["Bænkebidere", 1000], ["Ørentviste", 1000], ["Bladlus", 1000],
+  ["Myrer", 600],
+  ["Edderkopper", 1200],
+  ["Skægkræ", 1000],
+  ["Hvepse & bier", 800],
+  ["Gåsebiller", 2000],
+  ["Møl", 1200],
+  ["Myg", 2000],
+  ["Pr. rum", 1000],
+  ["Klannere", 1000],
+  ["Kakerlakker", 800],
+  ["Fluer", 1500],
+  ["Bænkebidere", 1000],
+  ["Ørentviste", 1000],
+  ["Bladlus", 1000],
 ] as const) {
   assert(at(k, { postcode: "8000" }).price === p, `${k} in Aarhus is ${p}`);
 }
@@ -75,10 +86,18 @@ assert(
 const wasps = at("Myrer", { extras: [{ key: "Hvepse & bier", label: "Hvepse & bier", count: 2 }] });
 assert(wasps.price === 600 + 800 + 400, "an added pest prices its own nests: 2 bo is 800 + 400");
 assert(wasps.caption.includes("hvepse & bier (2 boer)"), "the caption says how many nests");
-const fleas = at("Myrer", { extras: [{ key: "Pr. rum", label: "Lopper", count: 3 }, { key: "Edderkopper", label: "Edderkopper" }] });
+const fleas = at("Myrer", {
+  extras: [
+    { key: "Pr. rum", label: "Lopper", count: 3 },
+    { key: "Edderkopper", label: "Edderkopper" },
+  ],
+});
 assert(fleas.price === 600 + 3000 + 1200, "an added pest prices its own rooms: 3 rum is 3000");
 assert(fleas.caption.includes("lopper (3 rum) og edderkopper"), "the last two pests are joined with og");
-assert(at("Myrer", { extras: [{ key: "Pr. rum", label: "Lopper", count: 11 }] }).price === 600 + 10000, "10+ rooms is priced as 10");
+assert(
+  at("Myrer", { extras: [{ key: "Pr. rum", label: "Lopper", count: 11 }] }).price === 600 + 10000,
+  "10+ rooms is priced as 10",
+);
 assert(at("Myrer", { postcode: "8800" }).comboSaving === 200, "a second pest in Viborg saves half of 400");
 assert(at("Myrer", { postcode: "8800", houses: 5 }).comboSaving === 0, "5 houses already beat half driving");
 assert(

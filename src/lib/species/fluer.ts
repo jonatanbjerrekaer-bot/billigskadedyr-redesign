@@ -81,7 +81,10 @@ const articles: SpeciesArticle[] = [
           "Det, folk kalder kloakfluer, er sommerfuglemyg — også kaldt afløbsfluer. De er små og mørke med dunede, tydeligt behårede vinger, så de ligner nærmest en lille møl.",
           "De sidder ofte stille på væggen i køkkenet eller badeværelset og flyver kort og klodset, når du kommer forbi.",
         ],
-        provenance: ["owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/ + serviceContent.ts", "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/"],
+        provenance: [
+          "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/ + serviceContent.ts",
+          "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/",
+        ],
       },
       {
         heading: "Levevis",
@@ -121,7 +124,10 @@ const articles: SpeciesArticle[] = [
           "Du kan godt have to slags småfluer på én gang. Aktiviteten ved pant kan falde, efter du har vasket op, mens de møllignende fluer stadig sidder over gulvafløbet. Så peger det på to forskellige ting: bananfluer ved pant og frugt, kloakfluer ved afløbet.",
           "Små sorte myg omkring potteplanter er som regel sørgemyg fra fugtig pottemuld. De kommer ikke fra afløbet.",
         ],
-        provenance: ["owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/", "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/"],
+        provenance: [
+          "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/",
+          "owner+new https://billigskadedyr.dk/smaa-fluer-frugt-afloeb-planter-2/",
+        ],
       },
     ],
     sources: [
@@ -348,10 +354,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://muldvarpemanden.dk/fluebekaempelse/fluer-der-bider-i-danmark/",
-      "https://www.skadedyrene.dk/",
-    ],
+    sources: ["https://muldvarpemanden.dk/fluebekaempelse/fluer-der-bider-i-danmark/", "https://www.skadedyrene.dk/"],
   },
 ];
 

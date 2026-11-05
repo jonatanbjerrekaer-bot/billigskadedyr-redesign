@@ -110,16 +110,10 @@ const articles: SpeciesArticle[] = [
           "Den sikreste måde er at løfte et stykke græstørv og undersøge jorden. Store, hvide larver med brunt hoved, hvor planterne visner, peger på oldenborre. Larver, du graver op, kan du samle og fjerne.",
           "Er du i tvivl, om det er oldenborre, gåsebille eller stankelbenslarve, hjælper vi gerne med at identificere skadedyret, så behandlingen passer til dyret.",
         ],
-        provenance: [
-          `owner+new ${G}`,
-          `owner+new ${G}`,
-        ],
+        provenance: [`owner+new ${G}`, `owner+new ${G}`],
       },
     ],
-    sources: [
-      "https://en.wikipedia.org/wiki/Melolontha_melolontha",
-      "https://da.wikipedia.org/wiki/Oldenborre",
-    ],
+    sources: ["https://en.wikipedia.org/wiki/Melolontha_melolontha", "https://da.wikipedia.org/wiki/Oldenborre"],
   },
   {
     name: "Stankelbenslarve",

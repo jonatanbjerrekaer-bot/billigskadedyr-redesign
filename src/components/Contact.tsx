@@ -55,9 +55,7 @@ function placeOf(sel: { houses: number; postcode: string | null; town: string | 
  * trust.
  */
 function calculatorDraft(sel: EstimatorSelection): string {
-  const extras = sel.extras
-    .filter((x) => x.slug !== sel.pestSlug)
-    .map((x) => counted(x.label, x.slug, x.count));
+  const extras = sel.extras.filter((x) => x.slug !== sel.pestSlug).map((x) => counted(x.label, x.slug, x.count));
   const pests =
     extras.length > 0
       ? `${counted(sel.pestLabel, sel.pestSlug, sel.count)} + ${extras.join(" + ")} på samme besøg`
@@ -71,10 +69,7 @@ function calculatorDraft(sel: EstimatorSelection): string {
   }Jeg vil gerne have et fast tilbud.`;
 }
 
-export default function Contact({
-  pestLabel,
-  contextKey = "page",
-}: { pestLabel?: string; contextKey?: string } = {}) {
+export default function Contact({ pestLabel, contextKey = "page" }: { pestLabel?: string; contextKey?: string } = {}) {
   const selection = useEstimatorSelection();
   // Only a selection produced on THIS page counts. After navigation the old
   // one is stale: the form falls back to the simple current-page draft below.
@@ -94,18 +89,22 @@ export default function Contact({
       <div className="container grid12">
         <div className="close__facts">
           <h2>Klar til at få det løst?</h2>
-          <p>
-            Skriv et par linjer om, hvad du står over for. Vi svarer inden for en hverdag.
-          </p>
+          <p>Skriv et par linjer om, hvad du står over for. Vi svarer inden for en hverdag.</p>
           <dl className="close__dl">
             <div>
               <dt>E-mail</dt>
-              <dd><a href="mailto:info@billigskadedyr.dk" className="select-text">info@billigskadedyr.dk</a></dd>
+              <dd>
+                <a href="mailto:info@billigskadedyr.dk" className="select-text">
+                  info@billigskadedyr.dk
+                </a>
+              </dd>
             </div>
             <div>
               <dt>Telefon</dt>
               <dd>
-                <a href="tel:+4524245583" className="select-text">24 24 55 83</a>
+                <a href="tel:+4524245583" className="select-text">
+                  24 24 55 83
+                </a>
                 <br />
                 <span className="small muted">Akut og igangværende sager</span>
               </dd>

@@ -36,8 +36,7 @@ export type Safety = {
   restriction?: string;
 };
 
-export const POISON_LINE =
-  "Giftlinjen: 82 12 12 12, døgnet rundt. Ved ulykke: ring 112.";
+export const POISON_LINE = "Giftlinjen: 82 12 12 12, døgnet rundt. Ved ulykke: ring 112.";
 
 export const SAFETY: Record<string, Safety> = {
   "a-tox-25ltr": {
@@ -60,8 +59,7 @@ export const SAFETY: Record<string, Safety> = {
       "P280 - Bær beskyttelseshandsker.",
       "P501 - Indholdet og beholderen bortskaffes på et indsamlingssted for farligt affald.",
     ],
-    source:
-      "Sikkerhedsdatablad fra Tanaco (Pelsis Denmark) AS, Esbjerg, revideret 17. maj 2023, version 1.0.",
+    source: "Sikkerhedsdatablad fra Tanaco (Pelsis Denmark) AS, Esbjerg, revideret 17. maj 2023, version 1.0.",
     restriction: "Kun til professionel brug. Sælges til erhvervskunder med gyldigt CVR-nr.",
   },
 
@@ -83,8 +81,7 @@ export const SAFETY: Record<string, Safety> = {
       "P390 - Absorbér udslip for at undgå materielskade.",
       "P406 - Opbevares i beholder med modstandsdygtig foring.",
     ],
-    source:
-      "Sikkerhedsdatablad fra Protox ApS, Kolding, revideret 3. juli 2025, version 9.0.",
+    source: "Sikkerhedsdatablad fra Protox ApS, Kolding, revideret 3. juli 2025, version 9.0.",
     restriction: "Udelukkende til erhvervsmæssig brug.",
   },
 };

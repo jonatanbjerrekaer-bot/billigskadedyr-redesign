@@ -32,11 +32,7 @@ assert.equal(
   null,
   "SVG must never be accepted: it is XML and it can carry script",
 );
-assert.equal(
-  sniff(new Uint8Array([...[..."<!DOCTYPE html"].map((c) => c.charCodeAt(0))])),
-  null,
-  "HTML",
-);
+assert.equal(sniff(new Uint8Array([...[..."<!DOCTYPE html"].map((c) => c.charCodeAt(0))])), null, "HTML");
 // a real one: RIFF that is not WEBP (a wav, say) must not read as an image
 assert.equal(
   sniff(new Uint8Array([0x52, 0x49, 0x46, 0x46, 1, 2, 3, 4, 0x57, 0x41, 0x56, 0x45, 0, 0, 0, 0])),
@@ -46,10 +42,7 @@ assert.equal(
 
 // the email arithmetic that set the total limit
 assert.ok(encodedSize(LIMITS.maxTotalBytes) < 25 * 1024 * 1024, "must fit a 25 MB mail server");
-assert.ok(
-  encodedSize(LIMITS.maxTotalBytes) > LIMITS.maxTotalBytes,
-  "base64 must be accounted as larger, not smaller",
-);
+assert.ok(encodedSize(LIMITS.maxTotalBytes) > LIMITS.maxTotalBytes, "base64 must be accounted as larger, not smaller");
 assert.ok(LIMITS.maxFileBytes <= LIMITS.maxTotalBytes, "one file cannot exceed the total");
 
 console.log(

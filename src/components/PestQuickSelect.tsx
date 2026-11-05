@@ -34,18 +34,30 @@ function useTypedPlaceholder(paused: boolean) {
   const [text, setText] = useState(STATIC_HINT);
   useEffect(() => {
     if (paused || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let i = 0, n = 0, deleting = false, t = 0;
+    let i = 0,
+      n = 0,
+      deleting = false,
+      t = 0;
     const tick = () => {
       const word = EXAMPLES[i];
       n += deleting ? -1 : 1;
       setText(word.slice(0, n));
       let wait = deleting ? 35 : 70;
-      if (!deleting && n === word.length) { deleting = true; wait = 1600; }
-      else if (deleting && n === 0) { deleting = false; i = (i + 1) % EXAMPLES.length; wait = 300; }
+      if (!deleting && n === word.length) {
+        deleting = true;
+        wait = 1600;
+      } else if (deleting && n === 0) {
+        deleting = false;
+        i = (i + 1) % EXAMPLES.length;
+        wait = 300;
+      }
       t = window.setTimeout(tick, wait);
     };
     t = window.setTimeout(tick, 600);
-    return () => { clearTimeout(t); setText(STATIC_HINT); };
+    return () => {
+      clearTimeout(t);
+      setText(STATIC_HINT);
+    };
   }, [paused]);
   return text;
 }
@@ -71,7 +83,10 @@ function matches(p: PestEntry, q: string) {
   const s = PEST_SEARCH[p.slug];
   const hay = fold([p.label, p.treatment ?? "", s?.tell ?? "", ...(s?.words ?? [])].join(" "));
   // every word must appear somewhere, so "biller i køkkenet" narrows rather than widens
-  return fold(q).split(/\s+/).filter(Boolean).every((w) => hay.includes(w));
+  return fold(q)
+    .split(/\s+/)
+    .filter(Boolean)
+    .every((w) => hay.includes(w));
 }
 
 /**
@@ -194,9 +209,7 @@ export default function PestQuickSelect() {
               , så siger vi det.
             </p>
           ) : (
-            <p className="index__caption">
-              Vejledende priser. Uden beløb: fast pris efter en kort snak.
-            </p>
+            <p className="index__caption">Vejledende priser. Uden beløb: fast pris efter en kort snak.</p>
           )}
         </>
       ) : (
@@ -205,8 +218,8 @@ export default function PestQuickSelect() {
         <div className="index__empty">
           <p className="trigger-title">Vi kender den sikkert alligevel.</p>
           <p className="muted">
-            Vi behandler flere skadedyr end dem, der står her. Send os et billede eller en
-            beskrivelse, så siger vi, hvad det er, og hvad det koster.
+            Vi behandler flere skadedyr end dem, der står her. Send os et billede eller en beskrivelse, så siger vi,
+            hvad det er, og hvad det koster.
           </p>
           <a href={homeHref("#skriv")} className="btn btn--primary">
             Beskriv, hvad du har set

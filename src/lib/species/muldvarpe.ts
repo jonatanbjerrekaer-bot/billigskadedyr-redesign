@@ -156,10 +156,7 @@ const articles: SpeciesArticle[] = [
         provenance: [`owner ${MO}`, `owner ${MA}`, `owner+new ${MO}`],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Muldvarp",
-      "https://da.wikipedia.org/wiki/Mosegris",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Muldvarp", "https://da.wikipedia.org/wiki/Mosegris"],
   },
 ];
 

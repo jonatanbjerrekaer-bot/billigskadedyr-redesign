@@ -35,9 +35,18 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Gåsebille", text: "Den voksne bille er små centimeter lang og flyver hen over forsommeren. Det er larven nede i jorden, der æder græsrødderne, så plænen slipper og kan rulles op som et tæppe." },
-      { name: "Oldenborre", text: "Større larve, der lever flere år i jorden, før den bliver til bille. Skaden ligner gåsebillens, men den kommer igen over flere sæsoner." },
-      { name: "Stankelbenslarve", text: "Grå og læderagtig larve uden ben. Den æder også græsrødder, og skaden bliver tit forvekslet med gåsebiller. Behandlingen er ikke den samme, så det er værd at få set efter, hvad der ligger i plænen." },
+      {
+        name: "Gåsebille",
+        text: "Den voksne bille er små centimeter lang og flyver hen over forsommeren. Det er larven nede i jorden, der æder græsrødderne, så plænen slipper og kan rulles op som et tæppe.",
+      },
+      {
+        name: "Oldenborre",
+        text: "Større larve, der lever flere år i jorden, før den bliver til bille. Skaden ligner gåsebillens, men den kommer igen over flere sæsoner.",
+      },
+      {
+        name: "Stankelbenslarve",
+        text: "Grå og læderagtig larve uden ben. Den æder også græsrødder, og skaden bliver tit forvekslet med gåsebiller. Behandlingen er ikke den samme, så det er værd at få set efter, hvad der ligger i plænen.",
+      },
     ],
     processNote:
       "Vi ser først efter, hvilken larve der sidder i plænen, og hvor dybt den ligger, fordi middel og tidspunkt afhænger af det. Derefter behandles plænen, så midlet når ned i rodzonen. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
@@ -45,14 +54,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Hvordan ved jeg, at det er gåsebillelarver i plænen?", a: "Tag fat i en af de gule pletter og træk. Kan du rulle græsset op som et tæppe, uden at der følger rødder med, så er der noget, der har spist rødderne. Grav så et spadestik og kig efter de hvide, krumme larver med brunt hoved. Finder du dem, er du ikke i tvivl. Så er det hverken tørke eller svamp." },
-      { q: "Hvorfor hakker fuglene huller i min græsplæne?", a: "Krager, råger og stære er faktisk din bedste indikator. De hakker ikke i plænen for sjov, de er efter larverne, og de bliver kun ved, hvis der er nok af dem til, at det kan betale sig for fuglene. Så når de går i gang om efteråret, er der noget at komme efter." },
-      { q: "Hvornår på året skal plænen behandles?", a: "Mens larverne er små og ligger lige under overfladen. Det er sidst på sommeren og hen i det tidlige efterår. Venter du til vinteren, har de gravet sig dybere ned, og så rammer du dem ikke ordentligt, uanset hvad du hælder på. Ringer du om foråret, sætter vi som regel et besøg i kalenderen til sæsonen." },
-      { q: "Udfører I bekæmpelse af gåsebiller i hele Jylland og på Fyn?", a: "Ja. Hele Jylland og Fyn, både private haver, erhverv og boligforeninger." },
-      { q: "Kan jeg selv gøre noget ved larverne?", a: "Du kan holde plænen i god vækst med vand og gødning, og det skal du også. En sund plæne bærer en smule larver, uden at det ses. Men når rødderne først er væk, kan du gøde lige så tosset du vil, det hjælper ikke. Skaden er sket, og larverne ligger stadig dernede og venter på næste sæson." },
-      { q: "Er behandlingen farlig for børn, hunde eller fugle?", a: "Nej. Vi bruger godkendte midler i den dosering, de er godkendt til. Du får besked om, hvor længe plænen skal have lov at ligge, inden børn og hund må løbe på den igen." },
-      { q: "Kommer larverne igen næste år?", a: "Det kan de godt. Billerne flyver, så der kan komme nye ind fra naboens plæne eller fra det grønne areal ved siden af. En behandling tager den bestand, du har nu. Ligger du et sted med tryk på, får mange set efter hvert år, og der er god fornuft i det." },
-      { q: "Skal plænen repareres bagefter?", a: "Som regel ja. Der hvor rødderne er ædt, kommer græsset ikke igen af sig selv. Når larverne er væk, river du de løse pletter op, sår og vander. Jeg siger dig gerne, hvad jeg selv ville gøre, når jeg har set plænen." },
+      {
+        q: "Hvordan ved jeg, at det er gåsebillelarver i plænen?",
+        a: "Tag fat i en af de gule pletter og træk. Kan du rulle græsset op som et tæppe, uden at der følger rødder med, så er der noget, der har spist rødderne. Grav så et spadestik og kig efter de hvide, krumme larver med brunt hoved. Finder du dem, er du ikke i tvivl. Så er det hverken tørke eller svamp.",
+      },
+      {
+        q: "Hvorfor hakker fuglene huller i min græsplæne?",
+        a: "Krager, råger og stære er faktisk din bedste indikator. De hakker ikke i plænen for sjov, de er efter larverne, og de bliver kun ved, hvis der er nok af dem til, at det kan betale sig for fuglene. Så når de går i gang om efteråret, er der noget at komme efter.",
+      },
+      {
+        q: "Hvornår på året skal plænen behandles?",
+        a: "Mens larverne er små og ligger lige under overfladen. Det er sidst på sommeren og hen i det tidlige efterår. Venter du til vinteren, har de gravet sig dybere ned, og så rammer du dem ikke ordentligt, uanset hvad du hælder på. Ringer du om foråret, sætter vi som regel et besøg i kalenderen til sæsonen.",
+      },
+      {
+        q: "Udfører I bekæmpelse af gåsebiller i hele Jylland og på Fyn?",
+        a: "Ja. Hele Jylland og Fyn, både private haver, erhverv og boligforeninger.",
+      },
+      {
+        q: "Kan jeg selv gøre noget ved larverne?",
+        a: "Du kan holde plænen i god vækst med vand og gødning, og det skal du også. En sund plæne bærer en smule larver, uden at det ses. Men når rødderne først er væk, kan du gøde lige så tosset du vil, det hjælper ikke. Skaden er sket, og larverne ligger stadig dernede og venter på næste sæson.",
+      },
+      {
+        q: "Er behandlingen farlig for børn, hunde eller fugle?",
+        a: "Nej. Vi bruger godkendte midler i den dosering, de er godkendt til. Du får besked om, hvor længe plænen skal have lov at ligge, inden børn og hund må løbe på den igen.",
+      },
+      {
+        q: "Kommer larverne igen næste år?",
+        a: "Det kan de godt. Billerne flyver, så der kan komme nye ind fra naboens plæne eller fra det grønne areal ved siden af. En behandling tager den bestand, du har nu. Ligger du et sted med tryk på, får mange set efter hvert år, og der er god fornuft i det.",
+      },
+      {
+        q: "Skal plænen repareres bagefter?",
+        a: "Som regel ja. Der hvor rødderne er ædt, kommer græsset ikke igen af sig selv. Når larverne er væk, river du de løse pletter op, sår og vander. Jeg siger dig gerne, hvad jeg selv ville gøre, når jeg har set plænen.",
+      },
     ],
     intro:
       "Er din græsplæne blevet gul, ujævn eller nem at løfte som et tæppe? Oplever du samtidig, at stære, råger, skader eller andre fugle hakker store huller i plænen? Så kan årsagen være gåsebiller.",
@@ -67,13 +100,31 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Klædemøl", text: "Går efter uld, pels og andre dyriske fibre. Larven laver de huller, du finder i en trøje, der har ligget stille i skabet." },
-      { name: "Melmøl", text: "Holder til i køkkenskabet og lever af mel, gryn, müsli og tørret frugt. Du ser tit spind eller sammenklumpet mel i posen, før du ser selve møllet." },
-      { name: "Pelsmøl", text: "Går efter det samme som klædemøl, men findes oftere i pels, i tæpper og under møbler, hvor der ligger hår og støv." },
-      { name: "Tofarvet frømøl", text: "Det almindeligste møl i danske køkkener. Forvingen er lysegrå, bagvingen kobberrød, og det kommer næsten altid med hjem i en pose fra butikken." },
+      {
+        name: "Klædemøl",
+        text: "Går efter uld, pels og andre dyriske fibre. Larven laver de huller, du finder i en trøje, der har ligget stille i skabet.",
+      },
+      {
+        name: "Melmøl",
+        text: "Holder til i køkkenskabet og lever af mel, gryn, müsli og tørret frugt. Du ser tit spind eller sammenklumpet mel i posen, før du ser selve møllet.",
+      },
+      {
+        name: "Pelsmøl",
+        text: "Går efter det samme som klædemøl, men findes oftere i pels, i tæpper og under møbler, hvor der ligger hår og støv.",
+      },
+      {
+        name: "Tofarvet frømøl",
+        text: "Det almindeligste møl i danske køkkener. Forvingen er lysegrå, bagvingen kobberrød, og det kommer næsten altid med hjem i en pose fra butikken.",
+      },
       { name: "Melbiller", text: "Små, mørke biller i mel, gryn og pasta. Larverne er dem, folk kalder melorme." },
-      { name: "Voksmøl", text: "Kendt fra biavlen, hvor larverne gnaver i tavlerne. I hjem er det sjældent et problem — men larverne sælges som foder under navnet voksorme." },
-      { name: "Kornsnudebille", text: "Lille brun bille med lang snude. Larven udvikler sig inde i kornkornene, så angrebet ses som meldt korn." },
+      {
+        name: "Voksmøl",
+        text: "Kendt fra biavlen, hvor larverne gnaver i tavlerne. I hjem er det sjældent et problem — men larverne sælges som foder under navnet voksorme.",
+      },
+      {
+        name: "Kornsnudebille",
+        text: "Lille brun bille med lang snude. Larven udvikler sig inde i kornkornene, så angrebet ses som meldt korn.",
+      },
     ],
     processNote:
       "Først finder vi ud af, om det er klædemøl eller melmøl, fordi de sidder to forskellige steder og skal behandles hver sin vej. Derefter behandler vi skabe, tekstiler eller fødevareskabe der, hvor larverne er. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
@@ -81,14 +132,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Hvordan ved jeg, om det er klædemøl eller melmøl?", a: "Kig på, hvor du finder dem. Er det i klædeskabet, i uldtøjet eller i et tæppe, så er det klædemøl. Er det i køkkenskabet omkring mel, gryn og müsli, så er det melmøl. Det lyder som en detalje, men det er det ikke. De to skal behandles hver sin vej, og rammer du forkert, har du brugt tiden på ingenting." },
-      { q: "Hvorfor bliver mit tøj ødelagt, når jeg ikke ser nogen møl?", a: "Fordi det ikke er møllet, der æder. Det er larven. Den sidder nede i tøjet, tit inde i folder og syninger hvor du ikke kigger, og der kan den sidde i månedsvis. De møl, du ser flyve rundt i stuen, er dem, der er færdige. Skaden er lavet for længe siden." },
-      { q: "Hjælper det at fryse tøjet?", a: "På et enkelt stykke tøj kan det godt hjælpe, hvis det ligger i fryseren længe nok. Problemet er bare, at møllene aldrig kun sidder i det ene stykke. De sidder også i skabet, i fodlisterne og i alt det tøj, du ikke har kigget på endnu. Så du fryser en trøje, og resten står stadig og bliver ædt." },
-      { q: "Kan møl følge med genbrugstøj hjem?", a: "Ja, og det er en af de mest almindelige måder at få dem ind på. Det samme gælder brugte tæpper og polstrede møbler. Køber du noget brugt i uld, så frys det eller vask det, inden det kommer ind i skabet. Det tager en aften, og det sparer dig for en hel omgang." },
-      { q: "Udfører I mølbekæmpelse i hele Jylland og på Fyn?", a: "Ja, både i private boliger, i erhverv og for boligforeninger." },
-      { q: "Skal jeg tømme skabene, før I kommer?", a: "Det hjælper, og du får besked om præcis hvad der skal gøres, når vi aftaler besøget. Som regel skal tøjet ud, så jeg kan komme til bagvæg, hylder og revner. Det er der, larverne og æggene sidder, og ikke midt i bunken." },
-      { q: "Er behandlingen skadelig for tøjet?", a: "Nej. Midlerne er godkendt til indendørs brug og til tekstiler, og de bliver doseret derefter. Er der noget, du er i tvivl om, en dyr uldfrakke eller et gammelt tæppe med affektionsværdi, så sig til inden vi går i gang. Så tager vi hensyn til det." },
-      { q: "Hvordan undgår jeg møl fremover?", a: "Vask eller rens tøjet, inden det lægges væk for sæsonen. Rent uld er langt mindre interessant for dem end brugt. Pak det tæt, og lad være med at lade poser og kasser stå urørt i årevis, for det er lige præcis der, de får fred til at arbejde. I køkkenet: få mel og gryn over i tætte beholdere i stedet for at lade posen stå åben." },
+      {
+        q: "Hvordan ved jeg, om det er klædemøl eller melmøl?",
+        a: "Kig på, hvor du finder dem. Er det i klædeskabet, i uldtøjet eller i et tæppe, så er det klædemøl. Er det i køkkenskabet omkring mel, gryn og müsli, så er det melmøl. Det lyder som en detalje, men det er det ikke. De to skal behandles hver sin vej, og rammer du forkert, har du brugt tiden på ingenting.",
+      },
+      {
+        q: "Hvorfor bliver mit tøj ødelagt, når jeg ikke ser nogen møl?",
+        a: "Fordi det ikke er møllet, der æder. Det er larven. Den sidder nede i tøjet, tit inde i folder og syninger hvor du ikke kigger, og der kan den sidde i månedsvis. De møl, du ser flyve rundt i stuen, er dem, der er færdige. Skaden er lavet for længe siden.",
+      },
+      {
+        q: "Hjælper det at fryse tøjet?",
+        a: "På et enkelt stykke tøj kan det godt hjælpe, hvis det ligger i fryseren længe nok. Problemet er bare, at møllene aldrig kun sidder i det ene stykke. De sidder også i skabet, i fodlisterne og i alt det tøj, du ikke har kigget på endnu. Så du fryser en trøje, og resten står stadig og bliver ædt.",
+      },
+      {
+        q: "Kan møl følge med genbrugstøj hjem?",
+        a: "Ja, og det er en af de mest almindelige måder at få dem ind på. Det samme gælder brugte tæpper og polstrede møbler. Køber du noget brugt i uld, så frys det eller vask det, inden det kommer ind i skabet. Det tager en aften, og det sparer dig for en hel omgang.",
+      },
+      {
+        q: "Udfører I mølbekæmpelse i hele Jylland og på Fyn?",
+        a: "Ja, både i private boliger, i erhverv og for boligforeninger.",
+      },
+      {
+        q: "Skal jeg tømme skabene, før I kommer?",
+        a: "Det hjælper, og du får besked om præcis hvad der skal gøres, når vi aftaler besøget. Som regel skal tøjet ud, så jeg kan komme til bagvæg, hylder og revner. Det er der, larverne og æggene sidder, og ikke midt i bunken.",
+      },
+      {
+        q: "Er behandlingen skadelig for tøjet?",
+        a: "Nej. Midlerne er godkendt til indendørs brug og til tekstiler, og de bliver doseret derefter. Er der noget, du er i tvivl om, en dyr uldfrakke eller et gammelt tæppe med affektionsværdi, så sig til inden vi går i gang. Så tager vi hensyn til det.",
+      },
+      {
+        q: "Hvordan undgår jeg møl fremover?",
+        a: "Vask eller rens tøjet, inden det lægges væk for sæsonen. Rent uld er langt mindre interessant for dem end brugt. Pak det tæt, og lad være med at lade poser og kasser stå urørt i årevis, for det er lige præcis der, de får fred til at arbejde. I køkkenet: få mel og gryn over i tætte beholdere i stedet for at lade posen stå åben.",
+      },
     ],
     intro:
       "Har du opdaget små møl i køkkenet, larver i dine madvarer eller huller i dit tøj? Så er du langt fra den eneste.",
@@ -103,10 +178,22 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Stikmyg", text: "Den, der stikker. Hunnen skal bruge blod for at kunne lægge æg, og æggene lægges i vand, der står stille." },
-      { name: "Dansemyg", text: "Sværmer i skyer om aftenen, tit over vand eller over en hæk. Den stikker ikke, men den bliver hyppigt forvekslet med stikmyg." },
-      { name: "Kvægmyg", text: "Mindre og mere kompakt. Stikket klør kraftigt og hæver mere end et almindeligt myggestik. Den holder til ved rindende vand og er værst i forår og forsommer." },
-      { name: "Sørgemyg", text: "Små, spinkle myg, der sværmer op fra potteplanterne, når du vander. De falder ikke i eddikefælder som bananfluer, så metoden er en anden." },
+      {
+        name: "Stikmyg",
+        text: "Den, der stikker. Hunnen skal bruge blod for at kunne lægge æg, og æggene lægges i vand, der står stille.",
+      },
+      {
+        name: "Dansemyg",
+        text: "Sværmer i skyer om aftenen, tit over vand eller over en hæk. Den stikker ikke, men den bliver hyppigt forvekslet med stikmyg.",
+      },
+      {
+        name: "Kvægmyg",
+        text: "Mindre og mere kompakt. Stikket klør kraftigt og hæver mere end et almindeligt myggestik. Den holder til ved rindende vand og er værst i forår og forsommer.",
+      },
+      {
+        name: "Sørgemyg",
+        text: "Små, spinkle myg, der sværmer op fra potteplanterne, når du vander. De falder ikke i eddikefælder som bananfluer, så metoden er en anden.",
+      },
     ],
     processNote:
       "Vi går rundt om huset og finder det vand, myggene yngler i, for det er der, en behandling gør en forskel. Derefter behandler vi ynglestederne og de steder, myggene hviler om dagen. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
@@ -114,14 +201,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Hvor yngler myggene omkring mit hus?", a: "Alle steder hvor der står vand stille i mere end en uges tid. Regnvandstønden, en tilstoppet tagrende, et hjulspor i indkørslen, en presenning der ligger i en fold, fuglebadet. Der skal ikke mere til end en spandfuld. Folk leder efter en sump, og så viser det sig at være tagrenden." },
-      { q: "Hvorfor er der pludselig så mange myg i min have?", a: "Der er som regel kommet vand et sted, hvor der ikke plejer at stå vand. Efter en våd periode kan en enkelt tilstoppet tagrende eller et dæksel med vand i give myg nok til at ødelægge en terrasse hele august." },
-      { q: "Hjælper myggelamper og duftlys?", a: "Ikke ret meget, og det siger jeg gerne, selvom det er en dårlig nyhed. En lampe tager de myg, der flyver ind i den, og de fleste af dem er ikke engang stikmyg. Duft kan holde dem lidt fra dig selv, mens du sidder der, men det gør ingenting ved dem, der klækker ude i haven." },
-      { q: "Kan man behandle en hel have mod myg?", a: "Vi behandler ynglestederne og de steder, myggene sidder i skygge om dagen, under buske og langs hækken. Vi sprøjter ikke haven ud i et. Det virker ikke bedre, og det er ikke rimeligt over for alt det andet, der lever derude." },
-      { q: "Går behandlingen ud over bier?", a: "Behandlingen bliver lagt der, hvor myggene er, og ikke i noget der blomstrer, og den bliver lagt på et tidspunkt, hvor bierne ikke flyver. Har du bistader, eller er du nabo til nogen der har, så sig det når vi aftaler besøget. Så planlægger vi efter det." },
-      { q: "Hvornår på året er myggene værst?", a: "Fra sidst på foråret og hen over sommeren, og det bliver værre efter regn. Er sommeren tør, og står der ikke vand omkring huset, er der langt færre. Det er derfor to somre kan føles så forskellige i den samme have." },
-      { q: "Udfører I myggebekæmpelse i hele Jylland og på Fyn?", a: "Ja, både for private, for erhverv og for boligforeninger." },
-      { q: "Kan myg komme op gennem afløb eller fra kælderen?", a: "Det sker. Står der vand i en gulvbrønd, i en pumpebrønd eller nede i en kælderskakt, kan de yngle der og komme op i huset. Har du myg indendørs på et tidspunkt af året, hvor der ikke burde være nogen, så er det dernede, du skal kigge først." },
+      {
+        q: "Hvor yngler myggene omkring mit hus?",
+        a: "Alle steder hvor der står vand stille i mere end en uges tid. Regnvandstønden, en tilstoppet tagrende, et hjulspor i indkørslen, en presenning der ligger i en fold, fuglebadet. Der skal ikke mere til end en spandfuld. Folk leder efter en sump, og så viser det sig at være tagrenden.",
+      },
+      {
+        q: "Hvorfor er der pludselig så mange myg i min have?",
+        a: "Der er som regel kommet vand et sted, hvor der ikke plejer at stå vand. Efter en våd periode kan en enkelt tilstoppet tagrende eller et dæksel med vand i give myg nok til at ødelægge en terrasse hele august.",
+      },
+      {
+        q: "Hjælper myggelamper og duftlys?",
+        a: "Ikke ret meget, og det siger jeg gerne, selvom det er en dårlig nyhed. En lampe tager de myg, der flyver ind i den, og de fleste af dem er ikke engang stikmyg. Duft kan holde dem lidt fra dig selv, mens du sidder der, men det gør ingenting ved dem, der klækker ude i haven.",
+      },
+      {
+        q: "Kan man behandle en hel have mod myg?",
+        a: "Vi behandler ynglestederne og de steder, myggene sidder i skygge om dagen, under buske og langs hækken. Vi sprøjter ikke haven ud i et. Det virker ikke bedre, og det er ikke rimeligt over for alt det andet, der lever derude.",
+      },
+      {
+        q: "Går behandlingen ud over bier?",
+        a: "Behandlingen bliver lagt der, hvor myggene er, og ikke i noget der blomstrer, og den bliver lagt på et tidspunkt, hvor bierne ikke flyver. Har du bistader, eller er du nabo til nogen der har, så sig det når vi aftaler besøget. Så planlægger vi efter det.",
+      },
+      {
+        q: "Hvornår på året er myggene værst?",
+        a: "Fra sidst på foråret og hen over sommeren, og det bliver værre efter regn. Er sommeren tør, og står der ikke vand omkring huset, er der langt færre. Det er derfor to somre kan føles så forskellige i den samme have.",
+      },
+      {
+        q: "Udfører I myggebekæmpelse i hele Jylland og på Fyn?",
+        a: "Ja, både for private, for erhverv og for boligforeninger.",
+      },
+      {
+        q: "Kan myg komme op gennem afløb eller fra kælderen?",
+        a: "Det sker. Står der vand i en gulvbrønd, i en pumpebrønd eller nede i en kælderskakt, kan de yngle der og komme op i huset. Har du myg indendørs på et tidspunkt af året, hvor der ikke burde være nogen, så er det dernede, du skal kigge først.",
+      },
     ],
     intro:
       "Myg yngler i stillestående vand tæt på boligen, og de finder ind gennem de åbninger, du ikke tænker over. En behandling virker bedst, når den rammer ynglestedet og ikke kun de myg, der allerede er inde.",
@@ -136,10 +247,22 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Pelsklanner", text: "Sort eller mørkebrun bille på nogle få millimeter. Larven er behåret og lever af uld, pels, fjer og døde insekter." },
-      { name: "Museumsbille", text: "Mindre og mere rundagtig, tit spættet. Den voksne bille ses hyppigt i vindueskarmen, mens larven sidder i tæppet eller under fodlisten." },
-      { name: "Larven", text: "Larven er den, der laver skaden. Den er behåret, den skyr lys, og den lever i støv, hår og tekstil under møbler og bag fodlister. Den klarer sig længe på det, der ligger og flyder." },
-      { name: "Tæppebiller", text: "Små, runde, brogede biller, hvis larver æder uld, tæpper og fjer. Den kendteste i familien er museumsbillen." },
+      {
+        name: "Pelsklanner",
+        text: "Sort eller mørkebrun bille på nogle få millimeter. Larven er behåret og lever af uld, pels, fjer og døde insekter.",
+      },
+      {
+        name: "Museumsbille",
+        text: "Mindre og mere rundagtig, tit spættet. Den voksne bille ses hyppigt i vindueskarmen, mens larven sidder i tæppet eller under fodlisten.",
+      },
+      {
+        name: "Larven",
+        text: "Larven er den, der laver skaden. Den er behåret, den skyr lys, og den lever i støv, hår og tekstil under møbler og bag fodlister. Den klarer sig længe på det, der ligger og flyder.",
+      },
+      {
+        name: "Tæppebiller",
+        text: "Små, runde, brogede biller, hvis larver æder uld, tæpper og fjer. Den kendteste i familien er museumsbillen.",
+      },
     ],
     processNote:
       "Vi finder først ud af, hvor larverne lever, for det er sjældent der, hvor du ser billerne. Derefter behandler vi tæpper, fodlister og de revner, de sidder i. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
@@ -147,14 +270,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Jeg finder små biller i vindueskarmen. Er det klannere?", a: "Det kan det godt være. De voksne biller søger mod lyset, og derfor ender de i vindueskarmen. Men de er ikke problemet. Larverne sidder et helt andet sted i rummet, og det er dem, der laver skaden." },
-      { q: "Hvad går klannere efter?", a: "Uld, pels, fjer og dun. Altså uldtæpper, uldtøj, dyner og puder med fjer i, polstrede møbler og udstoppede dyr. De lever også fint af døde insekter og af det hår, der samler sig under møblerne, og det er derfor de kan holde sig kørende i et rum, hvor du synes der er pænt." },
-      { q: "Hvordan kender jeg forskel på klannere og møl?", a: "Møllets skade er huller i tøjet, og du finder tit spind. Klannerlarven efterlader hår og tomme larvehuder, små tørre skaller der ligner noget, der er faldet af. Ser du dem i bunden af et skab eller under et tæppe, så er det klannere og ikke møl." },
-      { q: "Hvor kommer de fra?", a: "Typisk ind gennem et åbent vindue, eller de følger med brugte møbler, tæpper og tøj ind i huset. En gammel fuglerede under tagstenene eller et dødt dyr på loftet kan også holde en bestand kørende i årevis, uden at du opdager det." },
-      { q: "Kan jeg støvsuge mig ud af det?", a: "Grundig støvsugning under og bag møblerne hjælper, og den skal du lave. Men larverne sidder også nede i revnerne og under fodlisterne, hvor mundstykket ikke kommer til. Der bliver de siddende, uanset hvor mange gange du kører hen over gulvet." },
-      { q: "Udfører I bekæmpelse af klannere i hele Jylland og på Fyn?", a: "Ja, både for private, for erhverv og for boligforeninger." },
-      { q: "Er behandlingen sikker indendørs?", a: "Ja. Midlerne er godkendt til indendørs brug og bliver doseret derefter. Du får at vide, hvilke rum du skal holde dig ude af, og hvor længe." },
-      { q: "Hvor lang tid går der, før der er ro på?", a: "Larverne udvikler sig langsomt, og der kan sagtens ligge æg, som ikke er klækket den dag, vi behandler. Derfor kan du godt se en enkelt bille et stykke tid efter, og det er ikke tegn på, at det er gået galt. Bliver du ved med at se dem, så ring. Så kommer jeg igen." },
+      {
+        q: "Jeg finder små biller i vindueskarmen. Er det klannere?",
+        a: "Det kan det godt være. De voksne biller søger mod lyset, og derfor ender de i vindueskarmen. Men de er ikke problemet. Larverne sidder et helt andet sted i rummet, og det er dem, der laver skaden.",
+      },
+      {
+        q: "Hvad går klannere efter?",
+        a: "Uld, pels, fjer og dun. Altså uldtæpper, uldtøj, dyner og puder med fjer i, polstrede møbler og udstoppede dyr. De lever også fint af døde insekter og af det hår, der samler sig under møblerne, og det er derfor de kan holde sig kørende i et rum, hvor du synes der er pænt.",
+      },
+      {
+        q: "Hvordan kender jeg forskel på klannere og møl?",
+        a: "Møllets skade er huller i tøjet, og du finder tit spind. Klannerlarven efterlader hår og tomme larvehuder, små tørre skaller der ligner noget, der er faldet af. Ser du dem i bunden af et skab eller under et tæppe, så er det klannere og ikke møl.",
+      },
+      {
+        q: "Hvor kommer de fra?",
+        a: "Typisk ind gennem et åbent vindue, eller de følger med brugte møbler, tæpper og tøj ind i huset. En gammel fuglerede under tagstenene eller et dødt dyr på loftet kan også holde en bestand kørende i årevis, uden at du opdager det.",
+      },
+      {
+        q: "Kan jeg støvsuge mig ud af det?",
+        a: "Grundig støvsugning under og bag møblerne hjælper, og den skal du lave. Men larverne sidder også nede i revnerne og under fodlisterne, hvor mundstykket ikke kommer til. Der bliver de siddende, uanset hvor mange gange du kører hen over gulvet.",
+      },
+      {
+        q: "Udfører I bekæmpelse af klannere i hele Jylland og på Fyn?",
+        a: "Ja, både for private, for erhverv og for boligforeninger.",
+      },
+      {
+        q: "Er behandlingen sikker indendørs?",
+        a: "Ja. Midlerne er godkendt til indendørs brug og bliver doseret derefter. Du får at vide, hvilke rum du skal holde dig ude af, og hvor længe.",
+      },
+      {
+        q: "Hvor lang tid går der, før der er ro på?",
+        a: "Larverne udvikler sig langsomt, og der kan sagtens ligge æg, som ikke er klækket den dag, vi behandler. Derfor kan du godt se en enkelt bille et stykke tid efter, og det er ikke tegn på, at det er gået galt. Bliver du ved med at se dem, så ring. Så kommer jeg igen.",
+      },
     ],
     intro:
       "Klannere ses ofte som små biller i vindueskarmen, men skaden sker af larverne, der lever i tæpper, tekstiler og under fodpaneler. Derfor handler en behandling om at finde ud af, hvor larverne er.",
@@ -169,9 +316,18 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Dræbersnegl", text: "Kaldes også iberisk skovsnegl. Rødbrun til mørk, uden hus, og den kan blive godt en håndsbredde lang. Den æder næsten alt i bedene og lægger mange æg." },
-      { name: "Agersnegl", text: "Mindre og gråbrun. Den er der stort set hele året og går især efter salat, kål og spirende planter." },
-      { name: "Vinbjergsnegl", text: "Den store med hus. Den er delvist fredet, så den må ikke indsamles til salg. Ser du den i haven, er den ikke problemet." },
+      {
+        name: "Dræbersnegl",
+        text: "Kaldes også iberisk skovsnegl. Rødbrun til mørk, uden hus, og den kan blive godt en håndsbredde lang. Den æder næsten alt i bedene og lægger mange æg.",
+      },
+      {
+        name: "Agersnegl",
+        text: "Mindre og gråbrun. Den er der stort set hele året og går især efter salat, kål og spirende planter.",
+      },
+      {
+        name: "Vinbjergsnegl",
+        text: "Den store med hus. Den er delvist fredet, så den må ikke indsamles til salg. Ser du den i haven, er den ikke problemet.",
+      },
     ],
     processNote:
       "Vi går haven igennem og finder de fugtige, mørke steder, sneglene ligger på om dagen, for det er der, en behandling batter. Derefter behandler vi bede, kanter og skjulesteder. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for behandlingen.",
@@ -179,14 +335,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?", a: "Dræbersneglen er stor, den har ikke hus, og den er rødbrun til næsten sort. Rører du ved den, trækker den sig sammen til en hård klump. Sneglen med hus er som regel vinbjergsneglen, og den er delvist fredet, så den må ikke indsamles til salg. Den skal have lov at være, den gør ikke noget." },
-      { q: "Hvornår er sneglene værst?", a: "Efter regn, og i det hele taget når det er fugtigt. Værst er sensommeren, hvor der er kommet en ny generation. De arbejder om natten og tidligt om morgenen, så du ser skaden længe før du ser sneglene." },
-      { q: "Hvorfor bliver de ved med at komme igen?", a: "Fordi æggene ligger i jorden. Tit i kompostbunken, under brædder og nede i tæt bunddække. Én professionel behandling tager de snegle, der går rundt nu, og holder typisk haven fri resten af sæsonen. Skulle der dukke nye op fra æg, er en opfølgende behandling billigere hos os end hos konkurrenterne — hold bare øje med bedene efter regn." },
-      { q: "Hjælper ølfælder og snegleværn?", a: "Ølfælder fanger nogle stykker, men de trækker også snegle ind i haven, og det er ikke altid en fordel. Snegleværn omkring et enkelt bed kan godt virke, hvis kanten er høj nok og bliver holdt ren. Men ingen af delene gør noget ved dem, der ligger i kompostbunken, og det er der, de er." },
-      { q: "Kan sneglene komme fra naboen?", a: "Ja, og sådan hænger det tit sammen. Ligger der en have med højt græs eller en ubrugt kompostbunke lige ved siden af, kommer der nye ind hele sæsonen. Kan I blive enige om at gøre noget ved det samtidig, batter det langt mere, end hvis du står med det alene." },
-      { q: "Udfører I sneglebekæmpelse i hele Jylland og på Fyn?", a: "Ja, både til private haver, til erhverv og for boligforeninger." },
-      { q: "Er behandlingen farlig for pindsvin, hunde og fugle?", a: "Vi bruger godkendte midler i den dosering, de er godkendt til, og de bliver lagt der, hvor sneglene er, ikke ud over det hele. Har du hund, eller fodrer du pindsvin, så sig det når vi aftaler besøget. Så tager vi hensyn til det." },
-      { q: "Hvad kan jeg selv gøre for at holde sneglene væk?", a: "Fjern de skjulesteder, du kan undvære. Brædder, løse fliser, gammelt haveaffald, tæt bunddække op ad bedene. Slå græsset langs kanterne. Og vand om morgenen i stedet for om aftenen, så haven er tør, når sneglene kommer frem. Det lyder småt, men det flytter noget." },
+      {
+        q: "Hvordan kender jeg en dræbersnegl fra en almindelig snegl?",
+        a: "Dræbersneglen er stor, den har ikke hus, og den er rødbrun til næsten sort. Rører du ved den, trækker den sig sammen til en hård klump. Sneglen med hus er som regel vinbjergsneglen, og den er delvist fredet, så den må ikke indsamles til salg. Den skal have lov at være, den gør ikke noget.",
+      },
+      {
+        q: "Hvornår er sneglene værst?",
+        a: "Efter regn, og i det hele taget når det er fugtigt. Værst er sensommeren, hvor der er kommet en ny generation. De arbejder om natten og tidligt om morgenen, så du ser skaden længe før du ser sneglene.",
+      },
+      {
+        q: "Hvorfor bliver de ved med at komme igen?",
+        a: "Fordi æggene ligger i jorden. Tit i kompostbunken, under brædder og nede i tæt bunddække. Én professionel behandling tager de snegle, der går rundt nu, og holder typisk haven fri resten af sæsonen. Skulle der dukke nye op fra æg, er en opfølgende behandling billigere hos os end hos konkurrenterne — hold bare øje med bedene efter regn.",
+      },
+      {
+        q: "Hjælper ølfælder og snegleværn?",
+        a: "Ølfælder fanger nogle stykker, men de trækker også snegle ind i haven, og det er ikke altid en fordel. Snegleværn omkring et enkelt bed kan godt virke, hvis kanten er høj nok og bliver holdt ren. Men ingen af delene gør noget ved dem, der ligger i kompostbunken, og det er der, de er.",
+      },
+      {
+        q: "Kan sneglene komme fra naboen?",
+        a: "Ja, og sådan hænger det tit sammen. Ligger der en have med højt græs eller en ubrugt kompostbunke lige ved siden af, kommer der nye ind hele sæsonen. Kan I blive enige om at gøre noget ved det samtidig, batter det langt mere, end hvis du står med det alene.",
+      },
+      {
+        q: "Udfører I sneglebekæmpelse i hele Jylland og på Fyn?",
+        a: "Ja, både til private haver, til erhverv og for boligforeninger.",
+      },
+      {
+        q: "Er behandlingen farlig for pindsvin, hunde og fugle?",
+        a: "Vi bruger godkendte midler i den dosering, de er godkendt til, og de bliver lagt der, hvor sneglene er, ikke ud over det hele. Har du hund, eller fodrer du pindsvin, så sig det når vi aftaler besøget. Så tager vi hensyn til det.",
+      },
+      {
+        q: "Hvad kan jeg selv gøre for at holde sneglene væk?",
+        a: "Fjern de skjulesteder, du kan undvære. Brædder, løse fliser, gammelt haveaffald, tæt bunddække op ad bedene. Slå græsset langs kanterne. Og vand om morgenen i stedet for om aftenen, så haven er tør, når sneglene kommer frem. Det lyder småt, men det flytter noget.",
+      },
     ],
     intro:
       "Dræbersnegle og andre snegle æder sig gennem bede og køkkenhave på få nætter. De gemmer sig fugtigt og mørkt om dagen, og det er der, en behandling skal lægges, hvis den skal batte noget.",
@@ -201,9 +381,18 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // OURS: he lists no species for this pest, so these are written
     // for this site and want his eye before they go live.
     species: [
-      { name: "Muldvarp", text: "Lever af regnorme og insekter under jorden. Den æder ikke planterne, men gangsystemet og skuddene ødelægger plænen og bedene alligevel." },
-      { name: "Mosegris", text: "Kaldes også vandrotte. Den laver skud i haven ligesom muldvarpen, men den æder rødder, løg og rodfrugter. Visner en plante pludselig, og kan du trække den fri uden rod, er det som regel mosegris." },
-      { name: "Skuddene", text: "Mosegrisens skud er som regel mindre end muldvarpens og ligger mere rodet fordelt, og der er tit åbne huller i jorden imellem dem. Formen alene afgør det ikke, så kig også på planterne." },
+      {
+        name: "Muldvarp",
+        text: "Lever af regnorme og insekter under jorden. Den æder ikke planterne, men gangsystemet og skuddene ødelægger plænen og bedene alligevel.",
+      },
+      {
+        name: "Mosegris",
+        text: "Kaldes også vandrotte. Den laver skud i haven ligesom muldvarpen, men den æder rødder, løg og rodfrugter. Visner en plante pludselig, og kan du trække den fri uden rod, er det som regel mosegris.",
+      },
+      {
+        name: "Skuddene",
+        text: "Mosegrisens skud er som regel mindre end muldvarpens og ligger mere rodet fordelt, og der er tit åbne huller i jorden imellem dem. Formen alene afgør det ikke, så kig også på planterne.",
+      },
     ],
     processNote:
       "Vi finder først ud af, om det er muldvarp eller mosegris, og hvilke gange der er i brug, for der er ingen grund til at bruge tid på de gange, der er forladt. Derefter sættes der ind i selve gangsystemet. Arbejdet udføres efter gældende regler. Prisen ligger fast, før vi går i gang, og du får faktura og kvittering for arbejdet.",
@@ -211,14 +400,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Er det muldvarp eller mosegris?", a: "Kig på skuddene, og kig på planterne. Muldvarpens skud er som regel større, og planterne fejler ingenting. Mosegrisens skud er mindre og mere rodet fordelt, tit med åbne huller imellem, og planterne visner, fordi rødderne er ædt. Muldvarpen er efter regnorme. Den rører ikke dine planter." },
-      { q: "Er muldvarpen ikke bare god for haven?", a: "Den lufter jorden og æder larver, det er rigtigt nok, og det skal den have. Men et gangsystem under en plæne gør den ujævn og blød at gå på, og skuddene bliver ved med at komme. Har du en have, du skal kunne slå og bruge, er det sjældent noget, man lever med ret længe." },
-      { q: "Hvorfor kommer skuddene igen, selvom jeg har fjernet dem?", a: "Fordi det kun er jorden, du har fjernet. Gangene ligger der stadig, og dyret gør det også. Så længe der er regnorme nok dernede, bliver den, og så kommer der nye skud i næste uge." },
-      { q: "Hvor mange muldvarpe er der i min have?", a: "Som regel færre, end det ser ud til. Et enkelt dyr kan lave rigtig mange skud hen over en sæson, fordi gangsystemet er stort. Folk ringer og siger, at haven er fuld af dem, og så viser det sig at være ét dyr." },
-      { q: "Hjælper de vibrationspløkke, man kan købe?", a: "Nogle oplever, at dyret flytter sig et stykke i haven i en periode. Min erfaring er, at det sjældent holder. Gangene bliver bare gravet et andet sted, og så står du med skuddene ovre ved terrassen i stedet. Jeg vil hellere finde de gange, der rent faktisk er i brug, og sætte ind der." },
-      { q: "Kan de komme igen bagefter?", a: "Ja. Haven ligger, hvor den ligger. Er der regnorme, og er der forbindelse ud til det grønne ved siden af, kan der komme et nyt dyr ind. Dukker skuddene op igen, så ring, så kigger vi på det." },
-      { q: "Udfører I bekæmpelse af muldvarpe i hele Jylland og på Fyn?", a: "Ja, både i private haver, hos erhverv og for boligforeninger." },
-      { q: "Hvad skal jeg gøre ved plænen bagefter?", a: "Kør jorden fra skuddene ud eller fjern den, tryk de bløde gange ned, og efterså der, hvor græsset er blevet tyndt. Men vent til der er ro på. Ellers laver du arbejdet to gange, og det er der ingen grund til." },
+      {
+        q: "Er det muldvarp eller mosegris?",
+        a: "Kig på skuddene, og kig på planterne. Muldvarpens skud er som regel større, og planterne fejler ingenting. Mosegrisens skud er mindre og mere rodet fordelt, tit med åbne huller imellem, og planterne visner, fordi rødderne er ædt. Muldvarpen er efter regnorme. Den rører ikke dine planter.",
+      },
+      {
+        q: "Er muldvarpen ikke bare god for haven?",
+        a: "Den lufter jorden og æder larver, det er rigtigt nok, og det skal den have. Men et gangsystem under en plæne gør den ujævn og blød at gå på, og skuddene bliver ved med at komme. Har du en have, du skal kunne slå og bruge, er det sjældent noget, man lever med ret længe.",
+      },
+      {
+        q: "Hvorfor kommer skuddene igen, selvom jeg har fjernet dem?",
+        a: "Fordi det kun er jorden, du har fjernet. Gangene ligger der stadig, og dyret gør det også. Så længe der er regnorme nok dernede, bliver den, og så kommer der nye skud i næste uge.",
+      },
+      {
+        q: "Hvor mange muldvarpe er der i min have?",
+        a: "Som regel færre, end det ser ud til. Et enkelt dyr kan lave rigtig mange skud hen over en sæson, fordi gangsystemet er stort. Folk ringer og siger, at haven er fuld af dem, og så viser det sig at være ét dyr.",
+      },
+      {
+        q: "Hjælper de vibrationspløkke, man kan købe?",
+        a: "Nogle oplever, at dyret flytter sig et stykke i haven i en periode. Min erfaring er, at det sjældent holder. Gangene bliver bare gravet et andet sted, og så står du med skuddene ovre ved terrassen i stedet. Jeg vil hellere finde de gange, der rent faktisk er i brug, og sætte ind der.",
+      },
+      {
+        q: "Kan de komme igen bagefter?",
+        a: "Ja. Haven ligger, hvor den ligger. Er der regnorme, og er der forbindelse ud til det grønne ved siden af, kan der komme et nyt dyr ind. Dukker skuddene op igen, så ring, så kigger vi på det.",
+      },
+      {
+        q: "Udfører I bekæmpelse af muldvarpe i hele Jylland og på Fyn?",
+        a: "Ja, både i private haver, hos erhverv og for boligforeninger.",
+      },
+      {
+        q: "Hvad skal jeg gøre ved plænen bagefter?",
+        a: "Kør jorden fra skuddene ud eller fjern den, tryk de bløde gange ned, og efterså der, hvor græsset er blevet tyndt. Men vent til der er ro på. Ellers laver du arbejdet to gange, og det er der ingen grund til.",
+      },
     ],
     intro:
       "Muldvarpen er ikke ude efter planterne, men efter regnorme, og gangsystemet under plænen ødelægger den alligevel. Skuddene kommer typisk igen, indtil selve gangsystemet bliver taget hånd om.",
@@ -239,24 +452,60 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Råd om, hvordan du forebygger, at myrerne kommer tilbage",
     ],
     species: [
-      { name: "Rød skovmyre", text: "Bygger det kendte myrebo af grannåle i haven. Den skal normalt ikke bekæmpes, medmindre den optræder inde i huset." },
-      { name: "Sort havemyre", text: "Den almindeligste i haver og på terrasser. Den går typisk ind efter mad og kan lave gange under fliserne." },
-      { name: "Pharaomyre", text: "Lille, gulagtig og stærkest indendørs, for eksempel i køkkener. Den lever i smalle sprækker og kan sprede sig mellem lejligheder." },
-      { name: "Gul engmyre (ænsmyren)", text: "Laver de små jordhøje i plænen. Ufarlig, men ofte den, der forveksles med myrer, der faktisk skal behandles." },
+      {
+        name: "Rød skovmyre",
+        text: "Bygger det kendte myrebo af grannåle i haven. Den skal normalt ikke bekæmpes, medmindre den optræder inde i huset.",
+      },
+      {
+        name: "Sort havemyre",
+        text: "Den almindeligste i haver og på terrasser. Den går typisk ind efter mad og kan lave gange under fliserne.",
+      },
+      {
+        name: "Pharaomyre",
+        text: "Lille, gulagtig og stærkest indendørs, for eksempel i køkkener. Den lever i smalle sprækker og kan sprede sig mellem lejligheder.",
+      },
+      {
+        name: "Gul engmyre (ænsmyren)",
+        text: "Laver de små jordhøje i plænen. Ufarlig, men ofte den, der forveksles med myrer, der faktisk skal behandles.",
+      },
     ],
     processNote:
       "Først fastlægger vi, hvilken myreart det er, og hvor reden sidder, fordi middel og metode afhænger af " +
       "det. Derefter behandles reden og adgangsvejene. Prisen ligger fast, før vi går i gang, og du får " +
       "faktura og kvittering for behandlingen.",
     faq: [
-      { q: "Er myrebekæmpelse relevant året rundt?", a: "Myrebekæmpelse udføres typisk i forår og sommer, hvor myrerne er aktive. Tidlig indsats giver ofte det bedste resultat og mindsker risikoen for større problemer senere på sæsonen. Dog har vi set en stigende tendens til myreangreb om vinteren. Dette kommer sig af at vi er blevet bedre til at skrue op for gulvvarmen, og et eventuelt bo direkte under huset derved kan være aktivt, selvom der er koldt ude." },
-      { q: "Udfører I myrebekæmpelse i hele Jylland?", a: "Ja. Vi udfører professionel myrebekæmpelse i hele Jylland & Fyn– for både private boliger, erhverv og boligforeninger." },
-      { q: "Hvad er forskellen på professionel myrebekæmpelse og gør-det-selv midler?", a: "Gør-det-selv produkter rammer ofte kun de synlige myrer og ikke selv kolonien, eller dronningen. Professionel myrebekæmpelse er målrettet hele myreboet og udføres med midler og metoder, der har en langt mere langtidsholdbar effekt." },
-      { q: "Hvor hurtigt kan I komme og udføre myrebekæmpelse?", a: "Vi bestræber os på at rykke hurtigt ud, da myreproblemer ofte forværres, hvis de ikke behandles i tide. I mange tilfælde kan vi tilbyde behandling inden for få hverdage. Kontakt os for at høre om mulighederne i dit område i Jylland." },
-      { q: "Er der forskellige slags myrer?", a: "Længere oppe på siden kan du læse om de tre mest udbredte myrearter vi har i Danmark." },
-      { q: "Burde mine naboer også få behandlet?", a: "Det hjælper altid, hvis flere naboer gør noget ved myrerne samtidig, for så holder I den nære bestand nede sammen. Det er dog ikke nødvendigt, at dine naboer behandles, før du kan blive myrefri — vores behandling er målrettet boene på netop din grund." },
-      { q: "Hvordan fungere giften?", a: "Giften fungerer som k-vitamin, hvilket er et naturligt stof for mennesker og dyr. Stoffet hjælper blodet med at størkne ved for eksempel en rift eller et sår. K-Vitamin er et stof som mange indtager hvis de har problemer med kraftige blødninger eller før og efter fødsel. De mængder vi benytter til en behandling er derfor ikke farligt for os mennesker og dyr, store som små.\nGiften går ind og størkner myrernes væskeomløb, og fungere som en stor blodprop. Det vil derfor se ud som en naturlig dødsårsag til de andre myrer, hvilket gør at de tager dem med ned i boet og spiser de døde. Med tiden vil boet dø ud og du kan herefter være myrefri." },
-      { q: "Husmor-råd mod myrer?", a: "Der findes mange husmor-råd som glorificeres af forskellige medier på nettet, men her er min klare mening om dem. Virker de? NEJ!\nDe mest populære husmor-råd er:\nKanel og kaffegrums er et af de mest populære råd mod myrer og kan måske irritere myrerne i en kort periode men bekæmper dem altså ikke.\nKogende vand er endnu et populært råd. Kogende vand vil naturligvis bekæmpe de myrer det berører og det lyder jo meget godt, hvis ikke det var fordi der findes en halv til en hel million myrer i et bo. De få hundrede måske tusinde myrer du rammer gør desværre ikke en forskel. Desuden skader det din græsplæne og andre planter i din have, som set på billedet under.\nProblemet med disse husmor-råd er at myrerne vil flytte til en nyt område i en periode, indtil de kan flytte tilbage til boet igen. Når de for eksempel vender sig til lugten af kaffegrums, salt, eddike eller gær. Nu har du så myrer to …" },
+      {
+        q: "Er myrebekæmpelse relevant året rundt?",
+        a: "Myrebekæmpelse udføres typisk i forår og sommer, hvor myrerne er aktive. Tidlig indsats giver ofte det bedste resultat og mindsker risikoen for større problemer senere på sæsonen. Dog har vi set en stigende tendens til myreangreb om vinteren. Dette kommer sig af at vi er blevet bedre til at skrue op for gulvvarmen, og et eventuelt bo direkte under huset derved kan være aktivt, selvom der er koldt ude.",
+      },
+      {
+        q: "Udfører I myrebekæmpelse i hele Jylland?",
+        a: "Ja. Vi udfører professionel myrebekæmpelse i hele Jylland & Fyn– for både private boliger, erhverv og boligforeninger.",
+      },
+      {
+        q: "Hvad er forskellen på professionel myrebekæmpelse og gør-det-selv midler?",
+        a: "Gør-det-selv produkter rammer ofte kun de synlige myrer og ikke selv kolonien, eller dronningen. Professionel myrebekæmpelse er målrettet hele myreboet og udføres med midler og metoder, der har en langt mere langtidsholdbar effekt.",
+      },
+      {
+        q: "Hvor hurtigt kan I komme og udføre myrebekæmpelse?",
+        a: "Vi bestræber os på at rykke hurtigt ud, da myreproblemer ofte forværres, hvis de ikke behandles i tide. I mange tilfælde kan vi tilbyde behandling inden for få hverdage. Kontakt os for at høre om mulighederne i dit område i Jylland.",
+      },
+      {
+        q: "Er der forskellige slags myrer?",
+        a: "Længere oppe på siden kan du læse om de tre mest udbredte myrearter vi har i Danmark.",
+      },
+      {
+        q: "Burde mine naboer også få behandlet?",
+        a: "Det hjælper altid, hvis flere naboer gør noget ved myrerne samtidig, for så holder I den nære bestand nede sammen. Det er dog ikke nødvendigt, at dine naboer behandles, før du kan blive myrefri — vores behandling er målrettet boene på netop din grund.",
+      },
+      {
+        q: "Hvordan fungere giften?",
+        a: "Giften fungerer som k-vitamin, hvilket er et naturligt stof for mennesker og dyr. Stoffet hjælper blodet med at størkne ved for eksempel en rift eller et sår. K-Vitamin er et stof som mange indtager hvis de har problemer med kraftige blødninger eller før og efter fødsel. De mængder vi benytter til en behandling er derfor ikke farligt for os mennesker og dyr, store som små.\nGiften går ind og størkner myrernes væskeomløb, og fungere som en stor blodprop. Det vil derfor se ud som en naturlig dødsårsag til de andre myrer, hvilket gør at de tager dem med ned i boet og spiser de døde. Med tiden vil boet dø ud og du kan herefter være myrefri.",
+      },
+      {
+        q: "Husmor-råd mod myrer?",
+        a: "Der findes mange husmor-råd som glorificeres af forskellige medier på nettet, men her er min klare mening om dem. Virker de? NEJ!\nDe mest populære husmor-råd er:\nKanel og kaffegrums er et af de mest populære råd mod myrer og kan måske irritere myrerne i en kort periode men bekæmper dem altså ikke.\nKogende vand er endnu et populært råd. Kogende vand vil naturligvis bekæmpe de myrer det berører og det lyder jo meget godt, hvis ikke det var fordi der findes en halv til en hel million myrer i et bo. De få hundrede måske tusinde myrer du rammer gør desværre ikke en forskel. Desuden skader det din græsplæne og andre planter i din have, som set på billedet under.\nProblemet med disse husmor-råd er at myrerne vil flytte til en nyt område i en periode, indtil de kan flytte tilbage til boet igen. Når de for eksempel vender sig til lugten af kaffegrums, salt, eddike eller gær. Nu har du så myrer to …",
+      },
     ],
   },
   hvepse: {
@@ -270,24 +519,63 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Tysk hveps", text: "Ligner almindelig hveps til forveksling. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser." },
-      { name: "Almindelig hveps", text: "Den klassiske gæst i sensommeren. Bygger typisk bo i jordhuller og i hulrum." },
-      { name: "Jordhveps", text: "Ligner den almindelige hveps, men graver ofte boet i græsplænen eller under terrassen." },
-      { name: "Hornisse", text: "Danmarks største gedehamse, rødbrun og tydeligt større end almindelig hveps. Til trods for størrelsen er den mindre tilbøjelig til at stikke, men et fuldvoksent bo kan rumme flere hundrede individer." },
-      { name: "Honningbi og bisværme", text: "Bier stikker kun én gang og bør ikke bekæmpes. En bisværm samles gratis ind af en biavler, mens et fast etableret bibo i en mur eller skorsten skal have professionel hjælp." },
+      {
+        name: "Tysk hveps",
+        text: "Ligner almindelig hveps til forveksling. Bygger bo på lofter, i skure og i hulrum og kan blive aggressiv, når boet vokser.",
+      },
+      {
+        name: "Almindelig hveps",
+        text: "Den klassiske gæst i sensommeren. Bygger typisk bo i jordhuller og i hulrum.",
+      },
+      {
+        name: "Jordhveps",
+        text: "Ligner den almindelige hveps, men graver ofte boet i græsplænen eller under terrassen.",
+      },
+      {
+        name: "Hornisse",
+        text: "Danmarks største gedehamse, rødbrun og tydeligt større end almindelig hveps. Til trods for størrelsen er den mindre tilbøjelig til at stikke, men et fuldvoksent bo kan rumme flere hundrede individer.",
+      },
+      {
+        name: "Honningbi og bisværme",
+        text: "Bier stikker kun én gang og bør ikke bekæmpes. En bisværm samles gratis ind af en biavler, mens et fast etableret bibo i en mur eller skorsten skal have professionel hjælp.",
+      },
     ],
     processNote:
       "Boet bliver fjernet, og stedet bliver efterbehandlet, så hvepsene ikke bygger det op igen. Vi fortæller " +
       "dig på forhånd, om du skal være hjemme, og hvornår området kan bruges som før.",
     faq: [
-      { q: "Hvornår bør jeg kontakte en professionel skadedyrsbekæmper?", a: "Du bør kontakte en professionel, hvis du har fundet et aktivt hvepsebo, oplever mange hvepse omkring boligen eller er usikker på, hvor problemet stammer fra. Professionel hjælp anbefales især ved jordhvepse, murhvepse, store kolonier eller bo placeret tæt på terrasser, legeområder og indgange. Jo tidligere problemet håndteres, desto lettere og mere sikkert er det som regel at løse." },
-      { q: "Kan hvepse vende tilbage til samme sted?", a: "Ja. Selvom et gammelt hvepsebo sjældent genbruges, kan nye dronninger vælge at etablere et nyt bo i samme område året efter. Det sker især, hvis placeringen giver god beskyttelse mod vind og vejr. Derfor kan det være en fordel at tætne sprækker, ventilationsåbninger og andre adgangsveje efter en bekæmpelse for at reducere risikoen for nye kolonier." },
-      { q: "Hvor hurtigt virker en professionel hvepsebehandling?", a: "I de fleste tilfælde vil aktiviteten omkring boet falde markant inden for få timer efter behandlingen. Enkelte hvepse kan dog fortsat være aktive i op til et par døgn, afhængigt af boets størrelse og placering. Derfor anbefales det ofte at holde vinduer og døre nær boet lukkede de første 24-48 timer. Herefter vil kolonien normalt være elimineret." },
-      { q: "Forsvinder hvepse af sig selv om vinteren?", a: "Ja. Når vinteren kommer, dør arbejderne og den gamle dronning. Kun nye befrugtede dronninger overlever vinteren og søger ly et andet sted. Det gamle bo genbruges normalt ikke året efter. Selvom problemet ofte forsvinder naturligt i vinterhalvåret, kan et aktivt bo i sommermånederne skabe så store gener, at bekæmpelse er nødvendig længe før kulden sætter ind." },
-      { q: "Hvor stort kan et hvepsebo blive?", a: "Et hvepsebo starter typisk med én dronning i foråret, men kan udvikle sig til en koloni med flere tusinde hvepse i løbet af sommeren. Størrelsen afhænger af vejrforhold, fødetilgængelighed og placering. De største bo kan være på størrelse med en fodbold eller større. Jo tidligere et hvepsebo opdages og behandles, desto lettere er det normalt at bekæmpe." },
-      { q: "Kan murhvepse skade huset?", a: "Murhvepse ødelægger normalt ikke murværket direkte, men de kan skabe betydelige gener omkring boligen. Mange oplever utryghed, når hundredvis af hvepse flyver omkring facaden, terrassen eller indgangspartiet. Hvis hvepsene etablerer sig i hulmure eller loftrum, kan de også finde vej ind i boligen. Derfor vælger mange boligejere at få murhvepse bekæmpet, selvom der ikke nødvendigvis er tale om en egentlig bygningsskade." },
-      { q: "Hvad er murhvepse?", a: "Murhvepse er hvepse, som bygger bo i hulrum i bygninger. Det kan være i murværk, hulmure, tagkonstruktioner, ventilationskanaler eller andre skjulte områder. Hvepsene benytter eksisterende sprækker og åbninger til at komme ind og ud af boet. Murhvepse kan være særligt generende, fordi aktiviteten foregår tæt på boligen, og fordi hvepsene i nogle tilfælde kan finde vej ind i huset gennem vægge eller loftsrum." },
-      { q: "Er jordhvepse mere aggressive end almindelige hvepse?", a: "Jordhvepse er ikke nødvendigvis mere aggressive end andre hvepsearter, men de opleves ofte som mere problematiske. Det skyldes primært, at mennesker og kæledyr lettere kommer tæt på boet uden at opdage det. Når græsset klippes eller jorden forstyrres, kan kolonien føle sig truet og gå til angreb. Derfor sker mange hvepsestik netop i forbindelse med jordhvepsebo i haver og omkring terrasser." },
+      {
+        q: "Hvornår bør jeg kontakte en professionel skadedyrsbekæmper?",
+        a: "Du bør kontakte en professionel, hvis du har fundet et aktivt hvepsebo, oplever mange hvepse omkring boligen eller er usikker på, hvor problemet stammer fra. Professionel hjælp anbefales især ved jordhvepse, murhvepse, store kolonier eller bo placeret tæt på terrasser, legeområder og indgange. Jo tidligere problemet håndteres, desto lettere og mere sikkert er det som regel at løse.",
+      },
+      {
+        q: "Kan hvepse vende tilbage til samme sted?",
+        a: "Ja. Selvom et gammelt hvepsebo sjældent genbruges, kan nye dronninger vælge at etablere et nyt bo i samme område året efter. Det sker især, hvis placeringen giver god beskyttelse mod vind og vejr. Derfor kan det være en fordel at tætne sprækker, ventilationsåbninger og andre adgangsveje efter en bekæmpelse for at reducere risikoen for nye kolonier.",
+      },
+      {
+        q: "Hvor hurtigt virker en professionel hvepsebehandling?",
+        a: "I de fleste tilfælde vil aktiviteten omkring boet falde markant inden for få timer efter behandlingen. Enkelte hvepse kan dog fortsat være aktive i op til et par døgn, afhængigt af boets størrelse og placering. Derfor anbefales det ofte at holde vinduer og døre nær boet lukkede de første 24-48 timer. Herefter vil kolonien normalt være elimineret.",
+      },
+      {
+        q: "Forsvinder hvepse af sig selv om vinteren?",
+        a: "Ja. Når vinteren kommer, dør arbejderne og den gamle dronning. Kun nye befrugtede dronninger overlever vinteren og søger ly et andet sted. Det gamle bo genbruges normalt ikke året efter. Selvom problemet ofte forsvinder naturligt i vinterhalvåret, kan et aktivt bo i sommermånederne skabe så store gener, at bekæmpelse er nødvendig længe før kulden sætter ind.",
+      },
+      {
+        q: "Hvor stort kan et hvepsebo blive?",
+        a: "Et hvepsebo starter typisk med én dronning i foråret, men kan udvikle sig til en koloni med flere tusinde hvepse i løbet af sommeren. Størrelsen afhænger af vejrforhold, fødetilgængelighed og placering. De største bo kan være på størrelse med en fodbold eller større. Jo tidligere et hvepsebo opdages og behandles, desto lettere er det normalt at bekæmpe.",
+      },
+      {
+        q: "Kan murhvepse skade huset?",
+        a: "Murhvepse ødelægger normalt ikke murværket direkte, men de kan skabe betydelige gener omkring boligen. Mange oplever utryghed, når hundredvis af hvepse flyver omkring facaden, terrassen eller indgangspartiet. Hvis hvepsene etablerer sig i hulmure eller loftrum, kan de også finde vej ind i boligen. Derfor vælger mange boligejere at få murhvepse bekæmpet, selvom der ikke nødvendigvis er tale om en egentlig bygningsskade.",
+      },
+      {
+        q: "Hvad er murhvepse?",
+        a: "Murhvepse er hvepse, som bygger bo i hulrum i bygninger. Det kan være i murværk, hulmure, tagkonstruktioner, ventilationskanaler eller andre skjulte områder. Hvepsene benytter eksisterende sprækker og åbninger til at komme ind og ud af boet. Murhvepse kan være særligt generende, fordi aktiviteten foregår tæt på boligen, og fordi hvepsene i nogle tilfælde kan finde vej ind i huset gennem vægge eller loftsrum.",
+      },
+      {
+        q: "Er jordhvepse mere aggressive end almindelige hvepse?",
+        a: "Jordhvepse er ikke nødvendigvis mere aggressive end andre hvepsearter, men de opleves ofte som mere problematiske. Det skyldes primært, at mennesker og kæledyr lettere kommer tæt på boet uden at opdage det. Når græsset klippes eller jorden forstyrres, kan kolonien føle sig truet og gå til angreb. Derfor sker mange hvepsestik netop i forbindelse med jordhvepsebo i haver og omkring terrasser.",
+      },
     ],
   },
   vaeggelus: {
@@ -301,8 +589,14 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Almindelig væggelus", text: "Flad, rødlig og aktiv om natten, hvor den søger blod. Holder til i sømme i madras og sengetøj." },
-      { name: "Vingetæge", text: "Ligner almindelig væggelus og ses især, hvor der er flagermus på loftet. Samme adfærd og samme behov for behandling." },
+      {
+        name: "Almindelig væggelus",
+        text: "Flad, rødlig og aktiv om natten, hvor den søger blod. Holder til i sømme i madras og sengetøj.",
+      },
+      {
+        name: "Vingetæge",
+        text: "Ligner almindelig væggelus og ses især, hvor der er flagermus på loftet. Samme adfærd og samme behov for behandling.",
+      },
     ],
     processNote:
       "Vi starter med en grundig gennemgang af boligen, behandler alle steder, hvor væggelus holder til, og giver " +
@@ -310,14 +604,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "behandling nok — skulle en enkelt opfølgning blive nødvendig, er den stadig billigere end hos konkurrenterne. " +
       "Prisen aftales, før vi går i gang.",
     faq: [
-      { q: "Er væggelus tegn på dårlig hygiejne?", a: "Nej. Dette er en af de mest udbredte myter om væggelus. De kan forekomme i alle typer boliger – uanset rengøringsniveau. Væggelus søger mennesker, ikke snavs. Derfor kan både private hjem, hoteller, kontorer og offentlige bygninger blive ramt." },
-      { q: "Kan væggelus komme igen?", a: "Ja. Hvis en ny væggelus bringes med hjem efter en rejse eller via brugte møbler, kan et nyt angreb opstå. Derfor er forebyggelse og opmærksomhed vigtige, også efter en vellykket bekæmpelse. Vi rådgiver altid om, hvordan risikoen for nye angreb kan reduceres." },
-      { q: "Skal madrassen smides ud?", a: "Ikke nødvendigvis. Mange tror, at en madras altid skal kasseres ved væggelus, men det er langt fra tilfældet. I mange tilfælde kan madrassen behandles som en del af den samlede bekæmpelse. Det vigtigste er at få hele bestanden bekæmpet – ikke kun de væggelus, der måtte befinde sig i madrassen." },
-      { q: "Hjælper frost mod væggelus?", a: "Væggelus kan dø ved meget lave temperaturer, men det kræver, at de udsættes for tilstrækkelig kulde i en længere periode. En almindelig dansk vinter er sjældent nok til at bekæmpe et angreb inde i en bolig. Frysebehandling kan være relevant for mindre genstande, men bør udføres korrekt for at sikre, at både voksne væggelus og æg bliver dræbt." },
-      { q: "Kan jeg støvsuge væggelus væk?", a: "Støvsugning kan fjerne enkelte væggelus og reducere antallet midlertidigt, men den løser sjældent problemet. Æg og skjulte individer bliver ofte siddende dybt inde i sprækker, hvor støvsugeren ikke kan nå. Støvsugning bør derfor betragtes som et supplement til en professionel behandling – ikke som en løsning i sig selv." },
-      { q: "Hvordan ser væggelusenes æg ud?", a: "Væggelusenes æg er små, hvide og cirka én millimeter lange. De lægges dybt inde i sprækker, samlinger og andre skjulesteder, hvor de er vanskelige at få øje på med det blotte øje. Netop fordi æggene er godt skjult, er de en af årsagerne til, at væggelus kan være vanskelige at bekæmpe uden professionel hjælp." },
-      { q: "Kan væggelus overleve uden mennesker?", a: "Ja. Voksne væggelus kan overleve i flere måneder uden at få et blodmåltid, og under kølige forhold kan de i nogle tilfælde overleve endnu længere. Derfor forsvinder et angreb ikke nødvendigvis, fordi en bolig står tom i en periode. Professionel bekæmpelse er normalt nødvendig for at sikre, at hele bestanden bliver elimineret." },
-      { q: "Kan væggelus sprede sig til hele huset?", a: "Ja. Hvis et angreb ikke behandles, kan væggelus gradvist sprede sig til flere rum. De bevæger sig gennem sprækker, bag paneler, langs rørføringer og i nogle tilfælde mellem lejligheder. Jo længere tid problemet får lov til at udvikle sig, desto mere omfattende bliver bekæmpelsen. Tidlig indsats er derfor afgørende." },
+      {
+        q: "Er væggelus tegn på dårlig hygiejne?",
+        a: "Nej. Dette er en af de mest udbredte myter om væggelus. De kan forekomme i alle typer boliger – uanset rengøringsniveau. Væggelus søger mennesker, ikke snavs. Derfor kan både private hjem, hoteller, kontorer og offentlige bygninger blive ramt.",
+      },
+      {
+        q: "Kan væggelus komme igen?",
+        a: "Ja. Hvis en ny væggelus bringes med hjem efter en rejse eller via brugte møbler, kan et nyt angreb opstå. Derfor er forebyggelse og opmærksomhed vigtige, også efter en vellykket bekæmpelse. Vi rådgiver altid om, hvordan risikoen for nye angreb kan reduceres.",
+      },
+      {
+        q: "Skal madrassen smides ud?",
+        a: "Ikke nødvendigvis. Mange tror, at en madras altid skal kasseres ved væggelus, men det er langt fra tilfældet. I mange tilfælde kan madrassen behandles som en del af den samlede bekæmpelse. Det vigtigste er at få hele bestanden bekæmpet – ikke kun de væggelus, der måtte befinde sig i madrassen.",
+      },
+      {
+        q: "Hjælper frost mod væggelus?",
+        a: "Væggelus kan dø ved meget lave temperaturer, men det kræver, at de udsættes for tilstrækkelig kulde i en længere periode. En almindelig dansk vinter er sjældent nok til at bekæmpe et angreb inde i en bolig. Frysebehandling kan være relevant for mindre genstande, men bør udføres korrekt for at sikre, at både voksne væggelus og æg bliver dræbt.",
+      },
+      {
+        q: "Kan jeg støvsuge væggelus væk?",
+        a: "Støvsugning kan fjerne enkelte væggelus og reducere antallet midlertidigt, men den løser sjældent problemet. Æg og skjulte individer bliver ofte siddende dybt inde i sprækker, hvor støvsugeren ikke kan nå. Støvsugning bør derfor betragtes som et supplement til en professionel behandling – ikke som en løsning i sig selv.",
+      },
+      {
+        q: "Hvordan ser væggelusenes æg ud?",
+        a: "Væggelusenes æg er små, hvide og cirka én millimeter lange. De lægges dybt inde i sprækker, samlinger og andre skjulesteder, hvor de er vanskelige at få øje på med det blotte øje. Netop fordi æggene er godt skjult, er de en af årsagerne til, at væggelus kan være vanskelige at bekæmpe uden professionel hjælp.",
+      },
+      {
+        q: "Kan væggelus overleve uden mennesker?",
+        a: "Ja. Voksne væggelus kan overleve i flere måneder uden at få et blodmåltid, og under kølige forhold kan de i nogle tilfælde overleve endnu længere. Derfor forsvinder et angreb ikke nødvendigvis, fordi en bolig står tom i en periode. Professionel bekæmpelse er normalt nødvendig for at sikre, at hele bestanden bliver elimineret.",
+      },
+      {
+        q: "Kan væggelus sprede sig til hele huset?",
+        a: "Ja. Hvis et angreb ikke behandles, kan væggelus gradvist sprede sig til flere rum. De bevæger sig gennem sprækker, bag paneler, langs rørføringer og i nogle tilfælde mellem lejligheder. Jo længere tid problemet får lov til at udvikle sig, desto mere omfattende bliver bekæmpelsen. Tidlig indsats er derfor afgørende.",
+      },
     ],
   },
   soelvfisk: {
@@ -331,29 +649,80 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Skægkræ", text: "Langbenet og hurtig. Holder til mørkt og tørt, og modsat sølvfisk kan den findes i hele boligen." },
+      {
+        name: "Skægkræ",
+        text: "Langbenet og hurtig. Holder til mørkt og tørt, og modsat sølvfisk kan den findes i hele boligen.",
+      },
       { name: "Sølvfisk", text: "Slank, sølvblank og sky. Holder af stivelseholdigt papir, tapet og fugtige hjørner." },
     ],
     processNote:
       "Vi behandler fugtzoner, revner og områder bag fodlister og fortæller dig, hvad du selv kan gøre for at " +
       "tørre forholdene ud. Prisen ligger fast, før vi går i gang.",
     faq: [
-      { q: "Tilbyder I skægkræ bekæmpelse i hele Jylland?", a: "Ja. Vi udfører professionel skægkræ bekæmpelse i hele Jylland, herunder Nordjylland, Midtjylland, Østjylland og Sydjylland. Uanset om der er tale om en privat bolig, erhverv eller boligforening, kan vi tilbyde en effektiv og professionel løsning, til en god pris uden at gå på kompromis med virkningen." },
-      { q: "Er professionel skægkræ bekæmpelse en permanent løsning?", a: "Professionel skægkræ bekæmpelse giver en langt mere langtidsholdbar løsning end gør-det-selv produkter. Efter behandling vil skægkræ være fjernet helt, de vil dog formentlig komme igen, for nogen efter et år, og for nogle efter flere år. Hvis du bor i en lejlighed eller andet hvor du deler væg med en eller flere naboer, kan det være mere besværligt. Selvom vi behandler skægkræ i din bolig og fjerner dem helt, vil det være et spørgsmål om tid før de kommer igen, medmindre dine naboer også får behandlet. Vi kan dog se en tendens til at det stadig kan holdes skægkræ-fri i ca. 1 år.\nResultatet afhænger dog af bygningstype, spredning og hvor tidligt indsatsen sættes ind." },
-      { q: "Kan jeg selv slippe af med skægkræ?", a: "Mindre forekomster kan midlertidigt reduceres med fælder, men skægkræ forsvinder sjældent permanent uden professionel behandling. De gemmer sig i sprækker, konstruktioner og bag paneler, hvor almindelige midler ikke når ind. Uden korrekt metode og opfølgning vil problemet ofte vende tilbage. Professionel skægkræ bekæmpelse sikrer, at både synlige insekter og skjulte bestande bliver behandlet." },
-      { q: "Hvornår er professionel skægkræ bekæmpelse nødvendig?", a: "Professionel skægkræ bekæmpelse anbefales, når:\nSkægkræ ses i flere rum\nProblemet vender tilbage efter egen behandling\nAngrebet er udbredt i bygningen\nDer er tale om lejligheder, erhverv eller boligforeninger\nDu ønsker en langtidsholdbar løsning\nVi vurderer altid problemets omfang og vælger den mest effektive metode." },
-      { q: "Er en professionel skægkræ bekæmpelse sikker for børn og kæledyr?", a: "Vores behandling mod skægkræ er helt ufarlig for mennesker og dyr! Vi anvender professionelle men miljø- og allergivenlige midler, korrekt doseret for at sikre bedst mulig effekt med mindst mulig belastning på miljøet og andre omgivelser. Vi giver dig altid klare anvisninger både før og efter behandlingen, så du aldrig er i tvivl om hvordan du skal forholde dig efter en behandling. Behandlingsmetoden er tilpasset, så der tages hensyn til både børn, kæledyr og boligens anvendelse. I alle tilfælde vil boligen kunne benyttes under og efter en behandlingen." },
-      { q: "Er skægkræ skadelige?", a: "Skægkræ er ikke skadelige eller sundhedsfarlige og hverken bider, stikker eller lignende. De kan dog gøre skade på materiel såsom, papir, bøger, malerier, billeder og fotos." },
-      { q: "Hvor kommer skægkræ fra?", a: "Oprindeligt blev skægkræet først opdaget i sydafrika i år 1905. De er dog kendt på alle kontinenter pånær Antarktis, og blev første gang opdaget i Europa i Frankrig i år 1914. De menes at komme i forbindelse med importvarer fra især Indien, Thailand  og andre lande i Asien.\nSkægkræ blev første gang opdaget i Danmark i 2016, hvilket menes at være kommet fra Norge hvor insektet har været et stort problem i flere år.\nDet er derfor vigtigt at du grundigt tjekker dine pakker eller åbner dem udenfor. I det seneste års tid er de fundet på en del skoler, børnehaver, varehuse, arbejdspladser og andre steder med mange “besøgende”. Det kræver kun ét skægkræ for at kunne starte en hel hær. Disse steder står oftest tomme om natten og skægkræet kan derfor brede sig uden at blive opdaget, eller først opdaget når problemets omfang er meget stort. Derfra vil insektet måske bevæge sig i dine sko eller sin taske og du vil derfra tage dem med hjem." },
-      { q: "Hvor lever skægkræ?", a: "Skægkræet foretrækker at opholde sig mørkt og tørt. Det er derfor meget normalt at finde disse i både din bogreol, køkkenskabe, vasketøjskurv og endda også i din seng.\nDa de er meget små i den første fase af deres liv kan de nemt finde vej i selv de mindste sprækker i din bolig.\nDu skal derfor forvente at kunne finde skægkræ mere eller mindre alle steder i din bolig.\nFuldvoksne skægkræ kan overleve i meget lang tid uden at indtage føde. Man regner med at de kan overleve hele 10 måneder uden at indtage noget føde." },
-      { q: "Hvordan forebygger jeg sølvfisk?", a: "Den bedste forebyggelse er at holde fugtigheden nede og fjerne de fødekilder, som sølvfisk lever af. Rens afløb jævnligt, tør gulve af efter bad, sørg for god udluftning og reparer eventuelle fugtskader. Disse enkle tiltag kan gøre en stor forskel." },
-      { q: "Kan sølvfisk kravle op i sengen?", a: "Sølvfisk kan bevæge sig over gulve og ru overflader, men de holder sig normalt til fugtige områder. Ser du gentagne gange sølvlignende insekter i sengen, bør du overveje, om det kan være skægkræ eller et andet insekt." },
-      { q: "Kan sølvfisk ødelægge tøj?", a: "Det sker kun meget sjældent. Sølvfisk kan gnave i tekstiler med stivelse eller naturlige fibre, hvis de mangler anden føde, men de forårsager normalt ikke de omfattende skader, som andre skadedyr kan gøre." },
-      { q: "Kan sølvfisk leve i sengen?", a: "Det er meget usædvanligt. Sølvfisk foretrækker fugtige omgivelser og ses derfor sjældent i senge eller soveværelser. Finder du sølvlignende insekter i sengen eller andre tørre rum, bør du undersøge, om der i stedet kan være tale om skægkræ." },
-      { q: "Er sølvfisk aktive om dagen?", a: "Nej. Sølvfisk er primært nataktive og gemmer sig i revner, sprækker og omkring afløb om dagen. Ser du mange sølvfisk i dagslys, kan det være tegn på, at bestanden er blevet stor, eller at de mangler skjulesteder." },
-      { q: "Kan sølvfisk komme fra naboen?", a: "Det er muligt, især i lejlighedskomplekser og rækkehuse, hvor insekterne kan bevæge sig gennem rørgennemføringer, revner og andre små åbninger. Almindelige sølvfisk spreder sig dog langt mindre end skægkræ, som er væsentligt mere mobile." },
-      { q: "Hvad tiltrækker sølvfisk?", a: "Sølvfisk tiltrækkes af varme, fugt og organiske rester. Særligt badeværelser og bryggers giver gode levevilkår, fordi der ofte er høj luftfugtighed og små mængder sæberester, hudskæl og andet organisk materiale. God rengøring og ventilation er derfor en vigtig del af forebyggelsen." },
-      { q: "Kan sølvfisk leve i afløbet?", a: "Sølvfisk lever normalt ikke inde i selve afløbet, men de opholder sig ofte omkring gulvafløb, hvor der er fugt og adgang til sæberester samt organisk materiale. Derfor kan en grundig rensning af afløbet fjerne en vigtig fødekilde og gøre området mindre attraktivt for dem." },
+      {
+        q: "Tilbyder I skægkræ bekæmpelse i hele Jylland?",
+        a: "Ja. Vi udfører professionel skægkræ bekæmpelse i hele Jylland, herunder Nordjylland, Midtjylland, Østjylland og Sydjylland. Uanset om der er tale om en privat bolig, erhverv eller boligforening, kan vi tilbyde en effektiv og professionel løsning, til en god pris uden at gå på kompromis med virkningen.",
+      },
+      {
+        q: "Er professionel skægkræ bekæmpelse en permanent løsning?",
+        a: "Professionel skægkræ bekæmpelse giver en langt mere langtidsholdbar løsning end gør-det-selv produkter. Efter behandling vil skægkræ være fjernet helt, de vil dog formentlig komme igen, for nogen efter et år, og for nogle efter flere år. Hvis du bor i en lejlighed eller andet hvor du deler væg med en eller flere naboer, kan det være mere besværligt. Selvom vi behandler skægkræ i din bolig og fjerner dem helt, vil det være et spørgsmål om tid før de kommer igen, medmindre dine naboer også får behandlet. Vi kan dog se en tendens til at det stadig kan holdes skægkræ-fri i ca. 1 år.\nResultatet afhænger dog af bygningstype, spredning og hvor tidligt indsatsen sættes ind.",
+      },
+      {
+        q: "Kan jeg selv slippe af med skægkræ?",
+        a: "Mindre forekomster kan midlertidigt reduceres med fælder, men skægkræ forsvinder sjældent permanent uden professionel behandling. De gemmer sig i sprækker, konstruktioner og bag paneler, hvor almindelige midler ikke når ind. Uden korrekt metode og opfølgning vil problemet ofte vende tilbage. Professionel skægkræ bekæmpelse sikrer, at både synlige insekter og skjulte bestande bliver behandlet.",
+      },
+      {
+        q: "Hvornår er professionel skægkræ bekæmpelse nødvendig?",
+        a: "Professionel skægkræ bekæmpelse anbefales, når:\nSkægkræ ses i flere rum\nProblemet vender tilbage efter egen behandling\nAngrebet er udbredt i bygningen\nDer er tale om lejligheder, erhverv eller boligforeninger\nDu ønsker en langtidsholdbar løsning\nVi vurderer altid problemets omfang og vælger den mest effektive metode.",
+      },
+      {
+        q: "Er en professionel skægkræ bekæmpelse sikker for børn og kæledyr?",
+        a: "Vores behandling mod skægkræ er helt ufarlig for mennesker og dyr! Vi anvender professionelle men miljø- og allergivenlige midler, korrekt doseret for at sikre bedst mulig effekt med mindst mulig belastning på miljøet og andre omgivelser. Vi giver dig altid klare anvisninger både før og efter behandlingen, så du aldrig er i tvivl om hvordan du skal forholde dig efter en behandling. Behandlingsmetoden er tilpasset, så der tages hensyn til både børn, kæledyr og boligens anvendelse. I alle tilfælde vil boligen kunne benyttes under og efter en behandlingen.",
+      },
+      {
+        q: "Er skægkræ skadelige?",
+        a: "Skægkræ er ikke skadelige eller sundhedsfarlige og hverken bider, stikker eller lignende. De kan dog gøre skade på materiel såsom, papir, bøger, malerier, billeder og fotos.",
+      },
+      {
+        q: "Hvor kommer skægkræ fra?",
+        a: "Oprindeligt blev skægkræet først opdaget i sydafrika i år 1905. De er dog kendt på alle kontinenter pånær Antarktis, og blev første gang opdaget i Europa i Frankrig i år 1914. De menes at komme i forbindelse med importvarer fra især Indien, Thailand  og andre lande i Asien.\nSkægkræ blev første gang opdaget i Danmark i 2016, hvilket menes at være kommet fra Norge hvor insektet har været et stort problem i flere år.\nDet er derfor vigtigt at du grundigt tjekker dine pakker eller åbner dem udenfor. I det seneste års tid er de fundet på en del skoler, børnehaver, varehuse, arbejdspladser og andre steder med mange “besøgende”. Det kræver kun ét skægkræ for at kunne starte en hel hær. Disse steder står oftest tomme om natten og skægkræet kan derfor brede sig uden at blive opdaget, eller først opdaget når problemets omfang er meget stort. Derfra vil insektet måske bevæge sig i dine sko eller sin taske og du vil derfra tage dem med hjem.",
+      },
+      {
+        q: "Hvor lever skægkræ?",
+        a: "Skægkræet foretrækker at opholde sig mørkt og tørt. Det er derfor meget normalt at finde disse i både din bogreol, køkkenskabe, vasketøjskurv og endda også i din seng.\nDa de er meget små i den første fase af deres liv kan de nemt finde vej i selv de mindste sprækker i din bolig.\nDu skal derfor forvente at kunne finde skægkræ mere eller mindre alle steder i din bolig.\nFuldvoksne skægkræ kan overleve i meget lang tid uden at indtage føde. Man regner med at de kan overleve hele 10 måneder uden at indtage noget føde.",
+      },
+      {
+        q: "Hvordan forebygger jeg sølvfisk?",
+        a: "Den bedste forebyggelse er at holde fugtigheden nede og fjerne de fødekilder, som sølvfisk lever af. Rens afløb jævnligt, tør gulve af efter bad, sørg for god udluftning og reparer eventuelle fugtskader. Disse enkle tiltag kan gøre en stor forskel.",
+      },
+      {
+        q: "Kan sølvfisk kravle op i sengen?",
+        a: "Sølvfisk kan bevæge sig over gulve og ru overflader, men de holder sig normalt til fugtige områder. Ser du gentagne gange sølvlignende insekter i sengen, bør du overveje, om det kan være skægkræ eller et andet insekt.",
+      },
+      {
+        q: "Kan sølvfisk ødelægge tøj?",
+        a: "Det sker kun meget sjældent. Sølvfisk kan gnave i tekstiler med stivelse eller naturlige fibre, hvis de mangler anden føde, men de forårsager normalt ikke de omfattende skader, som andre skadedyr kan gøre.",
+      },
+      {
+        q: "Kan sølvfisk leve i sengen?",
+        a: "Det er meget usædvanligt. Sølvfisk foretrækker fugtige omgivelser og ses derfor sjældent i senge eller soveværelser. Finder du sølvlignende insekter i sengen eller andre tørre rum, bør du undersøge, om der i stedet kan være tale om skægkræ.",
+      },
+      {
+        q: "Er sølvfisk aktive om dagen?",
+        a: "Nej. Sølvfisk er primært nataktive og gemmer sig i revner, sprækker og omkring afløb om dagen. Ser du mange sølvfisk i dagslys, kan det være tegn på, at bestanden er blevet stor, eller at de mangler skjulesteder.",
+      },
+      {
+        q: "Kan sølvfisk komme fra naboen?",
+        a: "Det er muligt, især i lejlighedskomplekser og rækkehuse, hvor insekterne kan bevæge sig gennem rørgennemføringer, revner og andre små åbninger. Almindelige sølvfisk spreder sig dog langt mindre end skægkræ, som er væsentligt mere mobile.",
+      },
+      {
+        q: "Hvad tiltrækker sølvfisk?",
+        a: "Sølvfisk tiltrækkes af varme, fugt og organiske rester. Særligt badeværelser og bryggers giver gode levevilkår, fordi der ofte er høj luftfugtighed og små mængder sæberester, hudskæl og andet organisk materiale. God rengøring og ventilation er derfor en vigtig del af forebyggelsen.",
+      },
+      {
+        q: "Kan sølvfisk leve i afløbet?",
+        a: "Sølvfisk lever normalt ikke inde i selve afløbet, men de opholder sig ofte omkring gulvafløb, hvor der er fugt og adgang til sæberester samt organisk materiale. Derfor kan en grundig rensning af afløbet fjerne en vigtig fødekilde og gøre området mindre attraktivt for dem.",
+      },
     ],
   },
   borebiller: {
@@ -367,22 +736,52 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Husbuk", text: "Den alvorligste. Gnaver gange i blødt nåletræ, for eksempel i tagkonstruktioner og lofter. De karakteristiske huller i overfladen er et af tegnene." },
+      {
+        name: "Husbuk",
+        text: "Den alvorligste. Gnaver gange i blødt nåletræ, for eksempel i tagkonstruktioner og lofter. De karakteristiske huller i overfladen er et af tegnene.",
+      },
       { name: "Løvtræborebille", text: "Gnaver i hårdt løvtræ som egetræ og ses ofte i ældre bygningsdele og møbler." },
-      { name: "Borebille i møbler og gulve", text: "Kan optræde i løst træ, møbler og trægulve, hvor skaden viser sig som smalle huller og fint boremel." },
+      {
+        name: "Borebille i møbler og gulve",
+        text: "Kan optræde i løst træ, møbler og trægulve, hvor skaden viser sig som smalle huller og fint boremel.",
+      },
     ],
     processNote:
       "Først fastlægger vi, om det er borebiller, og hvor vidt angrebet er gået. Derefter behandles det " +
       "angrebne træværk, og du får faktura og kvittering for behandlingen.",
     faq: [
-      { q: "Hvad koster professionel bekæmpelse af borebiller?", a: "Prisen afhænger af flere faktorer, herunder angrebets omfang, typen af træværk, bygningens størrelse og adgangsforhold. Derfor tilbyder vi altid en ekspertvurdering og et uforpligtende tilbud, så du får en løsning, der passer præcist til dit behov – uden skjulte omkostninger." },
-      { q: "Hvornår på året er det bedst at bekæmpe borebiller?", a: "Borebillebekæmpelse kan udføres året rundt, men angreb opdages ofte i foråret og sommeren, hvor de voksne biller er aktive. Det vigtigste er ikke tidspunktet, men at behandlingen udføres, så snart et aktivt angreb konstateres." },
-      { q: "Skal beskadiget træ udskiftes efter behandling?", a: "Ikke nødvendigvis. Behandlingen stopper borebillerne, men den genskaber ikke allerede beskadiget træ. I de fleste tilfælde kan træværket dog bevares, hvis skaderne ikke er strukturelt kritiske. Ved alvorlige skader kan det være nødvendigt at få en byggeteknisk vurdering af, om udskiftning er nødvendig." },
-      { q: "Kan borebiller sprede sig til andet træværk?", a: "Ja. Hvis borebiller ikke behandles, vil de sprede sig til andet træværk i bygningen. De voksne biller kan flyve og dermed lægge æg i nærliggende træ, hvilket medfører nye angreb. Derfor er det vigtigt at behandle problemet samlet og ikke kun det træ, hvor skaderne først opdages." },
-      { q: "Stopper én behandling borebiller permanent?", a: "I langt de fleste tilfælde er én korrekt udført professionel behandling tilstrækkelig til at stoppe et borebilleangreb. Ved meget omfattende angreb, ældre bygninger eller særligt udsatte områder kan der dog være behov for opfølgning. En professionel vurdering sikrer, at behandlingen tilpasses netop dit træværk og angrebets omfang." },
-      { q: "Er behandlingen sikker for mennesker og kæledyr?", a: "Ja. Professionel borebillebekæmpelse udføres med godkendte midler og korrekt dosering. Du får altid klare anvisninger om, hvordan du skal forholde dig før og efter behandlingen, så den udføres sikkert. I langt de fleste tilfælde kan boligen benyttes normalt kort tid efter behandlingen." },
-      { q: "Hvor lang tid tager en professionel borebillebehandling?", a: "Selve behandlingen kan ofte udføres på én dag, afhængigt af omfanget og tilgængeligheden af det angrebne træværk. Effekten sker dog over tid, da midlerne arbejder inde i træet og stopper larvernes livscyklus. Det betyder, at nye borehuller ikke længere vil opstå efter behandlingen, selvom eksisterende skader fortsat vil være synlige." },
-      { q: "Kan jeg selv bekæmpe borebiller?", a: "Det er sjældent muligt at bekæmpe borebiller effektivt med gør-det-selv løsninger. Årsagen er, at larverne lever dybt inde i træet, hvor overfladiske midler ikke når ind. Mange produkter kan midlertidigt reducere synlige tegn, men stopper ikke angrebet. Professionel borebillebekæmpelse sikrer, at korrekt metode og midler anvendes, så larvernes udvikling standses helt." },
+      {
+        q: "Hvad koster professionel bekæmpelse af borebiller?",
+        a: "Prisen afhænger af flere faktorer, herunder angrebets omfang, typen af træværk, bygningens størrelse og adgangsforhold. Derfor tilbyder vi altid en ekspertvurdering og et uforpligtende tilbud, så du får en løsning, der passer præcist til dit behov – uden skjulte omkostninger.",
+      },
+      {
+        q: "Hvornår på året er det bedst at bekæmpe borebiller?",
+        a: "Borebillebekæmpelse kan udføres året rundt, men angreb opdages ofte i foråret og sommeren, hvor de voksne biller er aktive. Det vigtigste er ikke tidspunktet, men at behandlingen udføres, så snart et aktivt angreb konstateres.",
+      },
+      {
+        q: "Skal beskadiget træ udskiftes efter behandling?",
+        a: "Ikke nødvendigvis. Behandlingen stopper borebillerne, men den genskaber ikke allerede beskadiget træ. I de fleste tilfælde kan træværket dog bevares, hvis skaderne ikke er strukturelt kritiske. Ved alvorlige skader kan det være nødvendigt at få en byggeteknisk vurdering af, om udskiftning er nødvendig.",
+      },
+      {
+        q: "Kan borebiller sprede sig til andet træværk?",
+        a: "Ja. Hvis borebiller ikke behandles, vil de sprede sig til andet træværk i bygningen. De voksne biller kan flyve og dermed lægge æg i nærliggende træ, hvilket medfører nye angreb. Derfor er det vigtigt at behandle problemet samlet og ikke kun det træ, hvor skaderne først opdages.",
+      },
+      {
+        q: "Stopper én behandling borebiller permanent?",
+        a: "I langt de fleste tilfælde er én korrekt udført professionel behandling tilstrækkelig til at stoppe et borebilleangreb. Ved meget omfattende angreb, ældre bygninger eller særligt udsatte områder kan der dog være behov for opfølgning. En professionel vurdering sikrer, at behandlingen tilpasses netop dit træværk og angrebets omfang.",
+      },
+      {
+        q: "Er behandlingen sikker for mennesker og kæledyr?",
+        a: "Ja. Professionel borebillebekæmpelse udføres med godkendte midler og korrekt dosering. Du får altid klare anvisninger om, hvordan du skal forholde dig før og efter behandlingen, så den udføres sikkert. I langt de fleste tilfælde kan boligen benyttes normalt kort tid efter behandlingen.",
+      },
+      {
+        q: "Hvor lang tid tager en professionel borebillebehandling?",
+        a: "Selve behandlingen kan ofte udføres på én dag, afhængigt af omfanget og tilgængeligheden af det angrebne træværk. Effekten sker dog over tid, da midlerne arbejder inde i træet og stopper larvernes livscyklus. Det betyder, at nye borehuller ikke længere vil opstå efter behandlingen, selvom eksisterende skader fortsat vil være synlige.",
+      },
+      {
+        q: "Kan jeg selv bekæmpe borebiller?",
+        a: "Det er sjældent muligt at bekæmpe borebiller effektivt med gør-det-selv løsninger. Årsagen er, at larverne lever dybt inde i træet, hvor overfladiske midler ikke når ind. Mange produkter kan midlertidigt reducere synlige tegn, men stopper ikke angrebet. Professionel borebillebekæmpelse sikrer, at korrekt metode og midler anvendes, så larvernes udvikling standses helt.",
+      },
     ],
   },
   kakerlakker: {
@@ -390,14 +789,38 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     // the shape of the ones he wrote himself and claim nothing the site
     // does not already claim. He should read them before they go live.
     faq: [
-      { q: "Kan jeg selv komme af med kakerlakker?", a: "Det er der meget få, der gør. De sidder i revner, bag hvidevarerne og oppe i de tekniske installationer, hvor en spray slet ikke kommer hen. Og en spray driver dem tit bare længere ind i konstruktionen. Æggene bliver ikke ramt, og så står du med dem igen om nogle uger, bare et andet sted i køkkenet." },
-      { q: "Hvordan er de kommet ind?", a: "Oftest med noget, der er båret ind. En papkasse, en flaskekasse, en pakke, en rejsetaske. I etagebyggeri kan de også komme fra naboen gennem rørgennemføringer og skakter, og så har du ikke selv gjort noget som helst." },
-      { q: "Betyder det, at der er beskidt hos mig?", a: "Nej. Og det er vigtigt for mig at sige, for det er tit det første, folk spørger om. Kakerlakker går efter varme, fugt og et sted at gemme sig, og det har hvert eneste køkken i Danmark. Vi ser dem i pæne hjem hele året. Det er ikke derfor, du har dem." },
-      { q: "Hvor lang tid tager en behandling?", a: "Selve besøget tager sjældent en hel dag i en almindelig bolig. Bagefter skal gelen have lov at virke, og der går som regel nogle uger, før der er helt ro på. Det er ikke fordi behandlingen ikke virker, det er fordi der klækker æg undervejs, og de skal med." },
-      { q: "Skal jeg flytte ud, mens I behandler?", a: "Nej. Vi arbejder med gel og behandler målrettet i revner og skjulesteder i stedet for at sprøjte hele boligen ud. Du får at vide, hvad du skal holde dig fra, og hvad der skal have lov at stå." },
-      { q: "Skal naboerne også behandles?", a: "I et rækkehus eller en etageejendom er svaret som regel ja. Kakerlakker flytter sig mellem lejlighederne gennem rør og skakter. Behandler man kun én lejlighed, kommer de igen, og så er pengene brugt til ingenting. Jeg taler gerne med ejendommen eller administrationen om det." },
-      { q: "Udfører I kakerlakbekæmpelse i hele Jylland og på Fyn?", a: "Ja, både i private boliger, i erhverv, i restauranter og for boligforeninger." },
-      { q: "Hvad skal jeg gøre, indtil I kommer?", a: "Lad være med at sprøjte med noget selv. Det spreder dem, og så bliver mit arbejde sværere. Sæt maden væk i tætte beholdere, tør op efter dig, og lad være med at lade opvasken stå natten over. Og kan du nå at tage et billede af et af dyrene, så send det med. Så ved jeg, hvad jeg kommer ud til." },
+      {
+        q: "Kan jeg selv komme af med kakerlakker?",
+        a: "Det er der meget få, der gør. De sidder i revner, bag hvidevarerne og oppe i de tekniske installationer, hvor en spray slet ikke kommer hen. Og en spray driver dem tit bare længere ind i konstruktionen. Æggene bliver ikke ramt, og så står du med dem igen om nogle uger, bare et andet sted i køkkenet.",
+      },
+      {
+        q: "Hvordan er de kommet ind?",
+        a: "Oftest med noget, der er båret ind. En papkasse, en flaskekasse, en pakke, en rejsetaske. I etagebyggeri kan de også komme fra naboen gennem rørgennemføringer og skakter, og så har du ikke selv gjort noget som helst.",
+      },
+      {
+        q: "Betyder det, at der er beskidt hos mig?",
+        a: "Nej. Og det er vigtigt for mig at sige, for det er tit det første, folk spørger om. Kakerlakker går efter varme, fugt og et sted at gemme sig, og det har hvert eneste køkken i Danmark. Vi ser dem i pæne hjem hele året. Det er ikke derfor, du har dem.",
+      },
+      {
+        q: "Hvor lang tid tager en behandling?",
+        a: "Selve besøget tager sjældent en hel dag i en almindelig bolig. Bagefter skal gelen have lov at virke, og der går som regel nogle uger, før der er helt ro på. Det er ikke fordi behandlingen ikke virker, det er fordi der klækker æg undervejs, og de skal med.",
+      },
+      {
+        q: "Skal jeg flytte ud, mens I behandler?",
+        a: "Nej. Vi arbejder med gel og behandler målrettet i revner og skjulesteder i stedet for at sprøjte hele boligen ud. Du får at vide, hvad du skal holde dig fra, og hvad der skal have lov at stå.",
+      },
+      {
+        q: "Skal naboerne også behandles?",
+        a: "I et rækkehus eller en etageejendom er svaret som regel ja. Kakerlakker flytter sig mellem lejlighederne gennem rør og skakter. Behandler man kun én lejlighed, kommer de igen, og så er pengene brugt til ingenting. Jeg taler gerne med ejendommen eller administrationen om det.",
+      },
+      {
+        q: "Udfører I kakerlakbekæmpelse i hele Jylland og på Fyn?",
+        a: "Ja, både i private boliger, i erhverv, i restauranter og for boligforeninger.",
+      },
+      {
+        q: "Hvad skal jeg gøre, indtil I kommer?",
+        a: "Lad være med at sprøjte med noget selv. Det spreder dem, og så bliver mit arbejde sværere. Sæt maden væk i tætte beholdere, tør op efter dig, og lad være med at lade opvasken stå natten over. Og kan du nå at tage et billede af et af dyrene, så send det med. Så ved jeg, hvad jeg kommer ud til.",
+      },
     ],
     intro:
       "Kakerlakker i køkken, badeværelse eller erhvervskøkken er mere end et synligt ubehag. De spreder smitte " +
@@ -409,9 +832,18 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Tysk kakerlak", text: "Den almindeligste indendørs. Lille, lysbrun og holder af køkken, badeværelse og bag hvidevarer." },
-      { name: "Orientalisk kakerlak", text: "Større, mørk og hurtig. Holder til i varme, fugtige steder som kældre og teknikskakte." },
-      { name: "Amerikansk kakerlak", text: "Stor, rødlig og kommer ofte udefra. Kan ses både inde og ude, for eksempel ved indgangsdøre og kloakdæksler." },
+      {
+        name: "Tysk kakerlak",
+        text: "Den almindeligste indendørs. Lille, lysbrun og holder af køkken, badeværelse og bag hvidevarer.",
+      },
+      {
+        name: "Orientalisk kakerlak",
+        text: "Større, mørk og hurtig. Holder til i varme, fugtige steder som kældre og teknikskakte.",
+      },
+      {
+        name: "Amerikansk kakerlak",
+        text: "Stor, rødlig og kommer ofte udefra. Kan ses både inde og ude, for eksempel ved indgangsdøre og kloakdæksler.",
+      },
     ],
     processNote:
       "Vi starter med at finde kilden og adgangsvejene og behandler derefter med gel og lokkedøre tilpasset " +
@@ -430,25 +862,61 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
     ],
     species: [
       { name: "Husflue", text: "Den velkendte, grå flue. Holder af affald, madvarer og mørknet materiale." },
-      { name: "Kloakflue", text: "Lille og mørk med dunede vinger. Kommer ofte fra afløb, der er tørret ud eller snavsede, og kan være en plage på badeværelset." },
+      {
+        name: "Kloakflue",
+        text: "Lille og mørk med dunede vinger. Kommer ofte fra afløb, der er tørret ud eller snavsede, og kan være en plage på badeværelset.",
+      },
       { name: "Bananflue", text: "Lille og gulbrun. Holder af moden frugt, gærende væske og affald." },
-      { name: "Hestebremse og klæg", text: "Store sommerfluer, der bider — klægen med skærende munddele, hestebremsen kan slet ikke bide. Værst i hesteomgivelser og om sommeren." },
+      {
+        name: "Hestebremse og klæg",
+        text: "Store sommerfluer, der bider — klægen med skærende munddele, hestebremsen kan slet ikke bide. Værst i hesteomgivelser og om sommeren.",
+      },
       { name: "Stikflue", text: "Ligner en almindelig husflue, men bider om ben og ankler — også på terrassen." },
-      { name: "Hjortelusflue", text: "Skovens flue, der lander i håret og smider vingerne. Aktiv sensommer og efterår." },
-      { name: "Kødflue og spidsflue", text: "Metallisk grønne eller blålige fluer. Kommer de pludseligt i flok inde i huset, sidder der som regel et dødt dyr et sted i konstruktionen." },
+      {
+        name: "Hjortelusflue",
+        text: "Skovens flue, der lander i håret og smider vingerne. Aktiv sensommer og efterår.",
+      },
+      {
+        name: "Kødflue og spidsflue",
+        text: "Metallisk grønne eller blålige fluer. Kommer de pludseligt i flok inde i huset, sidder der som regel et dødt dyr et sted i konstruktionen.",
+      },
     ],
     processNote:
       "Vi fastlægger, hvor fluerne kommer fra, og behandler kilden. Derefter får du konkrete råd til " +
       "forebyggelse, så du slipper for, at det vender tilbage. Prisen ligger fast, før vi går i gang.",
     faq: [
-      { q: "Kan jeg forebygge et flueproblem?", a: "Ja. Regelmæssig rengøring, hurtig bortskaffelse af affald, tætsluttende affaldsbeholdere og fjernelse af organiske materialer reducerer risikoen betydeligt. Samtidig kan det være en fordel at holde døre og vinduer lukkede eller montere insektnet i perioder med mange fluer." },
-      { q: "Kan fluer bekæmpes uden kemi?", a: "Mindre problemer kan ofte begrænses med god rengøring, korrekt affaldshåndtering og mekaniske fælder. Ved større eller tilbagevendende angreb er en professionel kemisk behandling dog ofte den mest effektive løsning." },
-      { q: "Hjælper en professionel behandling med det samme?", a: "Mange oplever en tydelig reduktion i antallet af fluer kort tid efter behandlingen. Den endelige effekt afhænger blandt andet af problemets omfang, fluearten og om eventuelle ynglesteder bliver fjernet eller begrænset." },
-      { q: "Virker professionel fluebekæmpelse?", a: "Ja. En professionel behandling kan reducere bestanden markant, især når den kombineres med en grundig gennemgang af ejendommen og rådgivning om forebyggelse. Ved at behandle fluernes foretrukne hvilepladser opnås ofte en hurtig og effektiv bekæmpelse." },
-      { q: "Kan fluer komme ind gennem små sprækker?", a: "Ja. Fluer kommer oftest ind gennem åbne døre og vinduer, men de kan også finde vej gennem mindre sprækker, ventilationsåbninger og utætte konstruktioner. Insektnet og tætte døre kan være med til at reducere antallet." },
-      { q: "Hvornår er fluer mest aktive?", a: "Fluer er mest aktive fra forår til sensommer, hvor varme temperaturer giver optimale betingelser for formering. Særligt juni, juli og august er høj­sæson for fluer, men i opvarmede bygninger kan enkelte arter være aktive hele året." },
-      { q: "Kan fluer skade fødevarer?", a: "Ja. Fluer kan forurene fødevarer ved at overføre bakterier fra de steder, de tidligere har opholdt sig. Derfor bør fødevarer altid opbevares tildækket, og større flueproblemer bør bekæmpes hurtigt – især i erhverv, hvor der håndteres mad." },
-      { q: "Hjælper fluespray mod mange fluer?", a: "Fluespray kan være effektiv mod de fluer, der rammes direkte, men ved større angreb løser den sjældent selve årsagen til problemet. Hvis fluerne fortsætter med at formere sig, vil bestanden hurtigt vende tilbage. Ved tilbagevendende problemer anbefales en professionel vurdering." },
+      {
+        q: "Kan jeg forebygge et flueproblem?",
+        a: "Ja. Regelmæssig rengøring, hurtig bortskaffelse af affald, tætsluttende affaldsbeholdere og fjernelse af organiske materialer reducerer risikoen betydeligt. Samtidig kan det være en fordel at holde døre og vinduer lukkede eller montere insektnet i perioder med mange fluer.",
+      },
+      {
+        q: "Kan fluer bekæmpes uden kemi?",
+        a: "Mindre problemer kan ofte begrænses med god rengøring, korrekt affaldshåndtering og mekaniske fælder. Ved større eller tilbagevendende angreb er en professionel kemisk behandling dog ofte den mest effektive løsning.",
+      },
+      {
+        q: "Hjælper en professionel behandling med det samme?",
+        a: "Mange oplever en tydelig reduktion i antallet af fluer kort tid efter behandlingen. Den endelige effekt afhænger blandt andet af problemets omfang, fluearten og om eventuelle ynglesteder bliver fjernet eller begrænset.",
+      },
+      {
+        q: "Virker professionel fluebekæmpelse?",
+        a: "Ja. En professionel behandling kan reducere bestanden markant, især når den kombineres med en grundig gennemgang af ejendommen og rådgivning om forebyggelse. Ved at behandle fluernes foretrukne hvilepladser opnås ofte en hurtig og effektiv bekæmpelse.",
+      },
+      {
+        q: "Kan fluer komme ind gennem små sprækker?",
+        a: "Ja. Fluer kommer oftest ind gennem åbne døre og vinduer, men de kan også finde vej gennem mindre sprækker, ventilationsåbninger og utætte konstruktioner. Insektnet og tætte døre kan være med til at reducere antallet.",
+      },
+      {
+        q: "Hvornår er fluer mest aktive?",
+        a: "Fluer er mest aktive fra forår til sensommer, hvor varme temperaturer giver optimale betingelser for formering. Særligt juni, juli og august er høj­sæson for fluer, men i opvarmede bygninger kan enkelte arter være aktive hele året.",
+      },
+      {
+        q: "Kan fluer skade fødevarer?",
+        a: "Ja. Fluer kan forurene fødevarer ved at overføre bakterier fra de steder, de tidligere har opholdt sig. Derfor bør fødevarer altid opbevares tildækket, og større flueproblemer bør bekæmpes hurtigt – især i erhverv, hvor der håndteres mad.",
+      },
+      {
+        q: "Hjælper fluespray mod mange fluer?",
+        a: "Fluespray kan være effektiv mod de fluer, der rammes direkte, men ved større angreb løser den sjældent selve årsagen til problemet. Hvis fluerne fortsætter med at formere sig, vil bestanden hurtigt vende tilbage. Ved tilbagevendende problemer anbefales en professionel vurdering.",
+      },
     ],
   },
   edderkopper: {
@@ -462,22 +930,55 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       "Faktura og kvittering for behandlingen",
     ],
     species: [
-      { name: "Husedderkop", text: "Harmløs, men bygger store spind i kælder, udskure og udestuer. Den holder bestanden af andre insekter nede." },
-      { name: "Vinduesedderkop", text: "Langbenet og harmløs. Ses ofte om efteråret i lofter og hjørner med ro og lidt fugt." },
-      { name: "Korsedderkop", text: "Kendt på det lyse mønster på ryggen. Ses ofte i haven og kan finde vej indenfor om efteråret." },
+      {
+        name: "Husedderkop",
+        text: "Harmløs, men bygger store spind i kælder, udskure og udestuer. Den holder bestanden af andre insekter nede.",
+      },
+      {
+        name: "Vinduesedderkop",
+        text: "Langbenet og harmløs. Ses ofte om efteråret i lofter og hjørner med ro og lidt fugt.",
+      },
+      {
+        name: "Korsedderkop",
+        text: "Kendt på det lyse mønster på ryggen. Ses ofte i haven og kan finde vej indenfor om efteråret.",
+      },
     ],
     processNote:
       "Vi behandler de steder, hvor spindet sidder, og giver råd om, hvordan du forebygger nye. Prisen ligger " +
       "fast, før vi går i gang.",
     faq: [
-      { q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?", a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger tilpasset jeres behov, både til erhverv og boligforeninger." },
-      { q: "Virker behandlingen også forebyggende?", a: "Ja. Professionel bekæmpelse af edderkopper har en forebyggende effekt, fordi både fødegrundlag og adgangsveje behandles. Det reducerer sandsynligheden for, at nye edderkopper hurtigt vender tilbage." },
-      { q: "Hvorfor er der ekstra mange edderkopper i sensommeren og efteråret?", a: "Edderkopper bliver særligt synlige i sensommeren og efteråret, når de søger indendørs for at finde læ, varme og føde. Samtidig er det parringssæson for flere arter, hvilket øger aktiviteten. Det er derfor helt normalt at opleve flere edderkopper i denne periode." },
-      { q: "Hvor hurtigt virker behandlingen mod edderkopper?", a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist over de efterfølgende uger, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Én grundig behandling er i langt de fleste tilfælde nok til at holde boligen fri." },
-      { q: "Kan jeg selv slippe af med edderkopper?", a: "Man kan fjerne synlige edderkopper med støvsuger eller rengøring, men det løser ikke problemet permanent. Uden forebyggende behandling vil nye edderkopper hurtigt finde vej ind, især hvis der fortsat er føde i form af andre insekter. Professionel bekæmpelse fokuserer både på edderkopperne og deres fødegrundlag, hvilket giver et mere langtidsholdbart resultat." },
-      { q: "Er edderkopper farlige?", a: "Edderkopper i Danmark er som udgangspunkt ikke farlige for mennesker. De fleste arter er sky og undgår kontakt. I sjældne tilfælde kan en edderkop bide, men et bid er normalt harmløst og kan sammenlignes med et let myggestik. Problemet med edderkopper handler derfor typisk ikke om sundhedsrisiko, men om ubehag, spind og gentagen forekomst i boligen." },
-      { q: "Er Edderkopper nyttedyr?", a: "Man kan godt sige at edderkopper er nyttedyr, da de spiser mange andre typer insekter. Dog vil vores behandling også tage disse. Det er derfor ikke nødvendigt at leve med dem i din bolig!" },
-      { q: "Hvor mange edderkopper er der i min bolig?", a: "Det er svært at sige præcist, men det siges at der som hovedregel er et sted mellem 100 og 150 edderkopper pr m2. Du kan derfor nemt have flere tusinde i din bolig." },
+      {
+        q: "Er edderkoppebekæmpelse relevant for erhverv og boligforeninger?",
+        a: "Ja. Edderkopper kan være særligt generende i erhvervslokaler, fællesarealer, opgange, restauranter, cafeér, skoler og daginstitutioner. Vi tilbyder professionelle løsninger tilpasset jeres behov, både til erhverv og boligforeninger.",
+      },
+      {
+        q: "Virker behandlingen også forebyggende?",
+        a: "Ja. Professionel bekæmpelse af edderkopper har en forebyggende effekt, fordi både fødegrundlag og adgangsveje behandles. Det reducerer sandsynligheden for, at nye edderkopper hurtigt vender tilbage.",
+      },
+      {
+        q: "Hvorfor er der ekstra mange edderkopper i sensommeren og efteråret?",
+        a: "Edderkopper bliver særligt synlige i sensommeren og efteråret, når de søger indendørs for at finde læ, varme og føde. Samtidig er det parringssæson for flere arter, hvilket øger aktiviteten. Det er derfor helt normalt at opleve flere edderkopper i denne periode.",
+      },
+      {
+        q: "Hvor hurtigt virker behandlingen mod edderkopper?",
+        a: "Effekten ses ofte relativt hurtigt, især i form af færre edderkopper og mindre spind. Den fulde effekt opnås gradvist over de efterfølgende uger, efterhånden som fødegrundlaget reduceres og adgangsveje behandles. Én grundig behandling er i langt de fleste tilfælde nok til at holde boligen fri.",
+      },
+      {
+        q: "Kan jeg selv slippe af med edderkopper?",
+        a: "Man kan fjerne synlige edderkopper med støvsuger eller rengøring, men det løser ikke problemet permanent. Uden forebyggende behandling vil nye edderkopper hurtigt finde vej ind, især hvis der fortsat er føde i form af andre insekter. Professionel bekæmpelse fokuserer både på edderkopperne og deres fødegrundlag, hvilket giver et mere langtidsholdbart resultat.",
+      },
+      {
+        q: "Er edderkopper farlige?",
+        a: "Edderkopper i Danmark er som udgangspunkt ikke farlige for mennesker. De fleste arter er sky og undgår kontakt. I sjældne tilfælde kan en edderkop bide, men et bid er normalt harmløst og kan sammenlignes med et let myggestik. Problemet med edderkopper handler derfor typisk ikke om sundhedsrisiko, men om ubehag, spind og gentagen forekomst i boligen.",
+      },
+      {
+        q: "Er Edderkopper nyttedyr?",
+        a: "Man kan godt sige at edderkopper er nyttedyr, da de spiser mange andre typer insekter. Dog vil vores behandling også tage disse. Det er derfor ikke nødvendigt at leve med dem i din bolig!",
+      },
+      {
+        q: "Hvor mange edderkopper er der i min bolig?",
+        a: "Det er svært at sige præcist, men det siges at der som hovedregel er et sted mellem 100 og 150 edderkopper pr m2. Du kan derfor nemt have flere tusinde i din bolig.",
+      },
     ],
   },
   "mus-og-rotter": musOgRotter, // ours: written for this site

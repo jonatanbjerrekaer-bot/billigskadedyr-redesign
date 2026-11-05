@@ -42,10 +42,7 @@ function Stars() {
   return (
     <span className="relative inline-flex shrink-0">
       {row("currentColor", "bg")}
-      <span
-        className="absolute inset-0 overflow-hidden text-emaerket"
-        style={{ width: `${pct}%` }}
-      >
+      <span className="absolute inset-0 overflow-hidden text-emaerket" style={{ width: `${pct}%` }}>
         {row("currentColor", "fg")}
       </span>
     </span>
@@ -59,9 +56,18 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
     return (
       <a href={CERTIFICATE_URL} target="_blank" rel="noopener noreferrer" className={`seal ${className}`}>
         <svg width="26" height="30" viewBox="0 0 30 34" aria-hidden="true" className="text-emaerket">
-          <path d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" fill="currentColor" />
+          <path
+            d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"
+            fill="currentColor"
+          />
           <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="var(--color-paper)" strokeWidth="1.7" />
-          <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="var(--color-paper)" strokeWidth="1.7" strokeLinecap="round" />
+          <path
+            d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2"
+            fill="none"
+            stroke="var(--color-paper)"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+          />
         </svg>
         <span>
           <span className="seal__score">
@@ -85,10 +91,25 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
         rel="noopener noreferrer"
         className={["group flex items-start gap-2 min-w-0 text-[11px] sm:text-xs", className].join(" ")}
       >
-        <svg width="15" height="17" viewBox="0 0 30 34" aria-hidden="true" className="shrink-0 mt-0.5 text-emaerket-light">
-          <path d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" fill="currentColor" />
+        <svg
+          width="15"
+          height="17"
+          viewBox="0 0 30 34"
+          aria-hidden="true"
+          className="shrink-0 mt-0.5 text-emaerket-light"
+        >
+          <path
+            d="M3 2h24a1 1 0 0 1 1 1v19a1 1 0 0 1-1 1h-9l-5.5 6.5V23H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"
+            fill="currentColor"
+          />
           <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="#0d1f16" strokeWidth="2" />
-          <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="#0d1f16" strokeWidth="2" strokeLinecap="round" />
+          <path
+            d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2"
+            fill="none"
+            stroke="#0d1f16"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
         </svg>
         {/*
           Below sm the sibling USP items collapse to their bold label only, so
@@ -98,7 +119,9 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
         */}
         <span className="min-w-0">
           <span className="flex items-center gap-1.5 font-semibold text-cream">
-            <span className="hidden sm:inline text-ink-100/30"><Stars /></span>
+            <span className="hidden sm:inline text-ink-100/30">
+              <Stars />
+            </span>
             <span className="sm:hidden">e-mærket</span>
             {String(EM_SCORE).replace(".", ",")}
           </span>
@@ -117,9 +140,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
       rel="noopener noreferrer"
       className={[
         "group inline-flex items-center gap-3 rounded-xl border px-4 py-3 min-h-[44px] transition-colors",
-        dark
-          ? "border-ink-700 bg-ink-950/70 hover:border-emaerket"
-          : "border-ink-100 bg-white hover:border-emaerket",
+        dark ? "border-ink-700 bg-ink-950/70 hover:border-emaerket" : "border-ink-100 bg-white hover:border-emaerket",
         className,
       ].join(" ")}
     >
@@ -129,7 +150,13 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
           fill="currentColor"
         />
         <ellipse cx="15" cy="12.5" rx="8.5" ry="5.4" fill="none" stroke="#fff" strokeWidth="1.7" />
-        <path d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round" />
+        <path
+          d="M10.8 12.5h8.4a4.2 4.2 0 1 0-4.2 4.2"
+          fill="none"
+          stroke="#fff"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
       </svg>
 
       <span className="min-w-0">
@@ -139,12 +166,7 @@ export default function TrustSeal({ variant = "dark", className = "" }: Props) {
             {String(EM_SCORE).replace(".", ",")} af 5
           </span>
         </span>
-        <span
-          className={[
-            "block text-xs leading-tight mt-1",
-            dark ? "text-ink-100/70" : "text-ink-900/70",
-          ].join(" ")}
-        >
+        <span className={["block text-xs leading-tight mt-1", dark ? "text-ink-100/70" : "text-ink-900/70"].join(" ")}>
           e-mærket · {EM_COUNT} bedømmelser
         </span>
         <span

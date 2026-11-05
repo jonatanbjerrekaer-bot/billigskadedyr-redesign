@@ -158,7 +158,10 @@ const articles: SpeciesArticle[] = [
           "Den ses ofte i haven og kan finde vej indenfor om efteråret. Mest synlig er de fleste edderkopper om sommeren, især i form af spindelvæv på facaden, havemøbler, carport eller hækken.",
           "Edderkopper tiltrækkes ofte af lys omkring vinduer og døre og af de andre insekter, lyset trækker til. Hvis mange flyvende insekter samles omkring en lampe, kan området også være attraktivt for edderkopper, der udnytter byttedyrene.",
         ],
-        provenance: [`${CARD} + https://billigskadedyrprof.dk/service/edderkopper/`, `${PRO} + https://billigskadedyr.dk/problemer-med-edderkopper-3/`],
+        provenance: [
+          `${CARD} + https://billigskadedyrprof.dk/service/edderkopper/`,
+          `${PRO} + https://billigskadedyr.dk/problemer-med-edderkopper-3/`,
+        ],
       },
       {
         heading: "Er den skadelig?",
@@ -177,10 +180,7 @@ const articles: SpeciesArticle[] = [
         provenance: [WIN, "new", PRO],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Korsedderkop",
-      "https://en.wikipedia.org/wiki/Araneus_diadematus",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Korsedderkop", "https://en.wikipedia.org/wiki/Araneus_diadematus"],
   },
 ];
 

@@ -7,20 +7,28 @@ export default function Footer() {
       <div className="container">
         <p className="foot__mark">
           <img src={`${import.meta.env.BASE_URL}logo-prof-light.svg`} alt="" width={184} height={185} />
-          <span>Billigskadedyr<span className="wordmark__prof">Prof</span></span>
+          <span>
+            Billigskadedyr<span className="wordmark__prof">Prof</span>
+          </span>
         </p>
-        <p className="foot__line">
-          Professionel skadedyrsbekæmpelse i hele Jylland og på Fyn, med base i Risskov.
-        </p>
+        <p className="foot__line">Professionel skadedyrsbekæmpelse i hele Jylland og på Fyn, med base i Risskov.</p>
 
         <div className="foot__cols">
           <div>
             <h3>Menu</h3>
             <ul>
-              <li><a href="#pest">Skadedyr</a></li>
-              <li><a href="#estimator">Priser</a></li>
-              <li><a href="#process">Forløb</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              <li>
+                <a href="#pest">Skadedyr</a>
+              </li>
+              <li>
+                <a href="#estimator">Priser</a>
+              </li>
+              <li>
+                <a href="#process">Forløb</a>
+              </li>
+              <li>
+                <a href="#faq">FAQ</a>
+              </li>
             </ul>
           </div>
           {/*
@@ -32,9 +40,15 @@ export default function Footer() {
           <div>
             <h3>Handel og vilkår</h3>
             <ul>
-              <li><a href={`${import.meta.env.BASE_URL}privatlivspolitik/`}>Privatlivspolitik</a></li>
-              <li><a href={`${import.meta.env.BASE_URL}cookiepolitik/`}>Cookiepolitik</a></li>
-              <li><CookieSettingsButton className="foot__link-btn" /></li>
+              <li>
+                <a href={`${import.meta.env.BASE_URL}privatlivspolitik/`}>Privatlivspolitik</a>
+              </li>
+              <li>
+                <a href={`${import.meta.env.BASE_URL}cookiepolitik/`}>Cookiepolitik</a>
+              </li>
+              <li>
+                <CookieSettingsButton className="foot__link-btn" />
+              </li>
             </ul>
           </div>
           <div>
@@ -58,7 +72,10 @@ export default function Footer() {
         </div>
 
         <div className="foot__legal">
-          <p>© 2026. Uofficielt redesign-koncept af Jonatan Daugbjerg Bjerrekær. Ikke tilknyttet eller godkendt af Billigskadedyr.dk / BilligskadedyrPROF.</p>
+          <p>
+            © 2026. Uofficielt redesign-koncept af Jonatan Daugbjerg Bjerrekær. Ikke tilknyttet eller godkendt af
+            Billigskadedyr.dk / BilligskadedyrPROF.
+          </p>
           <p>CVR 40306633. Tilbudet fra prisberegneren er vejledende.</p>
           <p data-credits>
             Insektikoner:{" "}

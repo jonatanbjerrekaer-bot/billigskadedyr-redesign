@@ -118,8 +118,26 @@ export function round100(n: number): number {
  * 8382 is Hinnerup's number but also Søften's, which he named, so it is in.
  */
 export const FREE_ZONE = new Set([
-  "8000", "8100", "8200", "8210", "8220", "8230", "8240", "8245", "8250", "8260", "8270",
-  "8380", "8381", "8382", "8462", "8471", "8520", "8530", "8541", "8543",
+  "8000",
+  "8100",
+  "8200",
+  "8210",
+  "8220",
+  "8230",
+  "8240",
+  "8245",
+  "8250",
+  "8260",
+  "8270",
+  "8380",
+  "8381",
+  "8382",
+  "8462",
+  "8471",
+  "8520",
+  "8530",
+  "8541",
+  "8543",
 ]);
 
 /** Towns with a fixed driving charge, however far by road (owner, 2026-10-26). */
@@ -161,9 +179,7 @@ export function nearestPostcode(lat: number, lon: number): string | undefined {
 }
 
 export type PostcodeLookup =
-  | { state: "none" }
-  | { state: "unknown"; nr: string }
-  | { state: "ok"; nr: string; place: Place };
+  { state: "none" } | { state: "unknown"; nr: string } | { state: "ok"; nr: string; place: Place };
 
 /**
  * Anything short of four digits is "still typing", not an error, so the
@@ -274,8 +290,10 @@ export function estimate(
           ? `1 behandling af ${PLACE[property]} op til ${row.maxM2} m²`
           : "1 behandling";
   // The count is printed for every counted pest, so "1 bo" is never a hidden assumption.
-  const named = extras.map(([k, r, n]) =>
-    k.toLowerCase() + (r.unit === "rum" ? ` (${n} rum)` : r.unit === "bo" ? ` (${n} ${n === 1 ? "bo" : "boer"})` : ""),
+  const named = extras.map(
+    ([k, r, n]) =>
+      k.toLowerCase() +
+      (r.unit === "rum" ? ` (${n} rum)` : r.unit === "bo" ? ` (${n} ${n === 1 ? "bo" : "boer"})` : ""),
   );
   if (combo) caption += ` + ${new Intl.ListFormat("da", { type: "conjunction" }).format(named)} på samme besøg`;
   caption += ", inkl. moms";

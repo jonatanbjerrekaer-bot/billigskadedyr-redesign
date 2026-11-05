@@ -43,9 +43,7 @@ export default function Process() {
 
         <div className="process__text">
           <h2>Sådan foregår det</h2>
-          <p className="lead">
-            Tre trin, og du ved besked undervejs.
-          </p>
+          <p className="lead">Tre trin, og du ved besked undervejs.</p>
           <ol className="stages">
             {STEPS.map((s) => (
               <li key={s.title}>

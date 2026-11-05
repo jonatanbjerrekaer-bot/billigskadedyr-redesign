@@ -72,10 +72,7 @@ const articles: SpeciesArticle[] = [
         provenance: [`owner+new ${TOEJ}`],
       },
     ],
-    sources: [
-      "https://dcapub.au.dk/djfpdf/moelitex2007.pdf",
-      "https://en.wikipedia.org/wiki/Tineola_bisselliella",
-    ],
+    sources: ["https://dcapub.au.dk/djfpdf/moelitex2007.pdf", "https://en.wikipedia.org/wiki/Tineola_bisselliella"],
   },
   {
     name: "Melmøl",
@@ -123,7 +120,12 @@ const articles: SpeciesArticle[] = [
           "En feromonfælde til fødevaremøl kan vise, at der stadig flyver voksne dyr, og hjælpe dig med at følge udviklingen. Den fjerner ikke æg, larver og pupper. At fælden står tom en enkelt dag, er ikke nok at gå efter.",
           "Kommer der møl igen, efter du har ryddet op, kan en professionel hjælpe med at finde oversete varer eller skjulte steder, hvor der ligger føde.",
         ],
-        provenance: [`owner ${TOERVARER}`, `owner ${TOERVARER}`, `owner ${TOERVARER} + ${FAELDER}`, `owner ${TOERVARER}`],
+        provenance: [
+          `owner ${TOERVARER}`,
+          `owner ${TOERVARER}`,
+          `owner ${TOERVARER} + ${FAELDER}`,
+          `owner ${TOERVARER}`,
+        ],
       },
       {
         heading: "Forebyg melmøl",
@@ -193,10 +195,7 @@ const articles: SpeciesArticle[] = [
         provenance: [`owner+new ${TOEJ}`],
       },
     ],
-    sources: [
-      "https://dcapub.au.dk/djfpdf/moelitex2007.pdf",
-      "https://en.wikipedia.org/wiki/Tinea_pellionella",
-    ],
+    sources: ["https://dcapub.au.dk/djfpdf/moelitex2007.pdf", "https://en.wikipedia.org/wiki/Tinea_pellionella"],
   },
   {
     name: "Tofarvet frømøl",
@@ -382,10 +381,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://www.anticimex.dk/kornsnudebiller/",
-      "https://www.pestium.dk/dpil/kornsnudebille/",
-    ],
+    sources: ["https://www.anticimex.dk/kornsnudebiller/", "https://www.pestium.dk/dpil/kornsnudebille/"],
   },
 ];
 

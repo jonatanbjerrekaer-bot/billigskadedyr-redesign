@@ -25,10 +25,7 @@ export default function QuotePanel({
   /** What the visit actually consists of, from the pest registry. */
   treatment?: string;
 }) {
-  const covers = [
-    treatment ?? "Behandling tilpasset opgaven",
-    "Faktura og kvittering",
-  ];
+  const covers = [treatment ?? "Behandling tilpasset opgaven", "Faktura og kvittering"];
   const est = ESTIMATED_FROM[slug];
 
   return (
@@ -37,8 +34,7 @@ export default function QuotePanel({
         <div className="estimator__controls">
           <h2>Hvad koster det?</h2>
           <p className="lead select-none">
-            {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med, inden
-            vi går i gang.
+            {label} sætter vi fast pris på efter en kort snak. Så ved du, hvad det ender med, inden vi går i gang.
           </p>
         </div>
 
@@ -51,16 +47,14 @@ export default function QuotePanel({
                   <small className="select-none">vejledende</small>
                 </p>
                 <p className="small">
-                  {est.note} Du får den faste pris, før vi går i gang, og den ændrer sig ikke
-                  undervejs.
+                  {est.note} Du får den faste pris, før vi går i gang, og den ændrer sig ikke undervejs.
                 </p>
               </>
             ) : (
               <>
                 <p className="estimator__price estimator__price--words">Fast pris efter en kort snak</p>
                 <p className="small muted">
-                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den ændrer sig
-                  ikke undervejs.
+                  Vi gætter ikke på et tal her. Du får prisen, før vi går i gang, og den ændrer sig ikke undervejs.
                 </p>
               </>
             )}

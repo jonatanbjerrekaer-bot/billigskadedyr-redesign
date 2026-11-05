@@ -172,10 +172,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://jsb.dk/krybende-insekter/lopper.aspx",
-      "https://toxin.dk/bekaempelse-af-lopper/",
-    ],
+    sources: ["https://jsb.dk/krybende-insekter/lopper.aspx", "https://toxin.dk/bekaempelse-af-lopper/"],
   },
 ];
 

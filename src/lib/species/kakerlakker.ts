@@ -37,7 +37,10 @@ const articles: SpeciesArticle[] = [
           "Tyske kakerlakker udnytter varme skjulesteder med adgang til føde og fugt. Den holder af køkken, badeværelse og bag hvidevarer. Kig især ved tilgængelige sokler, rørgennemføringer og områder omkring opvaskemaskine, køleskab og affaldsopbevaring.",
           "I etageejendomme kan den flytte mellem lejlighederne gennem rør, skakter og installationer. I en ejendom med fælles installationer bør relevante naboområder derfor også indgå i vurderingen, og i en udlejningsejendom bør udlejer eller administration orienteres tidligt.",
         ],
-        provenance: [`${GUIDE} + serviceContent.ts`, "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats-2/"],
+        provenance: [
+          `${GUIDE} + serviceContent.ts`,
+          "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats-2/",
+        ],
       },
       {
         heading: "Er den skadelig?",
@@ -167,7 +170,10 @@ const articles: SpeciesArticle[] = [
           "Fordi arten er sjælden her, er det første skridt at få den bestemt. Tag et skarpt foto, hvis du kan gøre det uden at sprede dyret, og notér størrelse, tidspunkt og præcis placering. Hold især øje med genstande, der netop er kommet ind, som kasser, varer eller bagage fra et andet sted.",
           "Er det én, der er fulgt med bagagen hjem, er problemet måske løst, når den er fjernet. Ser du flere, eller kommer de op fra et afløb, bør bekæmpelsen planlægges fagligt, og vejen, de kommer ind ad, skal findes.",
         ],
-        provenance: ["owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats-2/", "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats/"],
+        provenance: [
+          "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats-2/",
+          "owner+new https://billigskadedyr.dk/kakerlakker-tegn-og-foerste-indsats/",
+        ],
       },
       {
         heading: "Forveksles med",

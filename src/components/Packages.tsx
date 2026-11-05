@@ -151,38 +151,40 @@ export default function Packages() {
               <Cta href={CONTACT_HREF} variant="primary" fullWidth>
                 Skriv til os om {chosen.label.toLowerCase()}
               </Cta>
-              <a href="#estimator" className="quoted__other">Vælg et andet skadedyr</a>
+              <a href="#estimator" className="quoted__other">
+                Vælg et andet skadedyr
+              </a>
             </div>
           </div>
         ) : (
-        <div className="tiers">
-          {TIERS.map((t) => (
-            <div key={t.id} className="tier" data-featured={t.featured || undefined}>
-              <h3>{t.name}</h3>
-              {/* The recommendation is a word and the filled button, never a
+          <div className="tiers">
+            {TIERS.map((t) => (
+              <div key={t.id} className="tier" data-featured={t.featured || undefined}>
+                <h3>{t.name}</h3>
+                {/* The recommendation is a word and the filled button, never a
                   different colour of card. */}
-              {t.featured && <p className="tier__note">Anbefalet</p>}
-              <p className="tier__price">
-                {amounts[t.id] ? (
-                  <>
-                    <strong>{amounts[t.id]!.toLocaleString("da-DK")}</strong>
-                    <span className="muted">kr.</span>
-                  </>
-                ) : (
-                  <strong className="words">{t.id === "erhverv" ? "Efter aftale" : "Efter en snak"}</strong>
-                )}
-              </p>
-              {/* The number belongs to the pest chosen above, so the card names it. */}
-              <p className="tier__note">
-                {pest && t.id !== "erhverv" ? `${sel!.pestLabel}: ${t.fromLabel.toLowerCase()}` : t.fromLabel}
-              </p>
-              <p className="tier__desc">{t.desc}</p>
-              <Cta href={CONTACT_HREF} variant={t.featured ? "primary" : "secondary"} fullWidth>
-                Få et uforpligtende tilbud
-              </Cta>
-            </div>
-          ))}
-        </div>
+                {t.featured && <p className="tier__note">Anbefalet</p>}
+                <p className="tier__price">
+                  {amounts[t.id] ? (
+                    <>
+                      <strong>{amounts[t.id]!.toLocaleString("da-DK")}</strong>
+                      <span className="muted">kr.</span>
+                    </>
+                  ) : (
+                    <strong className="words">{t.id === "erhverv" ? "Efter aftale" : "Efter en snak"}</strong>
+                  )}
+                </p>
+                {/* The number belongs to the pest chosen above, so the card names it. */}
+                <p className="tier__note">
+                  {pest && t.id !== "erhverv" ? `${sel!.pestLabel}: ${t.fromLabel.toLowerCase()}` : t.fromLabel}
+                </p>
+                <p className="tier__desc">{t.desc}</p>
+                <Cta href={CONTACT_HREF} variant={t.featured ? "primary" : "secondary"} fullWidth>
+                  Få et uforpligtende tilbud
+                </Cta>
+              </div>
+            ))}
+          </div>
         )}
 
         <div className="matrix">

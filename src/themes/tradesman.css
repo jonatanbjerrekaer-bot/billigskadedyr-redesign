@@ -3,27 +3,60 @@
  * the one action per view (lime on the green hero), Archivo 800 heads over Public Sans 400 body, 8px controls and 12px panels, no shadows,
  * no gradients, no pills. A good Danish håndværker site: safe, clear, prices up front. */
 /* Public Sans for body text: the most readable of four tried on the real page (owner's pick 2026-10-28, over Manrope). */
-@font-face { font-family: "Public Sans"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/public-sans-wght.woff2") format("woff2"); }
+@font-face {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/public-sans-wght.woff2") format("woff2");
+}
 /* Archivo for headings: sturdier and more upright than a geometric sans, closer to trade signage (owner's pick 2026-10-23). */
-@font-face { font-family: "Archivo"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/archivo-wght.woff2") format("woff2"); }
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/archivo-wght.woff2") format("woff2");
+}
 
 :root {
-  --color-paper: oklch(99.3% 0.004 140); --color-paper-2: oklch(96.6% 0.012 140); --color-paper-3: oklch(93.4% 0.018 140);
-  --color-ink: oklch(25% 0.045 160); --color-ink-2: oklch(34% 0.035 160); --color-muted: oklch(47% 0.03 160);
-  --color-rule: oklch(89.5% 0.015 145); --color-rule-2: oklch(82% 0.022 150);
-  --color-accent: oklch(50% 0.135 150); --color-accent-2: oklch(44% 0.12 152); --color-accent-ink: oklch(99.3% 0.004 140);
-  --color-accent-deep: oklch(50% 0.135 150); --color-focus: oklch(55% 0.17 255);
-  --color-navy: oklch(30% 0.065 158); --color-navy-2: oklch(35% 0.07 158);
-  --color-lime: oklch(90% 0.17 125); --color-lime-2: oklch(85% 0.18 125);
-  --color-on-ink-muted: oklch(86% 0.03 150); --color-ok-on-ink: oklch(88% 0.15 130); --color-on-ink-rule: oklch(42% 0.06 158);
+  --color-paper: oklch(99.3% 0.004 140);
+  --color-paper-2: oklch(96.6% 0.012 140);
+  --color-paper-3: oklch(93.4% 0.018 140);
+  --color-ink: oklch(25% 0.045 160);
+  --color-ink-2: oklch(34% 0.035 160);
+  --color-muted: oklch(47% 0.03 160);
+  --color-rule: oklch(89.5% 0.015 145);
+  --color-rule-2: oklch(82% 0.022 150);
+  --color-accent: oklch(50% 0.135 150);
+  --color-accent-2: oklch(44% 0.12 152);
+  --color-accent-ink: oklch(99.3% 0.004 140);
+  --color-accent-deep: oklch(50% 0.135 150);
+  --color-focus: oklch(55% 0.17 255);
+  --color-navy: oklch(30% 0.065 158);
+  --color-navy-2: oklch(35% 0.07 158);
+  --color-lime: oklch(90% 0.17 125);
+  --color-lime-2: oklch(85% 0.18 125);
+  --color-on-ink-muted: oklch(86% 0.03 150);
+  --color-ok-on-ink: oklch(88% 0.15 130);
+  --color-on-ink-rule: oklch(42% 0.06 158);
   --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Public Sans", ui-sans-serif, system-ui, sans-serif;
-  --tracking-display: -0.015em; --display-weight: 800;
-  --radius-control: 8px; --radius-panel: 12px;
+  --tracking-display: -0.015em;
+  --display-weight: 800;
+  --radius-control: 8px;
+  --radius-panel: 12px;
   color-scheme: light;
 }
-.np { --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-2); }
-html:has(.np) { background: var(--color-paper); }
+.np {
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+html:has(.np) {
+  background: var(--color-paper);
+}
 
 /* ------------------------------------------------ input modes
    A mouse can rest over a control without choosing it, so hover is a preview.
@@ -44,7 +77,19 @@ html:has(.np) { background: var(--color-paper); }
    should not open the copy/look-up callout or start a selection. Links in
    running text and the drawings are left alone, so a long press there still
    offers "open in new tab", "copy link" and "save image". */
-.np :is(.btn, button, [role="button"], .toggle-button, .species__card, .index__row a, .hero__chips a, .others a, .seal, .mast-mobile a),
+.np
+  :is(
+    .btn,
+    button,
+    [role="button"],
+    .toggle-button,
+    .species__card,
+    .index__row a,
+    .hero__chips a,
+    .others a,
+    .seal,
+    .mast-mobile a
+  ),
 .np-popover [role="option"] {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -54,63 +99,212 @@ html:has(.np) { background: var(--color-paper); }
    tint; text links show the same wash they get on hover (see "Wiki links"
    below). Quick on the way in, on the site's ease-out. A mouse click gets
    this too, which is the same feedback a desktop button already gave. */
-.np :is(.btn, .toggle-button-group .toggle-button, .hero__chips a, .mast-menu, .index__clear, .form__chips button, .estimator__pick, .seal, .wordmark):is(:active, [data-pressed]),
+.np
+  :is(
+    .btn,
+    .toggle-button-group .toggle-button,
+    .hero__chips a,
+    .mast-menu,
+    .index__clear,
+    .form__chips button,
+    .estimator__pick,
+    .seal,
+    .wordmark
+  ):is(:active, [data-pressed]),
 .np .species__card:has(.species__link:active) {
   transform: scale(0.97);
   transition-duration: 120ms;
 }
-.np .species__card { transition: transform 160ms var(--ease-out); }
-.np .species__card:has(.species__link:active) .species__art { border-color: var(--color-accent); }
-.np :is(.index__row a, .others a, .disclosure-trigger, .select-trigger, .form__file, .mast-mobile a:not(.btn), .form__textlink):active,
+.np .species__card {
+  transition: transform 160ms var(--ease-out);
+}
+.np .species__card:has(.species__link:active) .species__art {
+  border-color: var(--color-accent);
+}
+.np
+  :is(
+    .index__row a,
+    .others a,
+    .disclosure-trigger,
+    .select-trigger,
+    .form__file,
+    .mast-mobile a:not(.btn),
+    .form__textlink
+  ):active,
 .np-popover [role="option"][data-pressed] {
   background-color: var(--color-paper-3);
 }
-.np :is(.link:not(.wiki-link), .foot__cols a, .foot__link-btn, .crumbs a, .svc-hero__back, .hero__check-more, .quoted__other, .legal__inline-btn, .close__dl a, .mast-dateline a, .hero__rating a, .mast-nav a):active {
+.np
+  :is(
+    .link:not(.wiki-link),
+    .foot__cols a,
+    .foot__link-btn,
+    .crumbs a,
+    .svc-hero__back,
+    .hero__check-more,
+    .quoted__other,
+    .legal__inline-btn,
+    .close__dl a,
+    .mast-dateline a,
+    .hero__rating a,
+    .mast-nav a
+  ):active {
   border-radius: 0.3em;
   background-color: color-mix(in oklab, currentColor 12%, transparent);
   box-shadow: 0 0 0 0.25em color-mix(in oklab, currentColor 12%, transparent);
 }
 @media (prefers-reduced-motion: reduce) {
   /* the colour still says "pressed"; nothing moves */
-  .np :is(.btn, .toggle-button-group .toggle-button, .hero__chips a, .mast-menu, .index__clear, .form__chips button, .estimator__pick, .seal, .wordmark):is(:active, [data-pressed]),
-  .np .species__card:has(.species__link:active) { transform: none; }
+  .np
+    :is(
+      .btn,
+      .toggle-button-group .toggle-button,
+      .hero__chips a,
+      .mast-menu,
+      .index__clear,
+      .form__chips button,
+      .estimator__pick,
+      .seal,
+      .wordmark
+    ):is(:active, [data-pressed]),
+  .np .species__card:has(.species__link:active) {
+    transform: none;
+  }
 }
 /* Tap-target sizes for touch are at the end of this file ("input modes, continued"), so they
    come after the component rules they adjust. */
 
 /* ------------------------------------------------ type: navy 800 heads, sentence case, one family */
-.np h1, .np h2, .np h3 { font-family: var(--font-display); color: var(--color-ink); font-weight: 800; letter-spacing: var(--tracking-display); line-height: 1.1; text-transform: none; }
-.np h1 { line-height: 1.04; }
-.np .hero__text h1 { font-size: clamp(2.5rem, 2.6vw + 1.25rem, 4rem); letter-spacing: -0.025em; }
-.np .hero__text h1 .keep { white-space: normal; }
-.np .trigger-title, .np .index__name, .np .promise dt, .np .species dt, .np .others a, .np .stages h3, .np .tier h3,
-.np .versus h3, .np .wordmark, .np .foot__mark {
-  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em; text-transform: none; color: var(--color-ink);
+.np h1,
+.np h2,
+.np h3 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.1;
+  text-transform: none;
 }
-.np .index__name { font-size: 1.0625rem; }
-.np .promise dt { font-size: 1.25rem; }
-.np .stages h3 { font-size: 1.1875rem; }
-.np .faq__item .trigger-title { font-size: 1.125rem; }
-.np .lead { color: var(--color-ink-2); }
-.np p { color: inherit; }
-.np .muted, .np figcaption, .np .estimator__sub { color: var(--color-muted); }
-.np .agate { font-weight: 700; color: var(--color-ink); }
-.np .estimator__price, .np .tier__price strong, .np .score__figure, .np .quote-panel__price {
-  font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: var(--color-ink);
+.np h1 {
+  line-height: 1.04;
 }
-.np .stages li::before { font: 800 1.125rem/1 var(--font-display); color: var(--color-accent-ink); background: var(--color-navy); width: 2.25rem; height: 2.25rem; border-radius: 50%; display: grid; place-items: center; }
+.np .hero__text h1 {
+  font-size: clamp(2.5rem, 2.6vw + 1.25rem, 4rem);
+  letter-spacing: -0.025em;
+}
+.np .hero__text h1 .keep {
+  white-space: normal;
+}
+.np .trigger-title,
+.np .index__name,
+.np .promise dt,
+.np .species dt,
+.np .others a,
+.np .stages h3,
+.np .tier h3,
+.np .versus h3,
+.np .wordmark,
+.np .foot__mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-transform: none;
+  color: var(--color-ink);
+}
+.np .index__name {
+  font-size: 1.0625rem;
+}
+.np .promise dt {
+  font-size: 1.25rem;
+}
+.np .stages h3 {
+  font-size: 1.1875rem;
+}
+.np .faq__item .trigger-title {
+  font-size: 1.125rem;
+}
+.np .lead {
+  color: var(--color-ink-2);
+}
+.np p {
+  color: inherit;
+}
+.np .muted,
+.np figcaption,
+.np .estimator__sub {
+  color: var(--color-muted);
+}
+.np .agate {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.np .estimator__price,
+.np .tier__price strong,
+.np .score__figure,
+.np .quote-panel__price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+.np .stages li::before {
+  font: 800 1.125rem/1 var(--font-display);
+  color: var(--color-accent-ink);
+  background: var(--color-navy);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
 
 /* ------------------------------------------------ masthead: a navy strip of facts, a white bar */
-.np .mast-dateline { background: var(--color-navy); color: var(--color-on-ink-muted); border: 0; }
-.np .mast-dateline strong, .np .mast-dateline a { color: var(--color-paper); font-weight: 600; }
-.np .mast-bar { background: var(--color-paper); border-bottom: 1px solid var(--color-rule); box-shadow: none; }
-.np .wordmark { font-weight: 800; font-size: 1.375rem; letter-spacing: -0.03em; }
+.np .mast-dateline {
+  background: var(--color-navy);
+  color: var(--color-on-ink-muted);
+  border: 0;
+}
+.np .mast-dateline strong,
+.np .mast-dateline a {
+  color: var(--color-paper);
+  font-weight: 600;
+}
+.np .mast-bar {
+  background: var(--color-paper);
+  border-bottom: 1px solid var(--color-rule);
+  box-shadow: none;
+}
+.np .wordmark {
+  font-weight: 800;
+  font-size: 1.375rem;
+  letter-spacing: -0.03em;
+}
 /* "Prof" in the orange of the pro site's own logo (billigskadedyrprof.dk logo1.png). */
-.np .wordmark__prof { color: #FF5F00; }
-.np .mast-nav a { font-weight: 600; color: var(--color-ink); background-image: linear-gradient(var(--color-accent), var(--color-accent)); background-size: 0 2px; }
-@media (hover: hover) and (pointer: fine) { .np .mast-nav a:hover { background-size: 100% 2px; } }
-.np .mast-menu { border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
-.np .mast-mobile a:not(.btn) { font: 700 1.25rem/1 var(--font-body); color: var(--color-ink); border-bottom: 1px solid var(--color-rule); }
+.np .wordmark__prof {
+  color: #ff5f00;
+}
+.np .mast-nav a {
+  font-weight: 600;
+  color: var(--color-ink);
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .mast-nav a:hover {
+    background-size: 100% 2px;
+  }
+}
+.np .mast-menu {
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-control);
+  color: var(--color-ink);
+}
+.np .mast-mobile a:not(.btn) {
+  font: 700 1.25rem/1 var(--font-body);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-rule);
+}
 
 /* Where the burger replaces the inline nav, the menu is a full-screen sheet
    under the sticky bar: it starts 72px down so the bar with the wordmark and
@@ -132,74 +326,195 @@ html:has(.np) { background: var(--color-paper); }
     overscroll-behavior: contain;
     animation: mast-mobile-in 220ms var(--ease-out);
   }
-  .np .mast-mobile .container { min-height: 100%; display: flex; flex-direction: column; }
-  .np .mast-mobile .btn--block { margin-top: auto; margin-bottom: var(--space-lg); }
+  .np .mast-mobile .container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .np .mast-mobile .btn--block {
+    margin-top: auto;
+    margin-bottom: var(--space-lg);
+  }
 }
-@keyframes mast-mobile-in { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes mast-mobile-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .np .mast-mobile { animation: none; }
+  .np .mast-mobile {
+    animation: none;
+  }
 }
-body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
+body:has(.np .mast-mobile:not([hidden])) {
+  overflow: hidden;
+}
 
 /* ------------------------------------------------ controls: red for the action, navy outline for the rest */
 .np .btn {
-  min-height: 52px; padding: 0 var(--space-lg); border: 2px solid transparent; border-radius: var(--radius-control);
-  font: 700 1rem/1 var(--font-body); letter-spacing: -0.005em; text-transform: none;
-  transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out), color 150ms var(--ease-out), transform 120ms var(--ease-out);
+  min-height: 52px;
+  padding: 0 var(--space-lg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-control);
+  font: 700 1rem/1 var(--font-body);
+  letter-spacing: -0.005em;
+  text-transform: none;
+  transition:
+    background-color 150ms var(--ease-out),
+    border-color 150ms var(--ease-out),
+    color 150ms var(--ease-out),
+    transform 120ms var(--ease-out);
 }
-.np .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.np .btn--secondary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); }
+.np .btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+.np .btn--secondary {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
 @media (hover: hover) and (pointer: fine) {
-  .np .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
-  .np .btn--secondary:hover { background: var(--color-paper-2); }
+  .np .btn--primary:hover {
+    background: var(--color-accent-2);
+    border-color: var(--color-accent-2);
+  }
+  .np .btn--secondary:hover {
+    background: var(--color-paper-2);
+  }
 }
 /* the nav button is the same action as the hero's, quieter */
-.np .mast-bar__row > .btn--primary { min-height: 44px; }
-.np .link { color: var(--color-ink); font-weight: 600; text-decoration: underline 1.5px var(--color-accent); text-underline-offset: 0.2em; }
-@media (hover: hover) and (pointer: fine) { .np .link:hover { color: var(--color-accent-2); } }
+.np .mast-bar__row > .btn--primary {
+  min-height: 44px;
+}
+.np .link {
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: underline 1.5px var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .link:hover {
+    color: var(--color-accent-2);
+  }
+}
 
-.np .field, .np .select-trigger, .np .area-field {
-  background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); color: var(--color-ink); box-shadow: none;
+.np .field,
+.np .select-trigger,
+.np .area-field {
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-muted);
+  border-radius: var(--radius-control);
+  color: var(--color-ink);
+  box-shadow: none;
 }
 @media (hover: hover) and (pointer: fine) {
   /* Kanten skal kunne ses: hvilekanten er allerede --color-muted, saa den
      gamle regel ændrede ingenting. Paa hover gaar kanten til det mørke blæk,
      tydelig mens markøren staar stille, uden at forveksles med fokus-ringen. */
-  .np .field:hover, .np .select-trigger:hover, .np .area-field:hover { border-color: var(--color-ink); }
+  .np .field:hover,
+  .np .select-trigger:hover,
+  .np .area-field:hover {
+    border-color: var(--color-ink);
+  }
 }
 /* :focus-visible alone: a text field matches it on a tap as well, so nothing is lost by dropping :focus */
-.np .field:focus-visible { outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent); outline-offset: 0; border-color: var(--color-focus); }
-.np .field-label { font-weight: 600; color: var(--color-ink); }
-.np .area-field input { border-radius: var(--radius-control); }
-.np .stepper { width: auto; }
-.np .stepper button { display: grid; place-items: center; width: 44px; min-height: 46px; border: 0; background: none; color: var(--color-ink); cursor: pointer; border-radius: var(--radius-control); }
-.np .stepper button:disabled { color: var(--color-rule-2); cursor: default; }
-@media (hover: hover) { .np .stepper button:not(:disabled):hover { background: color-mix(in oklab, var(--color-ink) 6%, transparent); } }
-.np .stepper output { min-width: 4.5rem; text-align: center; font: 500 1rem/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
-.np .stepper output span { padding: 0; }
+.np .field:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--color-focus) 35%, transparent);
+  outline-offset: 0;
+  border-color: var(--color-focus);
+}
+.np .field-label {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.np .area-field input {
+  border-radius: var(--radius-control);
+}
+.np .stepper {
+  width: auto;
+}
+.np .stepper button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-height: 46px;
+  border: 0;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+  border-radius: var(--radius-control);
+}
+.np .stepper button:disabled {
+  color: var(--color-rule-2);
+  cursor: default;
+}
+@media (hover: hover) {
+  .np .stepper button:not(:disabled):hover {
+    background: color-mix(in oklab, var(--color-ink) 6%, transparent);
+  }
+}
+.np .stepper output {
+  min-width: 4.5rem;
+  text-align: center;
+  font: 500 1rem/1 var(--font-outlier);
+  font-variant-numeric: tabular-nums;
+}
+.np .stepper output span {
+  padding: 0;
+}
 
 .np .toggle-button-group {
-  position: relative; isolation: isolate; gap: 4px; padding: 4px; overflow: visible;
-  border: 0; border-radius: var(--radius-control);
-  background: var(--color-paper-2); box-shadow: inset 0 0 0 1px var(--color-rule-2);
+  position: relative;
+  isolation: isolate;
+  gap: 4px;
+  padding: 4px;
+  overflow: visible;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: var(--color-paper-2);
+  box-shadow: inset 0 0 0 1px var(--color-rule-2);
 }
 /* The selection thumb, placed by SegmentTrack. It slides under the labels on
    the strong ease-out: a short, quick move the eye can follow, not a jump. */
 .np .toggle-button-group::before {
-  content: ""; position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 0;
-  width: var(--seg-w, 0); transform: translateX(var(--seg-x, 0));
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--seg-w, 0);
+  transform: translateX(var(--seg-x, 0));
   border-radius: calc(var(--radius-control) - 3px);
-  background: var(--color-navy); box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+  background: var(--color-navy);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
 }
-.np .seg[data-ready] .toggle-button-group::before { transition: transform 260ms var(--ease-out), width 260ms var(--ease-out); }
+.np .seg[data-ready] .toggle-button-group::before {
+  transition:
+    transform 260ms var(--ease-out),
+    width 260ms var(--ease-out);
+}
 .np .toggle-button-group .toggle-button,
 .np .toggle-button-group .toggle-button + .toggle-button {
-  border: 0; border-radius: calc(var(--radius-control) - 3px); min-height: 40px; padding: 0 var(--space-lg);
+  border: 0;
+  border-radius: calc(var(--radius-control) - 3px);
+  min-height: 40px;
+  padding: 0 var(--space-lg);
   font: 600 0.9375rem/1 var(--font-body);
-  --toggle-button-bg: transparent; --toggle-button-bg-hover: transparent; --toggle-button-bg-pressed: transparent;
-  --toggle-button-bg-selected: transparent; --toggle-button-bg-selected-hover: transparent; --toggle-button-bg-selected-pressed: transparent;
-  --toggle-button-fg: var(--color-ink-2); --toggle-button-fg-selected: var(--color-paper);
-  transition: color 200ms var(--ease-out), transform 120ms var(--ease-out);
+  --toggle-button-bg: transparent;
+  --toggle-button-bg-hover: transparent;
+  --toggle-button-bg-pressed: transparent;
+  --toggle-button-bg-selected: transparent;
+  --toggle-button-bg-selected-hover: transparent;
+  --toggle-button-bg-selected-pressed: transparent;
+  --toggle-button-fg: var(--color-ink-2);
+  --toggle-button-fg-selected: var(--color-paper);
+  transition:
+    color 200ms var(--ease-out),
+    transform 120ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
   /* Hover skal kunne ses: foer var den eneste tilbagemelding en mørkning af
@@ -214,15 +529,39 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
     --toggle-button-bg-hover: var(--color-paper-3);
   }
 }
-.np .toggle-button-group .toggle-button[data-focus-visible] { outline: 2px solid var(--color-accent); outline-offset: 1px; }
-/* Before the first measurement (and with no script), the chosen button paints itself. */
-.np .seg:not([data-ready]) .toggle-button[data-selected] { --toggle-button-bg-selected: var(--color-navy); }
-@media (prefers-reduced-motion: reduce) {
-  .np .seg[data-ready] .toggle-button-group::before { transition: none; }
+.np .toggle-button-group .toggle-button[data-focus-visible] {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
 }
-.np .slider__track { height: 6px; background: var(--color-paper-3); border-radius: 3px; }
-.np .slider__fill { background: var(--color-navy); border-radius: 3px; }
-.np .slider__thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--color-paper); border: 3px solid var(--color-navy); box-shadow: none; transition: background-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out); }
+/* Before the first measurement (and with no script), the chosen button paints itself. */
+.np .seg:not([data-ready]) .toggle-button[data-selected] {
+  --toggle-button-bg-selected: var(--color-navy);
+}
+@media (prefers-reduced-motion: reduce) {
+  .np .seg[data-ready] .toggle-button-group::before {
+    transition: none;
+  }
+}
+.np .slider__track {
+  height: 6px;
+  background: var(--color-paper-3);
+  border-radius: 3px;
+}
+.np .slider__fill {
+  background: var(--color-navy);
+  border-radius: 3px;
+}
+.np .slider__thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  border: 3px solid var(--color-navy);
+  box-shadow: none;
+  transition:
+    background-color 150ms var(--ease-out),
+    box-shadow 150ms var(--ease-out);
+}
 @media (hover: hover) and (pointer: fine) {
   /* Tommelfingeren svarede ikke paa musen. Den fyldes med navy og faar en
      papirring, saa den læses som noget man kan tage fat i. */
@@ -233,109 +572,352 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 }
 
 /* ------------------------------------------------ hero: promise left, the technician right */
-.np .hero { min-height: 0; padding-block: var(--space-3xl) var(--section-gap-s); }
-.np .hero__text { grid-column: 1 / span 7; align-self: center; }
+.np .hero {
+  min-height: 0;
+  padding-block: var(--space-3xl) var(--section-gap-s);
+}
+.np .hero__text {
+  grid-column: 1 / span 7;
+  align-self: center;
+}
 /* "fjerner dem." stays together so the head never strands one word */
-.np .hero__text h1 .tail { white-space: nowrap; }
-.np .hero__text .lead { margin-top: var(--space-lg); font-size: 1.25rem; max-width: 44ch; }
-[data-slot][data-alt] > img { filter: none; }
-[data-slot][data-alt] { background: var(--color-paper-3); }
+.np .hero__text h1 .tail {
+  white-space: nowrap;
+}
+.np .hero__text .lead {
+  margin-top: var(--space-lg);
+  font-size: 1.25rem;
+  max-width: 44ch;
+}
+[data-slot][data-alt] > img {
+  filter: none;
+}
+[data-slot][data-alt] {
+  background: var(--color-paper-3);
+}
 
 /* the price list: its own light band straight under the hero */
-.np .index-band { background: var(--color-paper-2); padding-block: var(--section-gap-s); border-block: 1px solid var(--color-rule); }
-.np .index-band .index__head { font-size: var(--text-section); }
+.np .index-band {
+  background: var(--color-paper-2);
+  padding-block: var(--section-gap-s);
+  border-block: 1px solid var(--color-rule);
+}
+.np .index-band .index__head {
+  font-size: var(--text-section);
+}
 /* The field ends where the list's second column ends: full width while the
    list has one or two columns, two columns and a gap once it has three
    (columns: 3 16rem with a 24px gap gives three from 816px). */
-.np #pest { container-type: inline-size; }
-@container (min-width: 816px) { .np .index-band .index__search { max-width: calc((200% - var(--space-lg)) / 3); } }
-.np .index__list { columns: 3 16rem; column-gap: var(--space-lg); column-rule: 0; border: 0; padding: 0; margin-top: var(--space-xl); }
-.np .index__list[data-searching] { columns: 1; }
-.np .index__row { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-control); margin-bottom: var(--space-xs); }
-.np .index__row a { padding-inline: var(--space-md); border-radius: var(--radius-control); transition: background-color 150ms var(--ease-out); }
-@media (hover: hover) and (pointer: fine) {
-  .np .index__row a:hover { background: var(--color-paper-3); }
-  .np .index__row a:hover .index__name { text-decoration: none; }
+.np #pest {
+  container-type: inline-size;
 }
-.np .index__glyph { color: var(--color-ink); }
-.np .index__price { font-weight: 800; color: var(--color-ink); }
-.np .index__price--ask { font-weight: 500; color: var(--color-muted); }
-.np .index__empty { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); }
+@container (min-width: 816px) {
+  .np .index-band .index__search {
+    max-width: calc((200% - var(--space-lg)) / 3);
+  }
+}
+.np .index__list {
+  columns: 3 16rem;
+  column-gap: var(--space-lg);
+  column-rule: 0;
+  border: 0;
+  padding: 0;
+  margin-top: var(--space-xl);
+}
+.np .index__list[data-searching] {
+  columns: 1;
+}
+.np .index__row {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-control);
+  margin-bottom: var(--space-xs);
+}
+.np .index__row a {
+  padding-inline: var(--space-md);
+  border-radius: var(--radius-control);
+  transition: background-color 150ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .index__row a:hover {
+    background: var(--color-paper-3);
+  }
+  .np .index__row a:hover .index__name {
+    text-decoration: none;
+  }
+}
+.np .index__glyph {
+  color: var(--color-ink);
+}
+.np .index__price {
+  font-weight: 800;
+  color: var(--color-ink);
+}
+.np .index__price--ask {
+  font-weight: 500;
+  color: var(--color-muted);
+}
+.np .index__empty {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+}
 
 /* ------------------------------------------------ promises: four panels, then the comparison */
-.np .promises__rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
-.np .promise { display: block; grid-column: auto; padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); background: var(--color-paper); }
-.np .promise:first-child { border-top-color: var(--color-rule); }
-.np .promise dd { margin-top: var(--space-xs); color: var(--color-ink-2); }
-.np .versus table { border: 1px solid var(--color-rule); border-radius: var(--radius-panel); border-collapse: separate; border-spacing: 0; overflow: hidden; }
-.np .versus th { padding: var(--space-sm) var(--space-md); background: var(--color-paper-2); border-bottom: 1px solid var(--color-rule); font-weight: 700; color: var(--color-muted); }
-.np .versus th + th { background: var(--color-navy); color: var(--color-paper); padding-left: var(--space-md); }
-.np .versus td { padding: var(--space-md); border-bottom: 1px solid var(--color-rule); color: var(--color-muted); }
-.np .versus tr:last-child td { border-bottom: 0; }
-.np .versus td + td { color: var(--color-ink); font-weight: 600; padding-left: var(--space-md); border-left: 1px solid var(--color-rule); }
+.np .promises__rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+.np .promise {
+  display: block;
+  grid-column: auto;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  background: var(--color-paper);
+}
+.np .promise:first-child {
+  border-top-color: var(--color-rule);
+}
+.np .promise dd {
+  margin-top: var(--space-xs);
+  color: var(--color-ink-2);
+}
+.np .versus table {
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.np .versus th {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-paper-2);
+  border-bottom: 1px solid var(--color-rule);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.np .versus th + th {
+  background: var(--color-navy);
+  color: var(--color-paper);
+  padding-left: var(--space-md);
+}
+.np .versus td {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-muted);
+}
+.np .versus tr:last-child td {
+  border-bottom: 0;
+}
+.np .versus td + td {
+  color: var(--color-ink);
+  font-weight: 600;
+  padding-left: var(--space-md);
+  border-left: 1px solid var(--color-rule);
+}
 
 /* ------------------------------------------------ process: the photo moved to the hero, three numbered steps across */
-.np #process .process__figure { display: none; }
-.np #process .process__text { grid-column: 1 / -1; }
-.np #process .stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
-.np .stages li { border-top: 0; padding: 0; grid-template-columns: 2.25rem minmax(0, 1fr); column-gap: var(--space-md); }
-.np .stages p { font-size: 1rem; }
+.np #process .process__figure {
+  display: none;
+}
+.np #process .process__text {
+  grid-column: 1 / -1;
+}
+.np #process .stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
+.np .stages li {
+  border-top: 0;
+  padding: 0;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  column-gap: var(--space-md);
+}
+.np .stages p {
+  font-size: 1rem;
+}
 
 /* ------------------------------------------------ calculator: a white panel on the page, the price large */
-.np .estimator { box-shadow: none; border-top: 0; background: var(--color-paper-2); padding-block: var(--section-gap-s); }
-.np .estimator__result { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; }
-.np .estimator__price { font-size: clamp(3rem, 4.5vw, 4.25rem); line-height: 1; }
-.np .estimator__pick-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-.np .estimator__pick { border: 0; border-radius: var(--radius-control); background: none; position: relative; isolation: isolate; align-items: center; gap: var(--space-xs); padding: var(--space-2xs) var(--space-sm); margin-inline-start: calc(-1 * var(--space-sm)); }
-.np .estimator__pick > svg { margin-bottom: 0; }
-.np .estimator__pick .trigger-title { font-size: 1.125rem; }
+.np .estimator {
+  box-shadow: none;
+  border-top: 0;
+  background: var(--color-paper-2);
+  padding-block: var(--section-gap-s);
+}
+.np .estimator__result {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  box-shadow: none;
+}
+.np .estimator__price {
+  font-size: clamp(3rem, 4.5vw, 4.25rem);
+  line-height: 1;
+}
+.np .estimator__pick-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.np .estimator__pick {
+  border: 0;
+  border-radius: var(--radius-control);
+  background: none;
+  position: relative;
+  isolation: isolate;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-2xs) var(--space-sm);
+  margin-inline-start: calc(-1 * var(--space-sm));
+}
+.np .estimator__pick > svg {
+  margin-bottom: 0;
+}
+.np .estimator__pick .trigger-title {
+  font-size: 1.125rem;
+}
 /* No frame; on hover the same pale wash as the calculator's text links grows
    out from the centre. Pulled left by its padding so the icon lines up with the price. */
 .np .estimator__pick::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
   background: color-mix(in oklab, var(--color-accent) 14%, transparent);
-  transform: scaleX(0); opacity: 0;
-  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+  transform: scaleX(0);
+  opacity: 0;
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 220ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .np .estimator__pick:hover::before { transform: scaleX(1); opacity: 1; }
+  .np .estimator__pick:hover::before {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
-.np .estimator__list li { border-top: 1px solid var(--color-rule); font-weight: 600; color: var(--color-ink); }
-.np .estimator__caveat { border-top: 1px solid var(--color-rule-2); }
-.np .estimator__disclosure { border-top: 1px solid var(--color-rule-2); }
-.np .estimator__reset { color: var(--color-ink); font-weight: 600; text-decoration-color: var(--color-accent); }
-.np .estimator__extras { display: flex; flex-direction: column; gap: var(--space-sm); }
-.np .estimator__extra-list { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: 0; padding: 0; list-style: none; }
-.np .estimator__extra { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 4px 4px 4px var(--space-sm); border: 1px solid var(--color-rule); border-radius: var(--radius-control); background: var(--color-paper); }
-.np .estimator__extra button { display: grid; place-items: center; width: 28px; height: 28px; border: 0; background: none; color: inherit; cursor: pointer; border-radius: var(--radius-control); }
-@media (hover: hover) and (pointer: fine) { .np .estimator__extra button:hover { background: var(--color-paper-2); } }
-.np .estimator__add { display: flex; flex-direction: column; gap: var(--space-xs); }
-.np .estimator__add select { width: 100%; }
-.np .estimator__extras > .estimator__open { align-self: flex-start; }
+.np .estimator__list li {
+  border-top: 1px solid var(--color-rule);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.np .estimator__caveat {
+  border-top: 1px solid var(--color-rule-2);
+}
+.np .estimator__disclosure {
+  border-top: 1px solid var(--color-rule-2);
+}
+.np .estimator__reset {
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration-color: var(--color-accent);
+}
+.np .estimator__extras {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.np .estimator__extra-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.np .estimator__extra {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 4px 4px 4px var(--space-sm);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-control);
+  background: var(--color-paper);
+}
+.np .estimator__extra button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-control);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .estimator__extra button:hover {
+    background: var(--color-paper-2);
+  }
+}
+.np .estimator__add {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.np .estimator__add select {
+  width: 100%;
+}
+.np .estimator__extras > .estimator__open {
+  align-self: flex-start;
+}
 /* In the result panel the chips say what the number covers; the add-link
    rides under them, icon on the line like the plus on the "Flere skadedyr" row. */
-.np .estimator__result-extras { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
-.np .estimator__result-add { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.np .estimator__result-extras {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+.np .estimator__result-add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
 /* Entering the panel: materialise out of a blur rather than popping in, one
    after another so a stack reads as a growing list. */
 @keyframes estimator-extra-in {
-  from { opacity: 0; filter: blur(5px); transform: scale(0.9); }
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0.9);
+  }
 }
 .np .estimator__result-extras .estimator__extra,
 .np .estimator__result-extras .estimator__result-add {
   transform-origin: left center;
   animation: estimator-extra-in 280ms var(--ease-out) both;
 }
-.np .estimator__result-extras .estimator__extra:nth-child(2) { animation-delay: 45ms; }
-.np .estimator__result-extras .estimator__extra:nth-child(3) { animation-delay: 90ms; }
-.np .estimator__result-extras .estimator__extra:nth-child(4) { animation-delay: 135ms; }
-.np .estimator__result-extras .estimator__extra:nth-child(5) { animation-delay: 180ms; }
-.np .estimator__result-extras .estimator__result-add { animation-delay: 120ms; }
+.np .estimator__result-extras .estimator__extra:nth-child(2) {
+  animation-delay: 45ms;
+}
+.np .estimator__result-extras .estimator__extra:nth-child(3) {
+  animation-delay: 90ms;
+}
+.np .estimator__result-extras .estimator__extra:nth-child(4) {
+  animation-delay: 135ms;
+}
+.np .estimator__result-extras .estimator__extra:nth-child(5) {
+  animation-delay: 180ms;
+}
+.np .estimator__result-extras .estimator__result-add {
+  animation-delay: 120ms;
+}
 @media (prefers-reduced-motion: reduce) {
   .np .estimator__result-extras .estimator__extra,
-  .np .estimator__result-extras .estimator__result-add { animation: none; }
+  .np .estimator__result-extras .estimator__result-add {
+    animation: none;
+  }
 }
-.np .disclosure-trigger .small, .np .disclosure-trigger span:not(.trigger-title) { font-weight: 400; }
+.np .disclosure-trigger .small,
+.np .disclosure-trigger span:not(.trigger-title) {
+  font-weight: 400;
+}
 @media (hover: hover) and (pointer: fine) {
   /* Accordeon-rækkerne svarede kun med :active-tryk. Titelen faar samme
      accent-understregning som sidens links, saa rækken læses som klikbar,
@@ -347,205 +929,751 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 }
 
 /* ------------------------------------------------ packages: navy band, white tier panels, the recommended one outlined red */
-.np .band--ink { background: var(--color-navy); color: var(--color-paper); }
-.np .band--ink h2, .np .band--ink h3, .np .band--ink h4, .np .band--ink .matrix th { color: var(--color-paper); }
-.np .band--ink .muted, .np .band--ink .head-split > p { color: var(--color-on-ink-muted); }
-.np .tiers { border: 0; gap: var(--space-md); }
-.np .tier, .np .tier:first-child, .np .tier:last-child { padding: var(--space-xl); background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); }
-.np .tier + .tier { border-left: 0; }
-.np .tier h3 { color: var(--color-ink); }
-.np .tier[data-featured] { outline: 3px solid var(--color-accent); outline-offset: -3px; }
-.np .band--ink .tier__note, .np .band--ink .tier__desc, .np .band--ink .tier .muted { color: var(--color-muted); }
-.np .tier[data-featured] > .tier__note:first-of-type { color: var(--color-accent); font-weight: 700; }
-.np .tier__price strong { font-size: clamp(2.75rem, 4vw, 3.75rem); line-height: 1; }
-.np .tier__price strong.words { font-size: var(--text-2xl); }
-.np .band--ink .tier .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.np .band--ink .tier .btn--secondary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); }
-.np .band--ink .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
-.np .band--ink .matrix td, .np .band--ink .matrix th { border-color: var(--color-on-ink-rule); }
-.np .band--ink .matrix .ok { color: var(--color-ok-on-ink); }
-.np .band--ink :focus-visible { outline-color: var(--color-paper); }
+.np .band--ink {
+  background: var(--color-navy);
+  color: var(--color-paper);
+}
+.np .band--ink h2,
+.np .band--ink h3,
+.np .band--ink h4,
+.np .band--ink .matrix th {
+  color: var(--color-paper);
+}
+.np .band--ink .muted,
+.np .band--ink .head-split > p {
+  color: var(--color-on-ink-muted);
+}
+.np .tiers {
+  border: 0;
+  gap: var(--space-md);
+}
+.np .tier,
+.np .tier:first-child,
+.np .tier:last-child {
+  padding: var(--space-xl);
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  border-radius: var(--radius-panel);
+}
+.np .tier + .tier {
+  border-left: 0;
+}
+.np .tier h3 {
+  color: var(--color-ink);
+}
+.np .tier[data-featured] {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -3px;
+}
+.np .band--ink .tier__note,
+.np .band--ink .tier__desc,
+.np .band--ink .tier .muted {
+  color: var(--color-muted);
+}
+.np .tier[data-featured] > .tier__note:first-of-type {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+.np .tier__price strong {
+  font-size: clamp(2.75rem, 4vw, 3.75rem);
+  line-height: 1;
+}
+.np .tier__price strong.words {
+  font-size: var(--text-2xl);
+}
+.np .band--ink .tier .btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+.np .band--ink .tier .btn--secondary {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+.np .band--ink .btn--secondary {
+  background: transparent;
+  color: var(--color-paper);
+  border-color: var(--color-paper);
+}
+.np .band--ink .matrix td,
+.np .band--ink .matrix th {
+  border-color: var(--color-on-ink-rule);
+}
+.np .band--ink .matrix .ok {
+  color: var(--color-ok-on-ink);
+}
+.np .band--ink :focus-visible {
+  outline-color: var(--color-paper);
+}
 
 /* ------------------------------------------------ reviews */
-.np .score { border: 1px solid var(--color-rule); border-radius: var(--radius-panel); box-shadow: none; margin-block: 0; overflow: hidden; }
-.np .score > div, .np .score > div + div { padding-inline: var(--space-xl); }
-.np .score > div + div { border-left: 1px solid var(--color-rule); }
-.np .score__link { padding-inline: var(--space-xl); }
-.np .quotes { gap: var(--space-md); }
-.np .quotes blockquote, .np .quotes blockquote:first-child, .np .quotes blockquote:last-child,
-.np .quotes blockquote + blockquote { padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); background: var(--color-paper-2); }
-.np .quotes p { text-indent: 0; font-size: 1.0625rem; color: var(--color-ink); }
+.np .score {
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  box-shadow: none;
+  margin-block: 0;
+  overflow: hidden;
+}
+.np .score > div,
+.np .score > div + div {
+  padding-inline: var(--space-xl);
+}
+.np .score > div + div {
+  border-left: 1px solid var(--color-rule);
+}
+.np .score__link {
+  padding-inline: var(--space-xl);
+}
+.np .quotes {
+  gap: var(--space-md);
+}
+.np .quotes blockquote,
+.np .quotes blockquote:first-child,
+.np .quotes blockquote:last-child,
+.np .quotes blockquote + blockquote {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  background: var(--color-paper-2);
+}
+.np .quotes p {
+  text-indent: 0;
+  font-size: 1.0625rem;
+  color: var(--color-ink);
+}
 
 /* ------------------------------------------------ faq, contact, footer */
-.np .faq__list { border-top: 1px solid var(--color-rule-2); }
-.np .faq__item { border-bottom: 1px solid var(--color-rule); }
-.np .faq__item .plus { color: var(--color-accent); }
-.np .close { background: var(--color-paper-2); border-top: 1px solid var(--color-rule); }
-.np .close__form { background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); padding: var(--space-xl); }
-.np .close__dl > div { border-top: 1px solid var(--color-rule); }
-.np .close .form__file { background: var(--color-paper); border: 1.5px dashed var(--color-rule-2); border-radius: var(--radius-control); }
+.np .faq__list {
+  border-top: 1px solid var(--color-rule-2);
+}
+.np .faq__item {
+  border-bottom: 1px solid var(--color-rule);
+}
+.np .faq__item .plus {
+  color: var(--color-accent);
+}
+.np .close {
+  background: var(--color-paper-2);
+  border-top: 1px solid var(--color-rule);
+}
+.np .close__form {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  padding: var(--space-xl);
+}
+.np .close__dl > div {
+  border-top: 1px solid var(--color-rule);
+}
+.np .close .form__file {
+  background: var(--color-paper);
+  border: 1.5px dashed var(--color-rule-2);
+  border-radius: var(--radius-control);
+}
 @media (hover: hover) and (pointer: fine) {
   /* Den stiplede billed-knap svarede ikke paa musen. Samme sprog som felterne:
      mørk kant og en let papirvask, saa den læses som klikbar. */
-  .np .form__file:hover { border-color: var(--color-ink); background: var(--color-paper-2); }
+  .np .form__file:hover {
+    border-color: var(--color-ink);
+    background: var(--color-paper-2);
+  }
 }
-.np .foot { background: var(--color-navy); color: var(--color-on-ink-muted); box-shadow: none; border-top: 0; }
-.np .foot .foot__mark { color: var(--color-paper); }
-.np .foot__line, .np .foot .muted, .np .foot__cols h3, .np .foot__legal { color: var(--color-on-ink-muted); }
-.np .foot__cols { border-top: 1px solid var(--color-on-ink-rule); }
-.np .foot a { color: var(--color-paper); }
-.np .foot .link { color: var(--color-paper); }
-.np .foot__pay img { filter: none; }
-.np .seal svg { color: currentColor; }
+.np .foot {
+  background: var(--color-navy);
+  color: var(--color-on-ink-muted);
+  box-shadow: none;
+  border-top: 0;
+}
+.np .foot .foot__mark {
+  color: var(--color-paper);
+}
+.np .foot__line,
+.np .foot .muted,
+.np .foot__cols h3,
+.np .foot__legal {
+  color: var(--color-on-ink-muted);
+}
+.np .foot__cols {
+  border-top: 1px solid var(--color-on-ink-rule);
+}
+.np .foot a {
+  color: var(--color-paper);
+}
+.np .foot .link {
+  color: var(--color-paper);
+}
+.np .foot__pay img {
+  filter: none;
+}
+.np .seal svg {
+  color: currentColor;
+}
 
 /* ------------------------------------------------ service page */
-.np .why__list li, .np .why__list li:first-child { border-top: 1px solid var(--color-rule); }
-.np .others { column-rule: 0; }
-.np .others li { border-bottom: 1px solid var(--color-rule); }
-@media (hover: hover) and (pointer: fine) { .np .others a:hover { color: var(--color-accent-2); text-decoration: none; } }
-.np .svc-hero { background: var(--color-paper-2); border-bottom: 1px solid var(--color-rule); }
+.np .why__list li,
+.np .why__list li:first-child {
+  border-top: 1px solid var(--color-rule);
+}
+.np .others {
+  column-rule: 0;
+}
+.np .others li {
+  border-bottom: 1px solid var(--color-rule);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .others a:hover {
+    color: var(--color-accent-2);
+    text-decoration: none;
+  }
+}
+.np .svc-hero {
+  background: var(--color-paper-2);
+  border-bottom: 1px solid var(--color-rule);
+}
 
 /* ------------------------------------------------ chrome */
-.np .notice { background: var(--color-navy); color: var(--color-paper); border-top: 0; }
-.np .notice .btn--primary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
-.np .notice .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-on-ink-muted); }
-.np .phonebar { border-top: 1px solid var(--color-rule); }
-.np-popover { background: var(--color-paper); border: 1px solid var(--color-rule-2); border-radius: var(--radius-control); color: var(--color-ink); }
-.np-popover .list-box-item, .np-popover [role="option"] { color: var(--color-ink) !important; }
-.np-popover [role="option"][data-focused] { background-color: var(--color-paper-2) !important; color: var(--color-ink) !important; }
+.np .notice {
+  background: var(--color-navy);
+  color: var(--color-paper);
+  border-top: 0;
+}
+.np .notice .btn--primary {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-paper);
+}
+.np .notice .btn--secondary {
+  background: transparent;
+  color: var(--color-paper);
+  border-color: var(--color-on-ink-muted);
+}
+.np .phonebar {
+  border-top: 1px solid var(--color-rule);
+}
+.np-popover {
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule-2);
+  border-radius: var(--radius-control);
+  color: var(--color-ink);
+}
+.np-popover .list-box-item,
+.np-popover [role="option"] {
+  color: var(--color-ink) !important;
+}
+.np-popover [role="option"][data-focused] {
+  background-color: var(--color-paper-2) !important;
+  color: var(--color-ink) !important;
+}
 
 @media (max-width: 60rem) {
-  .np .hero__check { margin-top: var(--space-2xl); grid-column: 1 / -1; }
-  .np .promises__rows { grid-template-columns: minmax(0, 1fr); }
-  .np #process .stages { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
-  .np .score > div + div { border-left: 0; border-top: 1px solid var(--color-rule); }
-  .np .tiers { gap: var(--space-md); }
-  .np .tier + .tier { border-top: 0; }
-  .np .close__form { padding: var(--space-lg); }
+  .np .hero__check {
+    margin-top: var(--space-2xl);
+    grid-column: 1 / -1;
+  }
+  .np .promises__rows {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .np #process .stages {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+  .np .score > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .np .tiers {
+    gap: var(--space-md);
+  }
+  .np .tier + .tier {
+    border-top: 0;
+  }
+  .np .close__form {
+    padding: var(--space-lg);
+  }
 }
 @media (max-width: 40rem) {
-  .np .index__list { columns: 1; }
-  .np .versus td + td { border-left: 0; }
+  .np .index__list {
+    columns: 1;
+  }
+  .np .versus td + td {
+    border-left: 0;
+  }
 }
-.np .seal__link { color: var(--color-accent-2); }
-.np .foot .seal__link { color: var(--color-paper); }
+.np .seal__link {
+  color: var(--color-accent-2);
+}
+.np .foot .seal__link {
+  color: var(--color-paper);
+}
 
 /* ------------------------------------------------ hero, after Sunday/Aptive/Terminix: a solid green band, the
    pests as tappable chips, the product (the price) shown in the hero like Stripe and Linear show theirs */
-.np .hero { background: var(--color-navy); color: var(--color-on-ink-muted); padding-block: var(--space-3xl); }
-.np .hero h1 { color: var(--color-paper); }
-.np .hero .lead { color: var(--color-on-ink-muted); }
-.np .hero__kicker { color: var(--color-lime); font-weight: 800; font-size: 1.125rem; margin-bottom: var(--space-sm); }
-.np .hero__chips { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-xs); }
-.np .hero__chips a { display: inline-flex; align-items: center; gap: var(--space-xs); padding: 0.5rem 0.875rem 0.5rem 0.5rem; border-radius: var(--radius-control); background: var(--color-paper); color: var(--color-ink); font-weight: 700; text-decoration: none; }
-@media (hover: hover) and (pointer: fine) { .np .hero__chips a:hover { background: var(--color-lime); } }
-.np .hero__chips .hero__chip-glyph { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px; background: var(--color-paper-3); color: var(--color-accent-2); }
-.np .hero__rating { margin-top: var(--space-lg); color: var(--color-paper); font-weight: 600; }
-.np .hero__rating strong { color: var(--color-lime); }
-.np .hero__rating a { color: inherit; }
-.np .hero__check { grid-column: 8 / span 5; align-self: center; background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); padding: var(--space-xl); }
-.np .hero__check h2 { font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
-.np .hero__check .field-label { display: block; font-weight: 700; color: var(--color-ink); margin-bottom: var(--space-xs); }
-.np .hero__check select { width: 100%; min-height: 52px; padding: 0 var(--space-md); font: 600 1.0625rem var(--font-body); color: var(--color-ink); background: var(--color-paper); border: 1.5px solid var(--color-muted); border-radius: var(--radius-control); }
-.np .hero__check-price { margin: var(--space-lg) 0 var(--space-xs); font: 800 clamp(2.75rem, 3.5vw, 3.5rem)/1 var(--font-display); color: var(--color-ink); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.np .hero__check-note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
-.np .hero__check .btn { width: 100%; justify-content: center; }
-.np .hero .btn--primary { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); }
-.np .hero__check .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-@media (hover: hover) and (pointer: fine) {
-  .np .hero .btn--primary:hover { background: var(--color-lime-2); }
-  .np .hero__check .btn--primary:hover { background: var(--color-accent-2); }
+.np .hero {
+  background: var(--color-navy);
+  color: var(--color-on-ink-muted);
+  padding-block: var(--space-3xl);
 }
-.np .hero .btn--secondary { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
-.np .hero :focus-visible { outline-color: var(--color-lime); }
-.np .hero__check :focus-visible { outline-color: var(--color-focus); }
-@media (max-width: 40rem) { .np .hero__check { padding: var(--space-lg); } }
+.np .hero h1 {
+  color: var(--color-paper);
+}
+.np .hero .lead {
+  color: var(--color-on-ink-muted);
+}
+.np .hero__kicker {
+  color: var(--color-lime);
+  font-weight: 800;
+  font-size: 1.125rem;
+  margin-bottom: var(--space-sm);
+}
+.np .hero__chips {
+  list-style: none;
+  margin: var(--space-xl) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+.np .hero__chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+  border-radius: var(--radius-control);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .hero__chips a:hover {
+    background: var(--color-lime);
+  }
+}
+.np .hero__chips .hero__chip-glyph {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--color-paper-3);
+  color: var(--color-accent-2);
+}
+.np .hero__rating {
+  margin-top: var(--space-lg);
+  color: var(--color-paper);
+  font-weight: 600;
+}
+.np .hero__rating strong {
+  color: var(--color-lime);
+}
+.np .hero__rating a {
+  color: inherit;
+}
+.np .hero__check {
+  grid-column: 8 / span 5;
+  align-self: center;
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  border-radius: var(--radius-panel);
+  padding: var(--space-xl);
+}
+.np .hero__check h2 {
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-md);
+}
+.np .hero__check .field-label {
+  display: block;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+.np .hero__check select {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--space-md);
+  font: 600 1.0625rem var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-muted);
+  border-radius: var(--radius-control);
+}
+.np .hero__check-price {
+  margin: var(--space-lg) 0 var(--space-xs);
+  font: 800 clamp(2.75rem, 3.5vw, 3.5rem)/1 var(--font-display);
+  color: var(--color-ink);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.np .hero__check-note {
+  color: var(--color-muted);
+  margin: 0 0 var(--space-lg);
+}
+.np .hero__check .btn {
+  width: 100%;
+  justify-content: center;
+}
+.np .hero .btn--primary {
+  background: var(--color-lime);
+  color: var(--color-ink);
+  border-color: var(--color-lime);
+}
+.np .hero__check .btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .hero .btn--primary:hover {
+    background: var(--color-lime-2);
+  }
+  .np .hero__check .btn--primary:hover {
+    background: var(--color-accent-2);
+  }
+}
+.np .hero .btn--secondary {
+  background: transparent;
+  color: var(--color-paper);
+  border-color: var(--color-paper);
+}
+.np .hero :focus-visible {
+  outline-color: var(--color-lime);
+}
+.np .hero__check :focus-visible {
+  outline-color: var(--color-focus);
+}
+@media (max-width: 40rem) {
+  .np .hero__check {
+    padding: var(--space-lg);
+  }
+}
 
 /* the contact form gets the wider column, so the two fields keep their labels on one line */
-.np .close__facts { grid-column: 1 / span 5; }
-.np .close__form { grid-column: 6 / span 7; }
-/* contact facts: label above value, so a long e-mail address or the opening-hours table never runs out of its column */
-.np .close__dl > div { grid-template-columns: minmax(0, 1fr); align-content: start; row-gap: 2px; padding-block: var(--space-md); }
-.np .close__dl dt { font: 600 0.875rem/1.4 var(--font-body); color: var(--color-muted); }
-.np .close__dl dd { font-size: 1.0625rem; overflow-wrap: anywhere; }
-.np .close__dl dd .muted, .np .close__dl dd small { display: block; font-size: 0.9375rem; }
-.np .hours { width: auto; }
-.np .hours th { padding-right: var(--space-lg); }
-.np .hours td { text-align: left; font-variant-numeric: tabular-nums; font-weight: 600; }
-@media (max-width: 75rem) {
-  .np .close__facts, .np .close__form { grid-column: 1 / -1; }
-  /* Stacked, the form comes first: it is what someone scrolling here came to do. */
-  .np .close__form { order: -1; }
-  .np .close__facts { margin-top: var(--space-2xl); }
-  .np .close__dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-xl); }
+.np .close__facts {
+  grid-column: 1 / span 5;
 }
-@media (max-width: 40rem) { .np .close__dl { grid-template-columns: minmax(0, 1fr); } }
-.np .hero__check-price[data-words] { font-size: clamp(2rem, 2.6vw, 2.5rem); }
+.np .close__form {
+  grid-column: 6 / span 7;
+}
+/* contact facts: label above value, so a long e-mail address or the opening-hours table never runs out of its column */
+.np .close__dl > div {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  row-gap: 2px;
+  padding-block: var(--space-md);
+}
+.np .close__dl dt {
+  font: 600 0.875rem/1.4 var(--font-body);
+  color: var(--color-muted);
+}
+.np .close__dl dd {
+  font-size: 1.0625rem;
+  overflow-wrap: anywhere;
+}
+.np .close__dl dd .muted,
+.np .close__dl dd small {
+  display: block;
+  font-size: 0.9375rem;
+}
+.np .hours {
+  width: auto;
+}
+.np .hours th {
+  padding-right: var(--space-lg);
+}
+.np .hours td {
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+@media (max-width: 75rem) {
+  .np .close__facts,
+  .np .close__form {
+    grid-column: 1 / -1;
+  }
+  /* Stacked, the form comes first: it is what someone scrolling here came to do. */
+  .np .close__form {
+    order: -1;
+  }
+  .np .close__facts {
+    margin-top: var(--space-2xl);
+  }
+  .np .close__dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
+  }
+}
+@media (max-width: 40rem) {
+  .np .close__dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.np .hero__check-price[data-words] {
+  font-size: clamp(2rem, 2.6vw, 2.5rem);
+}
 
 /* dropdown rows: the dark-ink/lime hover from the old shop theme (index.css) outranked the popover rule above,
    so every row state is restated here at a higher specificity, in this theme's own paper and green.
    react-aria sets data-hovered for a mouse only, never for a finger, so it stands in for :hover here. */
 .np-popover [role="option"]:not(.suggest-row):is([data-hovered], [data-highlighted], [data-focused]),
 .np-popover .list-box-item:is([data-hovered], [data-highlighted], [data-focused]) {
-  background-color: var(--color-paper-3) !important; color: var(--color-ink) !important; outline: none !important; box-shadow: none !important;
+  background-color: var(--color-paper-3) !important;
+  color: var(--color-ink) !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
-.np-popover [role="option"]:not(.suggest-row)[data-focus-visible] { outline: 2px solid var(--color-focus) !important; outline-offset: -2px; }
+.np-popover [role="option"]:not(.suggest-row)[data-focus-visible] {
+  outline: 2px solid var(--color-focus) !important;
+  outline-offset: -2px;
+}
 .np-popover [role="option"]:not(.suggest-row)[aria-selected="true"],
-.np-popover .list-box-item[data-selected] { color: var(--color-accent-2) !important; font-weight: 700; text-decoration: none; }
-.np-popover [role="option"] { border-radius: 6px; }
-.np-popover .list-box, .np-popover [role="listbox"] { padding: 4px; }
+.np-popover .list-box-item[data-selected] {
+  color: var(--color-accent-2) !important;
+  font-weight: 700;
+  text-decoration: none;
+}
+.np-popover [role="option"] {
+  border-radius: 6px;
+}
+.np-popover .list-box,
+.np-popover [role="listbox"] {
+  padding: 4px;
+}
 
 /* the way to the full list, from the hero's chips and its dropdown */
-.np .hero__chips .hero__chip-more { background: transparent; color: var(--color-paper); border: 1.5px solid var(--color-on-ink-muted); padding-left: 0.875rem; }
-@media (hover: hover) and (pointer: fine) { .np .hero__chips .hero__chip-more:hover { background: var(--color-lime); color: var(--color-ink); border-color: var(--color-lime); } }
-.np .hero__check-more { display: inline-block; margin-top: var(--space-xs); font-size: 0.9375rem; font-weight: 600; color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; }
+.np .hero__chips .hero__chip-more {
+  background: transparent;
+  color: var(--color-paper);
+  border: 1.5px solid var(--color-on-ink-muted);
+  padding-left: 0.875rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .hero__chips .hero__chip-more:hover {
+    background: var(--color-lime);
+    color: var(--color-ink);
+    border-color: var(--color-lime);
+  }
+}
+.np .hero__check-more {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 /* packages band when the chosen pest is quoted after a conversation: one panel instead of three empty prices */
-.np .quoted { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-2xl); align-items: start; background: var(--color-paper); color: var(--color-ink-2); border-radius: var(--radius-panel); padding: var(--space-2xl); }
-.np .band--ink .quoted h3 { color: var(--color-ink); font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
-.np .quoted__why { font-size: 1.1875rem; max-width: 46ch; margin: 0; }
-.np .quoted__price { font: 800 clamp(2.5rem, 3.5vw, 3.25rem)/1 var(--font-display); color: var(--color-ink); margin: 0 0 var(--space-xs); }
-.np .band--ink .quoted__note { color: var(--color-muted); margin: 0 0 var(--space-lg); }
-.np .band--ink .quoted .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.np .quoted__other { display: inline-block; margin-top: var(--space-sm); color: var(--color-accent-2); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 60rem) { .np .quoted { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); padding: var(--space-lg); } }
+.np .quoted {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  border-radius: var(--radius-panel);
+  padding: var(--space-2xl);
+}
+.np .band--ink .quoted h3 {
+  color: var(--color-ink);
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-md);
+}
+.np .quoted__why {
+  font-size: 1.1875rem;
+  max-width: 46ch;
+  margin: 0;
+}
+.np .quoted__price {
+  font: 800 clamp(2.5rem, 3.5vw, 3.25rem)/1 var(--font-display);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-xs);
+}
+.np .band--ink .quoted__note {
+  color: var(--color-muted);
+  margin: 0 0 var(--space-lg);
+}
+.np .band--ink .quoted .btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
+}
+.np .quoted__other {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--color-accent-2);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 60rem) {
+  .np .quoted {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+  }
+}
 
 /* Service page: the argument reads as one column, the promises sit under it as a grid. */
-.np .why__text { grid-column: 1 / span 8; }
-.np .svc-promises { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--space-xl) var(--space-2xl); margin: var(--space-xl) 0 0; }
-.np .svc-promises > div { padding-top: var(--space-md); border-top: 2px solid var(--color-ink); }
-.np .svc-promises dt { font: 700 var(--text-title)/1.2 var(--font-display); letter-spacing: var(--tracking-display); }
-.np .svc-promises dd { margin: var(--space-xs) 0 0; color: var(--color-ink-2); text-wrap: pretty; }
-.np .svc-promises__cta { margin-top: var(--space-xl); align-items: center; }
-.np .svc-promises__cta p { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
-@media (max-width: 60rem) { .np .why__text { grid-column: 1 / -1; } }
+.np .why__text {
+  grid-column: 1 / span 8;
+}
+.np .svc-promises {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--space-xl) var(--space-2xl);
+  margin: var(--space-xl) 0 0;
+}
+.np .svc-promises > div {
+  padding-top: var(--space-md);
+  border-top: 2px solid var(--color-ink);
+}
+.np .svc-promises dt {
+  font: 700 var(--text-title)/1.2 var(--font-display);
+  letter-spacing: var(--tracking-display);
+}
+.np .svc-promises dd {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-ink-2);
+  text-wrap: pretty;
+}
+.np .svc-promises__cta {
+  margin-top: var(--space-xl);
+  align-items: center;
+}
+.np .svc-promises__cta p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+@media (max-width: 60rem) {
+  .np .why__text {
+    grid-column: 1 / -1;
+  }
+}
 
 /* Species: a drawing above each name, as cards rather than two ruled columns. */
-.np .species { columns: auto; column-rule: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(max(15rem, calc((100% - 2 * var(--space-lg)) / 3)), 1fr)); gap: var(--space-xl) var(--space-lg); }
-.np .species > div { padding: 0; }
-.np .species__art { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; margin-bottom: var(--space-md); padding: var(--space-md); background: var(--color-paper); border: 1px solid var(--color-rule); border-radius: var(--radius-panel); color: var(--color-muted); }
-.np .species__art img { position: absolute; inset: var(--space-md); width: calc(100% - 2 * var(--space-md)); height: calc(100% - 2 * var(--space-md)); object-fit: contain; }
-@media (max-width: 40rem) { .np .species__art { aspect-ratio: 16 / 9; } }
-.np .species__credit { margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+.np .species {
+  columns: auto;
+  column-rule: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(max(15rem, calc((100% - 2 * var(--space-lg)) / 3)), 1fr));
+  gap: var(--space-xl) var(--space-lg);
+}
+.np .species > div {
+  padding: 0;
+}
+.np .species__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  color: var(--color-muted);
+}
+.np .species__art img {
+  position: absolute;
+  inset: var(--space-md);
+  width: calc(100% - 2 * var(--space-md));
+  height: calc(100% - 2 * var(--space-md));
+  object-fit: contain;
+}
+@media (max-width: 40rem) {
+  .np .species__art {
+    aspect-ratio: 16 / 9;
+  }
+}
+.np .species__credit {
+  margin-top: var(--space-xl);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
 
 /* "Cookieindstillinger" in the footer reads as a link, because it sits in a list of links. */
-.np .foot__link-btn { padding: 0; border: 0; background: none; font: inherit; color: var(--color-paper); cursor: pointer; text-align: left; }
-@media (hover: hover) and (pointer: fine) { .np .foot__link-btn:hover { text-decoration: underline 1px var(--color-accent); text-underline-offset: 0.16em; } }
+.np .foot__link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-paper);
+  cursor: pointer;
+  text-align: left;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .foot__link-btn:hover {
+    text-decoration: underline 1px var(--color-accent);
+    text-underline-offset: 0.16em;
+  }
+}
 
 /* Privacy and cookie pages: one readable column. */
-.np .legal .container { max-width: 46rem; }
-.np .legal h1 { margin-bottom: var(--space-md); }
-.np .legal h2 { font-size: var(--text-title); margin: var(--space-xl) 0 var(--space-xs); }
-.np .legal p, .np .legal li { color: var(--color-ink-2); line-height: 1.6; text-wrap: pretty; }
-.np .legal p + p { margin-top: var(--space-sm); }
-.np .legal ul { margin: var(--space-sm) 0 0; padding-left: 1.25rem; }
-.np .legal li + li { margin-top: var(--space-xs); }
-.np .legal__updated { font-size: var(--text-sm); color: var(--color-muted); }
-.np .legal__inline-btn { padding: 0; border: 0; background: none; font: inherit; color: var(--color-accent-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.np .legal__table { overflow-x: auto; margin-top: var(--space-md); }
-.np .legal table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
-.np .legal th, .np .legal td { text-align: left; padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; border-bottom: 1px solid var(--color-rule); vertical-align: top; }
-.np .legal th { font-weight: 700; color: var(--color-ink); }
+.np .legal .container {
+  max-width: 46rem;
+}
+.np .legal h1 {
+  margin-bottom: var(--space-md);
+}
+.np .legal h2 {
+  font-size: var(--text-title);
+  margin: var(--space-xl) 0 var(--space-xs);
+}
+.np .legal p,
+.np .legal li {
+  color: var(--color-ink-2);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.np .legal p + p {
+  margin-top: var(--space-sm);
+}
+.np .legal ul {
+  margin: var(--space-sm) 0 0;
+  padding-left: 1.25rem;
+}
+.np .legal li + li {
+  margin-top: var(--space-xs);
+}
+.np .legal__updated {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+.np .legal__inline-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-accent-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.np .legal__table {
+  overflow-x: auto;
+  margin-top: var(--space-md);
+}
+.np .legal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.np .legal th,
+.np .legal td {
+  text-align: left;
+  padding: var(--space-xs) var(--space-sm) var(--space-xs) 0;
+  border-bottom: 1px solid var(--color-rule);
+  vertical-align: top;
+}
+.np .legal th {
+  font-weight: 700;
+  color: var(--color-ink);
+}
 
 /* Choice card: a card in the bottom-left corner. Both answers are the same button.
    It mounts outside the page, so it carries .np itself for the theme, and undoes
@@ -553,66 +1681,186 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    Class names avoid "cookie"/"banner" on purpose: ad blockers block module URLs
    and hide elements whose names match those words. */
 .np.np-choice {
-  position: fixed; left: var(--space-lg); bottom: var(--space-lg); z-index: var(--z-toast);
+  position: fixed;
+  left: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: var(--z-toast);
   width: min(26rem, calc(100vw - 2 * var(--space-md)));
-  padding: var(--space-lg); background: var(--color-paper); color: var(--color-ink);
-  border: 1px solid var(--color-rule); border-radius: var(--radius-panel);
-  box-shadow: 0 1px 2px oklch(20% 0.03 160 / 0.08), 0 12px 32px -8px oklch(20% 0.03 160 / 0.22);
+  padding: var(--space-lg);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  box-shadow:
+    0 1px 2px oklch(20% 0.03 160 / 0.08),
+    0 12px 32px -8px oklch(20% 0.03 160 / 0.22);
   min-height: 0;
   animation: np-choice-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
-.np.np-choice .np-choice__head { display: flex; align-items: center; gap: var(--space-sm); }
-.np.np-choice .np-choice__icon { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; flex-shrink: 0; border-radius: 999px; background: var(--color-lime); color: var(--color-navy); }
-.np.np-choice h2 { margin: 0; font-size: 1.375rem; line-height: 1.2; }
-.np.np-choice p { margin: var(--space-sm) 0 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-2); }
-.np.np-choice .np-choice__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-top: var(--space-md); }
-.np.np-choice .np-choice__actions .btn { width: 100%; }
-@keyframes np-choice-in { from { opacity: 0; transform: translateY(8px); } }
-@media (prefers-reduced-motion: reduce) { .np.np-choice { animation: none; } }
-@media (max-width: 40rem) { .np.np-choice { left: var(--space-md); right: var(--space-md); bottom: var(--space-md); width: auto; } }
+.np.np-choice .np-choice__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.np.np-choice .np-choice__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--color-lime);
+  color: var(--color-navy);
+}
+.np.np-choice h2 {
+  margin: 0;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+.np.np-choice p {
+  margin: var(--space-sm) 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+.np.np-choice .np-choice__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+.np.np-choice .np-choice__actions .btn {
+  width: 100%;
+}
+@keyframes np-choice-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np.np-choice {
+    animation: none;
+  }
+}
+@media (max-width: 40rem) {
+  .np.np-choice {
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: var(--space-md);
+    width: auto;
+  }
+}
 
 /* Calculator: driving and neighbours start as two quiet text links under the
    pest picker and open in place, so the controls stay one short column. The
    "+ kørsel" beside the big price is the same opener, sitting where the
    question comes up. */
-.np .estimator__where { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
-.np .estimator__where > * { width: 100%; }
+.np .estimator__where {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+.np .estimator__where > * {
+  width: 100%;
+}
 /* the openers are links, not rows: at 100% the hover wash would paint
    wall-to-wall across the column, so they size to their text like the locate
    button and the wash sits behind the words */
-.np .estimator__where > .estimator__open { width: auto; }
-.np .estimator__open {
-  width: auto; padding: 0; background: none; border: 0; cursor: pointer; text-align: left;
-  font: 600 0.9375rem/1.4 var(--font-body); color: var(--color-ink);
-  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+.np .estimator__where > .estimator__open {
+  width: auto;
 }
-@media (hover: hover) and (pointer: fine) { .np .estimator__open:hover { text-decoration-color: currentColor; } }
+.np .estimator__open {
+  width: auto;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font: 600 0.9375rem/1.4 var(--font-body);
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .estimator__open:hover {
+    text-decoration-color: currentColor;
+  }
+}
 /* the openers are rows like "Tilpas beregningen" below them: title, one
    quiet sentence, a plus. They join it as one ruled list, so the containers
    they sit in drop the controls' gap where a row meets the next block. */
-.np :is(.estimator__row, .estimator__where > .estimator__reveal, .estimator__extras > .estimator__add) { padding-block: var(--space-sm); border-top: 1px solid var(--color-rule-2); }
-.np .estimator__where:has(> .estimator__row) { gap: 0; }
-.np .estimator__controls > :has(> .estimator__row:last-child) { margin-bottom: calc(-1 * var(--space-lg)); }
-.np .estimator__where-note { margin-top: var(--space-xs); }
-.np .estimator__drive-link {
-  margin-left: 0.5em; padding: 0; background: none; border: 0; cursor: pointer; vertical-align: middle;
-  font: 600 1rem/1 var(--font-body); letter-spacing: 0; color: var(--color-ink-2);
-  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+.np :is(.estimator__row, .estimator__where > .estimator__reveal, .estimator__extras > .estimator__add) {
+  padding-block: var(--space-sm);
+  border-top: 1px solid var(--color-rule-2);
 }
-@media (hover: hover) and (pointer: fine) { .np .estimator__drive-link:hover { color: var(--color-ink); } }
+.np .estimator__where:has(> .estimator__row) {
+  gap: 0;
+}
+.np .estimator__controls > :has(> .estimator__row:last-child) {
+  margin-bottom: calc(-1 * var(--space-lg));
+}
+.np .estimator__where-note {
+  margin-top: var(--space-xs);
+}
+.np .estimator__drive-link {
+  margin-left: 0.5em;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  font: 600 1rem/1 var(--font-body);
+  letter-spacing: 0;
+  color: var(--color-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .np .estimator__drive-link:hover {
+    color: var(--color-ink);
+  }
+}
 /* "op til 250 m²" in the price line: the same opener as "+ kørsel", at the line's own size */
 .np .estimator__area-link {
-  padding: 0; background: none; border: 0; cursor: pointer; font: inherit; color: inherit; text-align: inherit;
-  text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
-.np #pest-select-trigger { scroll-margin-top: 7rem; }
+.np #pest-select-trigger {
+  scroll-margin-top: 7rem;
+}
 
 /* Wiki links in article text, and the calculator's text buttons that read
    like them: on hover a pale wash grows out from the centre behind the
    words, and they lift a hair above the line (a mouse only: see "input modes"). */
 /* :where keeps this base at the lowest weight, so a link's own display
    (the inline-flex rows with an icon, the inline dateline link) always wins. */
-.np :where(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a) {
+.np
+  :where(
+    .wiki-link,
+    .estimator__open,
+    .estimator__drive-link,
+    .estimator__area-link,
+    .estimator__reset,
+    .hero__check-more,
+    .form__textlink,
+    a.select-text,
+    .mast-dateline a
+  ) {
   position: relative;
   z-index: 0;
   display: inline-block;
@@ -621,17 +1869,41 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 /* The dateline is dark, so its wash is paper, not green. It stays inline so the
    ellipsis can still cut a long line; its li clips with a margin wide enough for
    the wash (where the browser supports overflow-clip-margin). */
-.np .mast-dateline a { display: inline; }
-.np .mast-dateline a::before { background: color-mix(in oklab, var(--color-paper) 18%, transparent); }
-.np .mast-dateline li { overflow: clip; overflow-clip-margin: 0.4em; }
+.np .mast-dateline a {
+  display: inline;
+}
+.np .mast-dateline a::before {
+  background: color-mix(in oklab, var(--color-paper) 18%, transparent);
+}
+.np .mast-dateline li {
+  overflow: clip;
+  overflow-clip-margin: 0.4em;
+}
 /* A panel clips so it can animate its height, which cut off a hover wash at its
    edge. Padding widens the clip box by the wash's reach and the negative margin
    pulls it back, so the content stays where it was and the wash has room. */
-.np .disclosure__content { margin-inline: -0.5em; padding-inline: 0.5em; }
+.np .disclosure__content {
+  margin-inline: -0.5em;
+  padding-inline: 0.5em;
+}
 /* The same at the bottom, but only while open: a closed panel is 0 tall, and
    padding there would show the top of its content. */
-.np .disclosure__content[data-expanded="true"] { margin-block-end: -0.5em; padding-block-end: 0.5em; }
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a)::before {
+.np .disclosure__content[data-expanded="true"] {
+  margin-block-end: -0.5em;
+  padding-block-end: 0.5em;
+}
+.np
+  :is(
+    .wiki-link,
+    .estimator__open,
+    .estimator__drive-link,
+    .estimator__area-link,
+    .estimator__reset,
+    .hero__check-more,
+    .form__textlink,
+    a.select-text,
+    .mast-dateline a
+  )::before {
   content: "";
   position: absolute;
   inset: -0.1em -0.3em;
@@ -640,17 +1912,87 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   background: color-mix(in oklab, var(--color-accent) 14%, transparent);
   transform: scaleX(0);
   opacity: 0;
-  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 220ms var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):hover { z-index: 1; transform: scale(1.01); }
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):hover::before { transform: scaleX(1); opacity: 1; }
+  .np
+    :is(
+      .wiki-link,
+      .estimator__open,
+      .estimator__drive-link,
+      .estimator__area-link,
+      .estimator__reset,
+      .hero__check-more,
+      .form__textlink,
+      a.select-text,
+      .mast-dateline a
+    ):hover {
+    z-index: 1;
+    transform: scale(1.01);
+  }
+  .np
+    :is(
+      .wiki-link,
+      .estimator__open,
+      .estimator__drive-link,
+      .estimator__area-link,
+      .estimator__reset,
+      .hero__check-more,
+      .form__textlink,
+      a.select-text,
+      .mast-dateline a
+    ):hover::before {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 /* On a touch screen the wash is the pressed state instead: it shows while the
    finger is down and fades when it lifts, so nothing stays lit after a tap. */
-.np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a):active::before { transform: scaleX(1); opacity: 1; transition-duration: 120ms; }
+.np
+  :is(
+    .wiki-link,
+    .estimator__open,
+    .estimator__drive-link,
+    .estimator__area-link,
+    .estimator__reset,
+    .hero__check-more,
+    .form__textlink,
+    a.select-text,
+    .mast-dateline a
+  ):active::before {
+  transform: scaleX(1);
+  opacity: 1;
+  transition-duration: 120ms;
+}
 @media (prefers-reduced-motion: reduce) {
-  .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a), .np :is(.wiki-link, .estimator__open, .estimator__drive-link, .estimator__area-link, .estimator__reset, .hero__check-more, .form__textlink, a.select-text, .mast-dateline a)::before { transition-duration: 0ms; }
+  .np
+    :is(
+      .wiki-link,
+      .estimator__open,
+      .estimator__drive-link,
+      .estimator__area-link,
+      .estimator__reset,
+      .hero__check-more,
+      .form__textlink,
+      a.select-text,
+      .mast-dateline a
+    ),
+  .np
+    :is(
+      .wiki-link,
+      .estimator__open,
+      .estimator__drive-link,
+      .estimator__area-link,
+      .estimator__reset,
+      .hero__check-more,
+      .form__textlink,
+      a.select-text,
+      .mast-dateline a
+    )::before {
+    transition-duration: 0ms;
+  }
 }
 
 /* Opening "Beregn kørsel" or "Har din nabo": the block grows open from its
@@ -663,15 +2005,27 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
   /* the clip exists for the open animation; the margin must clear the wiki
      wash that buttons paint a little outside themselves (up to the coarse
      pointer's 12px insets), or hover looks cut at the reveal's edge */
-  overflow: clip; overflow-clip-margin: 16px;
+  overflow: clip;
+  overflow-clip-margin: 16px;
   min-height: 0; /* a flex item's auto min-height would hold it at full size */
-  transition: height 280ms var(--ease-out), opacity 220ms var(--ease-out), transform 280ms var(--ease-out), filter 220ms var(--ease-out);
+  transition:
+    height 280ms var(--ease-out),
+    opacity 220ms var(--ease-out),
+    transform 280ms var(--ease-out),
+    filter 220ms var(--ease-out);
 }
 @starting-style {
-  .np .estimator__reveal { height: 0; opacity: 0; transform: translateY(-4px); filter: blur(2px); }
+  .np .estimator__reveal {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    filter: blur(2px);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .np .estimator__reveal { transition: opacity 160ms linear; }
+  .np .estimator__reveal {
+    transition: opacity 160ms linear;
+  }
 }
 /* width: auto alone never takes effect here: the parent is a flex column and
    cross-axis stretch wins, so the button painted its hover wash wall-to-wall
@@ -679,8 +2033,18 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    content keeps the wash behind the words, the way every other wiki button
    renders, in this reveal and anywhere else a wash button lands in a flex
    column. */
-.np .estimator__locate { display: inline-flex; align-items: center; align-self: flex-start; gap: 0.4em; width: auto; margin-top: var(--space-xs); }
-.np .estimator__locate:disabled { cursor: progress; opacity: 0.7; }
+.np .estimator__locate {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.4em;
+  width: auto;
+  margin-top: var(--space-xs);
+}
+.np .estimator__locate:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
 
 /* On a phone the pest picker is a sheet, not a floating box: full width, it
    slides up from the screen edge under a grabber and the list scrolls inside
@@ -728,13 +2092,26 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
     max-height: none;
   }
   .np-popover::before {
-    content: ""; position: absolute; top: 0.5rem; left: 50%; translate: -50% 0;
-    width: 2.25rem; height: 0.25rem; border-radius: 999px; background: var(--color-rule-2);
-    z-index: 1; pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    translate: -50% 0;
+    width: 2.25rem;
+    height: 0.25rem;
+    border-radius: 999px;
+    background: var(--color-rule-2);
+    z-index: 1;
+    pointer-events: none;
   }
-  .np-popover[data-entering="true"] { animation: np-sheet-in 280ms var(--ease-out) both !important; }
-  .np-popover[data-exiting="true"] { animation: np-sheet-out 200ms var(--ease-out) both !important; }
-  .np-popover .list-box, .np-popover [role="listbox"] {
+  .np-popover[data-entering="true"] {
+    animation: np-sheet-in 280ms var(--ease-out) both !important;
+  }
+  .np-popover[data-exiting="true"] {
+    animation: np-sheet-out 200ms var(--ease-out) both !important;
+  }
+  .np-popover .list-box,
+  .np-popover [role="listbox"] {
     max-height: calc(85vh - 1rem);
     max-height: calc(85dvh - 1rem);
     overflow-y: auto;
@@ -756,15 +2133,34 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
 /* Armed for a beat after the sheet opens: the opener's synthesized mouse
    events must hit nothing inside the sheet. Hit-testing happens at dispatch
    time, so this wins no matter how the events are ordered. */
-.np-sheet-arming .np-popover { pointer-events: none !important; }
-@keyframes np-scrim-in { from { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .np-sheet-scrim { animation: none; }
+.np-sheet-arming .np-popover {
+  pointer-events: none !important;
 }
-@keyframes np-sheet-in { from { transform: translateY(100%); } }
-@keyframes np-sheet-out { to { transform: translateY(100%); } }
+@keyframes np-scrim-in {
+  from {
+    opacity: 0;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .np-popover[data-entering="true"], .np-popover[data-exiting="true"] { animation: none !important; }
+  .np-sheet-scrim {
+    animation: none;
+  }
+}
+@keyframes np-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes np-sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np-popover[data-entering="true"],
+  .np-popover[data-exiting="true"] {
+    animation: none !important;
+  }
 }
 
 /* "+7 andre skadedyr" closes the priced list; the pests it unfolds read as a
@@ -773,27 +2169,66 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    hover the wash runs to the top of the row, and a hard line through it
    would cut the hovered surface in two. Opacity and blur fade together,
    the same pair the row arrives with (selectMoreIn). */
-.np-popover .select-more { border-radius: 0 0 6px 6px !important; margin-top: 4px; font-weight: 600; color: var(--color-accent-2) !important; position: relative; }
+.np-popover .select-more {
+  border-radius: 0 0 6px 6px !important;
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--color-accent-2) !important;
+  position: relative;
+}
 .np-popover .select-more::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
   background: var(--color-rule-2);
-  transition: opacity 180ms var(--ease-out), filter 180ms var(--ease-out);
+  transition:
+    opacity 180ms var(--ease-out),
+    filter 180ms var(--ease-out);
 }
 /* The fade keys off react-aria's data attributes, not :hover, so it runs in
    every browser regardless of how the pointer media query resolves; :hover is
    kept alongside for the rare case aria never marks the row. The washed row
    also takes the same fully rounded corners as every other hovered row — a
    square top against the faded divider reads as a leftover line. */
-.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused])::before { opacity: 0; filter: blur(2px); }
-.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused]) { border-radius: 6px !important; }
-@media (hover: hover) {
-  .np-popover .select-more:hover::before { opacity: 0; filter: blur(2px); }
-  .np-popover .select-more:hover { border-radius: 6px !important; }
+.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused])::before {
+  opacity: 0;
+  filter: blur(2px);
 }
-@media (prefers-reduced-motion: reduce) { .np-popover .select-more::before { transition: none; } }
-.np-popover .select-more-item { animation: selectMoreIn 220ms var(--ease-out) both; }
-@keyframes selectMoreIn { from { opacity: 0; transform: translateY(-4px); filter: blur(2px); } }
-@media (prefers-reduced-motion: reduce) { .np-popover .select-more-item { animation: none; } }
+.np-popover .select-more:is([data-hovered], [data-highlighted], [data-focused]) {
+  border-radius: 6px !important;
+}
+@media (hover: hover) {
+  .np-popover .select-more:hover::before {
+    opacity: 0;
+    filter: blur(2px);
+  }
+  .np-popover .select-more:hover {
+    border-radius: 6px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np-popover .select-more::before {
+    transition: none;
+  }
+}
+.np-popover .select-more-item {
+  animation: selectMoreIn 220ms var(--ease-out) both;
+}
+@keyframes selectMoreIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+    filter: blur(2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np-popover .select-more-item {
+    animation: none;
+  }
+}
 
 /* ------------------------------------------------ input modes, continued: tap targets
    Fingers need about 44px. Where a link sits in a list, the row grows to
@@ -801,27 +2236,70 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    grows instead, by padding cancelled with an equal negative margin, so the
    text around it does not move. A mouse keeps the layout as drawn. */
 @media (pointer: coarse) {
-  .np :is(.foot__cols a, .foot__link-btn) { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
-  .np .foot__cols li { padding-block: 0; }
-  .np .crumbs a { min-width: 44px; justify-content: center; }
+  .np :is(.foot__cols a, .foot__link-btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .np .foot__cols li {
+    padding-block: 0;
+  }
+  .np .crumbs a {
+    min-width: 44px;
+    justify-content: center;
+  }
   /* the segmented controls: 40px buttons in a 4px-padded track grow to 44px */
   .np .toggle-button-group .toggle-button,
-  .np .toggle-button-group .toggle-button + .toggle-button { min-height: 44px; }
-  .np :is(.close__dl a, .foot__legal a, .score__link a) { display: inline-block; padding-block: 11px; margin-block: -11px; }
-  .np .foot__legal a { display: inline-flex; align-items: center; }
-  .np .hero__check-more { padding-block: 10px; margin-block: calc(var(--space-xs) - 10px) -10px; }
-  .np .estimator__open { padding-block: 12px; margin-block: -12px; }
-  .np .estimator__drive-link { padding-block: 14px; margin-block: -14px; }
+  .np .toggle-button-group .toggle-button + .toggle-button {
+    min-height: 44px;
+  }
+  .np :is(.close__dl a, .foot__legal a, .score__link a) {
+    display: inline-block;
+    padding-block: 11px;
+    margin-block: -11px;
+  }
+  .np .foot__legal a {
+    display: inline-flex;
+    align-items: center;
+  }
+  .np .hero__check-more {
+    padding-block: 10px;
+    margin-block: calc(var(--space-xs) - 10px) -10px;
+  }
+  .np .estimator__open {
+    padding-block: 12px;
+    margin-block: -12px;
+  }
+  .np .estimator__drive-link {
+    padding-block: 14px;
+    margin-block: -14px;
+  }
   /* the service page link row, the source list and the form text buttons */
-  .np :is(.form__textlink, p > .link:only-child, .species-page__sources a) { display: inline-block; padding-block: 11px; margin-block: -11px; }
+  .np :is(.form__textlink, p > .link:only-child, .species-page__sources a) {
+    display: inline-block;
+    padding-block: 11px;
+    margin-block: -11px;
+  }
   /* inline wiki links are exempt from 44px; they get some height, not a row */
-  .np .wiki-link { padding-block: 0.3em; margin-block: -0.3em; }
-  .np .estimator__open::before { inset: calc(12px - 0.1em) -0.3em; }
-  .np .estimator__drive-link::before { inset: calc(14px - 0.1em) -0.3em; }
-  .np .wiki-link::before { inset: 0.2em -0.3em; }
+  .np .wiki-link {
+    padding-block: 0.3em;
+    margin-block: -0.3em;
+  }
+  .np .estimator__open::before {
+    inset: calc(12px - 0.1em) -0.3em;
+  }
+  .np .estimator__drive-link::before {
+    inset: calc(14px - 0.1em) -0.3em;
+  }
+  .np .wiki-link::before {
+    inset: 0.2em -0.3em;
+  }
 }
 /* The add-pest picker reads as an action, not a missing value: same ink as a filled select. */
-.np .select-trigger [data-placeholder] { color: var(--color-ink); }
+.np .select-trigger [data-placeholder] {
+  color: var(--color-ink);
+}
 
 /* Scroll edge on paper dropdowns. The list is the scroller and the edges sit
    still on top of it (pinned outside the scroll layer, the usual recipe).
@@ -830,49 +2308,174 @@ body:has(.np .mast-mobile:not([hidden])) { overflow: hidden; }
    an eased fade to the panel colour (white in light mode, the dark panel in
    dark mode). Shown with visibility, not opacity: opacity on a backdrop-filter
    parent flattens the blur in Chromium and Safari. */
-.np-popover { display: flex; flex-direction: column; overflow: hidden !important; }
-.np-popover > .list-box, .np-popover > [role="listbox"] { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-.np-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 4.5rem; z-index: 2; pointer-events: none; visibility: hidden; }
-.np-edge--top { top: 0; bottom: auto; scale: 1 -1; }
-.np-more-above .np-edge--top, .np-more-below .np-edge--bottom { visibility: visible; }
-.np-edge i { position: absolute; inset: 0; }
-.np-edge i:nth-child(1) { -webkit-backdrop-filter: blur(0.25px); backdrop-filter: blur(0.25px); -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%); }
-.np-edge i:nth-child(2) { -webkit-backdrop-filter: blur(0.5px); backdrop-filter: blur(0.5px); -webkit-mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%); }
-.np-edge i:nth-child(3) { -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); -webkit-mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%); }
-.np-edge i:nth-child(4) { -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); -webkit-mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%); }
-.np-edge i:nth-child(5) { -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); -webkit-mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%); }
-.np-edge i:nth-child(6) { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); -webkit-mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%); }
-.np-edge i:nth-child(7) { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%); mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%); }
-.np-edge i:nth-child(8) { -webkit-backdrop-filter: blur(32px); backdrop-filter: blur(32px); -webkit-mask: linear-gradient(to bottom, transparent 87.5%, #000 100%); mask: linear-gradient(to bottom, transparent 87.5%, #000 100%); }
+.np-popover {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+}
+.np-popover > .list-box,
+.np-popover > [role="listbox"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.np-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4.5rem;
+  z-index: 2;
+  pointer-events: none;
+  visibility: hidden;
+}
+.np-edge--top {
+  top: 0;
+  bottom: auto;
+  scale: 1 -1;
+}
+.np-more-above .np-edge--top,
+.np-more-below .np-edge--bottom {
+  visibility: visible;
+}
+.np-edge i {
+  position: absolute;
+  inset: 0;
+}
+.np-edge i:nth-child(1) {
+  -webkit-backdrop-filter: blur(0.25px);
+  backdrop-filter: blur(0.25px);
+  -webkit-mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%);
+  mask: linear-gradient(to bottom, transparent 0%, #000 12.5%, #000 25%, transparent 37.5%);
+}
+.np-edge i:nth-child(2) {
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
+  -webkit-mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%);
+  mask: linear-gradient(to bottom, transparent 12.5%, #000 25%, #000 37.5%, transparent 50%);
+}
+.np-edge i:nth-child(3) {
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  -webkit-mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%);
+  mask: linear-gradient(to bottom, transparent 25%, #000 37.5%, #000 50%, transparent 62.5%);
+}
+.np-edge i:nth-child(4) {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%);
+  mask: linear-gradient(to bottom, transparent 37.5%, #000 50%, #000 62.5%, transparent 75%);
+}
+.np-edge i:nth-child(5) {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  -webkit-mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%);
+  mask: linear-gradient(to bottom, transparent 50%, #000 62.5%, #000 75%, transparent 87.5%);
+}
+.np-edge i:nth-child(6) {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%);
+  mask: linear-gradient(to bottom, transparent 62.5%, #000 75%, #000 87.5%, transparent 100%);
+}
+.np-edge i:nth-child(7) {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  -webkit-mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%);
+  mask: linear-gradient(to bottom, transparent 75%, #000 87.5%, #000 100%);
+}
+.np-edge i:nth-child(8) {
+  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
+  -webkit-mask: linear-gradient(to bottom, transparent 87.5%, #000 100%);
+  mask: linear-gradient(to bottom, transparent 87.5%, #000 100%);
+}
 /* eased stops (ease-in), so the fade has no visible start line */
 .np-edge::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to bottom,
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
     color-mix(in oklab, var(--color-paper) 0%, transparent) 0%,
     color-mix(in oklab, var(--color-paper) 3%, transparent) 20%,
     color-mix(in oklab, var(--color-paper) 12%, transparent) 40%,
     color-mix(in oklab, var(--color-paper) 30%, transparent) 60%,
     color-mix(in oklab, var(--color-paper) 58%, transparent) 80%,
-    color-mix(in oklab, var(--color-paper) 85%, transparent) 100%);
+    color-mix(in oklab, var(--color-paper) 85%, transparent) 100%
+  );
 }
-@media (max-width: 40rem) { .np-popover::before { z-index: 3; } }
+@media (max-width: 40rem) {
+  .np-popover::before {
+    z-index: 3;
+  }
+}
 
 /* The stepper number rolls in the direction of the change, so a one-step
    change reads as movement the way the price's count-up does. */
-.np .stepper__num { display: inline-block; font: inherit; animation: stepper-up 240ms var(--ease-out); }
-.np .stepper__num[data-dir="down"] { animation-name: stepper-down; }
-@keyframes stepper-up { from { transform: translateY(35%) scale(0.8); opacity: 0; filter: blur(4px); } }
-@keyframes stepper-down { from { transform: translateY(-35%) scale(0.8); opacity: 0; filter: blur(4px); } }
-@media (prefers-reduced-motion: reduce) { .np .stepper__num { animation: none; } }
-.np .stepper output { overflow: hidden; }
+.np .stepper__num {
+  display: inline-block;
+  font: inherit;
+  animation: stepper-up 240ms var(--ease-out);
+}
+.np .stepper__num[data-dir="down"] {
+  animation-name: stepper-down;
+}
+@keyframes stepper-up {
+  from {
+    transform: translateY(35%) scale(0.8);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+@keyframes stepper-down {
+  from {
+    transform: translateY(-35%) scale(0.8);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np .stepper__num {
+    animation: none;
+  }
+}
+.np .stepper output {
+  overflow: hidden;
+}
 
 /* A line that changes wording blurs, scales and fades in, like the calculator's other appearing lines. */
-.np .text-swap { display: block; transform-origin: left center; animation: text-swap-in 240ms var(--ease-out); }
-@keyframes text-swap-in { from { opacity: 0; transform: scale(0.97); filter: blur(4px); } }
-@media (prefers-reduced-motion: reduce) { .np .text-swap { animation-duration: 120ms; animation-name: text-swap-fade; } }
-@keyframes text-swap-fade { from { opacity: 0; } }
+.np .text-swap {
+  display: block;
+  transform-origin: left center;
+  animation: text-swap-in 240ms var(--ease-out);
+}
+@keyframes text-swap-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: blur(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .np .text-swap {
+    animation-duration: 120ms;
+    animation-name: text-swap-fade;
+  }
+}
+@keyframes text-swap-fade {
+  from {
+    opacity: 0;
+  }
+}
 
 /* Reset: the same centre-out wash as the calculator's text links, shown on
    press too (touch has no hover), and a small give under the finger. */
-.np .estimator__reset:active { transform: scale(0.98); }
-.np .estimator__reset:active::before { transform: scaleX(1); opacity: 1; }
+.np .estimator__reset:active {
+  transform: scale(0.98);
+}
+.np .estimator__reset:active::before {
+  transform: scaleX(1);
+  opacity: 1;
+}

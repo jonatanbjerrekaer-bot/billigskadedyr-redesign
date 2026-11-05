@@ -62,7 +62,11 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: ["https://en.wikipedia.org/wiki/Vespula_germanica", "https://da.wikipedia.org/wiki/Almindelig_gedehams", "https://lex.dk/gedehamse"],
+    sources: [
+      "https://en.wikipedia.org/wiki/Vespula_germanica",
+      "https://da.wikipedia.org/wiki/Almindelig_gedehams",
+      "https://lex.dk/gedehamse",
+    ],
   },
   {
     name: "Almindelig hveps",
@@ -156,7 +160,11 @@ const articles: SpeciesArticle[] = [
         provenance: ["new", `owner+new ${PRO}`, `owner+new ${PRO}`],
       },
     ],
-    sources: ["https://da.wikipedia.org/wiki/Almindelig_gedehams", "https://lex.dk/gedehamse", "https://en.wikipedia.org/wiki/Vespula_germanica"],
+    sources: [
+      "https://da.wikipedia.org/wiki/Almindelig_gedehams",
+      "https://lex.dk/gedehamse",
+      "https://en.wikipedia.org/wiki/Vespula_germanica",
+    ],
   },
   {
     name: "Hornisse",
@@ -204,10 +212,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://arter.dk/taxa/118367",
-      "https://muldvarpemanden.dk/hvepsebekaempelse/danmarks-stoerste-hveps/",
-    ],
+    sources: ["https://arter.dk/taxa/118367", "https://muldvarpemanden.dk/hvepsebekaempelse/danmarks-stoerste-hveps/"],
   },
   {
     name: "Honningbi og bisværme",

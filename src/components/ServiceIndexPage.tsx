@@ -29,9 +29,8 @@ export default function ServiceIndexPage() {
               <h1>Alle skadedyr i Danmark</h1>
             </div>
             <p className="lead svc-hero__lead">
-              Fra myrer til mår: hvert skadedyr har sin egen side med kendetegn, blæktegninger og fast
-              pris på behandling. Vælg nedenfor, eller skriv hvad du har set — du behøver ikke kende
-              navnet.
+              Fra myrer til mår: hvert skadedyr har sin egen side med kendetegn, blæktegninger og fast pris på
+              behandling. Vælg nedenfor, eller skriv hvad du har set — du behøver ikke kende navnet.
             </p>
           </div>
         </section>

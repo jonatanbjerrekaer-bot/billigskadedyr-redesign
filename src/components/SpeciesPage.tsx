@@ -92,7 +92,9 @@ export default function SpeciesPage({ service, article }: { service: string; art
                 <div className="species__art">
                   <img src={`${B}species/${art}.webp`} alt={`Tegning af ${article.name.toLowerCase()}`} />
                 </div>
-                <figcaption>Tegning fra et gammelt naturhistorisk værk, efter et frit foto eller efter et museumseksemplar.</figcaption>
+                <figcaption>
+                  Tegning fra et gammelt naturhistorisk værk, efter et frit foto eller efter et museumseksemplar.
+                </figcaption>
               </figure>
             )}
             <article className="species-page__body">
@@ -108,8 +110,8 @@ export default function SpeciesPage({ service, article }: { service: string; art
               <div className="species-page__cta">
                 <h2>Vil du have hjælp?</h2>
                 <p>
-                  Skriv, hvad du har set, og gerne et billede. Så vurderer vi,
-                  hvad der skal til, og giver dig en fast pris, før vi går i gang.
+                  Skriv, hvad du har set, og gerne et billede. Så vurderer vi, hvad der skal til, og giver dig en fast
+                  pris, før vi går i gang.
                 </p>
                 <div className="actions">
                   <a href="#skriv" className="btn btn--primary">

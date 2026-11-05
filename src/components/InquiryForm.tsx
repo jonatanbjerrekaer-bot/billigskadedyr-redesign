@@ -84,8 +84,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
     const digits = phone.replace(/\s/g, "");
     if (digits.trim() && digits.replace(/\D/g, "").length < PHONE_MIN_DIGITS)
       next.phone = "Det telefonnummer ser for kort ud. Tjek det lige.";
-    if (!message.trim())
-      next.message = "Skriv en besked, eller brug udkastet fra beregneren.";
+    if (!message.trim()) next.message = "Skriv en besked, eller brug udkastet fra beregneren.";
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
@@ -230,10 +229,7 @@ export default function InquiryForm({ draft }: { draft: string }) {
           exactly the ones a photo helps most. */}
       <div>
         <span className="select-none field-label">Billede (valgfrit)</span>
-        <label
-          htmlFor="inquiry-photos"
-          className="form__file"
-        >
+        <label htmlFor="inquiry-photos" className="form__file">
           <ImagePlus size={17} strokeWidth={2} aria-hidden="true" className="shrink-0" />
           {preparing
             ? "Gør billedet klar…"
@@ -269,19 +265,13 @@ export default function InquiryForm({ draft }: { draft: string }) {
         {photos.length > 0 && (
           <ul className="form__chips" style={{ marginTop: "var(--space-xs)" }}>
             {photos.map((photo) => (
-              <li
-                key={photo.name}
-                className="enter-soft"
-              >
+              <li key={photo.name} className="enter-soft">
                 <span className="max-w-[16ch] truncate">{photo.name}</span>
-                <span className="muted">
-                  {(photo.bytes / 1024 / 1024).toFixed(1)} MB
-                </span>
+                <span className="muted">{(photo.bytes / 1024 / 1024).toFixed(1)} MB</span>
                 <button
                   type="button"
                   aria-label={`Fjern ${photo.name}`}
                   onClick={() => setPhotos((p) => p.filter((x) => x.name !== photo.name))}
-                  
                 >
                   <X size={13} strokeWidth={2.5} aria-hidden="true" />
                 </button>
@@ -295,17 +285,13 @@ export default function InquiryForm({ draft }: { draft: string }) {
           </p>
         ) : (
           <p className="small muted" style={{ marginTop: "var(--space-xs)" }}>
-            Højst {LIMITS.maxFiles} billeder. Vi formindsker billedet og fjerner automatisk
-            placering og andre metadata, før det sendes.
+            Højst {LIMITS.maxFiles} billeder. Vi formindsker billedet og fjerner automatisk placering og andre metadata,
+            før det sendes.
           </p>
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={sending}
-        className="btn btn--primary btn--block"
-      >
+      <button type="submit" disabled={sending} className="btn btn--primary btn--block">
         {sending ? (
           <>
             <Loader2 size={17} strokeWidth={2.5} aria-hidden="true" className="animate-spin" />

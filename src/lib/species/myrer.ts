@@ -113,9 +113,7 @@ const articles: SpeciesArticle[] = [
         provenance: [`owner+new ${PRO}`],
       },
     ],
-    sources: [
-      "https://da.wikipedia.org/wiki/Sort_havemyre",
-    ],
+    sources: ["https://da.wikipedia.org/wiki/Sort_havemyre"],
   },
   {
     name: "Pharaomyre",
@@ -163,9 +161,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://en.wikipedia.org/wiki/Pharaoh_ant",
-    ],
+    sources: ["https://en.wikipedia.org/wiki/Pharaoh_ant"],
   },
   {
     name: "Gul engmyre (ænsmyren)",
@@ -213,9 +209,7 @@ const articles: SpeciesArticle[] = [
         provenance: ["new"],
       },
     ],
-    sources: [
-      "https://en.wikipedia.org/wiki/Lasius_flavus",
-    ],
+    sources: ["https://en.wikipedia.org/wiki/Lasius_flavus"],
   },
 ];
 
