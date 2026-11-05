@@ -1,0 +1,11 @@
+node_modules
+dist
+docs
+public
+.hallmark
+.kilo
+.hermes-build-spec
+package-lock.json
+*.md
+*.py
+*.json

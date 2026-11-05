@@ -69,7 +69,11 @@ function Site() {
   const article = route && servicePest(route[0]) ? speciesBySlug(route[0], route[1]) : undefined;
   // One tuple per article rather than per render, so the meta effect does not
   // rerun on every render of the page.
-  const species = useMemo(() => (route && article ? ([route[0], article] as [string, SpeciesArticle]) : undefined), [route?.[0], article]);
+  const routeService = route?.[0];
+  const species = useMemo(
+    () => (routeService && article ? ([routeService, article] as [string, SpeciesArticle]) : undefined),
+    [routeService, article],
+  );
   useLinkRouting();
   useDocumentMeta({ slug, legal, serviceIndex, species });
 
