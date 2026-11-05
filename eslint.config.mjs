@@ -22,10 +22,6 @@ export default defineConfig(
     files: ["src/**/*.{ts,tsx}"],
     extends: [reactHooks.configs.flat.recommended],
     languageOptions: { globals: globals.browser },
-    rules: {
-      // shortcut: Estimator reads a ref in render for the stepper's roll direction. Warn until it moves to state.
-      "react-hooks/refs": "warn",
-    },
   },
   {
     files: ["scripts/**/*.{ts,mjs}", "vite.config.ts"],

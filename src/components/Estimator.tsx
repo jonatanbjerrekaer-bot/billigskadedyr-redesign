@@ -1161,9 +1161,9 @@ function CountStepper({
   onChange: (n: number) => void;
 }) {
   // Which way the number rolls: up for more, down for fewer.
-  const dir = useRef<"up" | "down">("up");
+  const [dir, setDir] = useState<"up" | "down">("up");
   const step = (n: number) => {
-    dir.current = n > count ? "up" : "down";
+    setDir(n > count ? "up" : "down");
     onChange(n);
   };
   return (
@@ -1188,7 +1188,7 @@ function CountStepper({
         </button>
         <output aria-live="polite">
           {/* Keyed, so each new number mounts and rolls in. */}
-          <b key={count} className="stepper__num" data-dir={dir.current}>
+          <b key={count} className="stepper__num" data-dir={dir}>
             {count > 10 ? "10+" : count}
           </b>{" "}
           <span>{unit}</span>
