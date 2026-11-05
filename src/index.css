@@ -632,36 +632,6 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 /*
- * Filtrene i butikken.
- *
- * HeroUI's ToggleButton er tegnet til en mørk bund: gruppen har en mørk
- * baggrund, knappen har en mørk hover, og gruppen er kun så bred som sin
- * længste etiket. På servicesitet ser man det ikke. I butikken, der er lys,
- * betød det mørk tekst på mørk baggrund og grupper i forskellig bredde.
- *
- * Reglerne står her og ikke som klasser på knapperne, fordi to klasser vejer
- * lige meget, og så afgør rækkefølgen i stilarket. Det skal ikke være et
- * spørgsmål om held.
- */
-.shop-filter .toggle-button-group {
-  width: 100%;
-  background: transparent;
-}
-
-.shop-filter .toggle-button {
-  background: transparent;
-}
-
-.shop-filter .toggle-button:hover {
-  background: var(--color-ink-100);
-}
-
-.shop-filter .toggle-button[data-selected] {
-  background: var(--color-ink-950);
-  color: var(--color-cream);
-}
-
-/*
  * Ting, der dukker op.
  *
  * .reveal animerer højden, så indholdet under bliver skubbet blødt ned i

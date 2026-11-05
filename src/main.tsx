@@ -6,8 +6,9 @@ import ServiceIndexPage from "./components/ServiceIndexPage.tsx";
 import LegalPage from "./components/LegalPage.tsx";
 import SpeciesPage from "./components/SpeciesPage.tsx";
 import ConsentBox from "./components/ConsentBox.tsx";
-import { serviceContentFor, servicePest } from "./lib/serviceContent.ts";
+import { servicePest } from "./lib/serviceContent.ts";
 import { speciesBySlug, type SpeciesArticle } from "./lib/speciesContent.ts";
+import { metaFor, type RouteInput } from "./lib/routes.ts";
 import { slugOf, legalOf, speciesRouteOf, usePathname, useLinkRouting } from "./lib/router.tsx";
 import "./index.css";
 
@@ -33,21 +34,12 @@ document.documentElement.classList.add("js");
  * over once the visitor is already inside.
  */
 
-/** The tab title and description for whichever page is showing. */
-function useDocumentMeta(slug: string, legal: string, serviceIndex: boolean, species?: [string, SpeciesArticle]) {
+/** The tab title and description for whichever page is showing (the list lives in lib/routes.ts). */
+function useDocumentMeta(input: RouteInput) {
+  const { slug = "", species } = input;
   useEffect(() => {
-    const pest = slug ? servicePest(slug) : undefined;
-    const content = slug ? serviceContentFor(slug) : undefined;
-
-    document.title = species
-      ? speciesTitle(species[1])
-      : legal
-      ? `${legal === "privatlivspolitik" ? "Privatlivspolitik" : "Cookiepolitik"} | Billigskadedyr.dk`
-      : pest
-        ? `Bekæmpelse af ${pest.label.toLowerCase()} til fast pris | Billigskadedyr.dk`
-        : serviceIndex
-          ? "Alle skadedyr i Danmark: kendetegn, tegninger og priser | Billigskadedyr.dk"
-          : "Skadedyrsbekæmpelse i Jylland og på Fyn | Billigskadedyr.dk";
+    const { title, description } = metaFor(input);
+    document.title = title;
 
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -55,35 +47,14 @@ function useDocumentMeta(slug: string, legal: string, serviceIndex: boolean, spe
       meta.setAttribute("name", "description");
       document.head.appendChild(meta);
     }
-    meta.setAttribute(
-      "content",
-      species
-        ? species[1].description
-        : legal
-        ? legal === "privatlivspolitik"
-          ? "Hvilke oplysninger Billigskadedyr får om dig, hvad vi bruger dem til, og hvordan du får dem slettet."
-          : "Hvilke cookies Billigskadedyr.dk bruger, og hvordan du siger ja eller nej til dem."
-        : content
-        ? content.intro.slice(0, 155)
-        : serviceIndex
-          ? "Alle skadedyr i Danmark i én liste: kendetegn, blæktegninger og fast pris på behandling. Vælg dit skadedyr, eller skriv hvad du har set."
-          : "Vi kommer ud i hele Jylland og på Fyn, ser på det og giver en fast pris, før vi går i gang. Skriv til os, så svarer vi inden for en hverdag.",
-    );
+    meta.setAttribute("content", description);
 
-    // The shells carry the slug so the prerender knows which page it is
-    // rendering. Keeping it in step means a prerendered file always matches
-    // the URL it sits at.
+    // The generated page files carry the slug so the prerender knows which page
+    // it is rendering. Keeping it in step means a prerendered file always
+    // matches the URL it sits at.
     document.documentElement.setAttribute("data-pest", species ? species[0] : slug);
-  }, [slug, legal, serviceIndex, species]);
-}
-
-/**
- * Species pages are named for the species rather than the service, because the
- * species is what someone searching "husedderkop" typed. scripts/species_shells.py
- * writes the same title into each shell, so the two must change together.
- */
-function speciesTitle(a: SpeciesArticle): string {
-  return `${a.title ?? a.name}: kendetegn og bekæmpelse | Billigskadedyr.dk`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input.slug, input.legal, input.serviceIndex, species]);
 }
 
 function Site() {
@@ -100,7 +71,7 @@ function Site() {
   // rerun on every render of the page.
   const species = useMemo(() => (route && article ? ([route[0], article] as [string, SpeciesArticle]) : undefined), [route?.[0], article]);
   useLinkRouting();
-  useDocumentMeta(slug, legal, serviceIndex, species);
+  useDocumentMeta({ slug, legal, serviceIndex, species });
 
   // A slug the registry does not know means the URL is wrong, and the front
   // page is a better answer than an empty frame. The cookie box sits outside

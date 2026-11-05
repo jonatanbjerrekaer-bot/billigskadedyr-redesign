@@ -107,8 +107,6 @@ def main():
         + sorted(DIST.glob("service/*/index.html"))
         # the species pages under each service, the long tail the cards lead to
         + sorted(DIST.glob("service/*/*/index.html"))
-        + [DIST / "shop" / "index.html", DIST / "shop" / "produkter" / "index.html"]
-        + sorted(DIST.glob("shop/produkt/*/index.html"))
         + [DIST / "privatlivspolitik" / "index.html", DIST / "cookiepolitik" / "index.html"]
         + [DIST / "index.html"]
     )
@@ -133,8 +131,7 @@ def main():
                 })""", timeout=25)
                 tab.js("new Promise(r => setTimeout(r, 400))")
 
-                is_shop = str(rel).startswith("shop")
-                schema = None if is_shop or str(rel) == "." else faq_schema(tab)
+                schema = None if str(rel) == "." else faq_schema(tab)
                 html = tab.js("document.documentElement.outerHTML")
             finally:
                 tab.close()

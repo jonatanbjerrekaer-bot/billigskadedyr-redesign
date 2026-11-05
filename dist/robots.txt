@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://jonatanbjerrekaer-bot.github.io/billigskadedyr-redesign/sitemap.xml
